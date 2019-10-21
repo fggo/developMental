@@ -7,14 +7,15 @@
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
 <jsp:include page="/WEB-INF/views/common/header.jsp">
-  <jsp:param name="pageTitle" value="mainview" />
+  <jsp:param name="pageTitle" value="Job - Board" />
 </jsp:include>
 
 <jsp:include page="/WEB-INF/views/common/sidebar.jsp">
   <jsp:param name="pageTitle" value="sidebar - mainview" />
 </jsp:include>
 
-  <section id="content">
-  </section>
+  <div class="py-4 container submenu-container">
+    Hello! Job Apply View!
+  </div>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />

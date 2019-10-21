@@ -36,7 +36,7 @@
       <div class="container d-flex justify-content-center row">
         <!-- Logo -->
         <div class='py-0 mr-auto inline px-0' id="navbar-logo">
-          <a class="navbar-brand" href="${path }" >
+          <a class="navbar-brand" href="${path }/" >
             <img src="${path }/resources/images/icons8-sphere-48.png">
           </a>
         </div>
@@ -68,20 +68,12 @@
               </div>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle menu-item mt-1 mr-0 text-white" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Help</a>
-
-              <div class="dropdown-menu mt-1" aria-labelledby="dropdown01">
-                <a class="dropdown-item" href="${path }" ><i class="fa fa-info-circle">&nbsp;&nbsp;</i>Help</a>
-                <a class="dropdown-item" href="${path }" ><i class="fa fa-question-circle-o">&nbsp;&nbsp;</i>Q&amp;A Board</a>
-              </div>
-            </li>
-            <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle menu-item mt-1 mr-2 text-white" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu</a>
 
               <div class="dropdown-menu mt-1" aria-labelledby="dropdown01">
-			  <a class="dropdown-item" href="${path }/collabo/detail.do"><i class="fa fa-align-justify">&nbsp;&nbsp;</i>Collabo Tool</a>
-              <a class="dropdown-item" href="${path }"><i class="fa fa-cog">&nbsp;&nbsp;</i>Settings</a>
-              <a class="dropdown-item" href="${path }"><i class="fa fa-bookmark">&nbsp;&nbsp;</i>Bookmark</a>
+                <a class="dropdown-item" href="${path }/collabo/detail.do"><i class="fa fa-align-justify">&nbsp;&nbsp;</i>Collabo Tool</a>
+                <a class="dropdown-item" href="${path }/job/jobView"><i class="fa fa-briefcase">&nbsp;&nbsp;</i>Job</a>
+                <a class="dropdown-item" href="${path }"><i class="fa fa-cog">&nbsp;&nbsp;</i>Settings</a>
 
               </div>
             </li>

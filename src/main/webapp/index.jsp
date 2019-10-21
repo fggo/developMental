@@ -9,10 +9,6 @@
   <jsp:include page="/WEB-INF/views/common/header.jsp">
     <jsp:param name="pageTitle" value="Homepage" />
   </jsp:include>
-  
-  <link rel="stylesheet" href="${path }/resources/css/carousel.css">
-  <style>
-  </style>
 
   <!-- Main page cover -->
   <main role="main">
@@ -20,7 +16,7 @@
       <div class="container">
         <h1 class="">Join Us!</h1>
         <p>Simple description</p>
-        <p><a class="btn btn-primary" href="${path }/homeView" role="button">Learn more &nbsp;<i class="fa fa-chevron-right" aria-hidden="true"></i></a></p>
+        <p><a class="btn btn-primary" href="${path }/mainView" role="button">Learn more &nbsp;<i class="fa fa-chevron-right" aria-hidden="true"></i></a></p>
       </div>
     </div>
 
