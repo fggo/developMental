@@ -1,15 +1,6 @@
 
 body { padding-top: 3.5rem; }
 
-/* #cover-section{
-  height: 50vh;
-  min-height: 350px;
-  background: no-repeat center center scroll;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-} */
 #cover-section{
   /* background-image: url("../images/cover.jpg"); */
   background-size: cover !important;

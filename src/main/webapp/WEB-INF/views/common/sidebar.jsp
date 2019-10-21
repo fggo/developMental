@@ -22,20 +22,20 @@
       <li class="active">
         <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle sidebar-dropdown-toggle">Home</a>
         <ul class="collapse list-unstyled" id="homeSubmenu">
-            <li>
-                <a href="#">Home 1</a>
-            </li>
+          <li>
+            <a href="#">Home 1</a>
+          </li>
         </ul>
       </li>
       <li>
         <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle sidebar-dropdown-toggle">Job</a>
         <ul class="collapse list-unstyled" id="pageSubmenu">
-            <li>
-                <a href="javascript:;" onclick="ajaxJobPage('${path }/job/jobBoard');" id="jobBoardBtn">Board</a>
-            </li>
-            <li>
-                <a href="javascript:;" onclick="ajaxJobPage('${path }/job/jobApply');" id="jobApplyBtn">Apply</a>
-            </li>
+          <li>
+            <a href="javascript:;" onclick="ajaxJobPage('${path }/job/jobBoard');" id="jobBoardBtn">Board</a>
+          </li>
+          <li>
+            <a href="javascript:;" onclick="ajaxJobPage('${path }/job/jobApply');" id="jobApplyBtn">Apply</a>
+          </li>
         </ul>
       </li>
       <li>

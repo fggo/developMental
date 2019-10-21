@@ -7,23 +7,24 @@
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
 <jsp:include page="/WEB-INF/views/common/header.jsp">
-  <jsp:param name="pageTitle" value="mainview" />
+  <jsp:param name="pageTitle" value="Job - Home" />
 </jsp:include>
 
 <jsp:include page="/WEB-INF/views/common/sidebar.jsp">
   <jsp:param name="pageTitle" value="sidebar - mainview" />
 </jsp:include>
 
-  <style>
-    #main-container{
-      margin-left: 230px;
-      margin-top: 58px;
-    }
-  </style>
+<style>
+  #job-container{
+    margin-left: 230px;
+    margin-top: 58px;
+  }
+</style>
+  <div id="job-container" class="container">
+    <div onclick="">Board View</div>
+    <div>Apply View</div>
+    <div>Company</div>
+  </div>
 
-  <main id="main-container" class="container">
-    <a class="btn btn-sm btn-outline-dark" href="javascript:;" onclick="ajaxJobPage('${path }/job/jobBoard');">Board View</a><br>
-    <a class="btn btn-sm btn-outline-dark my-1" href="javascript:;" onclick="ajaxJobPage('${path }/job/jobApply');">Apply View</a><br>
-  </main>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />

@@ -20,9 +20,7 @@
 
       <h6 class="card-header">
         <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-primary rounded shadow-sm">
-          <!-- <img class="mr-3" src="" alt="" width="48" height="48"> -->
-          <!-- <img src="<%=request.getContextPath() %>/images/qna.png" class="mr-3" width="60px"> -->
-          <i class="fa fa-edit text-white mr-3 my-2" style="font-size:42px;"></i>
+          <i class="fa fa-briefcase text-white mr-3 my-2" style="font-size:42px;"></i>
           <div class="lh-100 ml-2">
             <p class="h5 mb-0 text-white lh-100">&nbsp;&nbsp;Job Board</p>
             <small>Since 2019.09</small>
@@ -31,7 +29,6 @@
       </h6>
 
       <div class="card-body">
-        <!-- .media -->
         <div class="media mb-2">
           <div class="media-body pl-3 my-0 py-0">
             <h3 class="card-title">Job list</h3>
@@ -104,6 +101,5 @@
         </div>
       </div>
     </div>
-  </div>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
