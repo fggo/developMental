@@ -14,8 +14,17 @@
   <jsp:param name="pageTitle" value="sidebar - mainview" />
 </jsp:include>
 
-  <section id="content">
-    Hello! Please Explore Side Bar Menus!
-  </section>
+  <style>
+    #main-container{
+      margin-left: 230px;
+      margin-top: 58px;
+    }
+  </style>
+
+  <main id="main-container" class="container">
+    <a class="btn btn-sm btn-outline-dark" href="javascript:;" onclick="ajaxJobPage('${path }/job/jobBoard');">Board View</a><br>
+    <a class="btn btn-sm btn-outline-dark my-1" href="javascript:;" onclick="ajaxJobPage('${path }/job/jobApply');">Apply View</a><br>
+  </main>
+
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />

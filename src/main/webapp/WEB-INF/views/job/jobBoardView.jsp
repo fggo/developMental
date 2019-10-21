@@ -19,7 +19,7 @@
     <div class="card card-fluid">
 
       <h6 class="card-header">
-        <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-danger rounded shadow-sm">
+        <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-primary rounded shadow-sm">
           <!-- <img class="mr-3" src="" alt="" width="48" height="48"> -->
           <!-- <img src="<%=request.getContextPath() %>/images/qna.png" class="mr-3" width="60px"> -->
           <i class="fa fa-edit text-white mr-3 my-2" style="font-size:42px;"></i>
@@ -34,16 +34,13 @@
         <!-- .media -->
         <div class="media mb-2">
           <div class="media-body pl-3 my-0 py-0">
-            <h3 class="card-title">Review list</h3>
-            <h6 class="card-subtitle text-muted">Reviews by <b>UserName</b></h6>
+            <h3 class="card-title">Job list</h3>
+            <h6 class="card-subtitle text-muted">Total of <b>0</b> listings</h6>
             <p class="card-text">
-              <small>You have visited <b id="parkingNum"></b>&nbsp; parking lots.</small>
+              <small>You have applied<b id="jobNum"></b>&nbsp; jobs.</small>
             </p>
           </div>
           <div class="row d-flex mt-5">
-            <!-- if(loginMember != null) { -->
-              <!-- <input type="button" value="write" class= "btn btn-sm btn-outline-primary mr-4 mb-1" id="write-add" onclick=""> -->
-            <!-- } -->
           </div>
         </div>
         <!-- form -->
@@ -68,9 +65,7 @@
               <td class="text-center">${j.no } </td>
               <td class="text-center">${j.writer } </td>
               <td class="text-center">
-                <a href="${path }/board/jobBoardContent?no=${j.no}">
-                  ${j.title }
-                </a>
+                <a href="${path }/job/jobBoardContent?no=${j.no}">${j.title }</a>
               </td>
               <td>${fn:substring(j.content, 0, 50)}</td>
               <td class="text-center">${j.regDate } </td>
@@ -80,7 +75,7 @@
                 function ajaxjobBoardContent(){
                   $.ajax({
                     type: "POST",
-                    url: "${path }/board/boardContent",
+                    url: "${path }/job/jobBoardContent",
                     dataType: "html",
                     data: {"no": "${j.no}"},
                     success: function(data){

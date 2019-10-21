@@ -72,7 +72,7 @@
 
               <div class="dropdown-menu mt-1" aria-labelledby="dropdown01">
                 <a class="dropdown-item" href="${path }/collabo/detail.do"><i class="fa fa-align-justify">&nbsp;&nbsp;</i>Collabo Tool</a>
-                <a class="dropdown-item" href="${path }/job/jobView"><i class="fa fa-briefcase">&nbsp;&nbsp;</i>Job</a>
+                <a class="dropdown-item" href="${path }/mainView"><i class="fa fa-briefcase">&nbsp;&nbsp;</i>Job</a>
                 <a class="dropdown-item" href="${path }"><i class="fa fa-cog">&nbsp;&nbsp;</i>Settings</a>
 
               </div>

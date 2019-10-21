@@ -15,12 +15,12 @@ public class JobController {
   @Autowired
   private JobService service;
   
-  @RequestMapping("/job/jobView")
-  public String jobView() {
-    return "job/jobView";
+  @RequestMapping("/job/jobApply")
+  public String jobApplyView() {
+    return "job/jobApplyView";
   }
-  
-  @RequestMapping("/job/jobBoardView")
+
+  @RequestMapping("/job/jobBoard")
   public String jobBoardView() {
     return "job/jobBoardView";
   }
@@ -31,10 +31,6 @@ public class JobController {
     mv.setViewName("job/jobBoardContent");
     
     return mv;
-  }
-  @RequestMapping("/job/jobApplyView")
-  public String jobApplyView() {
-    return "job/jobApplyView";
   }
   
 }

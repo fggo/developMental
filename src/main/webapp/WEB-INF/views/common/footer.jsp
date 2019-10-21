@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-  <div class="container footer my-5 w-100 form">footer
+  <div class="container footer my-5 w-100 form">
     <!-- <div class="input-group">
       <div class="input-group-append">
         <span class="input-group-text attach_btn"><i class="fas fa-paperclip"></i></span>
@@ -51,14 +51,18 @@
       $("#sidebar").mCustomScrollbar({
         theme: "minimal"
       });
-
-      // $('#sidebarCollapse').on('click', function () {
-      //   $('#sidebar, #content').toggleClass('active');
-      //   $('.collapse.in').toggleClass('in');
-      //   $('a[aria-expanded=true]').attr('aria-expanded', 'false');
-      // });
     });
   </script>
   </div>
+
+
+
+  <!-- Credit links for icon image -->
+  <style> .free-icons{display:none} </style>
+  <div class="free-icons">
+    <a target="_blank" href="https://icons8.com/icons/set/pixel-heart">Pixel Heart</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+    <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+  </div>
+
 </body>
 </html>

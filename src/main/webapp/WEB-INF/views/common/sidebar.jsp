@@ -31,10 +31,10 @@
         <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle sidebar-dropdown-toggle">Job</a>
         <ul class="collapse list-unstyled" id="pageSubmenu">
             <li>
-                <a href="javascript:;" onclick="ajaxJobPage('${path }/job/jobBoardView');" id="jobBoardBtn">Board</a>
+                <a href="javascript:;" onclick="ajaxJobPage('${path }/job/jobBoard');" id="jobBoardBtn">Board</a>
             </li>
             <li>
-                <a href="javascript:;" onclick="ajaxJobPage('${path }/job/jobApplyView');" id="jobApplyBtn">Apply</a>
+                <a href="javascript:;" onclick="ajaxJobPage('${path }/job/jobApply');" id="jobApplyBtn">Apply</a>
             </li>
         </ul>
       </li>
@@ -61,7 +61,7 @@
         dataType: "html",
         success: function(data){
           html = $('<div>').html(data);
-          $('#job-container').html(html.find('div.submenu-container'));
+          $('#main-container').html(html.find('div.submenu-container'));
         },
         error: function(status, msg){
           alert('ajax error!');

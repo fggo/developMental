@@ -12,7 +12,7 @@ public class HomeController {
   }
   
   @RequestMapping("/mainView")
-  public String mainForumView() {
+  public String mainView() {
     return "home/mainView";
   }
 }
