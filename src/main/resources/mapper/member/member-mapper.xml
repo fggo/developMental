@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="member">
+  <select id="selectLogin" parameterType="com.kh.workman.member.model.vo.Member" resultType="com.kh.workman.member.model.vo.Member">
+  	SELECT * FROM MEMBER WHERE status=1 and id=#{id}
+  </select>
+  
+  <insert id="insertMember" parameterType="com.kh.workman.member.model.vo.Member">
+  	INSERT INTO MEMBER VALUES(DEFAULT,#{id},#{pw},#{name},#{nickname},#{email},#{addr},#{tel},DEFAULT,DEFAULT,DEFAULT,DEFAULT,NULL,DEFAULT,0)
+  </insert>
+</mapper>

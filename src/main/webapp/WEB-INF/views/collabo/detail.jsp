@@ -7,6 +7,9 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="pageTitle" value=""/>
 </jsp:include>
+
+
+
 <!-- Noto Sans -->
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" rel="stylesheet">
 <section class="container-fluid" id="content" style="margin-top:58px;background-color:rgb(131, 140, 145);font-family: 'Noto Sans', sans-serif;">
