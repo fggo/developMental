@@ -14,20 +14,16 @@
   </div>
 
   <!-- back to top -->
-  <a id="back-to-top" href="#" class="btn btn-info border-light back-to-top py-1 px-2" role="button">
+  <a id="back-to-top" href="#" class="btn btn-outline-dark back-to-top py-1 px-2" role="button">
     <i class="fa fa-chevron-up">&nbsp;&nbsp;Top</i>
   </a>
 
 
-  <!-- Popper.JS -->
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script> -->
-  <!-- Bootstrap JS -->
-  <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script> -->
+  <!-- jQuery -->
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-  <!-- jQuery Custom Scroller CDN -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
-
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  
+  <!-- Bootstrap JS -->
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
@@ -48,9 +44,6 @@
         return false;
       });
 
-      $("#sidebar").mCustomScrollbar({
-        theme: "minimal"
-      });
     });
   </script>
   </div>

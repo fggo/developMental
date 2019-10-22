@@ -5,7 +5,7 @@ body { padding-top: 3.5rem; }
   /* background-image: url("../images/cover.jpg"); */
   background-size: cover !important;
   background-position: center center !important;
-  height: 45vh !important;
+  height: 50vh !important;
   display: flex !important;
   margin-bottom: 0px;
 }
