@@ -4,16 +4,14 @@
 
 <!-- connection info는 root-context에서 설정됨. 여기서는 type alias 등 설정 -->
 <configuration>
-<<<<<<< HEAD
-	<settings>
-=======
   <!-- 쿼리문 where절 parameter에 generic 값들(e.g. NULL, VARCHAR or OTHER)을  허용 -->
   <settings>
->>>>>>> 036f6f07d98dab9306a5b21bc7223ddae06a35d3
     <setting name="jdbcTypeForNull" value="NULL"/>
   </settings>
+
   <typeAliases>
     <typeAlias type="com.kh.workman.common.ArrayTypeHandler" alias="arrType" />
     <typeAlias type="com.kh.workman.job.model.vo.JobBoard" alias="jobBoard" />
  </typeAliases>
+
 </configuration>
