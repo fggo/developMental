@@ -6,9 +6,11 @@ import lombok.ToString;
 @Data
 @ToString
 public class receiveMessage {
-	private String type;
+	private int type;
 	private String userId;
-	private int roomNo;
+	//private int collaboNo;
+	private double collaboNo;
 	private String content;
-	
+	private int listNo;
+	private int cardNo;
 }

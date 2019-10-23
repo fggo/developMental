@@ -1,0 +1,78 @@
+@charset "UTF-8";
+
+.container-fluid {
+	margin-top:58px;
+	background-color:rgb(131,140,145);
+	font-family : 'Noto Sans', sans-serif;
+}
+.collabo-header{
+	background-color:gray;
+	heightL:44px;
+	padding:5px 5px;
+}
+
+.board {
+	display:flex;
+}
+
+.list-wrapper {
+	width:272px;
+	height:732px;
+	padding:10px 10px;
+	margin-left:5px;
+}
+
+.list-content {
+	width:272px;
+	background-color:#ebecf0;
+	border-radius:5px;
+	padding:5px 10px;
+}
+
+.list-header {
+	padding:5px 5px;
+	font-weight:bold;
+	font-size:14px;
+}
+
+.list-cards {
+	margin-top:10px;
+	padding:3px 3px;
+}
+
+.list-card {
+	margin:5px 0px;
+	background-color:#ffffff;
+	padding: 5px 5px;
+	font-size:14px;	
+	border-radius:5px;
+}
+
+.open-card {
+	color:#5e6c84;
+	font-soze:14px;
+	padding: 5px 5px;
+	margin-top:10px;
+}
+.btn-createCard{
+	margin-right:5px;
+}
+.btn-drop{
+	color:#5e6c84;
+	font-size:14px;
+	padding:5px 5px;
+	margin-top:0px;
+}
+.btn-addList{
+	border:0;
+	background-color:#ebecf0;
+	width:100%;
+}
+.btn-createList{
+	background-color:#0069d9;
+	color:white;
+}
+
+.btn-menu{
+	margin-left:10px;
+}

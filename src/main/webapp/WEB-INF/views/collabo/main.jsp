@@ -14,7 +14,8 @@
 	<div id="data"></div>
 </section>
 <script type="text/javascript">
-	sessionStorage.setItem("userId","kungsman");
+	sessionStorage.setItem("userId","testuser1");
+	sessionStorage.setItem("collaboNo",1);
 	let sock = new SockJS("<c:url value="/collabo/soc"/>");
 	sock.onmessage = onMessage;
 	sock.onclose = onClose;

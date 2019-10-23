@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:websocket="http://www.springframework.org/schema/websocket"
 	xmlns:security="http://www.springframework.org/schema/security"
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-5.0.xsd
-		http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket.xsd
+		
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
   
@@ -26,7 +25,7 @@
     <property name="url" value="jdbc:oracle:thin:@rclass.iptime.org:1521:xe"/>
     <property name="username" value="workman"/>
     <property name="password" value="workman"/>
-  </bean>
+  </bean>																						
 
   <!-- Mybatis에서 SqlSession 객체를 생성하는 FactoryBean 을 springbean으로 등록 
     Mybatis Spring jar파일에 있는 객체를 씀 객체생성 멤버변수로 BasicDataSource -->
@@ -41,9 +40,9 @@
     <constructor-arg index="0" ref="sqlSessionFactoryBean"/>
   </bean> 
   
-  <bean id="collaboHandler" class="com.kh.workman.collabo.controller.CollaboHandler"/>
+<!-- <bean id="collaboHandler" class="com.kh.workman.collabo.controller.CollaboHandler"/>
   <websocket:handlers>
   	<websocket:mapping handler="collaboHandler" path="/collabo/soc"/>
-  	<websocket:sockjs/>
-  </websocket:handlers>
-</beans>
+   	<websocket:sockjs/> 
+  </websocket:handlers> -->
+</beans> 
