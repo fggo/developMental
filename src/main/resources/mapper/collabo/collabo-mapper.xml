@@ -2,6 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="collabo">
 	<insert id="createList" parameterType="map">
-		INSERT INTO COLLABO_LIST VALUES (DEFAULT,#{collaboNo},#{content},#{userId},DEFAULT)
+		<selectKey keyProperty="listNo" resultType="_int" order="AFTER">
+			SELECT COLLABO_LIST_SEQ.NEXTVAL FROM DUAL
+		</selectKey> 	
+		INSERT INTO COLLABO_LIST VALUES (DEFAULT,#{collaboNo},#{content},(
+			SELECT NO FROM MEMBER WHERE ID = #{userId}
+		),DEFAULT)
 	</insert>
+	
+	<select id="participation" parameterType="_int" resultType="map">
+		SELECT ID FROM MEMBER WHERE NO IN (
+			SELECT MEMBER FROM COLLABO_MEMBER WHERE NO = #{collaboNo}
+		)
+	</select>
+	
+	<select id="selectCollaboListOne" parameterType="_int" resultType="collaboList">
+		SELECT * FROM COLLABO_LIST WHERE LISTNO = #{target}
+	</select>
 </mapper>

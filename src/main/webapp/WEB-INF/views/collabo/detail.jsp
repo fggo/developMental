@@ -52,7 +52,7 @@
 					</button>
 					<div class="dropdown-menu">
 						<input type="text" id="listTitle" class="dropdown-item" placeholder="Input List Name"/>
-						<Button class="btn-createList dropdown-item" type="button" name="btn_cList" onclick="createList();" >Create</Button>
+						<Button class="btn-createList dropdown-item" type="button" name="btn_cList" onclick="requestCreateList();" >Create</Button>
 					</div>
 				</div>
 				
@@ -62,33 +62,45 @@
 	</div>
 </section>
 <script>
-sessionStorage.setItem("userId","testuser1");
-sessionStorage.setItem("collaboNo",1);
+var userId =  prompt("Input your ID");
+var collaboNo = 1;
 let sock = new SockJS("<c:url value="/collabo/soc"/>");
 sock.onmessage = onMessage;
 sock.onclose = onClose;
 
-$(document).ready(function() {
-       $("#sendBtn").click(function() {
-               sendMessage();
-               $('#message').val('')
-       });
-       $("#message").keydown(function(key) {
-               if (key.keyCode == 13) {// 엔터
-                      sendMessage();
-                      $('#message').val('')
-               }
-       });
-});
+sock.onopen = function(){
+	var sendData ={
+		type : "connect",
+		userId : userId,
+		collaboNo : collaboNo
+	};
+	sendMessage(sendData);
+}
+
 // 메시지 전송
 function sendMessage(sendData) {
+/* 	var sendData = {
+		type : type,
+		userId : userId,
+		method : method,
+		collaboNo : collaboNo,
+		content : content,
+		listNo : listNo,
+		cardNo : cardNo
+	}; */
 	var jsonData = JSON.stringify(sendData);
     sock.send(jsonData);
 }
 
 // 서버로부터 메시지를 받았을 때
 function onMessage(msg) {
-      console.log(msg);
+      var receive = JSON.parse(msg.data);
+      console.log(receive);
+      if(receive.type == 'list'){
+    	  if(receive.method == 'create'){
+    		  responseCreateList(receive);
+    	  }
+      }
 }
 // 서버와 연결을 끊었을 때
 function onClose(evt) {
@@ -138,7 +150,7 @@ function createWrapper(ele){
 	btncList.attr("class","btn-createList dropdown-item");
 	btncList.attr("type","button");
 	btncList.attr("name","btn_cList");
-	btncList.attr("onclick","createList();");
+	btncList.attr("onclick","requestCreateList();");
 	
 	dropmenu.append(btncList);
 	
@@ -181,64 +193,52 @@ function createCard(ele){
 	}
 }
 
-function createList(){
+function requestCreateList(){
 	var listTitle= $("#listTitle").val();
 	if(listTitle!=''){
-		var sendData = {};
-		sendData.collaboNo = "1";
-		sendData.type = "createList";
-		sendData.userId = "testuser1";
-		sendData.content = listTitle;
-		
+	
+		var sendData = {
+			type : "list",
+			method : "create",
+			content : listTitle,
+			userId : userId,
+			collaboNo : collaboNo
+		};
 		sendMessage(sendData);
-		
+	}
+}
+
+function responseCreateList(receive){
 		var content = $("button[name=btn_cList]").parent().parent().parent();
 		var board = content.parent().parent();
 		content.empty();
 		
+		content.attr("id",receive.listNo);
+		
 		var listHeader = $('<div/>');
 		listHeader.attr("class","list-header");
-	/* 	listHeader.css({
-			"padding":"5px 5px",
-			"font-weight":"bold",
-			"font-size":"14px"
-		}); */
+	
 		var btnMenu = $('<button>');
 		btnMenu.attr("type","button");
 		btnMenu.attr("class","fa fa-align-justify btn-menu");
-		/* btnMenu.css({"margin-left":"3px"}); */
 		
-		/* <div id="div3" class="list-cards" style="margin-top:10px;padding:3px 3px" ondrop="drop(this,event)" ondragover="return false;"> */
 		
 		var listCards = $('<div/>');
 		listCards.attr("class","list-cards");
 		listCards.attr("ondrop","drop(this,event)");
 		listCards.attr("ondragover","return false;");
-		/* listCards.css({
-			"margin-top":"10px",
-			"padding":"3px 3px"
-		}); */
-		
-		
 		
 		var openCard = $('<div/>');
 		openCard.attr("class","open-card");
-		/* openCard.css({
-			"color":"#5e6c84",
-			"font-size":"14px",
-			"padding":"5px 5px",
-			"margin-top":"10px"
-		}); */
-		
+	
 		var faplus = $('<span/>');
 		faplus.text("Add another card");
 		faplus.attr("onclick","createCard(this);");
 		faplus.attr("class","fa fa-plus");
-		/* faplus.css({"margin-right":"5px"}); */
-		
+	
 		openCard.append(faplus);
 		
-		listHeader.append(listTitle);
+		listHeader.append(receive.content);
 		listHeader.append(btnMenu);
 		
 		content.append(listHeader);
@@ -247,10 +247,7 @@ function createList(){
 		
 		createWrapper(board);
 	
-	}else{
-		alert("공백은안되요;");
-	}
-}
+} 	
 
 function allowDrop(ev) {
 	  ev.preventDefault();
@@ -266,6 +263,6 @@ function drop(element, ev) {
 	 var id = ev.dataTransfer.getData("text");
 	 element.appendChild(document.getElementById(id));
 	 ev.preventDefault();
-	}
+}
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/> 
