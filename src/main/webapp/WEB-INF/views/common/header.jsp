@@ -30,10 +30,6 @@
   <link rel="stylesheet" href="${path }/resources/css/header.css">
 
 <style type="text/css">
-	/* body {
-		color: #fff;
-		background: #3598dc;
-	} */
 	.form-control {
 		min-height: 41px;
 		background: #f2f2f2;
@@ -96,7 +92,6 @@
   min-height: 30%;
 }
 
-.
 </style>
 </head>
 <body>

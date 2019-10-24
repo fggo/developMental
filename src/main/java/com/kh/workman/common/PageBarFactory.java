@@ -19,19 +19,19 @@ public class PageBarFactory {
     }else {
       pageBar+="<li class='page-item'>";
       pageBar+="<a class='page-link' "
-          + "href='javascript:fn_paging("+(pageNo-1)+")'><i class='fa fa-angle-double-left'>&nbsp;&nbsp;Prev</i></a>";
+          + "href='javascript:ajaxJobPage(\"/job/jobBoard?cPage="+(pageNo-1) + "\");'><i class='fa fa-angle-double-left'>&nbsp;&nbsp;Prev</i></a>";
       pageBar+="</li>";
     }
     
     while(!(pageNo>pageEnd||pageNo>totalPage)) {
       if(cPage==pageNo) {
         pageBar+="<li class='page-item active'>";
-        pageBar+="<a class='page-link'>"+pageNo+"</a>";
+        pageBar+="<span class='page-link'>"+pageNo+"</span>";
         pageBar+="</li>";
       }else {
         pageBar+="<li class='page-item'>";
         pageBar+="<a class='page-link' "
-            + "href='javascript:fn_paging("+(pageNo)+")'>"+pageNo+"</a>";
+            + "href='javascript:ajaxJobPage(\"/job/jobBoard?cPage="+(pageNo)+"\");'>"+pageNo+"</a>";
         pageBar+="</li>";
       }
       pageNo++;
@@ -43,7 +43,7 @@ public class PageBarFactory {
     }else {
       pageBar+="<li class='page-item'>";
       pageBar+="<a class='page-link' "
-          + "href='javascript:fn_paging("+pageNo+")'>Next&nbsp;&nbsp;<i class='fa fa-angle-double-right'></i></a>";
+          + "href='javascript:ajaxJobPage(\"/job/jobBoard?cPage="+pageNo+"\");'>Next&nbsp;&nbsp;<i class='fa fa-angle-double-right'></i></a>";
       pageBar+="</li>";
     }
     pageBar+="</ul>";
@@ -51,7 +51,7 @@ public class PageBarFactory {
     
     pageBar+="<script>";
     pageBar+="function fn_paging(cPage){";
-    pageBar+="location.href='"+url+"?cPage='+cPage";
+    pageBar+="location.href='"+url+"?cPage="+cPage + "';";
     pageBar+="}";
     pageBar+="</script>";
     return pageBar;

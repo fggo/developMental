@@ -5,12 +5,26 @@
     select * from board_job
   </select>
 
+<!--   <resultMap type="jobBoard" id="JobBoardResultMap">
+    <id property="no" column="no"/>
+    <result property="writer" column="writer" />
+    <result property="title" column="title" />
+    <result property="content" column="content" />
+    <result property="regDate" column="regDate" />
+    <result property="count" column="count" />
+    <result property="status" column="status" />
+    <association property="jobApply" javaType="jobApply">
+      <result property="applicants" column="applicants"/>
+    </association>
+  </resultMap>
+ -->
   <select id="selectPageJobBoardList" resultType="map">
-    SELECT J.*, (SELECT * COUNT(*) FROM APPLY_JOB WHERE J.NO = MEMBERNO)
+    SELECT J.*, (SELECT COUNT(*) FROM APPLY_JOB WHERE J.NO = MEMBERNO) AS APPLICANTS
      FROM BOARD_JOB J ORDER BY REGDATE DESC
   </select>
 
   <select id="selectJobBoardCount" resultType="_int">
     select count(*) from board_job
   </select>
+
 </mapper>

@@ -1,5 +1,8 @@
 select * from tab;
 
+SELECT J.*, (SELECT COUNT(*) FROM APPLY_JOB WHERE J.NO = MEMBERNO) AS APPLICANTS
+  FROM BOARD_JOB J ORDER BY REGDATE DESC;
+
 SELECT * FROM APPLY_JOB;
 SELECT * FROM APPLY_MEETUP;
 SELECT * FROM BOARD_FREE;
@@ -55,7 +58,22 @@ delete from file_board_job;
 commit;
 
 select * from hashtag_job;
-delete from hashtag_job;
 commit;
 
+--user02
+--user01
+--user00
+select * from  member m;
+commit;
 
+-- no(int), writer, title, content, regdate(date), count(int), status(int)
+INSERT into board_job values(default, 'user01', 'Hiring anyone', 'dlsudsjdsd saldasdjsak jdsa', default, default, default);
+INSERT into board_job values(default, 'user01', 'Not Hiring', 'clulululul dsajhda sjhdsajjdsa', default, default, default);
+INSERT into board_job values(default, 'user02', 'Recruit', 'THis is a job description. Hello just apply and have an interview.', default, default, default);
+INSERT into board_job values(default, 'user02', 'Skwwwwww', 'ehllo. please don;t. no interview available', default, default, default);
+INSERT into board_job values(default, 'user00', 'Aint no joke', 'We are laboring company. Please dont apply.', default, default, default);
+INSERT into board_job values(default, 'user00', 'Aint no joke', 'We are laboring company. Please dont apply.', default, default, default);
+INSERT into board_job values(default, 'Yoon', 'TeamYS', 'we are hiring noobies. Please submit your $5000 fee and youre good to work here', default, default, default);
+
+
+select * from user_constraints where table_name ='BOARD_JOB';

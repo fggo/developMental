@@ -25,7 +25,7 @@
 
   <!-- CSS -->
 
-  <div class="py-4 col-lg-9 container submenu-container">
+  <div class="py-4 col-lg-10 container submenu-container">
 
     <div class="card card-fluid" id="job-listings">
 
@@ -62,30 +62,33 @@
               <th class="text-center">RegDate</th>
               <th class="text-center">Count</th>
               <th class="text-center">Status</th>
+              <th class="text-center">Applicants</th>
             </tr>
           </thead>
           <tbody>
-            <c:forEach var="j" items="${jobBoardList}" varStatus="status">
+            <c:forEach var="j" items="${list}" varStatus="status">
               <tr>
-                <td class="text-center">${j.no } </td>
-                <td class="text-center">${j.writer } </td>
+                <td class="text-center">${j['NO']}</td>
+                <td class="text-center">${j['WRITER']}</td>
                 <td class="text-center">
-                  <a href="${path }/job/jobBoardContent?no=${j.no}">${j.title }</a>
+                  <a href="javascript: ajaxJobBoardContent();">${j['TITLE']}</a>
                 </td>
-                <td>${fn:substring(j.content, 0, 50)}</td>
-                <td class="text-center">${j.regDate } </td>
-                <td class="text-center">${j.count } </td>
-                <td class="text-center">${j.status } </td>
+                <td><c:out value="${fn:substring(j['CONTENT'], 0, 50)}" /></td>
+                <td class="text-center">${j['REGDATE']}</td>
+                <td class="text-center">${j['COUNT']}</td>
+                <td class="text-center">${j['STATUS']}</td>
+                <td class="text-center">${j['APPLICANTS']}</td>
                 <script>
-                  function ajaxjobBoardContent(){
+                  function ajaxJobBoardContent(){
                     $.ajax({
                       type: "POST",
                       url: "${path }/job/jobBoardContent",
                       dataType: "html",
                       data: {"no": "${j.no}"},
                       success: function(data){
+                        console.log(data);
                         var html = $('<div>').html(data);
-                        $('div#mypage-container').html(html.find('section#subMenu-container'));
+                        $('div#main-container').html(html.find('div.submenu-container'));
                       },
                       error: function (data) { // 데이터 통신에 실패
                         console.log("JSON data failed to retrieve!");
@@ -99,9 +102,9 @@
         </table>
         <small class="d-block text-right mt-3"><a href="#">All updates</a></small>
         <nav aria-label="Page navigation example">
-          <ul class="pagination justify-content-center">
+          <!-- <ul class="pagination justify-content-center"> -->
             ${pageBar}
-          </ul>
+          <!-- </ul> -->
         </nav>
       </div>
     </div>
@@ -185,6 +188,23 @@
           });
         });
       });
+
+      function ajaxJobPage(urlMapping){
+        $.ajax({
+          type: "POST",
+          url: urlMapping,
+          dataType: "html",
+          success: function(data){
+            html = $('<div>').html(data);
+            $('#main-container').html(html.find('div.submenu-container'));
+          },
+          error: function(status, msg){
+            alert('ajax error!');
+
+          },
+
+        });
+      }
     </script>
 
     <!-- <script src="${path }/resources/js/jobmodal.js"></script> -->

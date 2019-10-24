@@ -17,7 +17,7 @@ import com.kh.workman.member.model.vo.Member;
 public class MemberController {
 	
 	@Autowired
-	MemberService memberService;
+	MemberService service;
 	
 	@Autowired
 	BCryptPasswordEncoder pwEncoder;
@@ -31,7 +31,7 @@ public class MemberController {
 		String msg = "";
 		String loc = "/";
 		
-		Member loginMember = memberService.selectLogin(m);
+		Member loginMember = service.selectLogin(m);
 		
 		System.out.println(m.getId());
 		System.out.println(m.getPw());
@@ -90,7 +90,7 @@ public class MemberController {
 	public ModelAndView register(Member m, Model model)
 	{
 		m.setPw(pwEncoder.encode(m.getPw()));
-		int result = memberService.insertMember(m);
+		int result = service.insertMember(m);
 				
 		String msg = "";
 		String loc = "/";

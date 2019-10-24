@@ -27,7 +27,7 @@ public class JobController {
 
   @RequestMapping("/job/jobBoard")
   public ModelAndView jobBoardView(
-    @RequestParam(value="cPage", required=false, defaultValue="0") int cPage) {
+    @RequestParam(value="cPage", required=false, defaultValue="1") int cPage) {
 //    logger.debug("");
 
     ModelAndView mv = new ModelAndView();
