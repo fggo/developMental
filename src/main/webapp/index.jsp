@@ -15,8 +15,7 @@
 
   <!-- Main page cover -->
   <main role="main" id="page-container">
-    <!-- search area -->
-    <div class="jumbotron align-items-center justify-content-center text-white bg-dark" id="cover-section">
+    <div class="jumbotron align-items-center justify-content-center text-white bg-dark" id="first-cover">
       <div class="container">
         <h3 class="text-white row justify-content-center">
           <img src="${path }/resources/images/title.png" alt="">
@@ -32,40 +31,41 @@
       </div>
     </div>
 
-    <div class="container my-5">
+    <div class="jumbotron container bg-light" id="second-cover">
       <div class="row">
         <div class="col-md-4">
-          <h3>Developers By <img src="${path}/resources/images/icons8-pixel-heart-50.png" alt="https://icons8.com/icons/set/pixel-heart"></h3>massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+          <p><h3>Developers By <img src="${path}/resources/images/icons8-pixel-heart-50.png" alt=""></h3>massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
           <p><a class="btn btn-secondary" href="#" role="button">View details &nbsp;<i class="fa fa-chevron-right" aria-hidden="true"></i></a></p>
         </div>
         <div class="col-md-4">
-            <h3>Every Programmer is an <img src="${path}/resources/images/author.png" alt=""></h3>tortor mauris condimentum nibh, magna mollis euismod. Donec sed odio dui. </p>
+          <p><h3>Every Programmer is an <img src="${path}/resources/images/author.png" alt=""></h3>tortor mauris condimentum nibh, magna mollis euismod. Donec sed odio dui. </p>
           <p><a class="btn btn-secondary" href="#" role="button">View details &nbsp;<i class="fa fa-chevron-right" aria-hidden="true"></i></a></p>
         </div>
         <div class="col-md-4">
-            <h3>Talk is <img src="${path}/resources/images/cheap.png" alt=""> Show me the <img src="${path}/resources/images/code.png" alt=""></h3>
+            <p><h3>Talk is <img src="${path}/resources/images/cheap.png" alt=""> Show me the <img src="${path}/resources/images/code.png" alt=""></h3>
           tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam . Donec sed odio dui. </p>
           <p><a class="btn btn-secondary" href="#" role="button">View details &nbsp;<i class="fa fa-chevron-right" aria-hidden="true"></i></a></p>
         </div>
-      </div> <hr>
+      </div>
     </div> <!-- /container -->
 
-    <div class="container my-5">
-      <div class="row">
+    <div class="jumbotron align-items-center justify-content-center text-white bg-info" id="third-cover" >
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+            <p><a class="btn btn-secondary" href="#" role="button">View details &nbsp;<i class="fa fa-chevron-right" aria-hidden="true"></i></a></p>
+        </div>
         <div class="col-md-4">
-          <h3>Developers By <img src="${path}/resources/images/icons8-pixel-heart-50.png" alt="https://icons8.com/icons/set/pixel-heart"></h3>massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+          tortor mauris condimentum nibh, magna mollis euismod. Donec sed odio dui.
           <p><a class="btn btn-secondary" href="#" role="button">View details &nbsp;<i class="fa fa-chevron-right" aria-hidden="true"></i></a></p>
         </div>
         <div class="col-md-4">
-            <h3>Every Programmer is an <img src="${path}/resources/images/author.png" alt=""></h3>tortor mauris condimentum nibh, magna mollis euismod. Donec sed odio dui. </p>
+          tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam . Donec sed odio dui.
           <p><a class="btn btn-secondary" href="#" role="button">View details &nbsp;<i class="fa fa-chevron-right" aria-hidden="true"></i></a></p>
         </div>
-        <div class="col-md-4">
-            <h3>Talk is <img src="${path}/resources/images/cheap.png" alt=""> Show me the <img src="${path}/resources/images/code.png" alt=""></h3>
-          tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam . Donec sed odio dui. </p>
-          <p><a class="btn btn-secondary" href="#" role="button">View details &nbsp;<i class="fa fa-chevron-right" aria-hidden="true"></i></a></p>
-        </div>
-      </div> <hr>
+      </div>
+    </div>
     </div> <!-- /container -->
   </main>
 
