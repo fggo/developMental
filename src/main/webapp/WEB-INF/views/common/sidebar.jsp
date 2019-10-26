@@ -24,10 +24,10 @@
           <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle sidebar-dropdown-toggle">Job</a>
           <ul class="collapse list-unstyled" id="pageSubmenu">
             <li>
-              <a href="javascript: ajaxJobPage('${path }/job/jobBoard');" id="jobBoardBtn">Board</a>
+              <a href="javascript: ajaxJobPage('${path }/job/jobBoardList');" id="jobBoardBtn">Board</a>
             </li>
             <li>
-              <a href="javascript: ajaxJobPage('${path }/job/jobApply');" id="jobApplyBtn">Apply</a>
+              <a href="javascript: ajaxJobPage('${path }/job/jobApplyList');" id="jobApplyBtn">Apply</a>
             </li>
           </ul>
         </li>

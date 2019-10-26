@@ -171,7 +171,7 @@
       function ajaxJobBoardContent(no){
         $.ajax({
           type: "POST",
-          url: "${path }/job/jobBoardContent.do",
+          url: "${path }/job/jobContentView.do",
           dataType: "html",
           data: {"no": no},
           success: function(data){

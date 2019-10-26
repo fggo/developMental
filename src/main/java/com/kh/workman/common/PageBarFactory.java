@@ -19,7 +19,7 @@ public class PageBarFactory {
     }else {
       pageBar+="<li class='page-item'>";
       pageBar+="<a class='page-link' "
-          + "href='javascript:ajaxJobPage(\"/job/jobBoard?cPage="+(pageNo-1) + "\");'><i class='fa fa-angle-double-left'>&nbsp;&nbsp;Prev</i></a>";
+          + "href='javascript:ajaxJobPage(\"/job/jobBoardList?cPage="+(pageNo-1) + "\");'><i class='fa fa-angle-double-left'>&nbsp;&nbsp;Prev</i></a>";
       pageBar+="</li>";
     }
     
@@ -31,7 +31,7 @@ public class PageBarFactory {
       }else {
         pageBar+="<li class='page-item'>";
         pageBar+="<a class='page-link' "
-            + "href='javascript:ajaxJobPage(\"/job/jobBoard?cPage="+(pageNo)+"\");'>"+pageNo+"</a>";
+            + "href='javascript:ajaxJobPage(\"/job/jobBoardList?cPage="+(pageNo)+"\");'>"+pageNo+"</a>";
         pageBar+="</li>";
       }
       pageNo++;
@@ -43,7 +43,7 @@ public class PageBarFactory {
     }else {
       pageBar+="<li class='page-item'>";
       pageBar+="<a class='page-link' "
-          + "href='javascript:ajaxJobPage(\"/job/jobBoard?cPage="+pageNo+"\");'>Next&nbsp;&nbsp;<i class='fa fa-angle-double-right'></i></a>";
+          + "href='javascript:ajaxJobPage(\"/job/jobBoardList?cPage="+pageNo+"\");'>Next&nbsp;&nbsp;<i class='fa fa-angle-double-right'></i></a>";
       pageBar+="</li>";
     }
     pageBar+="</ul>";

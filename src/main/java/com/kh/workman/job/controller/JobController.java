@@ -3,16 +3,16 @@ package com.kh.workman.job.controller;
 import java.util.List;
 import java.util.Map;
 
-import com.kh.workman.common.PageBarFactory;
-import com.kh.workman.job.model.service.JobService;
-import com.kh.workman.job.model.vo.JobBoard;
-import com.kh.workman.member.model.vo.Member;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.kh.workman.common.PageBarFactory;
+import com.kh.workman.job.model.service.JobService;
+import com.kh.workman.job.model.vo.JobBoard;
+import com.kh.workman.member.model.vo.Member;
 
 @Controller
 public class JobController {
@@ -21,39 +21,37 @@ public class JobController {
   @Autowired
   private JobService service;
   
-  @RequestMapping("/job/jobApply")
-  public String jobApplyView() {
-    return "job/jobApplyView";
+  @RequestMapping("/job/jobApplyList")
+  public String jobApplyList() {
+    return "job/jobApplyList";
   }
 
-  @RequestMapping("/job/jobBoard")
-  public ModelAndView jobBoardView(
+  @RequestMapping("/job/jobBoardList")
+  public ModelAndView jobBoardList(
     @RequestParam(value="cPage", required=false, defaultValue="1") int cPage) {
-//    logger.debug("");
-
     ModelAndView mv = new ModelAndView();
     int numPerPage = 5;
 
     List<Map<String, Object>> list = service.selectPageJobBoardList(cPage, numPerPage);
     int totalCount = service.selectJobBoardCount();
 
-    mv.addObject("pageBar", PageBarFactory.getPageBar(totalCount, cPage, numPerPage, "/job/jobBoard"));
+    mv.addObject("pageBar", PageBarFactory.getPageBar(totalCount, cPage, numPerPage, "/job/jobBoardList"));
     mv.addObject("count", totalCount);
     mv.addObject("list", list);
 
-    mv.setViewName("job/jobBoardView");
+    mv.setViewName("job/jobBoardList");
 
     return mv;
   }
 
-  @RequestMapping("/job/jobBoardContent.do")
-  public ModelAndView jobBoardContent(JobBoard j) {
+  @RequestMapping("/job/jobContentView.do")
+  public ModelAndView jobContentView(JobBoard j) {
 
     JobBoard board = service.selectJobBoardOne(j);
 
     ModelAndView mv = new ModelAndView();
     mv.addObject("jobBoard", board);
-    mv.setViewName("job/jobBoardContent");
+    mv.setViewName("job/jobContentView");
     
     return mv;
   }
