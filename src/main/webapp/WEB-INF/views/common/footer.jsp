@@ -54,6 +54,8 @@
   <style> .free-icons{display:none} </style>
   <div class="free-icons">
     <a target="_blank" href="https://icons8.com/icons/set/pixel-heart">Pixel Heart</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+    <a target="_blank" href="https://icons8.com/icons/set/time">Time</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+
     <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
   </div>
 

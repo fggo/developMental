@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.workman.job.model.dao.JobDao;
 import com.kh.workman.job.model.vo.JobBoard;
+import com.kh.workman.member.model.vo.Member;
 
 @Service
 public class JobServiceImpl implements JobService {
@@ -20,10 +21,10 @@ public class JobServiceImpl implements JobService {
   SqlSessionTemplate session;
 
   @Override
-  public List<Map<String, Object>> selectJobBoardList() {
-    return dao.selectJobBoardList(session);
+  public JobBoard selectJobBoardOne(JobBoard j) {
+    return dao.selectJobBoardOne(session, j);
   }
-
+  
   @Override
   public List<Map<String, Object>> selectPageJobBoardList(int cPage, int numPerPage) {
     return dao.selectPageJobBoardList(session, cPage, numPerPage);
@@ -33,9 +34,5 @@ public class JobServiceImpl implements JobService {
   public int selectJobBoardCount() {
     return dao.selectJobBoardCount(session);
   }
-  
-  
-  
-  
 
 }

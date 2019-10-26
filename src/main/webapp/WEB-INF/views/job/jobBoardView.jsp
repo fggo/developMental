@@ -21,6 +21,19 @@
       padding-left: 15px; padding-right: 15px;
       margin: 0 auto;
     }
+    .modal {
+      text-align: center;
+    }
+
+    @media screen and (min-width: 768px) { 
+      .modal:before {
+        display: inline-block;
+        vertical-align: middle;
+        content: " ";
+        height: 100%;
+      }
+    }
+
   </style>
 
   <!-- CSS -->
@@ -41,18 +54,17 @@
 
       <div class="card-body">
         <div class="media mb-2">
-          <div class="media-body pl-3 my-0 py-0">
-            <h3 class="card-title">Job list</h3>
-            <h6 class="card-subtitle text-muted">Total of <b>0</b> listings</h6>
-            <p class="card-text">
-              <small>You have applied<b id="jobNum"></b>&nbsp; jobs.</small>
-            </p>
-          </div>
-          <div class="row d-flex mt-5">
+          <div class="media-body d-flex pl-3 my-0 py-0">
+            <div>
+              <h3 class="card-title">Job list</h3>
+              <h6 class="card-subtitle text-muted">Total of <b>0</b> listings</h6>
+            </div>
+
+            <button class="ml-auto mr-3 align-self-center btn btn-outline-primary" onclick="ajaxJobPage('${path}/job/postJob.do');">Write</button>
           </div>
         </div>
         <!-- form -->
-        <table class="table table-sm" id='qna_table' style="font-size:14px;">
+        <table class="table table-hover" id='jobmodal-tbl' style="font-size:14px;">
           <thead>
             <tr>
               <th class="text-center">NO.</th>
@@ -70,32 +82,12 @@
               <tr>
                 <td class="text-center">${j['NO']}</td>
                 <td class="text-center">${j['WRITER']}</td>
-                <td class="text-center">
-                  <a href="javascript: ajaxJobBoardContent();">${j['TITLE']}</a>
-                </td>
+                <td class="text-center job-title">${j['TITLE']}</td>
                 <td><c:out value="${fn:substring(j['CONTENT'], 0, 50)}" /></td>
                 <td class="text-center">${j['REGDATE']}</td>
                 <td class="text-center">${j['COUNT']}</td>
                 <td class="text-center">${j['STATUS']}</td>
                 <td class="text-center">${j['APPLICANTS']}</td>
-                <script>
-                  function ajaxJobBoardContent(){
-                    $.ajax({
-                      type: "POST",
-                      url: "${path }/job/jobBoardContent",
-                      dataType: "html",
-                      data: {"no": "${j.no}"},
-                      success: function(data){
-                        console.log(data);
-                        var html = $('<div>').html(data);
-                        $('div#main-container').html(html.find('div.submenu-container'));
-                      },
-                      error: function (data) { // 데이터 통신에 실패
-                        console.log("JSON data failed to retrieve!");
-                      }
-                    });
-                  }
-                </script>
               </tr>
             </c:forEach>
           </tbody>
@@ -108,53 +100,25 @@
         </nav>
       </div>
     </div>
+
+    <style>
+      .modal-content{
+        -moz-border-radius: 5px 5px 5px 5px;
+        -webkit-border-radius: 5px 5px 5px 5px;
+        border-radius: 5px 5px 5px 5px;
+
+        -moz-box-shadow: 2px 2px 2px #535353;
+        -webkit-box-shadow: 2px 2px 2px #535353;
+        box-shadow: 2px 2px 2px #535353;
+      }
+    </style>
     <!-- bootstrap Modal : Job content -->
-    <!-- <button id="modal-trigger" data-buttonTitle="Open Modal">Open Modal</button> -->
-    <div id="modal">
-      <div id="content">I'm a modal. Drag me around.</div>
-      <div id="background"></div>
-    </div>
-    <div class="modal fade" id="jobModal" tabindex="-1" role="dialog" aria-labelledby="jobModalLabel">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="jobModalLabel">New message</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form>
-              <div class="form-group">
-                <label for="recipient-name" class="col-form-label">Recipient:</label>
-                <input type="text" class="form-control" id="recipient-name">
-              </div>
-              <div class="form-group">
-                <label for="message-text" class="col-form-label">Message:</label>
-                <textarea class="form-control" id="message-text"></textarea>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Send message</button>
-          </div>
-        </div>
+    <!-- Modal -->
+    <div class="modal fade" id="jobmodal" tabindex="-1" role="dialog" aria-labelledby="jobmodalTitle" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
       </div>
     </div>
-    <style>
-      #jobModal {
-        position: relative;
-      }
 
-      .modal-dialog {
-        position: fixed;
-        width: 100%;
-        margin: 0;
-        padding: 10px;
-      }
-
-    </style>
     <!-- jQuery -->
     <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"
       integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E="
@@ -166,30 +130,30 @@
 
     <script>
       $(function(){
-        $('#modal-trigger').click(function(){
-          $('#jobModal').modal('show');
-          $('#modal').modal('show');
+
+        $('#jobmodal-tbl tbody tr').css({
+          'cursor': 'pointer',
         });
-        $('#modalBtn').click(function() {
-          // reset modal if it isn't visible
-          if (!($('.modal.in').length)) {
-            $('.modal-dialog').css({
-              top: '50%',
-              left: '50%'
-            });
-          }
-          $('#jobModal').modal({
+
+        $('table#jobmodal-tbl > tbody  > tr').on('click', function() {
+          console.log($(this).children().first().html());
+          ajaxJobBoardContent($(this).children().first().html());
+
+          $('#jobmodal').modal({
             backdrop: false,
-            show: true
+            keyboard: false,
+            show: true,
           });
 
           $('.modal-dialog').draggable({
-            handle: ".modal-content"
+            handle: ".modal-content",
+            // containment: "window",
           });
         });
+
       });
 
-      function ajaxJobPage(urlMapping){
+      function ajaxJobPage(urlMapping, data){
         $.ajax({
           type: "POST",
           url: urlMapping,
@@ -200,18 +164,29 @@
           },
           error: function(status, msg){
             alert('ajax error!');
-
           },
+        });
+      }
 
+      function ajaxJobBoardContent(no){
+        $.ajax({
+          type: "POST",
+          url: "${path }/job/jobBoardContent.do",
+          dataType: "html",
+          data: {"no": no},
+          success: function(data){
+            var html = $('<div>').html(data);
+            $('.modal-dialog').html(html.find('#jobmodal-content'));
+          },
+          error: function (data) { // 데이터 통신에 실패
+            console.log("JSON data failed to retrieve!");
+          }
         });
       }
     </script>
 
     <!-- <script src="${path }/resources/js/jobmodal.js"></script> -->
-    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#jobModal" data-whatever="@fat">Open modal for @fat</button> -->
-
-    <button type="button" class="btn btn-primary" id="modalBtn">@fat modal</button>
-
+    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#jobmodal" data-whatever="@fat">Open modal for @fat</button> -->
   </div>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />

@@ -30,30 +30,30 @@
   <link rel="stylesheet" href="${path }/resources/css/header.css">
 
 <style type="text/css">
-	.form-control {
-		min-height: 41px;
-		background: #f2f2f2;
-		box-shadow: none !important;
-		border: transparent;
-	}
-	.form-control:focus {
-		background: #e2e2e2;
-	}
-	.form-control, .btn {        
+  .form-control {
+    min-height: 41px;
+    background: #f2f2f2;
+    box-shadow: none !important;
+    border: transparent;
+  }
+  .form-control:focus {
+    background: #e2e2e2;
+  }
+  .form-control, .btn {        
         border-radius: 2px;
     }
-	.login-form {
-		width: 450px;
-		margin: 30px auto;
-		text-align: center;
-	}
-	.login-form h2 {
+  .login-form {
+    width: 450px;
+    margin: 30px auto;
+    text-align: center;
+  }
+  .login-form h2 {
         margin: 10px 0 25px;
     }
     .login-form form {
-		color: #7a7a7a;
-		border-radius: 3px;
-    	margin-bottom: 15px;
+    color: #7a7a7a;
+    border-radius: 3px;
+      margin-bottom: 15px;
         background: #fff;
         /* box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3); */
         padding: 30px;
@@ -61,33 +61,33 @@
     .login-form .btn {        
         font-size: 16px;
         font-weight: bold;
-		background: #3598dc;
-		border: none;
+    background: #3598dc;
+    border: none;
         outline: none !important;
     }
-	.login-form .btn:hover, .login-form .btn:focus {
-		background: #2389cd;
-	}
-	.login-form a {
-		color: #fff;
-		text-decoration: underline;
-	}
-	.login-form a:hover {
-		text-decoration: none;
-	}
-	.login-form form a {
-		color: #7a7a7a;
-		text-decoration: none;
-	}
-	.login-form form a:hover {
-		text-decoration: underline;
-	}
-	
-	.modal-header {
-	    border-bottom: 0 none;
-	}
+  .login-form .btn:hover, .login-form .btn:focus {
+    background: #2389cd;
+  }
+  .login-form a {
+    color: #fff;
+    text-decoration: underline;
+  }
+  .login-form a:hover {
+    text-decoration: none;
+  }
+  .login-form form a {
+    color: #7a7a7a;
+    text-decoration: none;
+  }
+  .login-form form a:hover {
+    text-decoration: underline;
+  }
+  
+  .modal-header {
+      border-bottom: 0 none;
+  }
 
-	.modal-content.modal-80size {
+  .modal-content.modal-80size {
   height: auto;
   min-height: 30%;
 }
@@ -130,41 +130,48 @@
           <ul class="navbar-nav ml-auto" id='collapseItems'>
 
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle menu-item mt-1 mr-0 text-white" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-globe"></i></a>
+              <a class="nav-link dropdown menu-item mt-1 mr-0 text-white" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-globe"></i></a>
 
               <div class="dropdown-menu mt-1" aria-labelledby="dropdown01">
                 <div id="google_translate_element" class="dropdown-item fa fa-globe"></div>
               </div>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle menu-item mt-1 mr-2 text-white" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu</a>
+              <a class="nav-link dropdown menu-item mt-1 mr-0 text-white" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bell"></i></a>
+
+              <div class="dropdown-menu mt-1" aria-labelledby="dropdown01">
+                <div id="notification" class="dropdown-item fa fa-list"></div>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown menu-item mt-1 mr-2 text-white" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fa fa-cog">&nbsp;<span class="text-secondary"><c:if test="${loginMember != null}">#${loginMember.no}</c:if></span></span>&nbsp;</a>
 
               <div class="dropdown-menu mt-1" aria-labelledby="dropdown01">
                 <a class="dropdown-item" href="${path }/collabo/detail.do"><i class="fa fa-align-justify">&nbsp;&nbsp;</i>Collabo Tool</a>
                 <a class="dropdown-item" href="${path }/mainView"><i class="fa fa-briefcase">&nbsp;&nbsp;</i>Job</a>
-                <a class="dropdown-item" href="${path }"><i class="fa fa-cog">&nbsp;&nbsp;</i>Settings</a>
-              	<!-- 관리자메뉴 버튼 by ogc -->
-              	<c:if test="${loginMember != null && loginMember.id eq 'admin'}">
-              		<a class="dropdown-item" href="${path }/admin/selectMemberList.do"><i class="fas fa-bell">&nbsp;&nbsp;</i>Admin Menu</a>
-              		<a class="dropdown-item" href="${path }/admin/adminMain"><i class="fas fa-bell">&nbsp;&nbsp;</i>Admin Main Test</a>
-					<!-- <button type="button" class="btn btn-sm btn-light mt-2 mr-1" onclick="adminMenu();" style="width: 80px;">관리</button> -->
-              	</c:if>
+                <a class="dropdown-item" href="${path }"><span class="fa fa-cog">&nbsp;&nbsp;</span>Settings</a>
+                <!-- 관리자메뉴 버튼 by ogc -->
+                <c:if test="${loginMember != null && loginMember.id eq 'admin'}">
+                  <a class="dropdown-item" href="${path }/admin/selectMemberList.do"><i class="fas fa-bell">&nbsp;&nbsp;</i>Admin Menu</a>
+                  <a class="dropdown-item" href="${path }/admin/adminMain"><i class="fas fa-bell">&nbsp;&nbsp;</i>Admin Main Test</a>
+          <!-- <button type="button" class="btn btn-sm btn-light mt-2 mr-1" onclick="adminMenu();" style="width: 80px;">관리</button> -->
+                </c:if>
 
               </div>
             </li>
-			<c:if test="${loginMember != null}">
-	            <li class="nav-item">
-	              <form action="${path}/member/logout.do" method="post">
-	               	<button type="button" class="btn btn-sm btn-light mt-2 mr-1" onclick="return logoutSnsAccount();" style="width: 200px;" disabled="disabled"><c:out value="${loginMember.nickname}님 환영합니다."/></button>
-	                <button type="submit" class="btn btn-sm btn-light mt-2 mr-1" onclick="return logoutSnsAccount();" style="width: 80px;">Log Out</button>
-	              </form>
-	            </li>		
-			</c:if>
+      <c:if test="${loginMember != null}">
+              <li class="nav-item">
+                <form action="${path}/member/logout.do" method="post">
+                   <button type="button" class="btn btn-sm btn-light mt-2 mr-1" onclick="return logoutSnsAccount();" style="width: 200px;" disabled="disabled"><c:out value="${loginMember.nickname}님 환영합니다."/></button>
+                  <button type="submit" class="btn btn-sm btn-light mt-2 mr-1" onclick="return logoutSnsAccount();" style="width: 80px;">Log Out</button>
+                </form>
+              </li>    
+      </c:if>
 
-			<c:if test="${loginMember == null}">
-	            <li class="nav-item">		
-	                <button type="button" class="btn btn-sm btn-light mt-2 mr-1" id="login" style="width:67px;" >Log In</button>
-	            </li>	
+      <c:if test="${loginMember == null}">
+              <li class="nav-item">    
+                  <button type="button" class="btn btn-sm btn-light mt-2 mr-1" id="login" style="width:67px;" >Log In</button>
+              </li>  
             <li class="nav-item">
               <form action="${path }/signUp.do" method="post">
               <button class="btn-sm btn-primary mt-2 mr-1" onclick='location.href="${path}/signUp.do"' style="width:80px;">Sign Up</button>
@@ -206,9 +213,9 @@
       }
       
       $(document).ready(function(){
-    	  $("#login").click(function(){
-    		  $("#loginModal").modal('show');
-    	  })
+        $("#login").click(function(){
+          $("#loginModal").modal('show');
+        })
       })
       
        
@@ -233,21 +240,21 @@ aria-hidden="true" data-target="#LoginModalTitle">
            </div>
             <div class="modal-body login-form">
               
-				    <form action="${path}/member/login.do" method="post">
-				        <h2 class="text-center">Login</h2>   
-				        <div class="form-group has-error">
-				        	<input type="text" class="form-control" name="id" placeholder="id" required="required">
-				        </div>
-						<div class="form-group">
-				            <input type="password" class="form-control" name="pw" placeholder="Password" required="required">
-				        </div>
-				        <div class="form-group">
-				            <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
-				        </div>
-				        <p><a href="${path}/member/fixPassword.do">Lost your Password?</a></p>
-					    <p class="text-center small">Don't have an account? <a href="${path}/signUp.do">Sign up here!</a></p>
-				    </form>
-           	 </div>
+            <form action="${path}/member/login.do" method="post">
+                <h2 class="text-center">Login</h2>   
+                <div class="form-group has-error">
+                  <input type="text" class="form-control" name="id" placeholder="id" required="required">
+                </div>
+            <div class="form-group">
+                    <input type="password" class="form-control" name="pw" placeholder="Password" required="required">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
+                </div>
+                <p><a href="${path}/member/fixPassword.do">Lost your Password?</a></p>
+              <p class="text-center small">Don't have an account? <a href="${path}/signUp.do">Sign up here!</a></p>
+            </form>
+              </div>
         </div>
     </div>
 </div>

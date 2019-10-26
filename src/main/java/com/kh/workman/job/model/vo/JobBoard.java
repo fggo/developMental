@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class JobBoard {
   private int no;
-  private int writer;
+  private String writer;
   private String title;
   private String content;
   private Date regDate;
