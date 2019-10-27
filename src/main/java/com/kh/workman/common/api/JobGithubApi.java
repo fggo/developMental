@@ -6,6 +6,11 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
@@ -21,7 +26,7 @@ public class JobGithubApi {
    * @param page : page Number (e.g. 0[DEFAULT], 1, ...)
    * @return JobGithub[] : list of jobs
    */
-  public static JobGithub[] jobsGithubApi(String skill, String loc, int page) {
+  public static List<Map<String, Object>> jobsGithubApi(String skill, String loc, int page) {
     skill = skill.replace(" ", "+");
     loc = loc.replace(" ", "+");
 
@@ -40,7 +45,8 @@ public class JobGithubApi {
 
     //convert parsed from github job api call result (JSON string)
     //into array of JobGithub objects
-    JobGithub[] jobs = null;
+    List<JobGithub> jobs = null;
+    List<Map<String, Object>> newList = new ArrayList<Map<String,Object>>();
 
     try {
       URL url = new URL(urlJobs);
@@ -53,17 +59,41 @@ public class JobGithubApi {
       while((line = br.readLine()) != null)
         result += (line + "\n");
 
-//      System.out.println("Job list size : " +jobs.length);
-//      System.out.println(result);
       
       //read JSON and convert to array of Object type
-      jobs= mapper.readValue(result, JobGithub[].class);
+      jobs= Arrays.asList(mapper.readValue(result, JobGithub[].class));
 
+      System.out.println("Job list size : " +jobs.size());
+      System.out.println(result);
 
       //Crawl company Logo images,
       //  and set as field of each JobGithub object
-      for(JobGithub job : jobs) 
+      // 'newMap' instance is basically equivalent to
+      // 'JobBoard' + {"imageUrl": crawledImgurl}
+      Map<String,Object> newMap = new HashMap<String, Object>();
+
+      for(JobGithub job : jobs) {
+        newMap = new HashMap<String, Object>();
         job.setCompanyLogo(JobGithubCrawler.crawlImg(job.getId()));
+
+        String content = job.getType()
+          + job.getLocation()
+          + job.getDescription()
+          + job.getHowToApply();
+
+        newMap.put("NO", 0);
+        newMap.put("WRITER", job.getCompany());
+        newMap.put("TITLE", job.getTitle());
+        newMap.put("CONTENT", content);
+        newMap.put("REGDATE", new java.sql.Date(job.getCreatedAt().getTime()));
+        newMap.put("COUNT", 0);
+        newMap.put("STATUS", 1);
+        newMap.put("APPLICANTS", 0);
+        newMap.put("imageURL", job.getCompanyLogo());
+
+        newList.add(newMap);
+      }
+
       
     } catch(MalformedURLException e) {
       e.printStackTrace();
@@ -71,7 +101,7 @@ public class JobGithubApi {
       e.printStackTrace();
     }
 
-    return jobs;
+    return newList;
   }
   
   public static void main(String[] args) {

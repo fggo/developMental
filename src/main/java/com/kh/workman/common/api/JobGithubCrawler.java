@@ -42,7 +42,7 @@ public class JobGithubCrawler {
       if(img != null) //logo image exists
         url = img.absUrl("src");
       else //logo image does not exists
-        url = "${path}/resources/images/icons8-broken-robot-48.png";
+        url = "/resources/images/icons8-broken-robot-48.png";
 
     } catch(IOException e) {
       e.printStackTrace();

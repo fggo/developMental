@@ -64,7 +64,7 @@
           </div>
         </div>
         <!-- form -->
-        <table class="table table-hover" id='jobmodal-tbl' style="font-size:14px;">
+        <table class="table table-sm table-hover" id='jobmodal-tbl' style="font-size:14px;">
           <thead>
             <tr>
               <th class="text-center">NO.</th>
@@ -73,20 +73,44 @@
               <th class="text-center">Content</th>
               <th class="text-center">RegDate</th>
               <th class="text-center">Count</th>
-              <th class="text-center">Status</th>
-              <th class="text-center">Applicants</th>
+              <!-- <th class="text-center">Status</th> -->
+              <th class="text-center">
+                <img src="${path}/resources/images/icons8-queue-48.png" width="33px" height="33px" alt="">
+              </th>
             </tr>
           </thead>
           <tbody>
             <c:forEach var="j" items="${list}" varStatus="status">
-              <tr>
+              <tr class="">
+                <!-- job lists not registered(inserted) in the Workman's database-->
                 <td class="text-center">${j['NO']}</td>
                 <td class="text-center">${j['WRITER']}</td>
                 <td class="text-center job-title">${j['TITLE']}</td>
-                <td><c:out value="${fn:substring(j['CONTENT'], 0, 50)}" /></td>
+                <td>${j['CONTENT']}</td>
+                <!-- <td class="text-center"><fmt:formatDate value="${j['REGDATE']}" pattern="yy-MM-dd" /></td> -->
+                <td class="text-center">${j['REGDATE']}</td>
+
+                <td class="text-center">${j['COUNT']}</td>
+                <!-- <td class="text-center">${j['STATUS']}</td> -->
+                <td class="text-center">${j['APPLICANTS']}</td>
+              </tr>
+            </c:forEach>
+            <c:forEach var="j" items="${newList}" varStatus="status">
+              <tr>
+                <td class="text-center">
+                  <c:if test="${fn:substring(j['imageURL'],2,6) =='path'}" >
+                    <!-- <img src="${path }/resources/images/icons8-database-export-48.png" width="28px" height="28px" alt=""> -->
+                    <img src="${path}${j['imageURL']}" class="img-fluid" alt="">
+                  </c:if>
+                  <img src="${j['imageURL']}" class="imageURL img-fluid" alt="">&nbsp;
+                </td>
+                <td class="text-center">${j['WRITER']}</td>
+                <td class="text-center job-title">${j['TITLE']}</td>
+                <td class="hide-html-tag">${j['CONTENT']}</td>
+                <!-- <td class="text-center"><fmt:formatDate value="${j['REGDATE']}" pattern="yy-MM-dd" /></td> -->
                 <td class="text-center">${j['REGDATE']}</td>
                 <td class="text-center">${j['COUNT']}</td>
-                <td class="text-center">${j['STATUS']}</td>
+                <!-- <td class="text-center">${j['STATUS']}</td> -->
                 <td class="text-center">${j['APPLICANTS']}</td>
               </tr>
             </c:forEach>
@@ -102,6 +126,25 @@
     </div>
 
     <style>
+      td {
+        max-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      table { width:500px;table-layout:fixed; }
+      table tr { height:1em;  }
+      @media (max-width: 768px) { /* use the max to specify at each container level */
+        .job-title {    
+          width:100px;  /* adjust to desired wrapping */
+          display:table;
+          white-space: pre-wrap; /* css-3 */
+          white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+          white-space: -pre-wrap; /* Opera 4-6 */
+          white-space: -o-pre-wrap; /* Opera 7 */
+          word-wrap: break-word; /* Internet Explorer 5.5+ */
+        }
+      }
       .modal-content{
         -moz-border-radius: 5px 5px 5px 5px;
         -webkit-border-radius: 5px 5px 5px 5px;
@@ -130,14 +173,17 @@
 
     <script>
       $(function(){
+        $('td.hide-html-tag *').css({
+          'display': 'none',
+        })
 
         $('#jobmodal-tbl tbody tr').css({
           'cursor': 'pointer',
         });
 
         $('table#jobmodal-tbl > tbody  > tr').on('click', function() {
-          console.log($(this).children().first().html());
-          ajaxJobBoardContent($(this).children().first().html());
+
+          ajaxGithubJobContent($(this));
 
           $('#jobmodal').modal({
             backdrop: false,
@@ -168,18 +214,56 @@
         });
       }
 
-      function ajaxJobBoardContent(no){
+      function ajaxGithubJobContent(tr){
+        var githubData = {};
+        var no,writer,title,content,regDate,count,status,applicants;
+        tr.each(function (i, el) {
+          var tds = $(this).find('td'),
+            no= (tds.eq(0).text()).trim(),
+            writer= tds.eq(1).text(),
+            title= tds.eq(2).text(),
+            content= tds.eq(3).text(),
+            regDate= tds.eq(4).text(),
+            count= tds.eq(5).text(),
+            status= tds.eq(6).text(),
+            applicants= tds.eq(7).text();
+
+          var imageURL= tds.eq(0).find('img.imageURL').attr("src");
+
+          githubData = {
+            "no": no==""? 0:no,
+            "writer": writer,
+            "title": title,
+            "content": content,
+            // "regDate": regDate, //ERROR!!!
+            "count": count,
+            "status": status,
+            "imageURL": imageURL,
+          };
+        });
+
+        console.log(githubData);
+
         $.ajax({
           type: "POST",
           url: "${path }/job/jobContentView.do",
           dataType: "html",
-          data: {"no": no},
+          data: githubData,
+          // data: {
+          //   "no": githubData["no"],
+          //   "writer": githubData["writer"],
+          //   "title": githubData["title"],
+          //   "content": githubData["content"],
+          //   "regDate": githubData["regDate"],
+          //   "count": githubData["count"],
+          //   "status": githubData["status"],
+          // },
           success: function(data){
             var html = $('<div>').html(data);
             $('.modal-dialog').html(html.find('#jobmodal-content'));
           },
           error: function (data) { // 데이터 통신에 실패
-            console.log("JSON data failed to retrieve!");
+            alert("JSON data failed to retrieve!");
           }
         });
       }

@@ -2,6 +2,9 @@ package com.kh.workman.job.model.vo;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.kh.workman.common.CustomJsonDateDeserializer;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,4 +20,11 @@ public class JobBoard {
   private Date regDate;
   private int count;
   private int status;
+  
+  @JsonDeserialize(using = CustomJsonDateDeserializer.class)
+  public Date getRegDate() { return this.regDate; }
+
+  @JsonDeserialize(using = CustomJsonDateDeserializer.class)
+  public void setRegDate(Date regDate) { this.regDate = regDate; }
+  
 }

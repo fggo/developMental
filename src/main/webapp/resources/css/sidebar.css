@@ -10,7 +10,7 @@ a:focus {
 ----------------------------------------------------- */
 
 #sidebar {
-    width: 230px;
+    width: 190px;
     position: fixed;
     top: 0;
     left: 0;
@@ -22,7 +22,7 @@ a:focus {
 }
 
 #sidebar.active {
-    margin-left: -230px;
+    margin-left: -190px;
 }
 
 #sidebar .sidebar-header {

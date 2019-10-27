@@ -16,7 +16,7 @@
 
   <style>
     #main-container{
-      margin-left: 230px;
+      margin-left: 190px;
       margin-top: 58px;
     }
   </style>
