@@ -81,7 +81,6 @@ public class JobController {
     return mv;
   }
   
-  
   @RequestMapping("/job/postJob.do")
   public ModelAndView postJob(Member m) {
     ModelAndView mv = new ModelAndView();

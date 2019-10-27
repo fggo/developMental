@@ -73,7 +73,7 @@
       <!-- <p class="open_info hide">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p> -->
       <div>
         <h6><strong>Content</strong></h6>
-        <textarea class="form-control open_info " name="content" readonly>${jobBoard.content}</textarea>
+        <textarea class="form-control h-50" rows='10' name="content" readonly>${jobBoard.content}</textarea>
 
       </div>
     </div>

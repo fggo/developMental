@@ -99,10 +99,9 @@
               <tr>
                 <td class="text-center">
                   <c:if test="${fn:substring(j['imageURL'],2,6) =='path'}" >
-                    <!-- <img src="${path }/resources/images/icons8-database-export-48.png" width="28px" height="28px" alt=""> -->
                     <img src="${path}${j['imageURL']}" class="img-fluid" alt="">
                   </c:if>
-                  <img src="${j['imageURL']}" class="imageURL img-fluid" alt="">&nbsp;
+                  <img src="${j['imageURL']}" class="imageURL img-fluid" alt="">
                 </td>
                 <td class="text-center">${j['WRITER']}</td>
                 <td class="text-center job-title">${j['TITLE']}</td>

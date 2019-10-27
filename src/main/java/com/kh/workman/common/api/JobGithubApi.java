@@ -59,7 +59,6 @@ public class JobGithubApi {
       while((line = br.readLine()) != null)
         result += (line + "\n");
 
-      
       //read JSON and convert to array of Object type
       jobs= Arrays.asList(mapper.readValue(result, JobGithub[].class));
 
