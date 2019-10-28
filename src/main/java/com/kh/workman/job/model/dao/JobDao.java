@@ -6,7 +6,6 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.workman.job.model.vo.JobBoard;
-import com.kh.workman.member.model.vo.Member;
 
 public interface JobDao {
 
@@ -15,4 +14,6 @@ public interface JobDao {
   List<Map<String, Object>> selectPageJobBoardList(SqlSessionTemplate session, int cPage, int numPerPage);
   
   int selectJobBoardCount(SqlSessionTemplate session);
+  
+  int insertJobBoard(SqlSessionTemplate session, JobBoard job);
 }

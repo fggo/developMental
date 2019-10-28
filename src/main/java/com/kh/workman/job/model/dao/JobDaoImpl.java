@@ -30,4 +30,11 @@ public class JobDaoImpl implements JobDao {
     return session.selectOne("job.selectJobBoardCount");
   }
 
+  @Override
+  public int insertJobBoard(SqlSessionTemplate session, JobBoard job) {
+    return session.insert("job.insertJobBoard", job);
+  }
+
+  
+  
 }

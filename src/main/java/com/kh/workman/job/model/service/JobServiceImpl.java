@@ -35,4 +35,11 @@ public class JobServiceImpl implements JobService {
     return dao.selectJobBoardCount(session);
   }
 
+  @Override
+  public int insertJobBoard(JobBoard job) {
+    return dao.insertJobBoard(session, job);
+  }
+
+  
+  
 }

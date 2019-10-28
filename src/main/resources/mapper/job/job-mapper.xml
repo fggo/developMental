@@ -15,4 +15,7 @@
     SELECT COUNT(*) FROM BOARD_JOB
   </select>
 
+  <insert id="insertJobBoard" parameterType="jobBoard">
+    insert into BOARD_JOB values(default, #{writer}, #{title}, #{content}, default, default, default)
+  </insert>
 </mapper>

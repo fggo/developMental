@@ -13,4 +13,6 @@ public interface JobService {
   List<Map<String, Object>> selectPageJobBoardList(int cPage, int numPerPage);
 
   int selectJobBoardCount();
+  
+  int insertJobBoard(JobBoard job);
 }

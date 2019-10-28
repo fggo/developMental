@@ -32,7 +32,7 @@ public class JobController {
       @RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
       @RequestParam(value="skill", required=false) String skill,
       @RequestParam(value="loc", required=false) String loc,
-      @RequestParam(value="page", required=false) String page) {
+      @RequestParam(value="page", required=false, defaultValue="1") String page) {
 
     //1. Job Listings From Database (At least 1 Member Applied for the position)
     ModelAndView mv = new ModelAndView();
@@ -44,11 +44,14 @@ public class JobController {
     //2. Additional Job Listings From Github Job API (Not inserted into DB yet!)
     //   this data lists are inserted AFTER at least one Member applies for the position!
     //TODO: test data(to be replaced with User Input!)
-    skill="java";
-    loc = "Los Angeles";
-    page = "1";
+//    skill="java";
+//    loc = "Los Angeles";
+//    page = "1";
 
-    List<Map<String, Object>> newList = JobGithubApi.jobsGithubApi(skill, loc, Integer.valueOf(page));
+    List<Map<String, Object>> newList = null;
+    if(skill != null && loc!=null ) {
+      newList = JobGithubApi.jobsGithubApi(skill, loc, Integer.valueOf(page));
+    }
 
     mv.addObject("pageBar", PageBarFactory.getPageBar(totalCount, cPage, numPerPage, "/job/jobBoardList"));
     mv.addObject("count", totalCount);
@@ -81,17 +84,36 @@ public class JobController {
     return mv;
   }
   
-  @RequestMapping("/job/postJob.do")
-  public ModelAndView postJob(Member m) {
+  @RequestMapping("/job/jobEnroll")
+  public ModelAndView jobEnrollView() {
     ModelAndView mv = new ModelAndView();
 
-    JobBoard j = new JobBoard();
-    j.setNo(m.getNo());
-    
-    JobBoard board = service.selectJobBoardOne(j);
+    mv.setViewName("job/jobEnroll");
 
-    mv.addObject("board", board);
-    mv.setViewName("job/postJob");
+    return mv;
+  }
+
+  @RequestMapping("/job/jobEnrollEnd.do")
+  public ModelAndView jobEnrollEnd(JobBoard j) {
+    ModelAndView mv = new ModelAndView();
+
+    int result = service.insertJobBoard(j);
+      
+    String msg = "", loc= "";
+
+    if(result == 0) {
+      msg="Your company already enrolled Job Post.";
+      loc="/";
+    }
+    else {
+      msg = "Successfully enrolled company Job Post";
+      loc = "mainView";
+    }
+
+    mv.addObject("msg", msg);
+    mv.addObject("loc", loc);
+      
+    mv.setViewName("common/msg");
 
     return mv;
   }

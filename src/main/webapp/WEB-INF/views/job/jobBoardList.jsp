@@ -34,6 +34,7 @@
       }
     }
 
+
   </style>
 
   <!-- CSS -->
@@ -47,7 +48,7 @@
           <i class="fa fa-briefcase text-white mr-3 my-2" style="font-size:42px;"></i>
           <div class="lh-100 ml-2">
             <p class="h5 mb-0 text-white lh-100">&nbsp;&nbsp;Job Board</p>
-            <small>Since 2019.09</small>
+            <small>Since 2019.10</small>
           </div>
         </div>
       </h6>
@@ -58,12 +59,20 @@
             <div>
               <h3 class="card-title">Job list</h3>
               <h6 class="card-subtitle text-muted">Total of <b>0</b> listings</h6>
+              <!-- search form -->
+              <div id="apiCallFrm" class="form form form-inline" >
+                <input type="text" class="form-control form-control-sm" placeholder="Skill Keyword" id="skillTxt" required />
+                <input type="text" class="form-control form-control-sm mx-2" placeholder="Location" id="locTxt" required />
+                <button type="button" class="btn btn-outline-light text-dark border-dark" id="apiCallBtn" value="Search github">
+                  <i class="fa fa-github" aria-hidden="true"></i>&nbsp;Get API data
+                </button>
+
+              </div>
+              <a class="ml-auto mr-3 align-self-center btn float-left btn-outline-primary" href="javascript: ajaxJobPage('${path}/job/jobEnroll');">Write</a>
             </div>
 
-            <button class="ml-auto mr-3 align-self-center btn btn-outline-primary" onclick="ajaxJobPage('${path}/job/postJob.do');">Write</button>
           </div>
         </div>
-        <!-- form -->
         <table class="table table-sm table-hover" id='jobmodal-tbl' style="font-size:14px;">
           <thead>
             <tr>
@@ -196,7 +205,37 @@
           });
         });
 
+        $('#apiCallBtn').click(function(){
+
+          var apiParams = {
+            "skill": $('#skillTxt').val(),
+            "loc": $('#locTxt').val(),
+          };
+
+          if($('#skillTxt').val() =="" || $('#locTxt').val() =="") {
+            alert("Fill out search fields!");
+            return;
+          }
+
+          $.ajax({
+            type: "POST",
+            url: "${path}/job/jobBoardList",
+            data: apiParams,
+            dataType: "html",
+            success: function(data) {
+              console.log("success!");
+              html = $('<div>').html(data);
+              $('#main-container').html(html.find('div.submenu-container'));
+            },
+            error: function(status, error) {
+              alert("ajax api parameter call Error!");
+            }
+          });
+        });
+
+
       });
+
 
       function ajaxJobPage(urlMapping, data){
         $.ajax({
@@ -248,15 +287,6 @@
           url: "${path }/job/jobContentView.do",
           dataType: "html",
           data: githubData,
-          // data: {
-          //   "no": githubData["no"],
-          //   "writer": githubData["writer"],
-          //   "title": githubData["title"],
-          //   "content": githubData["content"],
-          //   "regDate": githubData["regDate"],
-          //   "count": githubData["count"],
-          //   "status": githubData["status"],
-          // },
           success: function(data){
             var html = $('<div>').html(data);
             $('.modal-dialog').html(html.find('#jobmodal-content'));
