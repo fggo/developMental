@@ -13,11 +13,9 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.kh.workman.collabo.model.service.CollaboService;
-import com.kh.workman.collabo.model.vo.CollaboList;
 import com.kh.workman.collabo.model.vo.DataPacket;
 
 public class CollaboHandler extends TextWebSocketHandler {
@@ -30,7 +28,12 @@ public class CollaboHandler extends TextWebSocketHandler {
 
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+	}
 
+	@Override
+	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+		sessionList.remove(session);
+		logger.debug("{} 연결종료", session.getId());
 	}
 
 	@Override
@@ -61,30 +64,25 @@ public class CollaboHandler extends TextWebSocketHandler {
 		case "card":
 			switch (receive.getMethod()) {
 			case "create":
+				createCard(receive, session);
 				break;
 			case "update":
+				updateCard(receive, session);
 				break;
 			case "delete":
+				break;
+			case "move":
+				moveCard(receive, session);
 				break;
 			}
 			break;
 		}
 	}
 
-	@Override
-	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-		sessionList.remove(session);
-		logger.debug("{} 연결종료", session.getId());
-	}
-
-	public boolean createList(DataPacket receive, WebSocketSession session) throws IOException {
-		boolean isCompleted = service.createList(receive) == 1 ? true : false;
-		System.out.println(receive);
+	private void updateCard(DataPacket receive, WebSocketSession session) throws IOException {
+		boolean isCompleted = service.updateCard(receive) == 1 ? true : false;
 		List<HashMap> collabos = service.participation(receive.getCollaboNo());
-		System.out.println(collabos);
-		CollaboList tempCollaboList = service.selectCollaboListOne(receive.getListNo() - 1);
-		System.out.println(tempCollaboList);
-		
+
 		if (isCompleted) {
 			for (String key : sessionList.keySet()) {
 				for (int i = 0; i < collabos.size(); i++) {
@@ -95,8 +93,61 @@ public class CollaboHandler extends TextWebSocketHandler {
 				}
 			}
 		}
+		logger.debug("Move Card Success [USER ID : " + receive.getUserId() + " Card NO : " + receive.getCardNo() + "]");
+	}
+		
 
-		return isCompleted;
+	private void createCard(DataPacket receive, WebSocketSession session) throws IOException {
+		boolean isCompleted = service.createCard(receive) == 1 ? true : false;
+		List<HashMap> collabos = service.participation(receive.getCollaboNo());
+
+		if (isCompleted) {
+			for (String key : sessionList.keySet()) {
+				for (int i = 0; i < collabos.size(); i++) {
+					if (key.equals(collabos.get(i).get("ID"))) {
+						sessionList.get(key).sendMessage(new TextMessage(toJson(receive)));
+						break;
+					}
+				}
+			}
+		}
+		logger.debug(
+				"Create Card Success [USER ID : " + receive.getUserId() + " CARD NO : " + receive.getCardNo() + "]");
+	}
+
+	public void createList(DataPacket receive, WebSocketSession session) throws IOException {
+		boolean isCompleted = service.createList(receive) == 1 ? true : false;
+		List<HashMap> collabos = service.participation(receive.getCollaboNo());
+
+		if (isCompleted) {
+			for (String key : sessionList.keySet()) {
+				for (int i = 0; i < collabos.size(); i++) {
+					if (key.equals(collabos.get(i).get("ID"))) {
+						sessionList.get(key).sendMessage(new TextMessage(toJson(receive)));
+						break;
+					}
+				}
+			}
+		}
+		logger.debug(
+				"Create List Success [USER ID : " + receive.getUserId() + " LIST NO : " + receive.getListNo() + "]");
+	}
+
+	public void moveCard(DataPacket receive, WebSocketSession session) throws IOException {
+		boolean isCompleted = service.moveCard(receive) == 1 ? true : false;
+		List<HashMap> collabos = service.participation(receive.getCollaboNo());
+
+		if (isCompleted) {
+			for (String key : sessionList.keySet()) {
+				for (int i = 0; i < collabos.size(); i++) {
+					if (key.equals(collabos.get(i).get("ID"))) {
+						sessionList.get(key).sendMessage(new TextMessage(toJson(receive)));
+						break;
+					}
+				}
+			}
+		}
+		logger.debug("Move Card Success [USER ID : " + receive.getUserId() + " Card NO : " + receive.getCardNo() + "]");
 	}
 
 	public DataPacket parsingJson(String receiveMessage) {

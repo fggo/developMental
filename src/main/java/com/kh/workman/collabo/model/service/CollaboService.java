@@ -3,8 +3,10 @@ package com.kh.workman.collabo.model.service;
 import java.util.HashMap;
 import java.util.List;
 
+import com.kh.workman.collabo.model.vo.CollaboCard;
 import com.kh.workman.collabo.model.vo.CollaboList;
 import com.kh.workman.collabo.model.vo.DataPacket;
+import com.kh.workman.member.model.vo.Member;
 
 public interface CollaboService {
 
@@ -13,5 +15,17 @@ public interface CollaboService {
 	CollaboList selectCollaboListOne(int target);
 
 	List<HashMap> participation(int collaboNo);
+
+	int createCard(DataPacket receive);
+
+	List<CollaboList> selectCollaboLists(int collaboNo);
+
+	List<CollaboCard> selectCollaboCards(int collaboNo);
+
+	int moveCard(DataPacket receive);
+
+	List<Member> selectCollaboMembers(int collaboNo);
+
+	int updateCard(DataPacket receive);
 
 }

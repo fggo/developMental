@@ -9,7 +9,7 @@
   <jsp:param name="pageTitle" value="AdminMain" />
 </jsp:include>
 
-<jsp:include page="/WEB-INF/views/common/sidebar.jsp">
+<jsp:include page="/WEB-INF/views/common/adminSidebar.jsp">
   <jsp:param name="pageTitle" value="AdminMain" />
 </jsp:include>
 

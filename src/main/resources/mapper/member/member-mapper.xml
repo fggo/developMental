@@ -6,7 +6,7 @@
 		SELECT COUNT(*) FROM Member
 	</select>
 	
-	<select id="selectMemberList" resultType="member">
+	<select id="selectMemberList" resultType="adminMember">
 		SELECT * FROM MEMBER ORDER BY NO
 	</select>
 	<!--
@@ -26,7 +26,7 @@
 		SELECT * FROM MEMBER where ID=#{id}
 	</select>
 	
-	<select id="listAll" resultType="member">
+	<select id="listAll" resultType="adminMember">
 		SELECT * FROM MEMBER
 			<include refid="search"></include>
 	</select>

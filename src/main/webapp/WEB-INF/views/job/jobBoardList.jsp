@@ -340,8 +340,6 @@
       }
     </script>
 
-    <!-- <script src="${path }/resources/js/jobmodal.js"></script> -->
-    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#jobmodal" data-whatever="@fat">Open modal for @fat</button> -->
   </div>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />

@@ -13,4 +13,5 @@ public class CollaboCard {
 	private int writer;
 	private String content;
 	private Date regdate;
+	private int placeNo;
 }

@@ -13,4 +13,5 @@ public class CollaboList {
 	private String title;
 	private int writer;
 	private Date regdate;
+	private int placeNo;
 }

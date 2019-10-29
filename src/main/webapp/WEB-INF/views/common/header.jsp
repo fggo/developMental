@@ -147,15 +147,15 @@
               <a class="nav-link dropdown menu-item mt-1 mr-2 text-white" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fa fa-cog">&nbsp;<span class="text-secondary"><c:if test="${loginMember != null}">#${loginMember.no}</c:if></span></span>&nbsp;</a>
 
               <div class="dropdown-menu mt-1" aria-labelledby="dropdown01">
-                <a class="dropdown-item" href="${path }/collabo/detail.do"><i class="fa fa-align-justify">&nbsp;&nbsp;</i>Collabo Tool</a>
+                <a class="dropdown-item" href="${path }/collabo/detail.do?collaboNo=1"><i class="fa fa-align-justify">&nbsp;&nbsp;</i>Collabo Tool</a>
                 <a class="dropdown-item" href="${path }/mainView"><i class="fa fa-briefcase">&nbsp;&nbsp;</i>Job</a>
-                <a class="dropdown-item" href="${path }"><span class="fa fa-cog">&nbsp;&nbsp;</span>Settings</a>
-                <!-- 관리자메뉴 버튼 by ogc -->
-                <c:if test="${loginMember != null && loginMember.id eq 'admin'}">
-                  <a class="dropdown-item" href="${path }/admin/selectMemberList.do"><i class="fas fa-bell">&nbsp;&nbsp;</i>Admin Menu</a>
-                  <a class="dropdown-item" href="${path }/admin/adminMain"><i class="fas fa-bell">&nbsp;&nbsp;</i>Admin Main Test</a>
-          <!-- <button type="button" class="btn btn-sm btn-light mt-2 mr-1" onclick="adminMenu();" style="width: 80px;">관리</button> -->
-                </c:if>
+                <a class="dropdown-item" href="${path }"><i class="fa fa-cog">&nbsp;&nbsp;</i>Settings</a>
+              	<!-- 관리자메뉴 버튼 by ogc -->
+              	<c:if test="${loginMember != null && loginMember.id eq 'admin'}">
+              		<a class="dropdown-item" href="${path }/admin/selectMemberList.do"><i class="fas fa-bell">&nbsp;&nbsp;</i>Admin Menu</a>
+              		<a class="dropdown-item" href="${path }/admin/adminMain"><i class="fas fa-bell">&nbsp;&nbsp;</i>Admin Main Test</a>
+					<!-- <button type="button" class="btn btn-sm btn-light mt-2 mr-1" onclick="adminMenu();" style="width: 80px;">관리</button> -->
+              	</c:if>
 
               </div>
             </li>

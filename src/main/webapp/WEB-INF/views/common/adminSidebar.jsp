@@ -1,88 +1,57 @@
-<%@ page language="java" contentType="text/html;charset=utf-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<c:set var="path" value="${pageContext.request.contextPath}"/>
+<c:set var="path" value="${pageContext.request.contextPath}" />
 
-	<!-- adminSidebar CSS -->
-	<link rel="stylesheet" href="${path }/resources/css/adminSidebar.css">
-	<!-- Scrollbar Custom CSS -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="${path }/resources/css/sidebar.css">
+  <!-- Scrollbar Custom CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 
-<!-- Sidebar  -->
-<div class="wrapper">
-    <nav id="sidebar">
-        <div class="sidebar-header">
-            <h3>Bootstrap Sidebar</h3>
-            <strong>BS</strong>
-        </div>
-
-        <ul class="list-unstyled components">
-            <li class="active">
-                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                    <i class="fas fa-home"></i>
-                    Home
-                </a>
-                <ul class="collapse list-unstyled" id="homeSubmenu">
-                    <li>
-                        <a href="#">Home 1</a>
-                    </li>
-                    <li>
-                        <a href="#">Home 2</a>
-                    </li>
-                    <li>
-                        <a href="#">Home 3</a>
-                    </li>
-                </ul>
+  <!-- Sidebar  -->
+  <div class="d-flex">
+    <nav id="sidebar" class="p-0 flex-shrink-1">
+      <div class="sidebar-header">
+        <h3><a href="${path }/admin/adminMain">Admin Menu</a></h3>
+      </div>
+  
+        <p>Menus</p><!-- 안되면 위치 두칸아래로 -->
+      <ul class="list-unstyled components">
+        
+        <li class="active">
+          <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle sidebar-dropdown-toggle">Management</a>
+          <ul class="collapse list-unstyled" id="pageSubmenu">
+            <li>
+              <a href="${path }/admin/selectMemberList.do" id="">Member</a>
             </li>
             <li>
-                <a href="#">
-                    <i class="fas fa-briefcase"></i>
-                    About
-                </a>
-                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                    <i class="fas fa-copy"></i>
-                    Pages
-                </a>
-                <ul class="collapse list-unstyled" id="pageSubmenu">
-                    <li>
-                        <a href="#">Page 1</a>
-                    </li>
-                    <li>
-                        <a href="#">Page 2</a>
-                    </li>
-                    <li>
-                        <a href="#">Page 3</a>
-                    </li>
-                </ul>
+              <a href="${path }/admin/adminBoard" id="">Board</a>
             </li>
-        </ul>
-
+          </ul>
+          <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle sidebar-dropdown-toggle">Notice</a>
+          <ul class="collapse list-unstyled" id="pageSubmenu">
+            <li>
+              <a href="${path }/admin/noticeList" id="">Notice List</a>
+            </li>
+            <li>
+              <a href="${path }/admin/noticeInsert.do" id="">Notice Registration</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+  
+      <ul class="list-unstyled CTAs">
+        <li>
+          <a href="#" class="download">Dummy Btn1</a>
+        </li>
+        <li>
+          <a href="#" class="article">Dummy Btn2</a>
+        </li>
+      </ul>
     </nav>
-    <script>
-	    $(document).ready(function () {
-	
-	        $('#sidebarCollapse').on('click', function () {
-	            $('#sidebar').toggleClass('active');
-	        });
-	
-	    });
-    </script>
+  </div>
 
-    <!-- Page Content  -->
-    <div id="content">
-
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-
-                <button type="button" id="sidebarCollapse" class="btn btn-info">
-                    <i class="fas fa-align-left"></i>
-                    <span>Toggle Sidebar</span>
-                </button>
-            </div>
-        </nav>
-    </div>
-</div>
 

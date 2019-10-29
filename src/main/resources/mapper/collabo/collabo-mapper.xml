@@ -3,11 +3,13 @@
 <mapper namespace="collabo">
 	<insert id="createList" parameterType="map">
 		<selectKey keyProperty="listNo" resultType="_int" order="AFTER">
-			SELECT COLLABO_LIST_SEQ.NEXTVAL FROM DUAL
+			SELECT COLLABO_LIST_SEQ.CURRVAL FROM DUAL
 		</selectKey> 	
 		INSERT INTO COLLABO_LIST VALUES (DEFAULT,#{collaboNo},#{content},(
 			SELECT NO FROM MEMBER WHERE ID = #{userId}
-		),DEFAULT)
+		),DEFAULT,(
+			SELECT COUNT(*) FROM COLLABO_LIST WHERE COLLABONO = #{collaboNo}
+		)+1)
 	</insert>
 	
 	<select id="participation" parameterType="_int" resultType="map">
@@ -19,4 +21,41 @@
 	<select id="selectCollaboListOne" parameterType="_int" resultType="collaboList">
 		SELECT * FROM COLLABO_LIST WHERE LISTNO = #{target}
 	</select>
+	
+	<insert id="createCard" parameterType="map">
+		<selectKey keyProperty="cardNo" resultType="_int" order="AFTER">
+			SELECT COLLABO_CARD_SEQ.CURRVAL FROM DUAL
+		</selectKey>
+		INSERT INTO COLLABO_CARD VALUES (DEFAULT,#{listNo},(
+			SELECT NO FROM MEMBER WHERE ID = #{userId}
+		),#{content},DEFAULT,(
+			SELECT COUNT(*) FROM COLLABO_CARD WHERE LISTNO = #{listNo}
+		)+1)
+	</insert>
+	
+	<select id="selectCollaboLists" parameterType="_int" resultType="collaboList">
+		SELECT * FROM COLLABO_LIST WHERE COLLABONO = #{collaboNo} ORDER BY PLACENO ASC
+	</select> 
+	
+	<select id="selectCollaboCards" parameterType="_int" resultType="collaboCard">
+		SELECT * FROM COLLABO_CARD WHERE LISTNO IN (
+			SELECT LISTNO FROM COLLABO_LIST WHERE COLLABONO = #{collaboNo})
+		ORDER BY LISTNO ASC, PLACENO ASC
+	</select>
+	
+	<update id="moveCard" parameterType="map">
+			UPDATE COLLABO_CARD SET LISTNO = ${listNo}, PLACENO= (
+				SELECT COUNT(*) FROM COLLABO_CARD WHERE LISTNO = #{listNo}
+			) WHERE CARDNO = #{cardNo}
+	</update>
+	
+	<select id="selectCollaboMembers" resultType="member" parameterType="_int">
+		SELECT NO,ID,NICKNAME FROM MEMBER WHERE NO IN (
+			SELECT MEMBER FROM COLLABO_MEMBER WHERE NO = #{collaboNo}
+		)
+	</select>
+	
+	<update id="updateCard" parameterType="map">
+		UPDATE COLLABO_CARD SET CONTENT = #{content} WHERE CARDNO = #{cardNo}
+	</update>
 </mapper>
