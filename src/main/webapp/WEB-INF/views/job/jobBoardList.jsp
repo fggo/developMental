@@ -56,7 +56,7 @@
       <div class="card-body">
         <div class="media mb-2">
           <div class="media-body d-flex pl-3 my-0 py-0">
-            <div>
+            <div class="">
               <h3 class="card-title">Job list</h3>
               <h6 class="card-subtitle text-muted">Total of <b>0</b> listings</h6>
               <!-- search form -->
@@ -64,10 +64,12 @@
                 <input type="text" class="form-control form-control-sm" placeholder="Skill Keyword" id="skillTxt" required />
                 <input type="text" class="form-control form-control-sm mx-2" placeholder="Location" id="locTxt" required />
                 <button type="button" class="btn btn-outline-light text-dark border-dark" id="apiCallBtn" value="Search github">
-                  <i class="fa fa-github" aria-hidden="true"></i>&nbsp;Get API data
+                  <i class="fa fa-github" aria-hidden="true"></i>&nbsp;Call API data
                 </button>
 
               </div>
+            </div>
+            <div class="ml-auto">
               <a class="ml-auto mr-3 align-self-center btn float-left btn-outline-primary" href="javascript: ajaxJobPage('${path}/job/jobEnroll');">Write</a>
             </div>
 
@@ -134,14 +136,25 @@
     </div>
 
     <style>
+      td img {
+        height: 10px;
+        width: 50%;
+        object-fit: cover;
+      }
       td {
         max-width: 0;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        padding: 0px;
       }
       table { width:500px;table-layout:fixed; }
       table tr { height:1em;  }
+      /* table tr {
+        line-height: 25px;
+        min-height: 25px;
+        height: 25px;
+      } */
       @media (max-width: 768px) { /* use the max to specify at each container level */
         .job-title {    
           width:100px;  /* adjust to desired wrapping */

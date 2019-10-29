@@ -19,15 +19,35 @@
       margin-left: 190px;
       margin-top: 58px;
     }
+    @media (min-width: 576px) {
+      .card-columns {
+        column-count: 2;
+      }
+    }
+    @media (min-width: 768px) {
+      .card-columns {
+        column-count: 3;
+      }
+    }
+    @media (min-width: 992px) {
+      .card-columns {
+        column-count: 3;
+      }
+    }
+    @media (min-width: 1200px) {
+      .card-columns {
+        column-count: 4;
+      }
+    }
   </style>
 
   <main id="main-container" class="p-0 w-100">
     <div class="py-5">
       <div class="container">
         <div class="card-columns">
-          <div class="card">
+          <div class="card border-secondary">
             <div class="card-header bg-transparent p-0">
-              <img src="${path }/resources/images/cardpic.jpg" class="card-img-top" alt="...">
+              <img src="${path }/resources/images/interview.jpg" class="card-img-top" alt="...">
             </div>
             <div class="card-body">
               <h5 class="card-title">Job</h5>

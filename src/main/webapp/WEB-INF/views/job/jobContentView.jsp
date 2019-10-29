@@ -10,62 +10,64 @@
   <jsp:param name="pageTitle" value="Content" />
 </jsp:include>
 
+  <style>
+  </style>
+
   <div class="modal-content" id="jobmodal-content">
 
     <div class="modal-header">
-      <h4 class="modal-title" id="myModalLabel" id="jobmodalTitle"><img src="${path }/resources/images/icons8-open-box-48.png" width="40px" height="40px" alt="">&nbsp;<strong>Job Description </strong>${title}</h4>
+      <h4 class="modal-title" id="myModalLabel" id="jobmodalTitle"><img src="${path }/resources/images/icons8-open-box-48.png" class="" alt="">&nbsp;<strong>Job Description </strong>${title}</h4>
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="text-danger fa fa-times"></i></button>
     </div>
 
     <div class="modal-body container" id="jobmodal-body">
 
-      <div class="row">
+      <div class="row container">
         <table class="pull-left col-md-8">
           <tbody>
             <tr>
-              <td class="h6"><strong>NO.</strong></td> <td></td>
+              <td class="h6"><strong>NO.</strong></td>
               <td class="h5"><input type="text" name="no" id="no" class="form-control" value="${jobBoard.no}" readonly /></td>
             </tr>
             <tr>
-              <td class="h6"><strong>Writer</strong></td> <td></td>
+              <td class="h6"><strong>Writer</strong></td>
               <td class="h5">
                 <input type="text" name="writer" class="form-control" value="${jobBoard.writer}" readonly />
               </td>
             </tr> 
             <tr>
-              <td class="h6"><strong>Title</strong></td> <td></td>
+              <td class="h6"><strong>Title</strong></td>
               <td class="h5">
                 <input class="form-control" name="title" value="${jobBoard.title}" readonly />
               </td>
             </tr> 
             <tr>
-              <td class="h6"><strong>Reg. Date</strong></td> <td></td>
+              <td class="h6"><strong>Reg. Date</strong></td>
               <td class="h5">
                 <input type="text" name="regDate" class="form-control" value="${jobBoard.regDate}" readonly />
               </td>
             </tr> 
             <tr>
-              <td class="h6"><strong>Count</strong></td> <td></td>
+              <td class="h6"><strong>Count</strong></td>
               <td class="h5">
                 <input type="text" name="count" class="form-control" value="${jobBoard.count}" readonly />
               </td>
             </tr> 
             <tr>
-              <td class="h6"><strong>Status</strong></td> <td></td>
+              <td class="h6"><strong>Status</strong></td>
               <td class="h5">
                 <input type="text" name="status" class="form-control" value="${jobBoard.status}" readonly />
               </td>
             </tr> 
           </tbody>
         </table>
-        <div class="col-md-4"> 
+        <div class="col-md-4 container justify-content-center align-content-center"> 
           <c:choose>
             <c:when test='${imageURL != null}'>
               <img src="${imageURL}" class="img-fluid" alt="">
-              <!-- width="250px" height="190px" alt=""> -->
             </c:when>
             <c:otherwise>
-              <img src="${path}/resources/images/icons8-broken-robot-48.png" alt="">
+              <img src="${path}/resources/images/icons8-broken-robot-48.png" class="img-fluid" alt="">
             </c:otherwise>
           </c:choose>
         </div>
@@ -92,5 +94,10 @@
     </div>
 
   </div>
+  <script>
+    $(function(){
+      $('img').attr("")
+    });
+  </script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
