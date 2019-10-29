@@ -64,7 +64,7 @@ public class JobController {
   }
 
   @RequestMapping("/job/jobContentView.do")
-  public ModelAndView jobContentView(JobBoard j,
+  public ModelAndView jobContentView(JobBoard j, 
         @RequestParam(value="imageURL", required=false) String imageURL) {
 
     System.out.println(j);

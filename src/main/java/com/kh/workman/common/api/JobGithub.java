@@ -2,7 +2,6 @@ package com.kh.workman.common.api;
 
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.kh.workman.common.CustomJsonDateDeserializer;
 

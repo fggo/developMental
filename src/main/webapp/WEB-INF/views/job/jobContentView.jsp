@@ -21,9 +21,8 @@
     </div>
 
     <div class="modal-body container" id="jobmodal-body">
-
       <div class="row container">
-        <table class="pull-left col-md-8">
+        <table class="pull-left col-md-8 bg-transparent">
           <tbody>
             <tr>
               <td class="h6"><strong>NO.</strong></td>
@@ -61,13 +60,13 @@
             </tr> 
           </tbody>
         </table>
-        <div class="col-md-4 container justify-content-center align-content-center"> 
+        <div class="col-md-4 container card justify-content-center align-content-center"> 
           <c:choose>
             <c:when test='${imageURL != null}'>
               <img src="${imageURL}" class="img-fluid" alt="">
             </c:when>
             <c:otherwise>
-              <img src="${path}/resources/images/icons8-broken-robot-48.png" class="img-fluid" alt="">
+              <img src="${path}/resources/images/noimage.png" class="img-fluid" alt="">
             </c:otherwise>
           </c:choose>
         </div>
@@ -96,7 +95,8 @@
   </div>
   <script>
     $(function(){
-      $('img').attr("")
+      $('img').addClass('.justify-content-center.align-content-center');
+      $('#jobmodal-content').css({'handle':'','cursor':'move'});
     });
   </script>
 
