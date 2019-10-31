@@ -51,12 +51,32 @@ public class CollaboDaoImpl implements CollaboDao {
 
 	@Override
 	public List<Member> selectCollaboMembers(SqlSessionTemplate session, int collaboNo) {
-		return session.selectList("collabo.selectCollaboMembers",collaboNo);
+		return session.selectList("collabo.selectCollaboMembers", collaboNo);
 	}
 
 	@Override
 	public int updateCard(SqlSessionTemplate session, DataPacket receive) {
-		return session.update("collabo.updateCard",receive);
+		return session.update("collabo.updateCard", receive);
+	}
+
+	@Override
+	public int deleteCard(SqlSessionTemplate session, DataPacket receive) {
+		return session.delete("collabo.deleteCard", receive);
+	}
+
+	@Override
+	public int deleteList(SqlSessionTemplate session, DataPacket receive) {
+		return session.delete("collabo.deleteList", receive);
+	}
+
+	@Override
+	public int deleteListToCards(SqlSessionTemplate session, DataPacket receive) {
+		return session.delete("collabo.deleteListToCards", receive);
+	}
+
+	@Override
+	public int updateList(SqlSessionTemplate session, DataPacket receive) {
+		return session.delete("collabo.updateList", receive);
 	}
 
 }

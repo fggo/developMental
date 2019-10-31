@@ -40,10 +40,10 @@
 										<div class="dropdown-item">
 											<span style="text-align:center;margin-left:17px">List Actions</span>
 											<hr>
-											<button type="button" onclick="requestUpdateList(this)" class="btn btn-sm btn-primary">Edit</button>
+											<button type="button" class="btn btn-sm btn-primary">Edit</button>
 											<button type="button" onclick="requestDeleteList(this)" class="btn btn-sm btn-primary">Remove</button>
 										</div>
-								    </div>
+									</div>
 							</div>
 						<div id="listNo_${list.listNo }" name="listNo_${list.listNo }" class="list-cards"  ondrop="requestMoveCard(this,event)" ondragover="return false;">
 							<c:if test="${collaboCards != null }">
@@ -148,27 +148,6 @@
   
 </section>
 <script>
-function responseUpdateList(receive){
-	var targetList = $("#listNo_"+receive.listNo).parent().children().children('.list-title');
-	targetList.text(receive.content);
-}
-
-function requestUpdateList(target){
-	var listNo = $(target).parent().parent().parent().parent().children(".list-cards").attr("id").substring(7);
-	var content = prompt("Please enter the title of the list to modify");
-	sendData={
-		type :"list",
-		method :"update",
-		content : content,
-		listNo : listNo,
-		userId : userId,
-		collaboNo : collaboNo
-	};
-	sendMessage(sendData);
-}
-
-
-
 function requestDeleteList(target){
 	if(confirm("Are you Delete This List?")){
 		var targetList = $(target).parent().parent().parent().parent().children(".list-cards").attr("id").substring(7);
@@ -248,15 +227,13 @@ function sendMessage(sendData) {
 // 서버로부터 메시지를 받았을 때
 function onMessage(msg) {
       var receive = JSON.parse(msg.data);
+      console.log(receive);
       if(receive.type == 'list'){
     	  if(receive.method == 'create'){
     		  responseCreateList(receive);
     	  }
     	  if(receive.method == 'delete'){
     		  responseDeleteList(receive);
-    	  }
-    	  if(receive.method == 'update'){
-    		  responseUpdateList(receive);
     	  }
       }
       if(receive.type== 'card'){
@@ -267,7 +244,6 @@ function onMessage(msg) {
     		  responseMoveCard(receive);
     	  }
     	  if(receive.method == 'update'){
-    		  
     		  responseUpdateCard(receive);
     	  }
     	  if(receive.method == 'delete'){
@@ -284,14 +260,7 @@ function onClose(evt) {
 
 <script>
 function responseDeleteList(receive){
-	var list = $("#listNo_"+receive.listNo).parent().parent();
-	console.log(list.attr("class"));
-	if(list.attr("class")== 'list-wrapper'){
-		list.remove();
-	}
-	if(list.attr("class") == 'list-content'){
-		list.parent().remove();
-	}
+	
 }
 
 
@@ -398,6 +367,7 @@ function createWrapper(ele){
 	wrapper.append(content);
 	
 	
+	console.log(ele);
 	ele.append(wrapper);
 }
 
@@ -467,6 +437,7 @@ function requestCreateList(){
 function responseCreateList(receive){
 		var content = $("button[name=btn_cList]").parent().parent().parent();
 		var board = $("button[name=btn_cList]").parent().parent().parent().parent().parent().parent();
+		console.log(board);
 		content.empty();
 		
 		var listHeader = $('<div/>');
@@ -479,45 +450,7 @@ function responseCreateList(receive){
 		var btnMenu = $('<button>');
 		btnMenu.attr("type","button");
 		btnMenu.attr("class","fa fa-align-justify btn-menu");
-		btnMenu.attr("data-toggle","dropdown");
 		
-	    var dropMenu = $("<div/>");
-	    dropMenu.attr("class","dropdown-menu");
-	    
-	    var dropitem = $("<div/>");
-	    dropitem.attr("class","dropdown-item");
-	    
-	    var dropspan = $("<span/>");
-	    dropspan.text("List Actions");
-	    dropspan.css({
-	    	"text-align":"center;",
-	    	"margin-left" : "17px"
-	    });
-	    var hr = $("<hr/>");
-	    
-	    var btnEdit = $("<button/>");
-	    btnEdit.attr("type","button");
-	    btnEdit.attr("onclick","requestUpdateList(this)");
-	    btnEdit.attr("class","btn btn-sm btn-primary");
-	    btnEdit.css({
-	    	"margin-right":"3px"
-	    });
-	    btnEdit.text("Edit");
-	    
-	    var btnRemove = $("<button/>");
-	    btnRemove.attr("type","button");
-	    btnRemove.attr("onclick","requestDeleteList(this)");
-	    btnRemove.attr("class","btn btn-sm btn-primary");
-	    btnRemove.text("Remove");
-	    
-	    
-	    
-	    dropitem.append(dropspan);
-	    dropitem.append(hr);
-	    dropitem.append(btnEdit);
-	    dropitem.append(btnRemove);
-	    
-	    dropMenu.append(dropitem);
 		
 		var listCards = $('<div/>');
 		listCards.attr("class","list-cards");
@@ -539,7 +472,6 @@ function responseCreateList(receive){
 		
 		listHeader.append(listTitle);
 		listHeader.append(btnMenu);
-		listHeader.append(dropMenu);
 		
 		content.append(listHeader);
 		content.append(listCards);
@@ -581,6 +513,7 @@ function cardDrag(element, ev) {
 
 function cardDrop(element, ev) {
 	 var id = ev.dataTransfer.getData("text");
+	 console.log(id + " -> " + element.id);
 	 element.appendChild(document.getElementById(id));
 	 ev.preventDefault();
 }

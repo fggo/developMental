@@ -58,4 +58,20 @@
 	<update id="updateCard" parameterType="map">
 		UPDATE COLLABO_CARD SET CONTENT = #{content} WHERE CARDNO = #{cardNo}
 	</update>
+	
+	<delete id="deleteCard" parameterType="map">
+		DELETE COLLABO_CARD WHERE CARDNO = #{cardNo}
+	</delete>
+	
+	<delete id="deleteList" parameterType="map">
+		DELETE COLLABO_LIST WHERE LISTNO = #{listNo}
+	</delete>
+	
+	<delete id="deleteListToCards" parameterType="map">
+		DELETE COLLABO_CARD WHERE LISTNO = #{listNo}
+	</delete>
+	
+	<update id="updateList" parameterType="map">
+		UPDATE COLLABO_LIST SET TITLE = #{content} WHERE LISTNO = #{listNo}
+	</update>
 </mapper>
