@@ -12,19 +12,20 @@
   <typeAliases>
 
     <typeAlias type="com.kh.workman.common.ArrayTypeHandler" alias="arrType" />
+
     <typeAlias type="com.kh.workman.admin.model.vo.AdminMember" alias="adminMember" />
-	 <typeAlias type="com.kh.workman.member.model.vo.Member" alias="member"/>
-	 
-	 
-    <typeAlias type="com.kh.workman.job.model.vo.JobBoard" alias="jobBoard" />
+    <typeAlias type="com.kh.workman.member.model.vo.Member" alias="member"/>
+   
 
     <!-- Collabo -->
     <typeAlias type="com.kh.workman.collabo.model.vo.CollaboList" alias="collaboList" />
     <typeAlias type="com.kh.workman.collabo.model.vo.CollaboCard" alias="collaboCard" />
     <typeAlias type="com.kh.workman.collabo.model.vo.CollaboTool" alias="collaboTool" />
     <typeAlias type="com.kh.workman.collabo.model.vo.CollaboMember" alias="collaboMember" />
+
     <!-- Job -->
     <typeAlias type="com.kh.workman.job.model.vo.JobBoard" alias="jobBoard" />
+    <typeAlias type="com.kh.workman.job.model.vo.JobApply" alias="jobApply" />
  </typeAliases>
 
 </configuration>

@@ -21,61 +21,62 @@
     </div>
 
     <div class="modal-body container" id="jobmodal-body">
-      <div class="row container">
-        <table class="pull-left col-md-8 bg-transparent">
-          <tbody>
-            <tr>
-              <td class="h6"><strong>NO.</strong></td>
-              <td class="h5"><input type="text" name="no" id="no" class="form-control" value="${jobBoard.no}" readonly /></td>
-            </tr>
-            <tr>
-              <td class="h6"><strong>Writer</strong></td>
-              <td class="h5">
-                <input type="text" name="writer" class="form-control" value="${jobBoard.writer}" readonly />
-              </td>
-            </tr> 
-            <tr>
-              <td class="h6"><strong>Title</strong></td>
-              <td class="h5">
-                <input class="form-control" name="title" value="${jobBoard.title}" readonly />
-              </td>
-            </tr> 
-            <tr>
-              <td class="h6"><strong>Reg. Date</strong></td>
-              <td class="h5">
-                <input type="text" name="regDate" class="form-control" value="${jobBoard.regDate}" readonly />
-              </td>
-            </tr> 
-            <tr>
-              <td class="h6"><strong>Count</strong></td>
-              <td class="h5">
-                <input type="text" name="count" class="form-control" value="${jobBoard.count}" readonly />
-              </td>
-            </tr> 
-            <tr>
-              <td class="h6"><strong>Status</strong></td>
-              <td class="h5">
-                <input type="text" name="status" class="form-control" value="${jobBoard.status}" readonly />
-              </td>
-            </tr> 
-          </tbody>
-        </table>
-        <div class="col-md-4 container card justify-content-center align-content-center"> 
-          <c:choose>
-            <c:when test='${imageURL != null}'>
-              <img src="${imageURL}" class="img-fluid" alt="">
-            </c:when>
-            <c:otherwise>
-              <img src="${path}/resources/images/noimage.png" class="img-fluid" alt="">
-            </c:otherwise>
-          </c:choose>
+      <form action="" id="applyFrm">
+        <div class="row container">
+          <table class="pull-left col-md-8 bg-transparent">
+            <tbody>
+              <tr>
+                <td class="h6"><strong>NO.</strong></td>
+                <td class="h5"><input type="text" name="no" id="no" class="form-control" value="${jobBoard.no}" readonly /></td>
+              </tr>
+              <tr>
+                <td class="h6"><strong>Writer</strong></td>
+                <td class="h5">
+                  <input type="text" name="writer" class="form-control" value="${jobBoard.writer}" readonly />
+                </td>
+              </tr> 
+              <tr>
+                <td class="h6"><strong>Title</strong></td>
+                <td class="h5">
+                  <input class="form-control" name="title" value="${jobBoard.title}" readonly />
+                </td>
+              </tr> 
+              <tr>
+                <td class="h6"><strong>Reg. Date</strong></td>
+                <td class="h5">
+                  <input type="text" name="regDate" class="form-control" value="${jobBoard.regDate}" readonly />
+                </td>
+              </tr> 
+              <tr>
+                <td class="h6"><strong>Count</strong></td>
+                <td class="h5">
+                  <input type="text" name="count" class="form-control" value="${jobBoard.count}" readonly />
+                </td>
+              </tr> 
+              <tr>
+                <td class="h6"><strong>Status</strong></td>
+                <td class="h5">
+                  <input type="text" name="status" class="form-control" value="${jobBoard.status}" readonly />
+                </td>
+              </tr> 
+            </tbody>
+          </table>
+          <div class="col-md-4 container card justify-content-center align-content-center">
+            <c:choose>
+              <c:when test='${imageURL != null}'>
+                <img src="${imageURL}" class="img-fluid" id="companyLogo" alt="">
+              </c:when>
+              <c:otherwise>
+                <img src="${path}/resources/images/noimage.png" id="companyLogo" class="img-fluid" alt="">
+              </c:otherwise>
+            </c:choose>
+          </div>
         </div>
-      </div>
-      <!-- <p class="open_info hide">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p> -->
+      </form>
+
       <div>
         <h6><strong>Content</strong></h6>
         <textarea class="form-control h-50" rows='10' name="content" readonly>${jobBoard.content}</textarea>
-
       </div>
     </div>
 
@@ -89,7 +90,7 @@
         <span class="h3 text-muted"><strong>$30,000</strong></span>
       </div>
       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      <button type="button" class="btn btn-primary">Apply Now</button>
+      <button type="button" class="btn btn-primary" id="applyBtn">Apply Now</button>
     </div>
 
   </div>
@@ -97,6 +98,13 @@
     $(function(){
       $('img').addClass('.justify-content-center.align-content-center');
       $('#jobmodal-content').css({'handle':'','cursor':'move'});
+
+      $('#applyBtn').click(function(){
+        var frm = $('#applyFrm');
+        frm.attr({ "method": "POST",
+                   "action": "${path}/job/applyJob"})
+        $('#applyFrm').submit();
+      });
     });
   </script>
 

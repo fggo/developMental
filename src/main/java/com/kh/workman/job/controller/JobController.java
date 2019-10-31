@@ -83,6 +83,12 @@ public class JobController {
     
     return mv;
   }
+  @RequestMapping("/job/applyJob.do")
+  public ModelAndView applyJob() {
+    ModelAndView mv = new ModelAndView();
+    
+    return mv;
+  }
   
   @RequestMapping("/job/jobEnroll")
   public ModelAndView jobEnrollView() {
