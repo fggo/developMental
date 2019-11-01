@@ -12,15 +12,15 @@ public class LoggerInterceptor extends HandlerInterceptorAdapter {
   private Logger logger=LoggerFactory.getLogger(LoggerInterceptor.class);
 
   //전 처리용 매소드
-//  @Override
-//  public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-//    // TODO Auto-generated method stub
-//    logger.debug("======================start======================");
-//    logger.debug(request.getRequestURI());
-//    logger.debug("-------------------------------------------------");
-//
-//    return super.preHandle(request, response, handler);
-//  }
+  @Override
+  public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    // TODO Auto-generated method stub
+    logger.debug("======================start======================");
+    logger.debug(request.getRequestURI());
+    logger.debug("-------------------------------------------------");
+
+    return super.preHandle(request, response, handler);
+  }
   
 //  후 처리용 매소드
 //  @Override

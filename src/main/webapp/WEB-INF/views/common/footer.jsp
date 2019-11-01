@@ -16,81 +16,79 @@
     
   </style>
 
-  <footer class="my-0 py-3 bg-dark " id="common-footer">
-    <div class="container row">
-      <div class="col-6 col-md">
-        <a class="navbar-brand " href="${path}" >
-          <img src="${path}/resources/images/icons8-broken-robot-48.png">
-        </a>
-        <small class="d-block mb-3 text-secondary">&copy; 2019.11</small>
-      </div>
-      <div class="col-6 col-md">
-        <p class='h5 text-secondary'>District</p>
-        <ul class="list-unstyled text-small">
-          <li><a class="text-secondary" href="#">Seocho-gu</a></li>
-          <li><a class="text-secondary" href="#">Seodaemun-gu</a></li>
-          <li><a class="text-secondary" href="#">Seongbuk-gu</a></li>
-          <li><a class="text-secondary" href="#">Seongdong-gu</a></li>
-          <li><a class="text-secondary" href="#">Songpa-gu</a></li>
-          <li><a class="text-secondary" href="#">Yangcheon-gu</a></li>
-        </ul>
-      </div>
-      <div class="col-6 col-md">
-        <p class='h5 text-secondary'>Help</p>
-        <ul class="list-unstyled text-small">
-          <li><a class="text-secondary" href="#">Resource</a></li>
-          <li><a class="text-secondary" href="#">Resource name</a></li>
-          <li><a class="text-secondary" href="#">Another resource</a></li>
-          <li><a class="text-secondary" href="#">Final resource</a></li>
-        </ul>
-      </div>
-      <div class="col-6 col-md">
-        <p class='h5 text-secondary'>About Us</p>
-        <ul class="list-unstyled text-small">
-          <li><a class="text-secondary" href="#">Team</a></li>
-          <li><a class="text-secondary" href="#">Locations</a></li>
-          <li><a class="text-secondary" href="#">Privacy</a></li>
-          <li><a class="text-secondary" href="#">Terms</a></li>
-        </ul>
-      </div>
-      <div class="col-6 col-md">
-        <p class='h5 text-secondary'>Contact Us</p>
-        <ul class="list-unstyled text-small">
-          <li><a class="text-secondary" href="#">010-1234-1234</a></li>
-          <li><a class="text-secondary" href="#">120 East 12th Street, Manhattan, 1003, NY USA</a></li>
-          <li>
-            <div class="row social-list">
-              <div class="col-sm-3 col-xs-2 col-sm-offset-0 col-xs-offset-2 px-0">
-                <a href="" class="">
-                  <span class="fa-stack fa-lg text-secondary" href="">
-                    <i class="fa fa-linkedin fa-stack-1x"></i>
-                  </span>
-                </a>
+
+  <footer class="my-0 pt-5 pb-0" id="common-footer">
+    <div class="container py-0">
+      <div class="row">
+        <div class="col-md">
+          <div class="col-md">
+            <p class='h5 text-secondary'>
+              <a class="navbar-brand " href="${path}" >
+                <img src="${path}/resources/images/icons8-broken-robot-48.png">
+                <small class="d-block mb-3 text-secondary">&copy; 2019.11</small>
+              </a>
+            </p>
+            <ul class="list-unstyled text-small">
+            </ul>
+          </div>
+        </div>
+        <div class="col-3 col-md">
+          <p class='h5 text-secondary'>Help</p>
+          <ul class="list-unstyled text-small">
+            <li><a class="text-secondary" href="#">Resource</a></li>
+            <li><a class="text-secondary" href="#">Resource name</a></li>
+            <li><a class="text-secondary" href="#">Another resource</a></li>
+            <li><a class="text-secondary" href="#">Final resource</a></li>
+          </ul>
+        </div>
+        <div class="col-3 col-md">
+          <p class='h5 text-secondary'>About Us</p>
+          <ul class="list-unstyled text-small">
+            <li><a class="text-secondary" href="#">Team</a></li>
+            <li><a class="text-secondary" href="#">Locations</a></li>
+            <li><a class="text-secondary" href="#">Privacy</a></li>
+            <li><a class="text-secondary" href="#">Terms</a></li>
+          </ul>
+        </div>
+        <div class="col-3 col-md">
+          <p class='h5 text-secondary'>Contact Us</p>
+          <ul class="list-unstyled text-small">
+            <li><a class="text-secondary" href="#">010-1234-1234</a></li>
+            <li><a class="text-secondary" href="#">120 East 12th Street, Manhattan, 1003, NY USA</a></li>
+            <li>
+              <div class="row social-list">
+                <div class="col-sm-3 col-xs-2 col-sm-offset-0 col-xs-offset-2 px-0">
+                  <a href="" class="">
+                    <span class="fa-stack fa-lg text-secondary" href="">
+                      <i class="fa fa-linkedin fa-stack-1x"></i>
+                    </span>
+                  </a>
+                </div>
+                <div class="col-sm-3 col-xs-2 px-0">
+                  <a href="" class="">
+                    <span class="fa-stack fa-lg text-secondary">
+                      <i class="fa fa-instagram fa-stack-1x"></i>
+                    </span>
+                  </a>
+                </div>
+                <div class="col-sm-3 col-xs-2 px-0">
+                  <a href="" class="">
+                    <span class="fa-stack fa-lg text-secondary">
+                      <i class="fa fa-twitter fa-stack-1x"></i>
+                    </span>
+                  </a>
+                </div>
+                <div class="col-sm-3 col-xs-2 px-0">
+                  <a href="" class="">
+                    <span class="fa-stack fa-lg text-secondary">
+                      <i class="fa fa-facebook-official fa-stack-1x"></i>
+                    </span>
+                  </a>
+                </div>
               </div>
-              <div class="col-sm-3 col-xs-2 px-0">
-                <a href="" class="">
-                  <span class="fa-stack fa-lg text-secondary">
-                    <i class="fa fa-instagram fa-stack-1x"></i>
-                  </span>
-                </a>
-              </div>
-              <div class="col-sm-3 col-xs-2 px-0">
-                <a href="" class="">
-                  <span class="fa-stack fa-lg text-secondary">
-                    <i class="fa fa-twitter fa-stack-1x"></i>
-                  </span>
-                </a>
-              </div>
-              <div class="col-sm-3 col-xs-2 px-0">
-                <a href="" class="">
-                  <span class="fa-stack fa-lg text-secondary">
-                    <i class="fa fa-facebook-official fa-stack-1x"></i>
-                  </span>
-                </a>
-              </div>
-            </div>
-          </li>
-        </ul>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </footer>

@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:security="http://www.springframework.org/schema/security"
-	xmlns:aop="http://www.springframework.org/schema/aop"
-	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-5.0.xsd
-		
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:security="http://www.springframework.org/schema/security"
+  xmlns:aop="http://www.springframework.org/schema/aop"
+  xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-5.0.xsd
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
   
   <!-- root-context.xml
     defines shared resources visible to all other web components.
-    root-context.xml 은 스프링 돌아가는데 필요한거 다 담고 있다
-    스프링은 객체들에 의해 돌아간다. 여기에 디비에 대한 설정이 들어간다.
+    root-context.xml 은 스프링 돌아가는데 필요한것을  담고 있음
+        스프링은 객체들에 의해 돌아간다. 여기에 디비에 대한 설정이 들어간다.
   -->
   <!-- DB JDBC MYBATIS 설정 (pom.xml에서 필요한 resource 저장해놓음) jar file -> dependency 등록 -->
   <!-- mybatis-config.xml을 spring에 맞게 수정.
@@ -26,7 +25,7 @@
     <!-- <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/> -->
     <property name="username" value="workman"/>
     <property name="password" value="workman"/>
-  </bean>																						
+  </bean>                                            
 
   <!-- Mybatis에서 SqlSession 객체를 생성하는 FactoryBean 을 springbean으로 등록 
     Mybatis Spring jar파일에 있는 객체를 씀 객체생성 멤버변수로 BasicDataSource -->
@@ -43,7 +42,7 @@
   
 <!-- <bean id="collaboHandler" class="com.kh.workman.collabo.controller.CollaboHandler"/>
   <websocket:handlers>
-  	<websocket:mapping handler="collaboHandler" path="/collabo/soc"/>
-   	<websocket:sockjs/> 
+    <websocket:mapping handler="collaboHandler" path="/collabo/soc"/>
+     <websocket:sockjs/> 
   </websocket:handlers> -->
 </beans> 

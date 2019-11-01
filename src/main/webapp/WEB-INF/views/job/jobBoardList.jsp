@@ -127,41 +127,43 @@
             </tbody>
           </c:if>
         </table>
-        <table class="table table-sm table-hover jobmodal-tbl1" style="font-size:14px;">
-          <thead>
-            <tr>
-              <th class="text-center">NO.</th>
-              <th class="text-center">Writer</th>
-              <th class="text-center">Title</th>
-              <th class="text-center">Content</th>
-              <th class="text-center">RegDate</th>
-              <th class="text-center">Count</th>
-              <!-- <th class="text-center">Status</th> -->
-              <th class="text-center">
-                <img src="${path}/resources/images/icons8-queue-48.png" width="33px" height="33px" alt="">
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <c:forEach var="j" items="${list}" varStatus="status">
-              <tr class="">
-                <!-- job lists not registered(inserted) in the Workman's database-->
-                <td class="text-center">${j['NO']}</td>
-                <td class="text-center">${j['WRITER']}</td>
-                <td class="text-center job-title">${j['TITLE']}</td>
-                <td>${j['CONTENT']}</td>
-                <!-- <td class="text-center"><fmt:formatDate value="${j['REGDATE']}" pattern="yy-MM-dd" /></td> -->
-                <td class="text-center">${j['REGDATE']}</td>
-
-                <td class="text-center">${j['COUNT']}</td>
-                <!-- <td class="text-center">${j['STATUS']}</td> -->
-                <td class="text-center">${j['APPLICANTS']}</td>
+        <div id="databaseJobBoardList">
+          <table class="table table-sm table-hover jobmodal-tbl1" style="font-size:14px;">
+            <thead>
+              <tr>
+                <th class="text-center">NO.</th>
+                <th class="text-center">Writer</th>
+                <th class="text-center">Title</th>
+                <th class="text-center">Content</th>
+                <th class="text-center">RegDate</th>
+                <th class="text-center">Count</th>
+                <!-- <th class="text-center">Status</th> -->
+                <th class="text-center">
+                  <img src="${path}/resources/images/icons8-queue-48.png" width="33px" height="33px" alt="">
+                </th>
               </tr>
-            </c:forEach>
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              <c:forEach var="j" items="${list}" varStatus="status">
+                <tr class="">
+                  <!-- job lists not registered(inserted) in the Workman's database-->
+                  <td class="text-center">${j['NO']}</td>
+                  <td class="text-center">${j['WRITER']}</td>
+                  <td class="text-center job-title">${j['TITLE']}</td>
+                  <td>${j['CONTENT']}</td>
+                  <!-- <td class="text-center"><fmt:formatDate value="${j['REGDATE']}" pattern="yy-MM-dd" /></td> -->
+                  <td class="text-center">${j['REGDATE']}</td>
+  
+                  <td class="text-center">${j['COUNT']}</td>
+                  <!-- <td class="text-center">${j['STATUS']}</td> -->
+                  <td class="text-center">${j['APPLICANTS']}</td>
+                </tr>
+              </c:forEach>
+            </tbody>
+          </table>
+        </div>
         <small class="d-block text-right mt-3"><a href="#">All updates</a></small>
-        <nav aria-label="Page navigation example">
+        <nav aria-label="Page navigation example" id="pageBar">
           <!-- <ul class="pagination justify-content-center"> -->
             ${pageBar}
           <!-- </ul> -->
@@ -331,6 +333,9 @@
 
           githubData = {};
 
+          console.log(tds.eq(0).text());
+          console.log(tds.eq(0).text().trim());
+          console.log(typeof tds.eq(0).text().trim());
           githubData["no"]= (tds.eq(0).text()).trim() ==""? 0:no;
           githubData["writer"]= tds.eq(1).text();
           githubData["title"]= tds.eq(2).text();

@@ -45,21 +45,23 @@
     <div class="py-5">
       <div class="container">
         <div class="card-columns">
-          <div class="card">
-            <div class="card-header bg-transparent p-0">
-              <img src="${path }/resources/images/hire.jpg" class="card-img-top" alt="...">
-            </div>
-            <div class="card-body">
-              <h5 class="card-title">Company</h5>
-              <p class="card-text">Recruiting Now!</p>
-            </div>
-            <div class="card-footer bg-transparent text-center">
-              <a class="btn btn-sm btn-outline-dark stretched-link" href="javascript: ajaxJobPage('${path }/job/jobBoardList');">Recruit</a>
+          <div class="card text-center">
+            <img src="${path }/resources/images/hire.jpg" class="card-img-top" alt="...">
+            <div class="card-body pb-0 pt-3">
+              <h5 class="card-title">Job list</h5>
+              <!-- <p class="card-text">Card text.</p> -->
+              <p class="card-text mb-0"><small class="text-muted">Korean job market is Open Now!</small></p>
+              <a class="btn btn-sm btn-outline-dark my-2 stretched-link" href="javascript: ajaxJobPage('${path }/job/jobBoardList');">Recruit</a>
             </div>
           </div>
           <div class="card text-center">
             <img src="${path}/resources/images/apply.jpg" class="card-img-top" alt="...">
-            <a class="btn btn-sm btn-outline-dark my-2 stretched-link" href="javascript: ajaxJobPage('${path }/job/jobApplyList');">Apply</a>
+            <div class="card-body pb-0 pt-3">
+              <h5 class="card-title">Dream Big</h5>
+              <!-- <p class="card-text">Card text.</p> -->
+              <p class="card-text mb-0"><small class="text-muted">Apply for companies from all over the World&nbsp;&nbsp;<i class="fa fa-plane"></i></small></p>
+              <a class="btn btn-sm btn-outline-dark my-2 stretched-link" href="javascript: ajaxJobPage('${path }/job/jobApplyList');">Apply</a>
+            </div>
           </div>
           <div class="card p-3">
             <blockquote class="blockquote mb-0 card-body">

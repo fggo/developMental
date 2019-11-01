@@ -59,4 +59,21 @@
         },
       });
     }
+    function ajaxJobBoardPagination(mapping){
+      $.ajax({
+        type: "POST",
+        url:mapping,
+        dataType: "html",
+        success: function(data){
+          html = $('<div>').html(data);
+          $('#databaseJobBoardList').html(html.find('.jobmodal-tbl1'));
+          $('#pageBar').html(html.find('#pageBar'));
+
+        },
+        error: function(status, msg){
+          alert('ajax error!');
+        },
+      });
+
+    }
   </script>

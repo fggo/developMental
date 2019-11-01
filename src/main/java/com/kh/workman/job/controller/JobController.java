@@ -3,17 +3,16 @@ package com.kh.workman.job.controller;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.workman.common.PageBarFactory;
+import com.kh.workman.common.api.JobGithubApi;
+import com.kh.workman.job.model.service.JobService;
+import com.kh.workman.job.model.vo.JobBoard;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.kh.workman.common.PageBarFactory;
-import com.kh.workman.common.api.JobGithubApi;
-import com.kh.workman.job.model.service.JobService;
-import com.kh.workman.job.model.vo.JobBoard;
-import com.kh.workman.member.model.vo.Member;
 
 @Controller
 public class JobController {
@@ -84,7 +83,29 @@ public class JobController {
     return mv;
   }
   @RequestMapping("/job/applyJob.do")
-  public ModelAndView applyJob() {
+  public ModelAndView applyJob(JobBoard j) {
+//  private String id; //DEFAULT
+//  private String type; content.indexOf("Ⅰ Ⅱ Ⅲ Ⅳ Ⅴ");
+    String type = j.getContent().substring(j.getContent().indexOf("Ⅰ"), j.getContent().indexOf("Ⅱ"));
+    String location = j.getContent().substring(j.getContent().indexOf("Ⅱ"), j.getContent().indexOf("Ⅲ"));
+    String description = j.getContent().substring(j.getContent().indexOf("Ⅲ"), j.getContent().indexOf("Ⅳ"));
+    String howToApply = j.getContent().substring(j.getContent().indexOf("Ⅳ"), j.getContent().indexOf("Ⅴ"));
+
+    System.out.println(type.substring(0,20));
+    System.out.println(location.substring(0,20));
+    System.out.println(description.substring(0,20));
+    System.out.println(howToApply.substring(0,20));
+
+//  private String url;
+//  private Date createdAt;
+//  private String company;
+//  private String companyUrl;
+//  private String location;
+//  private String title;
+//  private String description;
+//  private String howToApply;
+//  private String companyLogo;
+
     ModelAndView mv = new ModelAndView();
     
     return mv;

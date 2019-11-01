@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
-  <!-- Appender : console에 찍음-->
+
+  <!-- 1. Appender 태그 : console에 찍음. log출력에 대한 환경설정하는 태그.
+              로그를 어디로 출력을 할지 [콘솔/파일/DB] -->
   <appender name="console" class="org.apache.log4j.ConsoleAppender">
     <param name="Target" value="System.out" />
     <!-- 로그가 찍히는 형식 -->
@@ -13,22 +15,23 @@
     <!-- <layout class="org.apache.log4j.xml.XMLLayout"></layout> -->
   </appender>
 
-  <!-- Appender : 파일에 로그 찍기 다른Append를 이용하면됨 -> DailyRollingFileAppender -->
+  <!-- 파일에 로그 찍기 다른Append를 이용하면됨 -> DailyRollingFileAppender -->
   <appender name="filelogger" class="org.apache.log4j.DailyRollingFileAppender">
-   <!--  <param name="file" value="C://logs//spring//spring.log" /> -->
-    <!-- determine log append / replace -->
+    <!--  <param name="file" value="C://logs//spring//spring.log" /> -->
+    <!-- determine log append or replace -->
     <param name="Append" value="true" />
     <param name="dataPattern" value=".yyyy-MM-dd" />
     <layout class="org.apache.log4j.PatternLayout">
-        <param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss}] %-5p: %l - %m%n" />
+      <param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss}] %-5p: %l - %m%n" />
     </layout>
   </appender>
 
-  <!-- Application Loggers -->
+  <!-- 2. Application Loggers
+        어느 부분에서 어떤 단계에서 Appender를 실행 할 지 결정 -->
   <logger name="com.kh.workman">
-    <!-- <level value="info" /> -->
     <level value="debug" />
-    <!-- name에 해당 하는 패키지의 모든 로그가 level INFO이상의 로그를 찍음
+    <!-- <level value="info" /> -->
+    <!-- name(com.kh.workman)에 해당 하는 패키지의 모든 로그가 level INFO이상의 로그를 찍음
             TRACE
             DEBUG(개발시 사용하는 로그들)
             INFO(RUNTIME 중 상태변경, 정보성 메시지를 담을때)
@@ -57,11 +60,11 @@
   </logger>
 
   <!-- Root Logger -->
+  <!-- 3. Root 태그 : 기본적용 Logger [부모; 최상위 객체] -->
   <root>
     <priority value="warn" />
     <appender-ref ref="console" />
     <appender-ref ref="filelogger" />
   </root>
-
 
 </log4j:configuration>

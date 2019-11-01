@@ -102,9 +102,4 @@ public class JobGithubApi {
 
     return newList;
   }
-  
-  public static void main(String[] args) {
-    JobGithubApi.jobsGithubApi("java", "Los Angeles", 1);
-  }
-
 }

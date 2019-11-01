@@ -12,6 +12,7 @@ classes/
 *~.nib
 config.properties
 local.properties
+s3cr3tk3y.properties
 #.settings/
 #.loadpath
 #.recommenders

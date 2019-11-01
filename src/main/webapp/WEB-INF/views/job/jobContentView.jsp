@@ -90,21 +90,22 @@
         <span class="h3 text-muted"><strong>$30,000</strong></span>
       </div>
       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      <button type="button" class="btn btn-primary" id="applyBtn">Apply Now</button>
+      <button type="button" class="btn btn-primary" id="applyBtn" onclick="apply();">Apply Now</button>
     </div>
 
   </div>
   <script>
+    function apply(){
+      alert("hello");
+      var frm = $('#applyFrm');
+      frm.attr({ "method": "POST",
+                  "action": "${path}/job/applyJob.do"})
+      $('#applyFrm').submit();
+    }
     $(function(){
       $('img').addClass('.justify-content-center.align-content-center');
       $('#jobmodal-content').css({'handle':'','cursor':'move'});
 
-      $('#applyBtn').click(function(){
-        var frm = $('#applyFrm');
-        frm.attr({ "method": "POST",
-                   "action": "${path}/job/applyJob"})
-        $('#applyFrm').submit();
-      });
     });
   </script>
 

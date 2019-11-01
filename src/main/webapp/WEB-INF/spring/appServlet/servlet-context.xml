@@ -33,7 +33,11 @@
     </interceptor>
   </interceptors>
   
-  <beans:bean id="jacksonMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+  <!-- jackson -->
+  <beans:bean id="jacksonMessageConverter"
+      class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+
+  <!-- jackson handler -->
   <beans:bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
   	<beans:property name="messageConverters">
   		<beans:list>
