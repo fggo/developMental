@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<c:set var="path" value="<%=request.getContextPath()%>"/>
+<%-- <c:set var="path" value="<%=request.getContextPath()%>"/> --%>
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="pageTitle" value=""/>
 </jsp:include>
@@ -22,8 +22,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> 
 <section class="container-fluid" id="content">
 	<div class="row collabo-header" >
-		<span style="font-size:18px;color:white;font-weight:bold;">대충 트렐로 메뉴</span>
-		<button type="button" data-toggle="modal" data-target="#cardModal">모달테스트</button>
 	</div>
 	<div class="board" >
 		<c:if test="${loginMember != null}">
@@ -258,21 +256,6 @@ function requestUpdateCard(target){
 	sendMessage(sendData);
 }
 
-var userId =  "${loginMember.id}";
-var collaboNo = 1;
-let sock = new SockJS("<c:url value="/collabo/soc"/>");
-sock.onmessage = onMessage;
-sock.onclose = onClose;
-
-sock.onopen = function(){
-	var sendData ={
-		type : "connect",
-		userId : userId,
-		collaboNo : collaboNo
-	};
-	sendMessage(sendData);
-}
-
 // 메시지 전송
 function sendMessage(sendData) {
 /* 	var sendData = {
@@ -301,6 +284,9 @@ function onMessage(msg) {
     	  if(receive.method == 'update'){
     		  responseUpdateList(receive);
     	  }
+        if(receive.method == 'move'){
+          responseMoveList(receive);
+        }
       }
       if(receive.type== 'card'){
     	  if(receive.method == 'create'){
@@ -326,9 +312,17 @@ function onClose(evt) {
 </script>
 
 <script>
+function responseMoveList(receive){
+  var listNo = $("#listNo_"+receive.listNo); 
+  var wrapper = $("#listNo_"+receive.targetNo).parent().parent();
+  
+  listNo.parent().parent().append(wrapper.children());
+  wrapper.append(listNo.parent());
+  
+}
+
 function responseDeleteList(receive){
 	var list = $("#listNo_"+receive.listNo).parent().parent();
-	console.log(list.attr("class"));
 	if(list.attr("class")== 'list-wrapper'){
 		list.remove();
 	}
@@ -509,7 +503,7 @@ function requestCreateList(){
 }
 
 function responseCreateList(receive){
-		var content = $("button[name=btn_cList]").parent().parent().parent();
+		var content = $("button[name=btn_cList]").parent().parent().parent().parent();
 		var board = $("button[name=btn_cList]").parent().parent().parent().parent().parent().parent();
 		content.empty();
 		
@@ -618,7 +612,6 @@ function responseMoveCard(receive){
 	var listNo = receive.listNo+"";
 	var cardNo = receive.cardNo+"";
 	
-	/* $("#listNo").append(document.getElementById(cardNo)); */
 	document.getElementById("listNo_"+listNo).appendChild(document.getElementById("cardNo_"+cardNo));
 }
 

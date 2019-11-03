@@ -79,4 +79,14 @@ public class CollaboDaoImpl implements CollaboDao {
 		return session.delete("collabo.updateList", receive);
 	}
 
+	@Override
+  public int moveList(SqlSessionTemplate session, DataPacket receive) {
+    return session.update("collabo.moveList", receive);
+  }
+
+  @Override
+  public int searchListPlaceNo(SqlSessionTemplate session, DataPacket receive) {
+    return session.selectOne("collabo.searchListPlaceNo", receive);
+  }
+
 }

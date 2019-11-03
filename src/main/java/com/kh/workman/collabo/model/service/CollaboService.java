@@ -36,4 +36,7 @@ public interface CollaboService {
 
 	int updateList(DataPacket receive);
 
+	int moveList(DataPacket receive);
+
+  int searchListPlaceNo(DataPacket receive);
 }

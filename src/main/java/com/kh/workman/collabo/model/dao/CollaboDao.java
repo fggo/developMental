@@ -38,4 +38,7 @@ public interface CollaboDao {
 
 	int updateList(SqlSessionTemplate session, DataPacket receive);
 
+	int moveList(SqlSessionTemplate session, DataPacket receive);
+
+  int searchListPlaceNo(SqlSessionTemplate session, DataPacket receive);
 }

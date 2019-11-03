@@ -85,4 +85,14 @@ public class CollaboServiceImpl implements CollaboService {
 	public int updateList(DataPacket receive) {
 		return dao.updateList(session, receive);
 	}
+	
+	@Override
+  public int moveList(DataPacket receive) {
+    return dao.moveList(session, receive);
+  }
+
+  @Override
+  public int searchListPlaceNo(DataPacket receive) {
+    return dao.searchListPlaceNo(session, receive);
+  }
 }
