@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%-- <c:set var="path" value="<%=request.getContextPath()%>"/> --%>
+<c:set var="path" value="<%=request.getContextPath()%>"/>
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="pageTitle" value=""/>
 </jsp:include>
@@ -22,6 +22,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> 
 <section class="container-fluid" id="content">
 	<div class="row collabo-header" >
+		<span style="font-size:18px;color:white;font-weight:bold;">대충 트렐로 메뉴</span>
+		<button type="button" data-toggle="modal" data-target="#cardModal">모달테스트</button>
 	</div>
 	<div class="board" >
 		<c:if test="${loginMember != null}">
@@ -323,6 +325,7 @@ function responseMoveList(receive){
 
 function responseDeleteList(receive){
 	var list = $("#listNo_"+receive.listNo).parent().parent();
+	console.log(list.attr("class"));
 	if(list.attr("class")== 'list-wrapper'){
 		list.remove();
 	}
@@ -503,7 +506,7 @@ function requestCreateList(){
 }
 
 function responseCreateList(receive){
-		var content = $("button[name=btn_cList]").parent().parent().parent().parent();
+		var content = $("button[name=btn_cList]").parent().parent().parent();
 		var board = $("button[name=btn_cList]").parent().parent().parent().parent().parent().parent();
 		content.empty();
 		
@@ -612,6 +615,7 @@ function responseMoveCard(receive){
 	var listNo = receive.listNo+"";
 	var cardNo = receive.cardNo+"";
 	
+	/* $("#listNo").append(document.getElementById(cardNo)); */
 	document.getElementById("listNo_"+listNo).appendChild(document.getElementById("cardNo_"+cardNo));
 }
 
