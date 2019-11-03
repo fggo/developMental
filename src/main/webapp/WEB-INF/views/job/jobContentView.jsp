@@ -10,18 +10,14 @@
   <jsp:param name="pageTitle" value="Content" />
 </jsp:include>
 
-  <style>
-  </style>
-
   <div class="modal-content" id="jobmodal-content">
-
     <div class="modal-header">
       <h4 class="modal-title" id="myModalLabel" id="jobmodalTitle"><img src="${path }/resources/images/icons8-open-box-48.png" class="" alt="">&nbsp;<strong>Job Description </strong>${title}</h4>
-      <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="text-danger fa fa-times"></i></button>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="text-danger fa fa-times"></i></button>
     </div>
 
     <div class="modal-body container" id="jobmodal-body">
-      <form action="" id="applyFrm">
+      <form action="${path}/job/jobApply" id="applyFrm" method="get">
         <div class="row container">
           <table class="pull-left col-md-8 bg-transparent">
             <tbody>
@@ -44,7 +40,7 @@
               <tr>
                 <td class="h6"><strong>Reg. Date</strong></td>
                 <td class="h5">
-                  <input type="text" name="regDate" class="form-control" value="${jobBoard.regDate}" readonly />
+                  <!-- <input type="date" name="regDate" class="form-control" value="${jobBoard.regDate}" readonly /> -->
                 </td>
               </tr> 
               <tr>
@@ -70,41 +66,64 @@
                 <img src="${path}/resources/images/noimage.png" id="companyLogo" class="img-fluid" alt="">
               </c:otherwise>
             </c:choose>
+            <input type="hidden" id="imageURL" name="imageURL" value="" />
           </div>
         </div>
+
+        <div>
+          <h6><strong>Content</strong></h6>
+          <textarea class="form-control h-50" rows='10' name="content" readonly>${jobBoard.content}</textarea>
+        </div>
+        <hr>
+        <!-- <input id="applyBtn" type="submit" class="btn btn-primary" value="Apply Now" /> -->
+        <button type="submit" class="btn btn-primary" id="applyBtn">Apply Now</button>
       </form>
-
-      <div>
-        <h6><strong>Content</strong></h6>
-        <textarea class="form-control h-50" rows='10' name="content" readonly>${jobBoard.content}</textarea>
-      </div>
     </div>
-
+      
     <div class="modal-footer">
-      <div class="text-right pull-right col-md-3">
-        Employee<br/> 
-        <span class="h3 text-muted"><strong> 77 </strong></span></span> 
+      <div class="text-right pull-right col-md-3">Employee<br/> 
+        <span class="h3 text-muted"><strong> 77 </strong></span>
       </div> 
       <div class="text-right pull-right col-md-3">
         Avg. Salary <br/> 
         <span class="h3 text-muted"><strong>$30,000</strong></span>
       </div>
       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      <button type="button" class="btn btn-primary" id="applyBtn" onclick="apply();">Apply Now</button>
     </div>
-
   </div>
+
+
   <script>
     function apply(){
-      alert("hello");
-      var frm = $('#applyFrm');
-      frm.attr({ "method": "POST",
-                  "action": "${path}/job/applyJob.do"})
-      $('#applyFrm').submit();
+      alert('aaA');
+      ajaxJobPage('/job/jobEnroll'); 
+
     }
     $(function(){
-      $('img').addClass('.justify-content-center.align-content-center');
-      $('#jobmodal-content').css({'handle':'','cursor':'move'});
+      alert($('#companyLogo').attr('src'));
+      $('input#imageURL').attr({
+        'value': $('#companyLogo').attr('src'),
+      });
+
+      $('#applyBtn').click(function(e) {
+        e.preventDefault();
+        alert("ajax");
+
+        $.ajax({
+          type: "POST",
+          url:"${path}/job/applyJob.do",
+          dataType: "html",
+          success: function(data){
+            html = $('<div>').html(data);
+
+            $('#jobmodal-content').html(html.find('.submenu-container'));
+          },
+          error: function(status, msg){
+            alert('ajax error!');
+          },
+        });
+
+      });
 
     });
   </script>

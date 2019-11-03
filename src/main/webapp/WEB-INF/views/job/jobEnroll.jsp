@@ -7,82 +7,164 @@
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
 <jsp:include page="/WEB-INF/views/common/header.jsp">
- <jsp:param name="pageTitle" value="Homepage" />
+  <jsp:param name="pageTitle" value="Apply" />
+</jsp:include>
+<jsp:include page="/WEB-INF/views/common/sidebar.jsp">
+  <jsp:param name="pageTitle" value="Apply job" />
 </jsp:include>
 
-<style>
-  img {width:100%;}
-</style>
+  <main id="main-wrapper" class="p-0 w-100">
+    <div class="container mb-0 mt-3 p-0 text-center " id="loading">
+      <div class="spinner-grow spinner-grow-sm ml-1 mt-3 mb-0 text-primary apiLoading" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div class="spinner-grow spinner-grow-sm ml-1 mt-3 mb-0 text-primary apiLoading" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div class="spinner-grow spinner-grow-sm ml-1 mt-3 mb-0 text-primary apiLoading" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div class="spinner-grow spinner-grow-sm ml-1 mt-3 mb-0 text-primary apiLoading" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div class="spinner-grow spinner-grow-sm ml-1 mt-3 mb-0 text-primary apiLoading" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
 
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
+    <div class="submenu-container">
+      <div class="container py-5">
 
-<!-- <div class="testimonial py-5" id="testimonial"> -->
-<div class="py-4 col-lg-10 container submenu-container">
+        <!-- For demo purpose -->
+        <div class="row mb-4">
+          <div class="col-lg-8 mx-auto text-center">
+            <h5 class="display-4">Recruiting Form</h5>
+            <p class="lead mb-0">
+            </p>
+          </div>
+        </div>
+        <!-- End -->
 
-  <div class="container submenu-container">
-    <div class="row ">
-      <div class="col-md-3 py-5 bg-primary text-white text-center">
-        <div class=" ">
-          <div class="card-body">
-            <img src="http://www.ansonika.com/mavia/img/registration_bg.svg" style="width:30%">
-            <h2 class="py-3">Registration</h2>
-            <p class="text-white">Please Register your company</p>
+        <div class="row">
+          <div class="col-lg-7 mx-auto">
+            <div class="bg-white rounded-lg shadow-sm px-5 py-3">
+
+              <!-- form content -->
+              <div class="tab-content">
+
+                <!-- applicants info-->
+                <div id="nav-tab-card" class="tab-pane fade show active">
+                  <!-- <p class="alert alert-success">Some text success or error</p> -->
+                  <form action="${path}/job/jobEnrollEnd.do" method="post" enctype="multipart/form-data">
+                    <!-- companyLogo -->
+                    <div class="form-group my-0">
+                      <div class="companyLogo-wrapper my-0 mx-auto">
+                        <c:if test="${jobBoardFile.newName != null}">
+                          <img class="logo-pic" src="${path}/upload/job/${jobBoardFile.newName}" />
+                        </c:if>
+                        <c:if test="${jobBoardFile.newName == null}">
+                          <img class="logo-pic" src="" />
+                        </c:if>
+                        <div class="upload-button">
+                          <i class="fa fa-camera" aria-hidden="true"></i>
+                        </div>
+                        <input class="file-upload form-control" type="file" accept="image/*" name="orgNames" />
+                      </div>
+                    </div>
+                    <!-- /companyLogo -->
+
+                    <div class="form-group my-0">
+                      <label for="writer" class="fa fa-building-o">&nbsp;&nbsp;</label>Company
+                      <c:if test="${loginMember != null}">
+                        <input type="text" class="form-control text-primary" name="writer" value="${loginMember.nickname}" readonly required />
+                      </c:if>
+                    </div>
+                    <div class="form-group">
+                      <label for="title">Title</label>
+                      <input type="text" name="title" placeholder="title..." required class="form-control">
+                    </div>
+                    <!-- content -->
+                    <hr>
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <div class="form-group my-0">
+                          <label for="jobType">Ⅰ. Job Type</label>
+                          <select name="jobType" id="jobType" class="form-control" required>
+                            <option value="Full Time">Full Time</option>
+                            <option value="Part Time">Part Time</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-group my-0">
+                          <label for="location">Ⅱ. Location</label>
+                          <textarea name="location" placeholder="address..." required class="form-control" rows="2" style="resize:none"></textarea>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group my-0">
+                      <label for="description">Ⅲ. Description</label>
+                      <textarea name="description" placeholder="describe..." required class="form-control" rows="5" style="resize:none"></textarea>
+                    </div>
+                    <div class="form-group my-0">
+                      <label for="howToApply">Ⅳ. How to Apply</label>
+                      <textarea name="howToApply" placeholder="how to apply...?" required class="form-control" row="2" style="resize:none"></textarea>
+                    </div>
+                    <hr>
+                    <!-- /content end -->
+                    <input type="submit" class="subscribe btn btn-outline-dark btn-block rounded-lg shadow-sm" value="Confirm" />
+                  </form>
+                </div>
+                <!-- End -->
+
+              </div>
+              <!-- End -->
+
+            </div>
           </div>
         </div>
       </div>
-      <div class="col-md-9 py-5 border">
-        <h4 class="pb-4">Please fill with your details</h4>
-        <form action="${path}/job/jobEnrollEnd.do">
-          <div class="form-row">
-            <div class="form-group col-md-6">
-             <input id="writer" name="writer" placeholder="Company Name" class="form-control" type="text" value="${loginMember.nickname}" readonly />
-            </div>
-            <div class="form-group col-md-6">
-             <input type="text" class="form-control" id="title" placeholder="Title">
-            </div>
-           </div>
-          <div class="form-row">
-            <!-- <div class="form-group col-md-6">
-              <input id="Mobile No." name="Mobile No." placeholder="Mobile No." class="form-control" required="required" type="text">
-            </div> -->
-            <!-- <div class="form-group col-md-6">
-                 
-                 <select id="inputState" class="form-control">
-                  <option selected>Choose ...</option>
-                  <option> New Buyer</option>
-                  <option> Auction</option>
-                  <option> Complaint</option>
-                  <option> Feedback</option>
-                 </select>
-            </div> -->
-            <div class="form-group col-md-12">
-                 <textarea id="comment" name="comment" cols="40" rows="5" class="form-control" placeholder="Describe Recruiting Details. Tell "></textarea>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <div class="form-group">
-                <div class="form-check">
-                 <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
-                 <label class="form-check-label" for="invalidCheck2">
-                  <small>By clicking Submit, you agree to our Terms & Conditions, Visitor Agreement and Privacy Policy.</small>
-                 </label>
-                </div>
-               </div>
+
+      <script>
+        $(function(){
+          var $apiLoading = $('.apiLoading').hide();
+          $(document)
+          .ajaxStart(function () {
+            $apiLoading.show();
+          })
+          .ajaxStop(function () {
+            $apiLoading.hide();
+          });
+
+          // logo image
+          var readURL = function(input) {
+            if (input.files && input.files[0]) {
+              var reader = new FileReader();
+              reader.onload = function (e) {
+                $('.logo-pic').attr('src', e.target.result);
+              }
+              reader.readAsDataURL(input.files[0]);
+            }
+          }
+
+          $(".file-upload").on('change', function(){
+            readURL(this);
+          });
+          $(".upload-button").on('click', function() {
+            $(".file-upload").click();
+          });
           
-             </div>
-          </div>
-          
-          <div class="form-row justify-content-center">
-            <button type="button" class="btn btn-outline-danger">Submit</button>
-          </div>
-        </form>
-      </div>
+          // $("[name='upFile']").on('change', function(){
+          //   var fileName = this.files[0].name;
+          //   $(this).next('.custom-file-label').html(fileName);
+          // });
+          $('[data-toggle="tooltip"]').tooltip()
+        });
+      </script>
+
     </div>
-  </div>
+  </main>
+
 </div>
  
 

@@ -8,6 +8,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.context.annotation.PropertySource;
 
+  /** GitHub Jobs API implementation
+   * @apiNote https://oapi.saramin.co.kr
+   * @author junholee(jnuho@outlook.com)
+   * @since 2019.11.03
+   */
 @PropertySource("classpath:s3cr3tk3y.properties")
 public class JobSaramIn {
   private String id; // The unique identifier for a job.

@@ -4,7 +4,6 @@
    #common-footer div.row{
       /* margin-left: 190px; */
       /* margin-top: 58px; */
-
     }
     #common-footer{
       background-size: cover !important;
@@ -15,7 +14,6 @@
     }
     
   </style>
-
 
   <footer class="my-0 pt-5 pb-0" id="common-footer">
     <div class="container py-0">

@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="job">
+  <!-- CLOB type maps to java.lang.String -->
+  <resultMap id="clobMap" type="jobBoard">
+    <result property="content" column="CONTENT" jdbcType="CLOB" javaType="java.lang.String"
+      typeHandler="clobType" />
+    <result property="applicants" column="APPLICANTS" />
+  </resultMap>
 
-  <select id="selectJobBoardOne" resultType="jobBoard" >
-    SELECT * FROM BOARD_JOB WHERE 1=1 AND NO=#{no}
+  <select id="selectApplyCount" resultType="_int">
+    select count(*) AS applicants from apply_job
   </select>
 
-  <select id="selectPageJobBoardList" resultType="map">
+  <!-- <select id="selectJobBoardOne" resultType="jobBoard" resultMap="jobBoardMap"> -->
+  <select id="selectJobBoardOne" parameterType="_int" resultType="HashMap" resultMap="clobMap">
+    SELECT * FROM BOARD_JOB WHERE 1=1 AND NO=#{no}
+  </select>
+  
+
+  <select id="selectPageJobBoardList" resultMap="clobMap">
     SELECT J.*, (SELECT COUNT(*) FROM APPLY_JOB WHERE J.NO = MEMBERNO) AS APPLICANTS
      FROM BOARD_JOB J ORDER BY REGDATE DESC
   </select>
@@ -14,8 +26,18 @@
   <select id="selectJobBoardCount" resultType="_int">
     SELECT COUNT(*) FROM BOARD_JOB
   </select>
+  
+  <select id="selectJobBoardSeq" resultType="_int">
+    select BOARD_JOB_SEQ.currval from dual
+  </select>
 
   <insert id="insertJobBoard" parameterType="jobBoard">
-    insert into BOARD_JOB values(default, #{writer}, #{title}, #{content}, default, default, default)
+    insert into BOARD_JOB values(default, #{writer}, #{title},
+        #{content, typeHandler=clobType}, default,default,default)
   </insert>
+
+  <insert id="insertJobBoardFile" parameterType="jobBoardFile">
+    insert into FILE_BOARD_JOB values(#{boardNo}, #{orgName}, #{newName})
+  </insert>
+
 </mapper>

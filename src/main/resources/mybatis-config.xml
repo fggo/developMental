@@ -13,6 +13,10 @@
 
     <typeAlias type="com.kh.workman.common.ArrayTypeHandler" alias="arrType" />
 
+    <!-- Job board CLOB type handler alias-->
+    <typeAlias type="org.apache.ibatis.type.ClobTypeHandler" alias="clobType" />
+
+
     <typeAlias type="com.kh.workman.admin.model.vo.AdminMember" alias="adminMember" />
     <typeAlias type="com.kh.workman.member.model.vo.Member" alias="member"/>
    
@@ -25,7 +29,11 @@
 
     <!-- Job -->
     <typeAlias type="com.kh.workman.job.model.vo.JobBoard" alias="jobBoard" />
+    <typeAlias type="com.kh.workman.job.model.vo.JobBoardFile" alias="jobBoardFile" />
     <typeAlias type="com.kh.workman.job.model.vo.JobApply" alias="jobApply" />
- </typeAliases>
+  </typeAliases>
+
+  <!-- Job board CLOB type handler -->
+  <!-- <typeHandler handler="org.apache.ibatis.type.ClobTypeHandler" jdbcType="CLOB" javaType="java.lang.String"/> -->
 
 </configuration>

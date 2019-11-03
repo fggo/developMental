@@ -8,7 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.workman.job.model.vo.JobBoard;
-import com.kh.workman.member.model.vo.Member;
+import com.kh.workman.job.model.vo.JobBoardFile;
 
 @Repository
 public class JobDaoImpl implements JobDao {
@@ -35,6 +35,15 @@ public class JobDaoImpl implements JobDao {
     return session.insert("job.insertJobBoard", job);
   }
 
+  @Override
+  public int insertJobBoardFile(SqlSessionTemplate session, JobBoardFile file) {
+    return session.insert("job.insertJobBoardFile", file);
+  }
   
+  @Override
+  public int selectJobBoardSeq(SqlSessionTemplate session) {
+    return session.selectOne("job.selectJobBoardSeq");
+    
+  }
   
 }

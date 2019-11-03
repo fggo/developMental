@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.workman.job.model.dao.JobDao;
 import com.kh.workman.job.model.vo.JobBoard;
-import com.kh.workman.member.model.vo.Member;
+import com.kh.workman.job.model.vo.JobBoardFile;
 
 @Service
 public class JobServiceImpl implements JobService {
@@ -36,10 +36,21 @@ public class JobServiceImpl implements JobService {
   }
 
   @Override
-  public int insertJobBoard(JobBoard job) {
-    return dao.insertJobBoard(session, job);
+  public int insertJobBoard(JobBoard job, List<JobBoardFile> jobBoardFileList) throws Exception{
+    int result = 0;
+    result = dao.insertJobBoard(session, job);
+    if(result ==0) throw new RuntimeException(); //TransactionManager rollback automatically
+
+    int boardNo =  dao.selectJobBoardSeq(session);
+    
+    if(jobBoardFileList != null && jobBoardFileList.size() > 0) {
+      for(JobBoardFile f : jobBoardFileList) {
+        f.setBoardNo(boardNo);
+        result = dao.insertJobBoardFile(session, f);
+        if(result ==0) throw new Exception();
+      }
+    }
+    return result;
   }
 
-  
-  
 }

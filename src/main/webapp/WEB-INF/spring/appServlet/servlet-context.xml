@@ -28,11 +28,26 @@
   <!-- 인터셉터 등록하기 -->
   <interceptors>
     <interceptor>
-      <mapping path="/**" />
+      <!-- ** apply interceptor to all mapping to enable logs -->
+      <!-- <mapping path="/**" /> -->
+      <!-- exclude mapping -->
+      <!-- <exclude-mapping path="/member/*" /> -->
+      <mapping path="/job/*" />
       <beans:bean id="loggerInterceptor" class="com.kh.workman.common.interceptor.LoggerInterceptor" />
     </interceptor>
   </interceptors>
+
+  <!-- commons-fileupload -->
+  <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" >
+    <beans:property name="maxUploadSize" value="1048750" />
+  </beans:bean>
   
+  <!-- jsonView 등록하기 -->
+  <beans:bean id="viewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
+    <beans:property name="order" value="1" />
+  </beans:bean>
+  <beans:bean id="jasonView" class="net.sf.json.spring.web.servlet.view.JsonView" />
+
   <!-- jackson -->
   <beans:bean id="jacksonMessageConverter"
       class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>

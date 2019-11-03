@@ -3,9 +3,11 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:security="http://www.springframework.org/schema/security"
   xmlns:aop="http://www.springframework.org/schema/aop"
+  xmlns:tx="http://www.springframework.org/schema/tx"
   xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-5.0.xsd
-    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
   
   <!-- root-context.xml
     defines shared resources visible to all other web components.
@@ -45,4 +47,30 @@
     <websocket:mapping handler="collaboHandler" path="/collabo/soc"/>
      <websocket:sockjs/> 
   </websocket:handlers> -->
-</beans> 
+
+
+  <!-- bean to be handled by transaction (spring provided) -->
+  <bean id="transactionManager" 
+  class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <property name="dataSource" ref="dataSource"/>
+  </bean>
+
+  <!-- 1declaration -->
+  <tx:advice id="txAdvice" transaction-manager="transactionManager">
+    <tx:attributes>
+      <tx:method name="insert*" rollback-for="Exception"/>
+      <tx:method name="update*" rollback-for="Exception"/>
+      <tx:method name="delete*" rollback-for="Exception"/>
+    </tx:attributes>
+  </tx:advice>
+
+  <aop:config>
+    <aop:pointcut expression="execution(* com.kh.workman..*ServiceImpl.*(..))" 
+    id="serviceMethod"/>
+    <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethod"/>
+  </aop:config>
+
+  <!-- 2anno -->
+  <!-- <tx:annotation-driven transaction-manager="transactionManager"/> -->
+
+</beans>

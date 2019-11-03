@@ -6,8 +6,36 @@
 
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="${path }/resources/css/sidebar.css">
+  <style>
+    #main-wrapper{
+      margin-left: 190px;
+      margin-top: 58px;
+    }
+    @media (min-width: 576px) {
+      .card-columns {
+        column-count: 2;
+      }
+    }
+    @media (min-width: 768px) {
+      .card-columns {
+        column-count: 3;
+      }
+    }
+    @media (min-width: 992px) {
+      .card-columns {
+        column-count: 3;
+      }
+    }
+    @media (min-width: 1200px) {
+      .card-columns {
+        column-count: 4;
+      }
+    }
+  </style>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="${path}/resources/css/jobEnroll.css">
+  <link rel="stylesheet" href="${path}/resources/css/sidebar.css">
   <!-- Scrollbar Custom CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 
@@ -74,6 +102,5 @@
           alert('ajax error!');
         },
       });
-
     }
   </script>

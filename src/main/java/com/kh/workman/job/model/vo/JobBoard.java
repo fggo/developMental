@@ -20,11 +20,16 @@ public class JobBoard {
   private Date regDate;
   private int count;
   private int status;
+  private int applicants;
   
   @JsonDeserialize(using = CustomJsonDateDeserializer.class)
   public Date getRegDate() { return this.regDate; }
 
   @JsonDeserialize(using = CustomJsonDateDeserializer.class)
   public void setRegDate(Date regDate) { this.regDate = regDate; }
+  
+  
+  public int getApplicants() { return applicants; }
+  public void setApplicants(int applicants){ this.applicants = applicants; }
   
 }

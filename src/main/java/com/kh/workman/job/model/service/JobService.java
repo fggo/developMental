@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.kh.workman.job.model.vo.JobBoard;
-import com.kh.workman.member.model.vo.Member;
+import com.kh.workman.job.model.vo.JobBoardFile;
 
 public interface JobService {
 
@@ -14,5 +14,5 @@ public interface JobService {
 
   int selectJobBoardCount();
   
-  int insertJobBoard(JobBoard job);
+  int insertJobBoard(JobBoard job, List<JobBoardFile> jobBoardFileList) throws Exception;
 }
