@@ -20,7 +20,8 @@ public class JobBoard {
   private Date regDate;
   private int count;
   private int status;
-  private int applicants;
+  private int applicants; //new column
+  private String fileNewName; //JobBoardFile column
   
   @JsonDeserialize(using = CustomJsonDateDeserializer.class)
   public Date getRegDate() { return this.regDate; }
@@ -28,8 +29,10 @@ public class JobBoard {
   @JsonDeserialize(using = CustomJsonDateDeserializer.class)
   public void setRegDate(Date regDate) { this.regDate = regDate; }
   
-  
   public int getApplicants() { return applicants; }
   public void setApplicants(int applicants){ this.applicants = applicants; }
+
+  public String getFileNewName(){ return fileNewName; }
+  public void setFileNewName(String fileNewName) { this.fileNewName = fileNewName; }
   
 }
