@@ -12,7 +12,7 @@
 
   <div class="modal-content" id="jobmodal-content">
     <div class="modal-header">
-      <h4 class="modal-title" id="myModalLabel" id="jobmodalTitle"><img src="${path }/resources/images/icons8-open-box-48.png" class="" alt="">&nbsp;<strong>Job Description </strong>${title}</h4>
+      <h4 class="modal-title" id="myModalLabel" id="jobmodalTitle"><img src="${path }/resources/images/icons8-open-box-48.png" class="" alt="">&nbsp;<strong>구인글 상세</strong>${title}</h4>
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="text-danger fa fa-times"></i></button>
     </div>
 
@@ -22,37 +22,25 @@
           <table class="pull-left col-md-8 bg-transparent">
             <tbody>
               <tr>
-                <td class="h6"><strong>NO.</strong></td>
+                <td class="h6"><strong>번호</strong></td>
                 <td class="h5"><input type="text" name="no" id="no" class="form-control" value="${jobBoard.no}" readonly /></td>
               </tr>
               <tr>
-                <td class="h6"><strong>Writer</strong></td>
+                <td class="h6"><strong>회사명</strong></td>
                 <td class="h5">
                   <input type="text" name="writer" class="form-control" value="${jobBoard.writer}" readonly />
                 </td>
               </tr> 
               <tr>
-                <td class="h6"><strong>Title</strong></td>
+                <td class="h6"><strong>제목</strong></td>
                 <td class="h5">
                   <input class="form-control" name="title" value="${jobBoard.title}" readonly />
                 </td>
               </tr> 
               <tr>
-                <td class="h6"><strong>Reg. Date</strong></td>
+                <td class="h6"><strong>등록일</strong></td>
                 <td class="h5">
                   <!-- <input type="date" name="regDate" class="form-control" value="${jobBoard.regDate}" readonly /> -->
-                </td>
-              </tr> 
-              <tr>
-                <td class="h6"><strong>Count</strong></td>
-                <td class="h5">
-                  <input type="text" name="count" class="form-control" value="${jobBoard.count}" readonly />
-                </td>
-              </tr> 
-              <tr>
-                <td class="h6"><strong>Status</strong></td>
-                <td class="h5">
-                  <input type="text" name="status" class="form-control" value="${jobBoard.status}" readonly />
                 </td>
               </tr> 
             </tbody>
@@ -70,17 +58,24 @@
           </div>
         </div>
 
+        <hr>
         <div>
-          <h6><strong>Content</strong></h6>
+          <h6><strong>내용</strong></h6>
           <textarea class="form-control h-50" rows='10' name="content" readonly>${jobBoard.content}</textarea>
         </div>
         <hr>
-        <!-- <input id="applyBtn" type="submit" class="btn btn-primary" value="Apply Now" /> -->
-        <button type="submit" class="btn btn-primary" id="applyBtn">Apply Now</button>
+        <div class="text-center">
+          <c:if test="${loginMember !=null}">
+            <button type="submit" class="btn btn-primary ml-auto" id="applyBtn">지원하기</button>
+          </c:if>
+          <c:if test="${loginMember ==null}">
+            <button type="button" class="btn btn-secondary disabled" id="applyBtn">지원하기</button>
+          </c:if>
+        </div>
       </form>
     </div>
       
-    <div class="modal-footer">
+    <!-- <div class="modal-footer">
       <div class="text-right pull-right col-md-3">Employee<br/> 
         <span class="h3 text-muted"><strong> 77 </strong></span>
       </div> 
@@ -89,7 +84,7 @@
         <span class="h3 text-muted"><strong>$30,000</strong></span>
       </div>
       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-    </div>
+    </div> -->
   </div>
 
 

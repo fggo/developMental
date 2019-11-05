@@ -96,14 +96,8 @@ public class JobController {
   }
 
   @RequestMapping("/job/jobApply")
-  public ModelAndView applyJob(JobBoard j, HttpSession session,
-      @RequestParam(value="imageURL", required=false, defaultValue="${path}/resources/images/noimage.png")
-        String imageURL) {
-    String type = j.getContent().substring(j.getContent().indexOf("Ⅰ"), j.getContent().indexOf("Ⅱ"));
-    String location = j.getContent().substring(j.getContent().indexOf("Ⅱ"), j.getContent().indexOf("Ⅲ"));
-    String description = j.getContent().substring(j.getContent().indexOf("Ⅲ"), j.getContent().indexOf("Ⅳ"));
-    String howToApply = j.getContent().substring(j.getContent().indexOf("Ⅳ"));
-    
+  public ModelAndView applyJob(JobBoard j, HttpSession session, String imageURL) {
+
 //    int result = service.insertJobBoard(j);
 //
 //    JobApply apply = new JobApply();
@@ -113,7 +107,7 @@ public class JobController {
 //    apply.setResume("");
 
     ModelAndView mv = new ModelAndView();
-    mv.addObject("imageURL", imageURL);
+    mv.addObject("jobBoard", j);
     mv.setViewName("job/jobApplyForm");
     
     return mv;
@@ -121,7 +115,7 @@ public class JobController {
 
   @RequestMapping("/job/jobApplyEnd.do")
   public ModelAndView applyJobEnd(HttpSession session,
-      @RequestParam(value="imageURL", required=false, defaultValue="${path}/resources/images/noimage.png")
+      @RequestParam(value="orgNames", required=false) MultipartFile[] orgNames,
         String imageURL) {
 //  private String company;
 //  private String title; 

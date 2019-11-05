@@ -6,66 +6,125 @@
 
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
-  <jsp:include page="/WEB-INF/views/common/header.jsp">
-    <jsp:param name="pageTitle" value="Homepage" />
-  </jsp:include>
+<jsp:include page="/WEB-INF/views/common/header.jsp">
+  <jsp:param name="pageTitle" value="WORKMAN" />
+</jsp:include>
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="${path }/resources/css/mainpage.css">
+<jsp:include page="/WEB-INF/views/common/sidebar.jsp">
+  <jsp:param name="pageTitle" value="${home}" />
+</jsp:include>
 
-  <!-- Main page cover -->
-  <main role="main" id="page-container">
-    <div class="jumbotron align-items-center justify-content-center text-white bg-dark" id="first-cover">
-      <div class="container">
-        <h3 class="text-white row justify-content-center">
-          <img src="${path }/resources/images/title.png" alt="">
-        </h3>
-        <div class="row justify-content-center my-5">
-          <a class="btn btn-light" href="${path }/mainView" role="button">
-            Learn more &nbsp;<i class="fa fa-chevron-right" aria-hidden="true"></i>
-          </a>
-          <a class="btn btn-outline-light mx-1" href="${path }/mainView" role="button">
-            Explore more &nbsp;<i class="fa fa-chevron-right" aria-hidden="true"></i>
-          </a>
-        </div>
+  <main id="main-wrapper" class="p-0 w-100">
+    <div class="container mb-0 mt-3 p-0 text-center " id="loading">
+      <div class="spinner-grow spinner-grow-sm ml-1 mt-3 mb-0 text-primary apiLoading" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div class="spinner-grow spinner-grow-sm ml-1 mt-3 mb-0 text-primary apiLoading" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div class="spinner-grow spinner-grow-sm ml-1 mt-3 mb-0 text-primary apiLoading" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div class="spinner-grow spinner-grow-sm ml-1 mt-3 mb-0 text-primary apiLoading" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div class="spinner-grow spinner-grow-sm ml-1 mt-3 mb-0 text-primary apiLoading" role="status">
+        <span class="sr-only">Loading...</span>
       </div>
     </div>
 
-    <div class="jumbotron container bg-light" id="second-cover">
-      <div class="row">
-        <div class="col-md-4">
-          <p><h3>Developers By <img src="${path}/resources/images/icons8-pixel-heart-50.png" alt=""></h3>massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-        </div>
-        <div class="col-md-4">
-          <p><h3>Every Programmer is an <img src="${path}/resources/images/author.png" alt=""></h3>tortor mauris condimentum nibh, magna mollis euismod. Donec sed odio dui. </p>
-        </div>
-        <div class="col-md-4">
-            <p><h3>Talk is <img src="${path}/resources/images/cheap.png" alt=""> Show me the <img src="${path}/resources/images/code.png" alt=""></h3>
-          tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam . Donec sed odio dui. </p>
+    <div class="" id="main-container">
+      <div class="container py-5">
+        <div class="card-columns">
+          <div class="card text-center">
+            <img src="${path }/resources/images/hire.jpg" class="card-img-top" alt="...">
+            <div class="card-body py-0">
+              <!-- <h5 class="card-title">Job list</h5> -->
+              <!-- <p class="card-text">Card text.</p> -->
+              <p class="card-text my-0"><small class="text-muted">해외 및 국내 취업</small></p>
+              <a class="btn btn-sm btn-outline-dark my-1 stretched-link" href="javascript: ajaxJobPage('${path }/job/jobBoardList');">구인구직</a>
+            </div>
+          </div>
+          <!-- <div class="card text-center">
+            <img src="${path}/resources/images/apply.jpg" class="card-img-top" alt="...">
+            <div class="card-body pb-0 pt-3">
+              <h5 class="card-title">Dream Big</h5>
+              <p class="card-text mb-0"><small class="text-muted">Apply for companies from all over the World&nbsp;&nbsp;<i class="fa fa-plane"></i></small></p>
+              <a class="btn btn-sm btn-outline-dark my-2 stretched-link" href="javascript: ajaxJobPage('${path }/job/jobApplyList');">Apply</a>
+            </div>
+          </div> -->
+          <div class="card p-3">
+            <blockquote class="blockquote mb-0 card-body">
+              <p>text here</p>
+              <footer class="blockquote-footer">
+                <small class="text-muted">
+                  Some author <cite title="Source Title">Title</cite>
+                </small>
+              </footer>
+            </blockquote>
+          </div>
+          <div class="card">
+            <img src="${path}/resources/images/wallpaper.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">Card text.</p>
+              <p class="card-text"><small class="text-muted">updated 0 min ago</small></p>
+            </div>
+          </div>
+          <div class="card bg-primary text-white text-center p-3">
+            <blockquote class="blockquote mb-0">
+              <p class="text-white">quote text here</p>
+              <footer class="blockquote-footer text-white">
+                <small>
+                  Some author<cite title="Source Title">Title</cite>
+                </small>
+              </footer>
+            </blockquote>
+          </div>
+          <div class="card text-center">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">card text here</p>
+              <p class="card-text"><small class="text-muted">updated 0 mins ago</small></p>
+            </div>
+          </div>
+          <div class="card p-3 text-right">
+            <blockquote class="blockquote mb-0">
+              <p>block quote here</p>
+              <footer class="blockquote-footer">
+                <small class="text-muted">
+                  Some author <cite title="Source Title">Title</cite>
+                </small>
+              </footer>
+            </blockquote>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">card text</p>
+              <p class="card-text"><small class="text-muted">updated 0 mins ago</small></p>
+            </div>
+          </div>
         </div>
       </div>
-    </div> <!-- #second-cover -->
+    <script>
+      $(function(){
+        var $apiLoading = $('.apiLoading').hide();
+        $(document)
+        .ajaxStart(function () {
+          $apiLoading.show();
+        })
+        .ajaxStop(function () {
+          $apiLoading.hide();
+        });
+      });
+    </script>
 
-    <div class="align-items-center justify-content-center text-white bg-info my-0 py-5"
-      style="height:350px" id="third-cover" >
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4">
-            massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-            <p><a class="btn btn-sm btn-secondary mt-5" href="#" role="button">More &nbsp;<i class="fa fa-chevron-right" aria-hidden="true"></i></a></p>
-          </div>
-          <div class="col-md-4 text-center ">
-            tortor mauris condimentum nibh, magna mollis euismod. Donec sed odio dui.
-            <p><a class="btn btn-sm btn-secondary mt-5" href="#" role="button">More &nbsp;<i class="fa fa-chevron-right" aria-hidden="true"></i></a></p>
-          </div>
-          <div class="col-md-4 text-center">
-            tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam . Donec sed odio dui.
-            <p><a class="btn btn-sm btn-secondary mt-5" href="#" role="button">More &nbsp;<i class="fa fa-chevron-right" aria-hidden="true"></i></a></p>
-          </div>
-        </div>
-      </div><!-- row -->
-    </div><!-- container -->
+    </div>
   </main>
 
+</div>
 
+
+</div> <!-- row -->
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />

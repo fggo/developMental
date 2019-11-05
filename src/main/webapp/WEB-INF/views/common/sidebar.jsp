@@ -43,32 +43,33 @@
   <div class="d-flex">
     <nav id="sidebar" class="p-0 flex-shrink-1">
       <div class="sidebar-header">
-        <h3><a href="${path }/mainView">${ param.pageTitle }</a></h3>
+        <c:if test="${param.pageTitle == ''}">
+          <h3><a href="${path }/"><i class="fa fa-home"></i></a></h3>
+        </c:if>
+        <c:if test="${param.pageTitle != ''}">
+          <h3><a href="${path }/">${ param.pageTitle }</a></h3>
+        </c:if>
       </div>
-  
       <ul class="list-unstyled components">
-        <p>Menus</p>
+        <p><i class="fa fa-tag" aria-hidden="true">&nbsp;&nbsp;Menu</i></p>
         <li class="active">
-          <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle sidebar-dropdown-toggle">Job</a>
+          <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle sidebar-dropdown-toggle">구인</a>
           <ul class="collapse list-unstyled" id="pageSubmenu">
             <li>
-              <a href="javascript: ajaxJobPage('${path }/job/jobBoardList');" id="jobBoardBtn">Board</a>
-            </li>
-            <li>
-              <a href="javascript: ajaxJobPage('${path }/job/jobApplyList');" id="jobApplyBtn">Apply</a>
+              <a href="javascript: ajaxJobPage('${path }/job/jobBoardList');" id="jobBoardBtn">구인게시판</a>
             </li>
           </ul>
         </li>
       </ul>
   
-      <ul class="list-unstyled CTAs">
+      <!-- <ul class="list-unstyled CTAs">
         <li>
           <a href="#" class="download">Dummy Btn1</a>
         </li>
         <li>
           <a href="#" class="article">Dummy Btn2</a>
         </li>
-      </ul>
+      </ul> -->
     </nav>
 
 

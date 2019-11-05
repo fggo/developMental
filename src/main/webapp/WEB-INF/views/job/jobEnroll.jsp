@@ -7,10 +7,10 @@
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
 <jsp:include page="/WEB-INF/views/common/header.jsp">
-  <jsp:param name="pageTitle" value="Apply" />
+  <jsp:param name="pageTitle" value="구인글 등록" />
 </jsp:include>
 <jsp:include page="/WEB-INF/views/common/sidebar.jsp">
-  <jsp:param name="pageTitle" value="Apply job" />
+  <jsp:param name="pageTitle" value="구인글 등록" />
 </jsp:include>
 
   <main id="main-wrapper" class="p-0 w-100">
@@ -32,8 +32,8 @@
       </div>
     </div>
 
-    <div class="submenu-container">
-      <div class="container py-5">
+    <div id="main-container">
+      <div class="container py-5 submenu-container">
 
         <!-- For demo purpose -->
         <div class="row mb-4">
