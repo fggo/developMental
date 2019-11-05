@@ -41,30 +41,6 @@
 			<input class="btn btn-primary" type="button" id="BtnSearch" value="Search" onclick="keywordConfirm();"/>
 		</form>
 	</div>
-<<<<<<< HEAD
-<script>
-	function ajaxSearchList(pageNo, searchType, keyword) {
-		var url;
-		console.log(searchType);
-		console.log(keyword);
-		console.log(pageNo);
-		url = "${path}/admin/memberSearch.do?cPage="+pageNo+"&searchType="+searchType+"&keyword="+keyword;
-		
-		$.ajax({
-			type : "POST",
-			url : url,
-			dataType : "html",
-			success : function(data){
-							
-			},
-			error : function(){
-				console.log("error!!");
-			}
-		})
-	}
-</script>
-=======
->>>>>>> 036c9cf9a6fd199974bcbc87e3c07a134fed1aec
 	<br/>
 	<table class="table">
 		<thead>

@@ -6,6 +6,9 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="pageTitle" value=""/>
 </jsp:include>
+<jsp:include page="/WEB-INF/views/common/adminSidebar.jsp">
+  <jsp:param name="pageTitle" value="sidebar - mainview" />
+</jsp:include>
 
 <section id="faq-container" class="container">
 	<div class="col-sm-9">

@@ -373,10 +373,10 @@ $("#cardModal").on('show.bs.modal',function(e){
 	content.text(card.children('.card-content').text());
 	 
 	<c:forEach items="${collaboMembers}" var="m">
-		if(${m.no} == (parseInt(card.children('input[name=cardWriter]').val()))){
-			writer.text("${m.nickname}");
-		}
-	</c:forEach>
+	if(${m.no} == (parseInt(card.children('input[name=cardWriter]').val()))){
+		writer.text("${m.nickname}");
+	}
+</c:forEach>
 });
 
 function createWrapper(ele){

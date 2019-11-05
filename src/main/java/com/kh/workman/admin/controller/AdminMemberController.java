@@ -47,18 +47,15 @@ public class AdminMemberController {
 	}
 
 	@RequestMapping("/admin/selectMemberList.do")
-	public ModelAndView selectMemberList(@RequestParam(value="cPage", required=false, defaultValue="0") int cPage,
-											@RequestParam(defaultValue="id", required = false) String searchType, 
-											@RequestParam(defaultValue="") String keyword, Model model) {
+	public ModelAndView selectMemberList(@RequestParam(value="cPage", required=false, defaultValue="0") int cPage, 
+												Model model) {
 		ModelAndView mv = new ModelAndView();
-		
-		//페이징처리를 위한 것
 		int numPerPage=10;
 		List<AdminMember> list = service.selectMemberList(cPage,numPerPage);
 		
 		int totalCount=service.selectMemberCount();
 				
-		mv.addObject("pageBar",PageBarFactory.getAdminPageBar(totalCount, cPage, numPerPage, "/admin/selectMemberList.do"));
+		mv.addObject("pageBar",PageBarFactory.getAdminPageBar(totalCount, cPage, numPerPage, "/spring/admin/selectMemberList.do"));
 		mv.addObject("count",totalCount);
 		mv.addObject("list",list);
 		mv.setViewName("admin/adminMemberList");

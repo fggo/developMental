@@ -152,7 +152,6 @@
                 <a class="dropdown-item" href="javascript: ajaxJobPage('${path }/job/jobBoardList');"><i class="fa fa-briefcase">&nbsp;&nbsp;</i>구인 구직</a>
                 <!-- 관리자메뉴 버튼 by ogc -->
                 <c:if test="${loginMember != null && loginMember.id eq 'admin'}">
-                  <a class="dropdown-item" href="${path }/admin/selectMemberList.do"><i class="fas fa-bell">&nbsp;&nbsp;</i>Admin Menu</a>
                   <a class="dropdown-item" href="${path }/admin/adminMain"><i class="fas fa-bell">&nbsp;&nbsp;</i>Admin Main Test</a>
           <!-- <button type="button" class="btn btn-sm btn-light mt-2 mr-1" onclick="adminMenu();" style="width: 80px;">관리</button> -->
                 </c:if>
