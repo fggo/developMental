@@ -15,15 +15,16 @@
 </jsp:include>
 
   <main id="main-wrapper" class="p-0 w-100">
+    <jsp:include page="/WEB-INF/views/common/loading.jsp"/>
 
     <div id="main-container">
       <div class="py-4 col-lg-10 container submenu-container">
 
         <div class="card card-fluid" id="job-listings">
 
-          <div class="card-header my-0 py-0">
-            <a href="${path}"><img src="${path}/resources/images/home.png" alt=""></a>
-            <div class="d-flex align-items-center p-3 my-0 text-white bg-dark rounded">
+          <div class="card-header my-0 py-0 px-0">
+            <!-- <a href="${path}"><img src="${path}/resources/images/home.png" alt=""></a> -->
+            <div class="d-flex align-items-center p-3 my-0 text-white w-100 bg-dark rounded">
               <i class="fa fa-briefcase text-white mr-3 my-2" style="font-size:42px;"></i>
               <div class="lh-100 ml-2">
                 <p class="h5 mb-0 text-white lh-100">구인구직 게시판</p>
@@ -47,10 +48,14 @@
                 </div>
                 <div class="ml-auto">
                   <c:if test="${loginMember !=null}">
-                    <a class="ml-auto mr-3 align-self-center btn float-left btn-outline-primary" href="${path}/job/jobEnroll">구인글 작성</a>
+                    <a class="ml-auto mr-3 align-self-center btn float-left btn-outline-primary" href="${path}/job/jobEnroll">
+                      <i class="fa fa-edit">&nbsp;</i>구인글 작성
+                    </a>
                   </c:if>
                   <c:if test="${loginMember == null}">
-                    <button id="postJobBtn" class="ml-auto mr-3 align-self-center btn float-left btn-outline-primary">구인글 작성</button>
+                    <button id="postJobBtn" class="ml-auto mr-3 align-self-center btn float-left btn-outline-primary">
+                      <i class="fa fa-edit"></i>구인글 작성
+                    </button>
                   </c:if>
                 </div>
                 <script>
@@ -61,11 +66,11 @@
 
               </div>
             </div>
-            <h4>Github 조회</h4>
+            <small><img src="${path}/resources/images/icons8-database-48.png" alt="">API 데이터</small>
             <div id="githubJobBoardList">
               <table class="table table-sm table-hover jobmodal-tbl2" style="font-size:14px;">
                 <c:if test="${newList == null}">
-                  <div class="card my-1 mx-0 py-3 w-100 text-center border-secondary"><i class="text-muted">해외취업 리스트가 없습니다! 개발기술과, 지역이름을 입력하세요.</i></div>
+                  <div class="card m-0 p-0 w-100 text-center border-white"><i class="text-muted">해외취업 리스트가 없습니다! 검색어를 입력해주세요.</i></div>
                 </c:if>
                 <c:if test="${newList != null}">
                   <thead>
@@ -110,7 +115,7 @@
               </table>
             </div>
             <hr>
-            <h4>Workman등록 회사</h4>
+            <small><img src="${path}/resources/images/icons8-database-export-48.png" alt="">Workman DB</small>
             <div id="databaseJobBoardList">
               <table class="table table-sm table-hover jobmodal-tbl1" style="font-size:14px;">
                 <thead>

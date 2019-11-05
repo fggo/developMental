@@ -51,7 +51,9 @@
         </c:if>
       </div>
       <ul class="list-unstyled components">
-        <p class="text-dark table-primary p-2"><i class="fa fa-tag " aria-hidden="true">&nbsp;&nbsp;Menus</i></p>
+        <p class="p-2"><i class="fa fa-tag" aria-hidden="true">&nbsp;&nbsp;메뉴</i></p>
+        <!-- <hr style="border-top: 1px solid white;"> -->
+        <hr>
 
         <li class="active">
           <a href="#myPageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle sidebar-dropdown-toggle">마이페이지</a>

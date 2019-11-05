@@ -14,23 +14,7 @@
 </jsp:include>
 
   <main id="main-wrapper" class="p-0 w-100">
-    <div class="container mb-0 mt-3 p-0 text-center" id="loading">
-      <div class="spinner-grow spinner-grow-sm ml-1 mt-3 mb-0 text-primary apiLoading" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
-      <div class="spinner-grow spinner-grow-sm ml-1 mt-3 mb-0 text-primary apiLoading" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
-      <div class="spinner-grow spinner-grow-sm ml-1 mt-3 mb-0 text-primary apiLoading" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
-      <div class="spinner-grow spinner-grow-sm ml-1 mt-3 mb-0 text-primary apiLoading" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
-      <div class="spinner-grow spinner-grow-sm ml-1 mt-3 mb-0 text-primary apiLoading" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
-    </div>
+    <jsp:include page="/WEB-INF/views/common/loading.jsp"/>
 
     <div class="" id="main-container">
     <div class="submenu-container">
@@ -39,7 +23,7 @@
         <!-- For demo purpose -->
         <div class="row mb-4">
           <div class="col-lg-8 mx-auto text-center">
-            <h5 class="display-4">Job Apply Form</h5>
+            <h5 class="display-4">지원서 작성</h5>
             <p class="lead mb-0">
             </p>
           </div>
@@ -72,29 +56,29 @@
                     <!-- /companyLogo -->
 
                     <div class="form-group my-0">
-                      <label for="no" class="fa fa-list-ol">&nbsp;&nbsp;</label>NO
+                      <label for="no" class="fa fa-list-ol">&nbsp;&nbsp;</label>게시판번호
                       <c:if test="${jobBoard != null}">
                         <input type="text" class="form-control text-primary" name="no" value="${jobBoard.no}" readonly required />
                       </c:if>
                     </div>
 
                     <div class="form-group my-0">
-                      <label for="writer" class="fa fa-user-o">&nbsp;&nbsp;</label>Applicant
+                      <label for="writer" class="fa fa-user-o">&nbsp;&nbsp;</label>지원자
                       <c:if test="${loginMember != null}">
                         <input type="text" class="form-control text-primary" name="writer" value="${loginMember.nickname}" readonly required />
                       </c:if>
                     </div>
                     <div class="form-group">
-                      <label for="resume"><i class="fa fa-file-text-o" aria-hidden="true"></i> Resume</label>
+                      <label for="resume"><i class="fa fa-file-text-o" aria-hidden="true"></i> 이력서</label>
                       <input type="file" class="file-upload form-control" accept="image/*" name="resume" required class="form-control"/>
                     </div>
                     <div class="form-group">
-                      <label for="intro"><i class="fa fa-sticky-note-o"></i> Cover Letter</label>
+                      <label for="intro"><i class="fa fa-sticky-note-o"></i> 자기소개서</label>
                       <input type="file" class="file-upload form-control" accept="image/*" name="coverLetter" required class="form-control" />
                     </div>
                     <hr>
                     <!-- /content end -->
-                    <input type="submit" class="subscribe btn btn-outline-dark btn-block rounded-lg shadow-sm" value="Confirm" />
+                    <input type="submit" class="subscribe btn btn-outline-dark btn-block rounded-lg shadow-sm" value="제출하기" />
                   </form>
                 </div>
                 <!-- End -->
