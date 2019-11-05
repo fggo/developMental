@@ -48,7 +48,7 @@
   
       <ul class="list-unstyled components">
         <p>Menus</p>
-        <li class="active">
+        <li>
           <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle sidebar-dropdown-toggle">Job</a>
           <ul class="collapse list-unstyled" id="pageSubmenu">
             <li>
@@ -59,6 +59,17 @@
             </li>
           </ul>
         </li>
+        <li>
+          <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle sidebar-dropdown-toggle">Study</a>
+           <ul class="collapse list-unstyled" id="pageSubmenu">
+            <li>
+            	<a href='${path }/study/studyList'>Board</a>
+            </li>
+            <li>
+             <a href='${path }/study/studyApplyList'>Apply</a>
+            </li>
+          </ul>
+           </li>
       </ul>
   
       <ul class="list-unstyled CTAs">
