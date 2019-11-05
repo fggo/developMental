@@ -74,12 +74,19 @@
 	<update id="updateList" parameterType="map">
 		UPDATE COLLABO_LIST SET TITLE = #{content} WHERE LISTNO = #{listNo}
 	</update>
-
-  <update id="moveList" parameterType="map">
-    UPDATE COLLABO_LIST SET PLACENO = #{placeNo} WHERE LISTNO = #{listNo}
-  </update>
-
-  <select id="searchListPlaceNo" parameterType="map" resultType="_int">
-    SELECT PLACENO FROM COLLABO_LIST WHERE LISTNO = #{targetNo}
-  </select>
+	<update id="moveList" parameterType="map">
+		UPDATE COLLABO_LIST SET PLACENO = #{placeNo} WHERE LISTNO = #{listNo}
+	</update>
+	
+	<select id="searchListPlaceNo" parameterType="map" resultType="_int">
+		SELECT PLACENO FROM COLLABO_LIST WHERE LISTNO = #{targetNo}
+	</select>
+	
+	<select id="selectCollaboTools" parameterType="string" resultType="collaboTool">
+		SELECT * FROM COLLABO_TOOL WHERE NO IN (
+			SELECT NO FROM COLLABO_MEMBER WHERE MEMBER = (
+				SELECT NO FROM MEMBER WHERE ID = #{userId}
+			)
+		)
+	</select>
 </mapper>

@@ -94,11 +94,6 @@
 
 
   <script>
-    function apply(){
-      alert('aaA');
-      ajaxJobPage('/job/jobEnroll'); 
-
-    }
     $(function(){
       alert($('#companyLogo').attr('src'));
       $('input#imageURL').attr({

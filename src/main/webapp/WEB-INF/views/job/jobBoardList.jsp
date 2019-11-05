@@ -87,7 +87,15 @@
               <c:if test="${loginMember !=null}">
                 <a class="ml-auto mr-3 align-self-center btn float-left btn-outline-primary" href="${path}/job/jobEnroll">Post Job</a>
               </c:if>
+              <c:if test="${loginMember == null}">
+                <button id="postJobBtn" class="ml-auto mr-3 align-self-center btn float-left btn-outline-primary">Post Job</button>
+              </c:if>
             </div>
+            <script>
+              $('#postJobBtn').click(function(){
+                $("#loginModal").modal('show');
+              });
+            </script>
 
           </div>
         </div>
@@ -99,6 +107,7 @@
             <c:if test="${newList != null}">
               <thead>
                 <tr>
+                  <th class="text-center" style="display:none">NO.</th>
                   <th class="text-center">Logo</th>
                   <th class="text-center">Company</th>
                   <th class="text-center">Title</th>
@@ -114,11 +123,14 @@
               <tbody>
                 <c:forEach var="j" items="${newList}" varStatus="status">
                   <tr class="table-info">
+                    <td class="text-center" style="display:none">0</td>
                     <td class="text-center">
                       <c:if test="${fn:substring(j['imageURL'],2,6) =='path'}" >
                         <img src="${path}${j['imageURL']}" class="img-fluid" alt="">
                       </c:if>
-                      <img src="${j['imageURL']}" class="imageURL img-fluid" alt="">
+                      <c:if test="${fn:substring(j['imageURL'],2,6) !='path'}" >
+                        <img src="${j['imageURL']}" class="imageURL img-fluid" alt="">
+                      </c:if>
                     </td>
                     <td class="text-center">${j['WRITER']}</td>
                     <td class="text-center job-title">${j['TITLE']}</td>
@@ -141,7 +153,8 @@
             <thead>
               <tr>
                 <th class="text-center">NO.</th>
-                <th class="text-center">Writer</th>
+                <th class="text-center">Logo</th>
+                <th class="text-center">Company</th>
                 <th class="text-center">Title</th>
                 <th class="text-center">Content</th>
                 <th class="text-center">RegDate</th>
@@ -157,6 +170,10 @@
                 <tr class="">
                   <!-- job lists not registered(inserted) in the Workman's database-->
                   <td class="text-center">${j['no']}</td>
+                  <td class="text-center">
+                    <img src="${path}/resources/upload/job/${j['fileNewName']}" 
+                      class="imageURL img-fluid" alt=""/>
+                  </td>
                   <td class="text-center">${j['writer']}</td>
                   <td class="text-center job-title">${j['title']}</td>
                   <td>${j['content']}</td>
@@ -341,14 +358,14 @@
           console.log(tds.eq(0).text());
           console.log(tds.eq(0).text().trim());
           githubData["no"]= (tds.eq(0).text()).trim() ==""? 0:tds.eq(0).text().trim();
-          githubData["writer"]= tds.eq(1).text();
-          githubData["title"]= tds.eq(2).text();
-          githubData["content"]= tds.eq(3).text();
-          // githubData["regDate"]= new Date(tds.eq(4).text());
-          githubData["count"]= tds.eq(5).text();
-          // githubData["status"]= tds.eq(6).text();
-          githubData["applicants"]= tds.eq(6).text();
-          githubData["imageURL"]= tds.eq(0).find('img.imageURL').attr("src");
+          githubData["imageURL"]= tds.eq(1).find('img.imageURL').attr("src");
+          githubData["writer"]= tds.eq(2).text();
+          githubData["title"]= tds.eq(3).text();
+          githubData["content"]= tds.eq(4).text();
+          // githubData["regDate"]= new Date(tds.eq(5).text());
+          githubData["count"]= tds.eq(6).text();
+          // githubData["status"]= tds.eq(7).text();
+          githubData["applicants"]= tds.eq(7).text();
         });
 
         console.log(githubData);

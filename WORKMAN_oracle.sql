@@ -25,7 +25,7 @@ SELECT * FROM HASHTAG_JOB;
 SELECT * FROM FILE_BOARD_JOB;
 SELECT * FROM APPLY_JOB;
 SELECT * FROM BOARD_JOB;
-
+      
 select BOARD_JOB_SEQ.currval from dual;
 --delete from board_job;
 commit;

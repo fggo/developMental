@@ -6,6 +6,7 @@
     <result property="content" column="CONTENT" jdbcType="CLOB" javaType="java.lang.String"
       typeHandler="clobType" />
     <result property="applicants" column="APPLICANTS" />
+    <result property="fileNewName" column="FILENEWNAME" />
   </resultMap>
 
   <select id="selectApplyCount" resultType="_int">
@@ -19,8 +20,9 @@
   
 
   <select id="selectPageJobBoardList" resultMap="clobMap">
-    SELECT J.*, (SELECT COUNT(*) FROM APPLY_JOB WHERE J.NO = MEMBERNO) AS APPLICANTS
-     FROM BOARD_JOB J ORDER BY REGDATE DESC
+    SELECT J.*, (SELECT COUNT(*) FROM APPLY_JOB WHERE J.NO = MEMBERNO) AS APPLICANTS,
+      (select newname from FILE_BOARD_JOB F where J.NO = F.BOARDNO) AS FILENEWNAME
+      FROM BOARD_JOB J ORDER BY REGDATE DESC
   </select>
 
   <select id="selectJobBoardCount" resultType="_int">

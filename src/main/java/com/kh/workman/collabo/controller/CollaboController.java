@@ -10,11 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.kh.workman.collabo.model.service.CollaboService;
 import com.kh.workman.collabo.model.vo.CollaboCard;
 import com.kh.workman.collabo.model.vo.CollaboList;
+import com.kh.workman.collabo.model.vo.CollaboTool;
 import com.kh.workman.member.model.vo.Member;
 
 @Controller
@@ -44,5 +43,4 @@ public class CollaboController {
 		mav.setViewName("collabo/detail");
 		return mav;
 	}
-	
 }
