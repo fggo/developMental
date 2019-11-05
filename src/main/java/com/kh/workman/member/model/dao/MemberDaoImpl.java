@@ -19,5 +19,23 @@ public class MemberDaoImpl implements MemberDao {
 		
 		return session.insert("member.insertMember", m);
 	}
+	
+	@Override
+	public Member selectFindEmail(SqlSessionTemplate session, String toemail) {
+		// TODO Auto-generated method stub
+		return session.selectOne("member.selectFindEmail", toemail);
+	}
+	
+	@Override
+	public int updateMember(SqlSessionTemplate session, Member m) {
+		// TODO Auto-generated method stub
+		return session.update("member.updateMemberEmail", m);
+	}
+	
+	@Override
+	public int updateInfoMember(SqlSessionTemplate session, Member m) {
+		// TODO Auto-generated method stub
+		return session.update("member.updateInfoMember", m);
+	}
 
 }

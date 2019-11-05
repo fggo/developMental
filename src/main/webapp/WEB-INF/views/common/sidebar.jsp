@@ -38,7 +38,7 @@
   <link rel="stylesheet" href="${path}/resources/css/sidebar.css">
   <!-- Scrollbar Custom CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
-
+  <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>	
   <!-- Sidebar  -->
   <div class="d-flex">
     <nav id="sidebar" class="p-0 flex-shrink-1">
@@ -52,6 +52,19 @@
       </div>
       <ul class="list-unstyled components">
         <p><i class="fa fa-tag" aria-hidden="true">&nbsp;&nbsp;Menu</i></p>
+
+        <li class="active">
+          <a href="#myPageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle sidebar-dropdown-toggle">MyPage</a>
+          <ul class="collapse list-unstyled" id="myPageSubmenu">
+            <li>
+              <a href="javascript: ajaxJobPage('${path }/member/setting.do');" id="jobBoardBtn">개인정보수정</a>
+            </li>
+            <li>
+              <a href="javascript: ajaxJobPage('${path }/job/jobApplyList');" id="jobApplyBtn">마이게시판</a>
+            </li>
+          </ul>
+        </li>
+
         <li class="active">
           <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle sidebar-dropdown-toggle">구인</a>
           <ul class="collapse list-unstyled" id="pageSubmenu">
@@ -60,6 +73,17 @@
             </li>
           </ul>
         </li>
+        <li>
+          <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle sidebar-dropdown-toggle">Study</a>
+           <ul class="collapse list-unstyled" id="pageSubmenu">
+            <li>
+            	<a href='${path }/study/studyList'>Board</a>
+            </li>
+            <li>
+             <a href='${path }/study/studyApplyList'>Apply</a>
+            </li>
+          </ul>
+           </li>
       </ul>
   
       <!-- <ul class="list-unstyled CTAs">
@@ -81,7 +105,7 @@
         dataType: "html",
         success: function(data){
           html = $('<div>').html(data);
-          $('#main-container').html(html.find('div.submenu-container'));
+          $('#main-wrapper').html(html.find('div.submenu-container'));
         },
         error: function(status, msg){
           alert('ajax error!');

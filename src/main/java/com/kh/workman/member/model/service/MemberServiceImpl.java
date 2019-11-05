@@ -27,5 +27,25 @@ public class MemberServiceImpl implements MemberService {
 		
 		return dao.insertMember(session, m);
 	}
+	
+	@Override
+	public Member selectFindEmail(String toemail) {
+		// TODO Auto-generated method stub
+		return dao.selectFindEmail(session, toemail);
+	}
+	
+	@Override
+	public int updateMember(Member m)
+	{
+		return dao.updateMember(session, m);
+	}
+	
+	@Override
+	public int updateInfoMember(Member m) {
+		
+		return dao.updateInfoMember(session, m);
+	}
+	
+	
 
 }

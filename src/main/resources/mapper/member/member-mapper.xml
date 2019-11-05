@@ -2,6 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="member">
 	
+	<select id="selectFindEmail" parameterType="String" resultType="com.kh.workman.member.model.vo.Member">
+		SELECT * FROM MEMBER WHERE EMAIL=#{tomail}
+	</select>
+	
+	<update id="updateMemberEmail" parameterType="com.kh.workman.member.model.vo.Member">
+		UPDATE MEMBER SET PW=#{pw} WHERE status=1 and EMAIL=#{email}
+	</update>
+	
+	
 	<select id="selectMemberCount" resultType="_int">
 		SELECT COUNT(*) FROM Member
 	</select>
@@ -16,6 +25,17 @@
 	 -->
 	<update id="statusUpdate" parameterType="map">
 		UPDATE MEMBER SET STATUS=#{status} WHERE NO=#{no}
+	</update>
+	
+	<update id="updateInfoMember" parameterType="com.kh.workman.member.model.vo.Member">
+	<choose>
+	<when test="pw == null || pw == '' ">
+		UPDATE MEMBER SET NICKNAME=#{nickname},PROFILE=#{profile},TEL=#{tel},ADDR=#{addr} WHERE ID=#{id}
+	</when>
+	<otherwise>
+		UPDATE MEMBER SET NICKNAME=#{nickname},PW=#{pw}, PROFILE=#{profile},TEL=#{tel},ADDR=#{addr} WHERE ID=#{id}
+	</otherwise>	
+	</choose>
 	</update>
 	
 	<delete id="deleteMember" parameterType="map">

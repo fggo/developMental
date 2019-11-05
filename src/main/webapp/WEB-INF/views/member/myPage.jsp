@@ -4,90 +4,132 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 
-<%-- jsp:include page="/WEB-INF/views/common/header.jsp">
+ <!-- <jsp:include page="/WEB-INF/views/common/header.jsp">
    <jsp:param name="pageTitle" value=""/>
-</jsp:include> --%>
+</jsp:include>  -->
+
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>			 
 
 
-<head>
-    <!-- Required meta tags-->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Colorlib Templates">
-    <meta name="author" content="Colorlib">
-    <meta name="keywords" content="Colorlib Templates">
-
-    <!-- Title Page-->
-    <title>Au Register Forms by Colorlib</title>
-
-    <!-- Icons font CSS-->
-    <link href="${path}/resources/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
-    <link href="${path}/resources/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
-    <!-- Font special for pages-->
-    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-    <!-- Vendor CSS-->
-    <link href="${path}/resources/vendor/select2/select2.min.css" rel="stylesheet" media="all">
-    <link href="${path}/resources/vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
-
-    <!-- Main CSS-->
-    <link href="${path}/resources/css/signUp.css" rel="stylesheet" media="all">
-    
-    <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-</head>
-
-<section id="content">
-
-		 
-    <div class="page-wrapper p-t-130 p-b-100 font-poppins">
-        <div class="wrapper wrapper--w680">
-            <div class="card card-4">
-                <div class="card-body">
-                    <h2 class="title">회원 등록</h2>
-                    <form action="${path}/member/register.do" method="POST">
-                        <div class="row row-space">
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">이름</label>
-                                    <input class="input--style-4" type="text" name="name" id="name" placeholder="이름 2자리 이상 영문도 2자리 이상" required="required" >
-                                    <input type="hidden" id="nameValue" value="F" class="이름"/>
+<div class="submenu-container">
+    <section id="content">
+        <head>
+                  <!-- Required meta tags-->
+                  <meta charset="UTF-8">
+                  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                  <meta name="description" content="Colorlib Templates">
+                  <meta name="author" content="Colorlib">
+                  <meta name="keywords" content="Colorlib Templates">
+             
+                  <!-- Title Page-->
+                  <title>Au Register Forms by Colorlib</title>
+                    <!-- jQuery CDN -->
+                    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+                    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+                    crossorigin="anonymous"></script>
+                  <!-- Icons font CSS-->
+                  <link href="${path}/resources/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+                  <link href="${path}/resources/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+                  <!-- Font special for pages-->
+                  <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+             
+                  <!-- Vendor CSS-->
+                  <link href="${path}/resources/vendor/select2/select2.min.css" rel="stylesheet" media="all">
+                  <link href="${path}/resources/vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
+             
+                  <!-- Main CSS-->
+                  <link href="${path}/resources/css/mypage.css" rel="stylesheet" media="all">          
+                  <link href="${path}/resources/css/avatar.css" rel="stylesheet" media="all">
+                  
+             </head>
+		
+    <div class="page-wrapper-my p-t-130-my p-b-100-my font-poppins-my">
+        <div class="wrapper-my wrapper--w680-my">
+            <div class="card-my card-4-my">
+                <div class="card-body-my">
+                    <h2 class="title-my">회원정보 수정</h2>
+                    
+            	
+            	
+            	
+            	<!-- avatar -->
+	            <!-- <div class="avatar-wrapper my-0-my mx-3-my">
+	            <c:if test="${loginMember.profile != null}">             
+	              <img class="profile-pic" src="${loginMember.profile}" />
+	             </c:if>
+	             <c:if test="${loginMember.profile} == null">
+	              <img class="profile-pic" src="" />
+	             </c:if>
+	             
+			          <div class="upload-button-my">
+		                <i class="fa fa-camera" aria-hidden="true"></i>
+		              </div> 
+		              <input class="file-upload form-control stretched-link" type="file" accept="image/*" name="profile" />
+		              <input class="" type="hidden" name="profile" value="${loginMember.profile}" />
+	             
+	              </div> -->
+	              
+               <form action="${path}/member/updateInfoMember.do" method="POST" enctype="multipart/form-data">
+                
+                <div class="form-group my-0">
+                        <div class="companyLogo-wrapper my-0 mx-auto">
+                          <c:if test="${loginMember.profile != null}">
+                            <img class="logo-pic" src="${path}/resources/upload/member/${loginMember.profile}" />
+                          </c:if>
+                          <c:if test="${loginMember.profile == null}">
+                            <img class="logo-pic" src="" />
+                          </c:if>
+                          <div class="upload-button">
+                            <i class="fa fa-camera" aria-hidden="true"></i>
+                          </div>
+                          <input class="file-upload form-control" type="file" accept="image/*" name="orgNames" />
+                          <input type="hidden" />
+                        </div>
+                  </div> 
+                    
+                        <div class="row-my row-space-my">
+                            <div class="col-2-my">
+                                <div class="input-group-my">
+                                    <label class="label-my">이름</label>
+                                    <input class="input--style-4-my" type="text" name="name" id="name" placeholder="이름 2자리 이상 영문도 2자리 이상" value="${loginMember.name}" readonly="readonly" >
+                                    <input type="hidden" id="nameValue" value="T" class="이름"/>
                                 </div>
                             </div>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">닉네임</label>
-                                    <input class="input--style-4" type="text" name="nickname" id="nickname" placeholder="닉네임 2자리 이상 영문도 2자리 이상" required="required" >
-                                    <input type="hidden" id="nicknameValue" class="닉네임"" value="F"/>
+                            <div class="col-2-my">
+                                <div class="input-group-my">
+                                    <label class="label-my">닉네임</label>
+                                    <input class="input--style-4-my" type="text" name="nickname" id="nickname" placeholder="닉네임 2자리 이상 영문도 2자리 이상" value="${loginMember.nickname}" required="required" >
+                                    <input type="text" id="nicknameValue" class="닉네임"" value="T"/>
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="row row-space">
-                            <div class="col-2">
-                            	<div class="input-group">
-                                    <label class="label">아이디</label>
-                                    <input class="input--style-4" type="text" name="id" id="id" placeholder="아이디 영문숫자만" required="required">
-                                    <input type="hidden" id="idValue" value="F" class="아이디"/>
+                        <div class="row-my row-space-my">
+                            <div class="col-2-my">
+                            	<div class="input-group-my">
+                                    <label class="label-my">아이디</label>
+                                    <input class="input--style-4-my" type="text" name="id" id="id" placeholder="아이디 영문숫자만" value="${loginMember.id}" readonly="readonly">
+                                    <input type="hidden" id="idValue" value="T" class="아이디"/>
                                 </div>
                                 <!--달력  -->
-                                <!-- <div class="input-group">
+                                <!-- <div class="input-group-my">
                                     <label class="label">Birthday</label>
-                                    <div class="input-group-icon">
+                                    <div class="input-group-my-icon">
                                         <input class="input--style-4 js-datepicker" type="text" name="birthday">
                                         <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
                                     </div>
                                 </div> -->
                             </div>
                             
-                            <div class="col-2">
-                            <div class="input-group">
-                                    <label class="label">비밀번호</label>
-                                    <input class="input--style-4" type="password" name="pw" id="pw" placeholder="비밀번호 6자리 이상"" required="required">
+                            <div class="col-2-my">
+                            <div class="input-group-my">
+                                    <label class="label-my" id="pwlabel">비밀번호</label>										
+                                    <input class="input--style-4-my" type="password" name="pw" placeholder="비밀번호 6자리 이상" id="pw" required="required">
                                     <input type="hidden" id="pwValue" value="F" class="비밀번호"/>
                                 </div>
                             
                             <!-- 성별 -->
-                                <!-- <div class="input-group">
+                                <!-- <div class="input-group-my">
                                     <label class="label">Gender</label>
                                     <div class="p-t-10">
                                         <label class="radio-container m-r-45">Male
@@ -99,58 +141,67 @@
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
-                                </div> -->
+										  </div> -->
+										 
+										
+
+										
                             </div>
                         </div>
-                        <div class="row row-space">
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">이메일</label>
-                                    <input class="input--style-4" type="email" name="email" id="email" placeholder="ex) abc@abc.com">
-                                    <input type="hidden" id="emailValue" value="F" class="이메일"/>
+                        <div class="row-my row-space-my">
+                            <div class="col-2-my">
+                                <div class="input-group-my">
+                                    <label class="label-my">이메일</label>
+                                    <input class="input--style-4-my" type="email" name="email" id="email" placeholder="ex) abc@abc.com" value="${loginMember.email}" readonly="readonly">
+                                    <input type="hidden" id="emailValue" value="T" class="이메일"/>
                                 </div>
                             </div>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">핸드폰</label>
-                                    <input class="input--style-4" type="text" name="tel" id="tel" placeholder="ex) 010-1234-5678">
-                                    <input type="hidden" id="telValue" value="F" class="핸드폰"/>
+                            <div class="col-2-my">
+                                <div class="input-group-my">
+                                    <label class="label-my">핸드폰</label>
+                                    <input class="input--style-4-my" type="text" name="tel" id="tel" value="${loginMember.tel}" placeholder="ex) 010-1234-5678">
+                                    <input type="hidden" id="telValue" value="T" class="핸드폰"/>
                                 </div>
                             </div>
                         </div>
                          <!-- <div class="row row-space">
                             <div class="col-2">
-                                <div class="input-group">
+                                <div class="input-group-my">
                                     <label class="label">Email</label>
                                     <input class="input--style-4" type="email" name="email">
                                 </div>
                             </div>
                             <div class="col-2">
-                                <div class="input-group">
+                                <div class="input-group-my">
                                     <label class="label">Phone Number</label>
                                     <input class="input--style-4" type="text" name="phone">
                                 </div>
                             </div>
                         </div> -->
-                        <div class="row row-space">
-                            <div class="col-0">
-                                <div class="input-group">
-                                    <label class="label">주소</label>            	
-                                    <input class="input--style-4" type="text" name="addr" id="addr" placeholder="주소를 입력하세요" required="required" >
-                                    <input type="hidden" id="addrValue" value="F" class="주소"/>   
+                        <div class="row-my row-space-my">
+                            <div class="col-0-my">
+                                <div class="input-group-my">
+                                    <label class="label-my">주소</label>        	
+                                    <input class="input--style-4-my" type="text" name="addr" id="addr" value="${loginMember.addr}" placeholder="주소를 입력하세요" required="required" >
+                                    <input type="hidden" id="addrValue" value="T" class="주소"/>   
                                     <!-- <input type="hidden" class="form-control" placeholder="extraAddress" id="extraAddress" name="extraAddress">
                                     <input type="hidden" class="mr-3 col-md-3 form-control" placeholder="Postcode" id="postCode" name="postCode">
                                     <input type="hidden" class="form-control" placeholder="jibunAddress" id="jibunAddress" name="jibunAddress"> -->
                                 </div>
                             </div>
-                            <div class="col-4">
-	                            <div class="input-group">
-	                              <button class="btn btn--radius-2 btn--blue pull-right" style="height:50px; margin-top: 30px; margin-left: 5px; " onclick="postCode()"><i class="fa fa-search"></i></button>                    
-	                            </div>
+                            <div class="col-4-my">
+	                            <div class="input-group-my">
+	                              <button class="btn-my btn--radius-2-my btn--blue-my pull-right" style="height:50px; margin-top: 30px; margin-left: 5px; " onclick="postCode()"><i class="fa fa-search"></i></button>                    
+                                  <input type="hidden" value=""/>
+                                </div>
                             </div>
-                        </div>                   
+                        </div>   
+                        
+                        <div class="row-my row-space-my">
+                           
+                        </div>                 
                         <!-- selector -->
-                       <!--  <div class="input-group">
+                       <!--  <div class="input-group-my">
                             <label class="label">Subject</label>
                             <div class="rs-select2 js-select-simple select--no-search">
                                 <select name="subject">
@@ -162,23 +213,23 @@
                                 <div class="select-dropdown"></div>
                             </div>
                         </div> -->
-                         <div class="row row-space">
-                            <div class="col-0">
-                                <div class="input-group">
-                                    <label class="label"><input type="text" id="msg" style="color: red" value="" readonly/></label>
+                         <div class="row-my row-space-my">
+                            <div class="col-0-my">
+                                <div class="input-group-my">
+                                    <label class="label-my"><input type="text" id="msg" style="color: red" value="" readonly/></label>
                                 </div>
                             </div>
                          </div>  
-                        <div class="p-t-15">
-                            <button class="btn btn--radius-2 btn--blue pull-left" type="button" onclick="register()">가입</button>
-                            <button class="btn btn--radius-2 btn--blue pull-right" type="button" onclick="location.href='${path}/member/mainPage.do'">취소</button>
+                        <div class="p-t-15-my">
+                            <button class="btn-my btn--radius-2-my btn--blue-my pull-left" type="button" onclick="changeData()">변경</button>
+                            <button class="btn-my btn--radius-2-my btn--blue-my pull-right" type="button" onclick="location.href='${path}/mainView'">취소</button>
                         </div>
                         
                     </form>
                 </div>
             </div>
         </div>
-    </div>
+	 </div>
 
     <!-- Jquery JS-->
     <script src="${path}/resources/vendor/jquery/jquery.min.js"></script>
@@ -189,12 +240,36 @@
 
     <!-- Main JS-->
     <script src="${path}/resources/js/global.js"></script>
+   
 
 <!-- This templates was made by Colorlib (https://colorlib.com) -->
 
+
+<script>
+          // logo image
+          var readURL = function(input) {
+            if (input.files && input.files[0]) {
+              var reader = new FileReader();
+              reader.onload = function (e) {
+                $('.logo-pic').attr('src', e.target.result);
+              }
+              reader.readAsDataURL(input.files[0]);
+            }
+          }
+
+          $(".file-upload").on('change', function(){
+            readURL(this);
+          });
+          $(".upload-button").on('click', function() {
+            $(".file-upload").click();
+          });
+          
+
+</script>
+
 <script>
 
-	
+        
 /* $("#roadAddress").focus(function(){
 	var roadAddress = $("#roadAddress");
 	if(roadAddress.val() == Nan)
@@ -217,7 +292,6 @@ function postCode()
         }).open();
     });		
 }
-
 
 $("#tel").keyup(function(e){
     var inputTel = $(this);
@@ -242,10 +316,8 @@ $("#tel").keyup(function(e){
     }
 });
 
-
-
-// 가입 버튼 이벤트
-function register()
+// 변경 버튼 이벤트
+function changeData()
 {
 	var form = $("form");
 	var msg = $("#msg");
@@ -260,11 +332,11 @@ function register()
     if( ($("#nameValue").val() == 'T') && 
         ($("#nicknameValue").val() == 'T') && 
         ($("#idValue").val() == 'T') && 
-        ($("#pwValue").val() == 'T') && 
         ($("#emailValue").val() == 'T') &&
         ($("#telValue").val() == 'T') &&
         ($("#addrValue").val() == 'T') )
     {
+       
         form.submit();
     }
     else
@@ -279,6 +351,7 @@ function register()
        }
        msg.val(text+"를 잘못 입력 하셨습니다. 다시 입력해주세요!");
     }
+	
 }
 
 
@@ -288,7 +361,7 @@ function regExpCheck(data, inputName)
 
     if(inputName == 'name' || inputName == 'nickname')
     {
-        var regExp = /^[가-힣a-zA-Z]{3,20}$/;
+        var regExp = /^[가-힣a-zA-Z-z0-9]{3,20}$/;
         return ( (data !='' && data != 'undefined' && data != 'null' && data != 'NaN') && regExp.test(data) );
     }
     else if(inputName == 'email')
@@ -316,7 +389,6 @@ function regExpCheck(data, inputName)
         var regExp = /^[가-힣]{4,30}||[a-zA-Z]{4,30}\s[a-zA-Z]{4,30}$/;
         return ( (data !='' && data != 'undefined' && data != 'null' && data != 'NaN') && regExp.test(data) );
     }
-    
 }
 
 // 정규식 이메일 체크
@@ -331,6 +403,7 @@ function regExpCheck(data, inputName)
 // 이름 이메일 등 정규식 표현이 맞거나 틀리면 이벤트 발생
 $(document).ready(function()
 {
+
     //var msg = $("#msg").val();
 
     $("input").focus(function(){
@@ -340,7 +413,7 @@ $(document).ready(function()
 
 
     // 이름
-   $("#name,#nickname,#id,#pw,#email,#tel,#addr").blur(function(){
+   $("#id,#pw,#name,#email,#addr,#nickname,#tel").blur(function(){
         
         var inputName = $(this); // input name명
         var inputValue = $('#'+inputName.attr("name")+'Value'); // inputValue Class 명
@@ -386,9 +459,6 @@ $(document).ready(function()
 
             return;
         }
-        console.log(!regExpCheck(inputName.val(), inputName.attr("name")));
-        console.log(inputName.val());
-        console.log(inputName.attr("name"));
 
         if(!regExpCheck(inputName.val(), inputName.attr("name")))
         {
@@ -400,7 +470,6 @@ $(document).ready(function()
             inputValue.val("F");
             return false;
         }else{
-            console.log("dfdff");
             $("#msg").val("");
             inputValue.val("T");
         }
@@ -411,5 +480,6 @@ $(document).ready(function()
 </script>
 
 </section>
+</div>
 
 <!-- <jsp:include page="/WEB-INF/views/common/footer.jsp"/> -->

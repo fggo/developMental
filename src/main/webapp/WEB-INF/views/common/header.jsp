@@ -12,9 +12,10 @@
   <meta charset="UTF-8">
   <title>${ param.pageTitle }</title>
   
-  <!-- CSS -->
-  <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
   
+  <!-- CSS -->
+  
+
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
   integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
@@ -22,11 +23,18 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> -->
   
+
   <!-- jQuery CDN -->
+  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> -->
+  
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"
   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
   crossorigin="anonymous"></script>
   <link rel="stylesheet" href="${path }/resources/css/header.css">
+
+  <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
+  
+  <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>	
 
 
 <style type="text/css">
@@ -140,34 +148,35 @@
               <a class="nav-link dropdown menu-item mt-1 mr-2 text-white" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fa fa-cog">&nbsp;<span class="text-secondary"><c:if test="${loginMember != null}">#${loginMember.no}</c:if></span></span>&nbsp;</a>
 
               <div class="dropdown-menu mt-1" aria-labelledby="dropdown01">
-                <a class="dropdown-item" href="${path }/collabo/detail.do?collaboNo=1"><i class="fa fa-align-justify">&nbsp;&nbsp;</i>Collabo Tool</a>
+                <a class="dropdown-item" href="${path }/collabo/main?userId=${loginMember.id }"><i class="fa fa-align-justify">&nbsp;&nbsp;</i>Collabo Tool</a>
                 <a class="dropdown-item" href="javascript: ajaxJobPage('${path }/job/jobBoardList');"><i class="fa fa-briefcase">&nbsp;&nbsp;</i>구인 구직</a>
-              	<!-- 관리자메뉴 버튼 by ogc -->
-              	<c:if test="${loginMember != null && loginMember.id eq 'admin'}">
-              		<a class="dropdown-item" href="${path }/admin/selectMemberList.do"><i class="fas fa-bell">&nbsp;&nbsp;</i>Admin Menu</a>
-              		<a class="dropdown-item" href="${path }/admin/adminMain"><i class="fas fa-bell">&nbsp;&nbsp;</i>Admin Main Test</a>
-					<!-- <button type="button" class="btn btn-sm btn-light mt-2 mr-1" onclick="adminMenu();" style="width: 80px;">관리</button> -->
-              	</c:if>
-
+                <!-- 관리자메뉴 버튼 by ogc -->
+                <c:if test="${loginMember != null && loginMember.id eq 'admin'}">
+                  <a class="dropdown-item" href="${path }/admin/selectMemberList.do"><i class="fas fa-bell">&nbsp;&nbsp;</i>Admin Menu</a>
+                  <a class="dropdown-item" href="${path }/admin/adminMain"><i class="fas fa-bell">&nbsp;&nbsp;</i>Admin Main Test</a>
+          <!-- <button type="button" class="btn btn-sm btn-light mt-2 mr-1" onclick="adminMenu();" style="width: 80px;">관리</button> -->
+                </c:if>
               </div>
             </li>
+      
       <c:if test="${loginMember != null}">
               <li class="nav-item">
                 <form action="${path}/member/logout.do" method="post">
-                   <button type="button" class="btn btn-sm btn-light mt-2 mr-1" onclick="return logoutSnsAccount();" style="width: 200px;" disabled="disabled"><c:out value="${loginMember.nickname}님 환영합니다."/></button>
+                  <button type="button" class="btn btn-sm btn-light mt-2 mr-1" onclick="return logoutSnsAccount();" style="width: 200px;" disabled="disabled"><c:out value="${loginMember.nickname}님 환영합니다."/></button>
                   <button type="submit" class="btn btn-sm btn-light mt-2 mr-1" onclick="return logoutSnsAccount();" style="width: 80px;">로그아웃</button>
                 </form>
               </li>    
       </c:if>
+      
 
       <c:if test="${loginMember == null}">
               <li class="nav-item">    
                   <button type="button" class="btn btn-sm btn-light mt-2 mr-1" id="login" style="width:67px;" >로그인</button>
               </li>  
             <li class="nav-item">
-              <form action="${path }/signUp.do" method="post">
-              <button class="btn-sm btn-primary mt-2 mr-1" onclick='location.href="${path}/signUp.do"' style="width:80px;">회원가입</button>
-              </form>
+              <button class="btn-sm btn-primary mt-2 mr-1" onclick='location.href="${path}/member/signUp.do"' style="width:80px;">회원가입</button>
+              <%-- <form action="${path}/member/signUp.do" method="post">
+              </form> --%>
             </li>
             </c:if>
             
@@ -209,12 +218,7 @@
           $("#loginModal").modal('show');
         })
       })
-      
-       
 
-      
-      
-    
     </script>
     
     
@@ -237,22 +241,24 @@ aria-hidden="true" data-target="#LoginModalTitle">
                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&#xD7;</button>
            </div>
             <div class="modal-body login-form">
-              
-            <form action="${path}/member/login.do" method="post">
-                <h2 class="text-center">Login</h2>   
-                <div class="form-group has-error">
+				    <form action="${path}/member/login.do" method="post">
+				        <h2 class="text-center">Login</h2>   
+				        <div class="form-group has-error">
                   <input type="text" class="form-control" name="id" placeholder="id" required="required">
-                </div>
-            <div class="form-group">
+                  <input type="hidden"/>
+				        </div>
+						<div class="form-group">
                     <input type="password" class="form-control" name="pw" placeholder="Password" required="required">
-                </div>
-                <div class="form-group">
+                    <input type="hidden"/>
+				        </div>
+				        <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
-                </div>
-                <p><a href="${path}/member/fixPassword.do">Lost your Password?</a></p>
-              <p class="text-center small">Don't have an account? <a href="${path}/signUp.do">Sign up here!</a></p>
-            </form>
-              </div>
+                    <input type="hidden"/>
+				        </div>
+				        <p><a href="${path}/member/sendingEmail.do">Lost your Password?</a></p>
+					    <p class="text-center small">Don't have an account? <a href="${path}/member/signUp.do">Sign up here!</a></p>
+				    </form>
+           	 </div>
         </div>
     </div>
 </div>

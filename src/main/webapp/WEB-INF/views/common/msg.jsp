@@ -22,7 +22,7 @@
 	crossorigin="anonymous"></script>
 <!-- 사용자작성 css -->
 <%-- <link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/css/style.css" /> --%>
+	href="${pageContext.request.contextPath}/resources/css/style.css" /> --%>
 
 </head>
 <body>

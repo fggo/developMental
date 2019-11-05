@@ -2,18 +2,18 @@
 /* ==========================================================================
    #FONT
    ========================================================================== */
-.font-robo {
+.font-robo-my {
   font-family: "Roboto", "Arial", "Helvetica Neue", sans-serif;
 }
 
-.font-poppins {
+.font-poppins-my {
   font-family: "Poppins", "Arial", "Helvetica Neue", sans-serif;
 }
 
 /* ==========================================================================
    #GRID
    ========================================================================== */
-.row {
+.row-my {
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -24,7 +24,7 @@
   flex-wrap: wrap;
 }
 
-.row-space {
+.row-space-my {
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
   -moz-box-pack: justify;
@@ -32,32 +32,32 @@
   justify-content: space-between;
 }
 
-.col-2 {
+.col-2-my {
   width: -webkit-calc((100% - 30px) / 2);
   width: -moz-calc((100% - 30px) / 2);
   width: calc((100% - 30px) / 2);
 }
 
-.col-1 {
+.col-1-my {
   width: -webkit-calc((100%));
   width: -moz-calc((100%));
   width: calc((100%));
 }
 
-.col-0 {
+.col-0-my {
   width: -webkit-calc((75%));
   width: -moz-calc((75%));
   width: calc((75%));
 }
 
-.col-4 {
+.col-4-my {
   width: -webkit-calc((10%));
   width: -moz-calc((10%));
   width: calc((10%));
 }
 
 @media (max-width: 767px) {
-  .col-2 {
+  .col-2-my {
     width: 100%;
   }
 }
@@ -138,7 +138,7 @@ button {
 /* ==========================================================================
    #PAGE WRAPPER
    ========================================================================== */
-.page-wrapper {
+.page-wrapper-my {
   min-height: 100vh;
 }
 
@@ -179,15 +179,15 @@ h6 {
 /* ==========================================================================
    #BACKGROUND
    ========================================================================== */
-.bg-blue {
+.bg-blue-my {
   background: #2c6ed5;
 }
 
-.bg-red {
+.bg-red-my {
   background: #fa4251;
 }
 
-.bg-gra-01 {
+.bg-gra-01-my {
   background: -webkit-gradient(linear, left bottom, left top, from(#fbc2eb), to(#a18cd1));
   background: -webkit-linear-gradient(bottom, #fbc2eb 0%, #a18cd1 100%);
   background: -moz-linear-gradient(bottom, #fbc2eb 0%, #a18cd1 100%);
@@ -195,7 +195,7 @@ h6 {
   background: linear-gradient(to top, #fbc2eb 0%, #a18cd1 100%);
 }
 
-.bg-gra-02 {
+.bg-gra-02-my {
   background: -webkit-gradient(linear, left bottom, right top, from(#fc2c77), to(#6c4079));
   background: -webkit-linear-gradient(bottom left, #fc2c77 0%, #6c4079 100%);
   background: -moz-linear-gradient(bottom left, #fc2c77 0%, #6c4079 100%);
@@ -206,65 +206,65 @@ h6 {
 /* ==========================================================================
    #SPACING
    ========================================================================== */
-.p-t-100 {
+.p-t-100-my {
   padding-top: 100px;
 }
 
-.p-t-130 {
+.p-t-130-my {
   padding-top: 130px;
 }
 
-.p-t-180 {
+.p-t-180-my {
   padding-top: 180px;
 }
 
-.p-t-20 {
+.p-t-20-my {
   padding-top: 20px;
 }
 
-.p-t-15 {
+.p-t-15-my {
   padding-top: 15px;
 }
 
-.p-t-10 {
+.p-t-10-my {
   padding-top: 10px;
 }
 
-.p-t-30 {
+.p-t-30-my {
   padding-top: 30px;
 }
 
-.p-b-100 {
+.p-b-100-my {
   padding-bottom: 100px;
 }
 
-.m-r-45 {
+.m-r-45-my {
   margin-right: 45px;
 }
 
 /* ==========================================================================
    #WRAPPER
    ========================================================================== */
-.wrapper {
+.wrapper-my {
   margin: 0 auto;
 }
 
-.wrapper--w960 {
+.wrapper--w960-my {
   max-width: 960px;
 }
 
-.wrapper--w780 {
+.wrapper--w780-my {
   max-width: 780px;
 }
 
-.wrapper--w680 {
+.wrapper--w680-my {
   max-width: 680px;
 }
 
 /* ==========================================================================
    #BUTTON
    ========================================================================== */
-.btn {
+.btn-my {
   display: inline-block;
   line-height: 50px;
   padding: 0 50px;
@@ -278,37 +278,37 @@ h6 {
   font-family: "Poppins", "Arial", "Helvetica Neue", sans-serif;
 }
 
-.btn--radius {
+.btn--radius-my {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
 }
 
-.btn--radius-2 {
+.btn--radius-2-my {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
 }
 
-.btn--pill {
+.btn--pill-my {
   -webkit-border-radius: 20px;
   -moz-border-radius: 20px;
   border-radius: 20px;
 }
 
-.btn--green {
+.btn--green-my {
   background: #57b846;
 }
 
-.btn--green:hover {
+.btn--green-my:hover {
   background: #4dae3c;
 }
 
-.btn--blue {
+.btn--blue-my {
   background: #4272d7;
 }
 
-.btn--blue:hover {
+.btn--blue-my:hover {
   background: #3868cd;
 }
 
@@ -323,18 +323,18 @@ input[type="date" i] {
   padding: 14px;
 }
 
-.table-condensed td, .table-condensed th {
+.table-condensed-my td, .table-condensed-my th {
   font-size: 14px;
   font-family: "Roboto", "Arial", "Helvetica Neue", sans-serif;
   font-weight: 400;
 }
 
-.daterangepicker td {
+.daterangepicker-my td {
   width: 40px;
   height: 30px;
 }
 
-.daterangepicker {
+.daterangepicker-my {
   border: none;
   -webkit-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
   -moz-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
@@ -352,7 +352,7 @@ input[type="date" i] {
   padding: 10px 0;
 }
 
-.daterangepicker .table-condensed th select {
+.daterangepicker-my .table-condensed-my th select {
   border: 1px solid #ccc;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -377,7 +377,7 @@ input {
   font-family: inherit;
 }
 
-.input--style-4 {
+.input--style-4-my {
   line-height: 50px;
   background: #fafafa;
   -webkit-box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
@@ -395,34 +395,34 @@ input {
   transition: all 0.4s ease;
 }
 
-.input--style-4::-webkit-input-placeholder {
+.input--style-4-my::-webkit-input-placeholder {
   /* WebKit, Blink, Edge */
   color: #666;
 }
 
-.input--style-4:-moz-placeholder {
+.input--style-4-my:-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
   color: #666;
   opacity: 1;
 }
 
-.input--style-4::-moz-placeholder {
+.input--style-4-my::-moz-placeholder {
   /* Mozilla Firefox 19+ */
   color: #666;
   opacity: 1;
 }
 
-.input--style-4:-ms-input-placeholder {
+.input--style-4-my:-ms-input-placeholder {
   /* Internet Explorer 10-11 */
   color: #666;
 }
 
-.input--style-4:-ms-input-placeholder {
+.input--style-4-my:-ms-input-placeholder {
   /* Microsoft Edge */
   color: #666;
 }
 
-.label {
+.label-my {
   font-size: 16px;
   color: #555;
   text-transform: capitalize;
@@ -430,7 +430,7 @@ input {
   margin-bottom: 5px;
 }
 
-.radio-container {
+.radio-container-my {
   display: inline-block;
   position: relative;
   padding-left: 30px;
@@ -443,21 +443,21 @@ input {
   user-select: none;
 }
 
-.radio-container input {
+.radio-container-my input {
   position: absolute;
   opacity: 0;
   cursor: pointer;
 }
 
-.radio-container input:checked ~ .checkmark {
+.radio-container-my input:checked ~ .checkmark {
   background-color: #e5e5e5;
 }
 
-.radio-container input:checked ~ .checkmark:after {
+.radio-container-my input:checked ~ .checkmark:after {
   display: block;
 }
 
-.radio-container .checkmark:after {
+.radio-container-my .checkmark-my:after {
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
@@ -473,7 +473,7 @@ input {
   background: #57b846;
 }
 
-.checkmark {
+.checkmark-my {
   position: absolute;
   top: 50%;
   -webkit-transform: translateY(-50%);
@@ -493,22 +493,22 @@ input {
   box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
 }
 
-.checkmark:after {
+.checkmark-my:after {
   content: "";
   position: absolute;
   display: none;
 }
 
-.input-group {
+.input-group-my {
   position: relative;
   margin-bottom: 22px;
 }
 
-.input-group-icon {
+.input-group-icon-my {
   position: relative;
 }
 
-.input-icon {
+.input-icon-my {
   position: absolute;
   font-size: 18px;
   color: #999;
@@ -525,11 +525,11 @@ input {
 /* ==========================================================================
    #SELECT2
    ========================================================================== */
-.select--no-search .select2-search {
+.select--no-search-my .select2-search-my {
   display: none !important;
 }
 
-.rs-select2 .select2-container {
+.rs-select2-my .select2-container-my {
   width: 100% !important;
   outline: none;
   background: #fafafa;
@@ -541,14 +541,14 @@ input {
   border-radius: 5px;
 }
 
-.rs-select2 .select2-container .select2-selection--single {
+.rs-select2-my .select2-container-my .select2-selection--single-my {
   outline: none;
   border: none;
   height: 50px;
   background: transparent;
 }
 
-.rs-select2 .select2-container .select2-selection--single .select2-selection__rendered {
+.rs-select2-my .select2-container-my .select2-selection--single-my .select2-selection__rendered-my {
   line-height: 50px;
   padding-left: 0;
   color: #555;
@@ -621,7 +621,7 @@ input {
 /* ==========================================================================
    #TITLE
    ========================================================================== */
-.title {
+.title-my {
   font-size: 24px;
   color: #525252;
   font-weight: 400;
@@ -631,14 +631,14 @@ input {
 /* ==========================================================================
    #CARD
    ========================================================================== */
-.card {
+.card-my {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
   background: #fff;
 }
 
-.card-4 {
+.card-4-my {
   background: #fff;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
@@ -648,13 +648,13 @@ input {
   box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
 }
 
-.card-4 .card-body {
+.card-4-my .card-body-my {
   padding: 57px 65px;
   padding-bottom: 65px;
 }
 
 @media (max-width: 767px) {
-  .card-4 .card-body {
+  .card-4-my .card-body-my {
     padding: 50px 40px;
   }
 }

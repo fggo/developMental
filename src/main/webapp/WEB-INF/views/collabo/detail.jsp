@@ -38,10 +38,12 @@
 									<button type="button" class="fa fa-align-justify btn-menu" data-toggle="dropdown"></button>
 									<div class="dropdown-menu">
 										<div class="dropdown-item">
-											<span style="text-align:center;margin-left:17px">List Actions</span>
+											<span style="text-align:center;margin-left:17px">리스트 메뉴</span>
 											<hr>
-											<button type="button" onclick="requestUpdateList(this)" class="btn btn-sm btn-primary">Edit</button>
-											<button type="button" onclick="requestDeleteList(this)" class="btn btn-sm btn-primary">Remove</button>
+											<div style="text-align:center;">
+												<button type="button" onclick="requestUpdateList(this)" class="btn btn-sm btn-primary">수정</button>
+												<button type="button" onclick="requestDeleteList(this)" class="btn btn-sm btn-primary">삭제</button>
+											</div>
 										</div>
 								    </div>
 							</div>
@@ -61,7 +63,7 @@
 							</c:if>
 						</div>
 						<div class="open-card" >
-							<span onclick="requestCreateCard(this);" class="fa fa-plus btn-createCard" >Add another card</span>
+							<span onclick="requestCreateCard(this);" class="fa fa-plus btn-createCard" >카드 생성</span>
 						</div>
 					</div>
 				</div> 
@@ -76,12 +78,12 @@
 			
 				<div class="dropdown div-drop" >
 					<button class="dropdown btn-addList" type="button" onclick='$("#listTitle").val(" ");' name="btn_addList"  data-toggle="dropdown" >
-						<span class="fa fa-plus" >Add another list</span>
+						<span class="fa fa-plus" >리스트 생성</span>
 					</button>
 					<div class="dropdown-menu">
 						<div class="dropdown-item">
 							<input type="text" id="listTitle" placeholder="Input List Name"/>
-							<Button class="btn-createList btn-sm btn btn-primary" type="button" name="btn_cList" onclick="requestCreateList();" >Create</Button>
+							<Button class="btn-createList btn-sm btn btn-primary" type="button" name="btn_cList" onclick="requestCreateList();" >생성</Button>
 						</div>
 					</div>
 				</div>
@@ -120,18 +122,18 @@
           			<div class="panel-body">
           				<textarea id="editContent" rows="3" cols="92"></textarea>
           				<br>
-          				<button onclick="requestUpdateCard(this);"type="button" class="btn btn-sm btn-primary" style="margin-top:10px;">Update!</button>
+          				<button onclick="requestUpdateCard(this);"type="button" class="btn btn-sm btn-primary" style="margin-top:10px;">수정!</button>
           			</div>
           		</div>
           	</div>
           </div>
           <div style="float:right;margin-top:30px;">
-	          <button id="btnEdit" class="btn btn-sm btn-primary" type="button" data-toggle="collapse" data-target="#modifyContent">edit</button>
+	          <button id="btnEdit" class="btn btn-sm btn-primary" type="button" data-toggle="collapse" data-target="#modifyContent">수정</button>
 	          <!-- <button class="btn btn-sm btn-primary" type="button">move</button> -->
-	          <button id="btnDelete" class="btn btn-sm btn-primary" onclick="requestDeletCard(this);" type="button">delete</button>
+	          <button id="btnDelete" class="btn btn-sm btn-primary" onclick="requestDeletCard(this);" type="button">삭제</button>
           </div>
           <div style="margin-top:70px;padding:10px 2px;">
-          	<h5>Comments</h5>
+          	<h5>댓글</h5>
           	<hr>
           		<textarea id="editArea" rows="3" cols="92"></textarea>
           </div>
@@ -139,7 +141,7 @@
         
         <!-- Modal footer -->
         <div class="modal-footer">
-          <button name="btnModalClose" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button name="btnModalClose" type="button" class="btn btn-secondary" data-dismiss="modal">나가기</button>
         </div>
         
       </div>
@@ -214,7 +216,7 @@ function requestUpdateList(target){
 
 function requestDeleteList(target){
 	if(confirm("Are you Delete This List?")){
-		var targetList = $(target).parent().parent().parent().parent().children(".list-cards").attr("id").substring(7);
+		var targetList = $(target).parent().parent().parent().parent().parent().children(".list-cards").attr("id").substring(7);
 		sendData={
 			type : "list",
 			method : "delete",
@@ -414,7 +416,7 @@ function createWrapper(ele){
 	var listTitle = $("<input/>");
 	listTitle.attr("type","text");
 	listTitle.attr("id","listTitle");
-	listTitle.attr("placeholder","Input List Name");
+	listTitle.attr("placeholder","리스트 제목을 입력하세요");
 	
 	
 	var btncList = $("<button/>");
@@ -492,7 +494,7 @@ function requestCreateCard(ele){
 
 function requestCreateList(){
 	var listTitle= $("#listTitle").val();
-	if(listTitle!=''){
+	 if(listTitle!=' '){
 	
 		var sendData = {
 			type : "list",
@@ -502,7 +504,10 @@ function requestCreateList(){
 			collaboNo : collaboNo
 		};
 		sendMessage(sendData);
-	}
+	 }else{
+		 alert('공백은 불가능 합니다.');
+	 }
+	 
 }
 
 function responseCreateList(receive){
@@ -537,12 +542,18 @@ function responseCreateList(receive){
 	    dropitem.attr("class","dropdown-item");
 	    
 	    var dropspan = $("<span/>");
-	    dropspan.text("List Actions");
+	    dropspan.text("리스트 메뉴");
 	    dropspan.css({
 	    	"text-align":"center;",
 	    	"margin-left" : "17px"
 	    });
 	    var hr = $("<hr/>");
+	    
+	    
+	    var dropbtnDiv = $("<div/>");
+	    dropbtnDiv.css({
+	    	"text-align":"center"
+	    });
 	    
 	    var btnEdit = $("<button/>");
 	    btnEdit.attr("type","button");
@@ -551,20 +562,20 @@ function responseCreateList(receive){
 	    btnEdit.css({
 	    	"margin-right":"3px"
 	    });
-	    btnEdit.text("Edit");
+	    btnEdit.text("수정");
 	    
 	    var btnRemove = $("<button/>");
 	    btnRemove.attr("type","button");
 	    btnRemove.attr("onclick","requestDeleteList(this)");
 	    btnRemove.attr("class","btn btn-sm btn-primary");
-	    btnRemove.text("Remove");
+	    btnRemove.text("삭제");
 	    
-	    
+	    dropbtnDiv.append(btnEdit);
+	    dropbtnDiv.append(btnRemove);
 	    
 	    dropitem.append(dropspan);
 	    dropitem.append(hr);
-	    dropitem.append(btnEdit);
-	    dropitem.append(btnRemove);
+	    dropitem.append(dropbtnDiv);
 	    
 	    dropMenu.append(dropitem);
 		
@@ -580,7 +591,7 @@ function responseCreateList(receive){
 		openCard.attr("class","open-card");
 	
 		var faplus = $('<span/>');
-		faplus.text("Add another card");
+		faplus.text("카드 생성");
 		faplus.attr("onclick","requestCreateCard(this);");
 		faplus.attr("class","fa fa-plus");
 	
