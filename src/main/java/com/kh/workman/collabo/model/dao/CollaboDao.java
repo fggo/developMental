@@ -47,4 +47,8 @@ public interface CollaboDao {
 	int searchListPlaceNo(SqlSessionTemplate session, DataPacket receive);
 
 	List<Map<String, String>> selectCollaboMemberList(SqlSessionTemplate session, String userId);
+
+	int createCollaboTool(SqlSessionTemplate session, Map<String, Object> temp);
+
+	int insertCollaboMember(SqlSessionTemplate session, Map<String, Object> temp);
 }

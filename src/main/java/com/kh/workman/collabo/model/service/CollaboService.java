@@ -46,4 +46,8 @@ public interface CollaboService {
 
 	List<Map<String, String>> selectCollaboMemberList(String userId);
 
+	int createCollaboTool(Map<String, Object> temp);
+
+	int insertCollaboMember(Map<String, Object> temp);
+
 }

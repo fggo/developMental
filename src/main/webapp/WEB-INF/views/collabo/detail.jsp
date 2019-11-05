@@ -151,11 +151,10 @@
 </section>
 <script>
 var userId =  "${loginMember.id}";
-var collaboNo = 1;
+var collaboNo = ${collaboNo};
 let sock = new SockJS("<c:url value="/collabo/soc"/>");
 sock.onmessage = onMessage;
 sock.onclose = onClose;
-
 
 if(userId == ""){
 	history.back();
@@ -169,11 +168,6 @@ sock.onopen = function(){
 	};
 	sendMessage(sendData);
 }
-
-
-
-
-
 
 
 function requestMoveList(element, ev){
@@ -199,7 +193,7 @@ function responseUpdateList(receive){
 }
 
 function requestUpdateList(target){
-	var listNo = $(target).parent().parent().parent().parent().children(".list-cards").attr("id").substring(7);
+	var listNo = $(target).parent().parent().parent().parent().parent().children(".list-cards").attr("id").substring(7);
 	var content = prompt("Please enter the title of the list to modify");
 	sendData={
 		type :"list",
@@ -466,7 +460,7 @@ function responseCreateCard(receive){
 	card.attr("ondrop","return false");
 	card.attr("draggable","true");
 	card.attr("ondragstart","cardDrag(this,event)");
-	card.attr("ondragend","endDragCard()");
+	card.attr("ondragend","endCardDrag()");
 	card.attr("id","cardNo_"+receive.cardNo);
 	card.attr("name","cardNo_"+receive.cardNo);
 	
