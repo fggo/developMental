@@ -79,13 +79,15 @@
 
 
   <main id="main-wrapper" class="p-0 w-100">
+  <jsp:include page="/WEB-INF/views/common/loading.jsp"/>
+
   
-  <div class="py-4 col-lg-10 container submenu-container">
+  <div class="py-4 col-lg-10 container" id="main-container">
 
     <div class="card card-fluid" id="job-listings">
 
       <div class="card-header my-0 py-0">
-        <a href="${path}/mainView"><img src="${path}/resources/images/home.png" alt=""></a>
+        <a href="${path}"><img src="${path}/resources/images/home.png" alt=""></a>
         <div class="d-flex align-items-center p-3 my-0 text-white bg-dark rounded">
           <i class="fa fa-book text-white mr-3 my-2" style="font-size:42px;"></i>
           <div class="lh-100 ml-2">

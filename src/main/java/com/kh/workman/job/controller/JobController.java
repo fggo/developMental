@@ -128,7 +128,7 @@ public class JobController {
 //  private String companyLogo; input type="file"
 
     ModelAndView mv = new ModelAndView();
-    mv.setViewName("mainView");
+    mv.setViewName("/");
     
     return mv;
   }

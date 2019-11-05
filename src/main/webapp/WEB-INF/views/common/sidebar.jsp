@@ -51,10 +51,10 @@
         </c:if>
       </div>
       <ul class="list-unstyled components">
-        <p><i class="fa fa-tag" aria-hidden="true">&nbsp;&nbsp;Menu</i></p>
+        <p class="text-dark table-primary p-2"><i class="fa fa-tag " aria-hidden="true">&nbsp;&nbsp;Menus</i></p>
 
         <li class="active">
-          <a href="#myPageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle sidebar-dropdown-toggle">MyPage</a>
+          <a href="#myPageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle sidebar-dropdown-toggle">마이페이지</a>
           <ul class="collapse list-unstyled" id="myPageSubmenu">
             <li>
               <a href="javascript: ajaxJobPage('${path }/member/setting.do');" id="jobBoardBtn">개인정보수정</a>
@@ -105,7 +105,7 @@
         dataType: "html",
         success: function(data){
           html = $('<div>').html(data);
-          $('#main-wrapper').html(html.find('div.submenu-container'));
+          $('#main-container').html(html.find('div.submenu-container'));
         },
         error: function(status, msg){
           alert('ajax error!');

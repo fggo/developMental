@@ -54,7 +54,6 @@
                 <img src="${path}/resources/images/noimage.png" id="companyLogo" class="img-fluid" alt="">
               </c:otherwise>
             </c:choose>
-            <input type="hidden" id="imageURL" name="imageURL" value="" />
           </div>
         </div>
 

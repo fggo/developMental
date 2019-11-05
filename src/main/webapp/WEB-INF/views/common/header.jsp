@@ -225,6 +225,7 @@
 
   <!-- </header> -->
   </header>
+
   <!-- bootstrap Modal : Job content -->
   <!-- Modal -->
   <div class="modal fade" id="jobmodal" tabindex="-1" role="dialog" aria-labelledby="jobmodalTitle" aria-hidden="true">

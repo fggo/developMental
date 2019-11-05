@@ -15,23 +15,6 @@
 </jsp:include>
 
   <main id="main-wrapper" class="p-0 w-100">
-    <div class="container mb-0 mt-3 p-0 text-center " id="loading">
-      <div class="spinner-grow spinner-grow-sm ml-1 mt-3 mb-0 text-primary apiLoading" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
-      <div class="spinner-grow spinner-grow-sm ml-1 mt-3 mb-0 text-primary apiLoading" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
-      <div class="spinner-grow spinner-grow-sm ml-1 mt-3 mb-0 text-primary apiLoading" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
-      <div class="spinner-grow spinner-grow-sm ml-1 mt-3 mb-0 text-primary apiLoading" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
-      <div class="spinner-grow spinner-grow-sm ml-1 mt-3 mb-0 text-primary apiLoading" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
-    </div>
 
     <div id="main-container">
       <div class="py-4 col-lg-10 container submenu-container">
@@ -39,11 +22,13 @@
         <div class="card card-fluid" id="job-listings">
 
           <div class="card-header my-0 py-0">
-            <a href="${path}/mainView"><img src="${path}/resources/images/home.png" alt=""></a>
+            <a href="${path}"><img src="${path}/resources/images/home.png" alt=""></a>
             <div class="d-flex align-items-center p-3 my-0 text-white bg-dark rounded">
               <i class="fa fa-briefcase text-white mr-3 my-2" style="font-size:42px;"></i>
               <div class="lh-100 ml-2">
-                <p class="h5 mb-0 text-white lh-100">&nbsp;&nbsp;구인구직 게시판</p> </div>
+                <p class="h5 mb-0 text-white lh-100">구인구직 게시판</p>
+                <small><i class="fa fa-asia"></i>국내/해외취업을 선택할 수 있습니다.</small>
+              </div>
             </div>
           </div>
 
@@ -76,10 +61,11 @@
 
               </div>
             </div>
+            <h4>Github 조회</h4>
             <div id="githubJobBoardList">
               <table class="table table-sm table-hover jobmodal-tbl2" style="font-size:14px;">
                 <c:if test="${newList == null}">
-                  <div class="container card my-1 py-3 text-center border-secondary"><i class="text-muted">해외취업 리스트가 없습니다! 개발기술과, 지역이름을 입력하세요.</i></div>
+                  <div class="card my-1 mx-0 py-3 w-100 text-center border-secondary"><i class="text-muted">해외취업 리스트가 없습니다! 개발기술과, 지역이름을 입력하세요.</i></div>
                 </c:if>
                 <c:if test="${newList != null}">
                   <thead>
@@ -98,7 +84,7 @@
                   </thead>
                   <tbody>
                     <c:forEach var="j" items="${newList}" varStatus="status">
-                      <tr class="table-info">
+                      <tr class="table-secondary">
                         <td class="text-center" style="display:none">0</td>
                         <td class="text-center">
                           <c:if test="${fn:substring(j['imageURL'],2,6) =='path'}" >
@@ -123,6 +109,8 @@
                 </c:if>
               </table>
             </div>
+            <hr>
+            <h4>Workman등록 회사</h4>
             <div id="databaseJobBoardList">
               <table class="table table-sm table-hover jobmodal-tbl1" style="font-size:14px;">
                 <thead>
