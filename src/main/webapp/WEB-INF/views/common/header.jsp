@@ -228,7 +228,7 @@
   <!-- bootstrap Modal : Job content -->
   <!-- Modal -->
   <div class="modal fade" id="jobmodal" tabindex="-1" role="dialog" aria-labelledby="jobmodalTitle" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered" role="document"></div>
+    <div class="modal-dialog modal-lg modal-dialog-centered" id="job-dialog" role="document"></div>
   </div>
 
   

@@ -70,11 +70,11 @@
                     </div>
                     <div class="form-group">
                       <label for="resume"><i class="fa fa-file-text-o" aria-hidden="true"></i> 이력서</label>
-                      <input type="file" class="file-upload form-control" accept="image/*" name="resume" required class="form-control"/>
+                      <input type="file" class="file-upload form-control" accept="application/msword, text/plain, application/pdf, image/*" name="resume" />
                     </div>
                     <div class="form-group">
                       <label for="intro"><i class="fa fa-sticky-note-o"></i> 자기소개서</label>
-                      <input type="file" class="file-upload form-control" accept="image/*" name="coverLetter" required class="form-control" />
+                      <input type="file" class="file-upload form-control" accept="application/msword, text/plain, application/pdf, image/*" name="coverLetter" />
                     </div>
                     <hr>
                     <!-- /content end -->

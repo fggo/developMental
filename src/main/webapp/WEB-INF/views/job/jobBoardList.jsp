@@ -66,16 +66,16 @@
 
               </div>
             </div>
-            <small><img src="${path}/resources/images/icons8-database-48.png" alt="">API 데이터</small>
-            <div id="githubJobBoardList">
+
+            <div id="githubJobBoardList" class="rounded">
               <table class="table table-sm table-hover jobmodal-tbl2" style="font-size:14px;">
                 <c:if test="${newList == null}">
-                  <div class="card m-0 p-0 w-100 text-center border-white"><i class="text-muted">해외취업 리스트가 없습니다! 검색어를 입력해주세요.</i></div>
+                    <div class="m-0 p-0 w-100 text-center"><i class="text-muted">해외취업 리스트가 없습니다! 검색어를 입력해주세요.</i></div>
                 </c:if>
                 <c:if test="${newList != null}">
                   <thead>
                     <tr>
-                      <th class="text-center" style="display:none">번호</th>
+                      <th class="text-center" style="">API</th>
                       <th class="text-center">로고</th>
                       <th class="text-center">회사명</th>
                       <th class="text-center">제목</th>
@@ -83,16 +83,16 @@
                       <th class="text-center">작성일</th>
                       <!-- <th class="text-center">Status</th> -->
                       <th class="text-center">
-                        <img src="${path}/resources/images/icons8-queue-48.png" width="33px" height="33px" alt="">
+                      <img src="${path}/resources/images/icons8-queue-48.png" alt="">
                       </th>
                     </tr>
                   </thead>
                   <tbody>
                     <c:forEach var="j" items="${newList}" varStatus="status">
                       <tr class="table-secondary">
-                        <td class="text-center" style="display:none">0</td>
+                        <td class="text-center" style="">${status.index+1}</td>
                         <td class="text-center">
-                          <c:if test="${fn:substring(j['imageURL'],2,6) =='path'}" >
+                          <c:if test="${fn:substring(j['imageURL'],2,6) =='path'}">
                             <img src="${path}${j['imageURL']}" class="img-fluid" alt="">
                           </c:if>
                           <c:if test="${fn:substring(j['imageURL'],2,6) !='path'}" >
@@ -101,7 +101,6 @@
                         </td>
                         <td class="text-center">${j['WRITER']}</td>
                         <td class="text-center job-title">${j['TITLE']}</td>
-                        <td class="hide-html-tag">${j['CONTENT']}</td>
                         <%-- <td class="hide-html-tag " style="display:none;">${j['CONTENT']}</td> --%>
                         <%-- <td class="text-center"><fmt:formatDate value="${j['REGDATE']}" pattern="yy-MM-dd" /></td> --%>
                         <td class="text-center">${j['REGDATE']}</td>
@@ -114,17 +113,17 @@
                 </c:if>
               </table>
             </div>
-            <hr>
-            <small><img src="${path}/resources/images/icons8-database-export-48.png" alt="">Workman DB</small>
-            <div id="databaseJobBoardList">
+            <div id="databaseJobBoardList" class="my-3 rounded">
               <table class="table table-sm table-hover jobmodal-tbl1" style="font-size:14px;">
                 <thead>
                   <tr>
-                    <th class="text-center">번호</th>
+                    <th class="text-center">
+                      <small><img src="${path}/resources/images/icons8-sql-32.png" alt="">번호</small>
+                    </th>
                     <th class="text-center">로고</th>
                     <th class="text-center">회사명</th>
                     <th class="text-center">제목</th>
-                    <th class="text-center">글내용</th>
+                    <!-- <th class="text-center">글내용</th> -->
                     <th class="text-center">작성일</th>
                     <!-- <th class="text-center">Status</th> -->
                     <th class="text-center">
@@ -143,7 +142,7 @@
                       </td>
                       <td class="text-center">${j['writer']}</td>
                       <td class="text-center job-title">${j['title']}</td>
-                      <td>${j['content']}</td>
+                      <!-- <td>${j['content']}</td> -->
                       <%-- <td class="text-center"><fmt:formatDate value="${j['regDate']}" pattern="yy-MM-dd" /></td> --%>
                       <td class="text-center">${j['regDate']}</td>
       
@@ -324,11 +323,11 @@
               githubData["imageURL"]= tds.eq(1).find('img.imageURL').attr("src");
               githubData["writer"]= tds.eq(2).text();
               githubData["title"]= tds.eq(3).text();
-              githubData["content"]= tds.eq(4).text();
-              // githubData["regDate"]= new Date(tds.eq(5).text());
+              // githubData["content"]= tds.eq(4).text();
+              // githubData["regDate"]= new Date(tds.eq(4).text());
               // githubData["count"]= tds.eq().text();
               // githubData["status"]= tds.eq().text();
-              githubData["applicants"]= tds.eq(6).text();
+              githubData["applicants"]= tds.eq(5).text();
             });
 
             console.log(githubData);
@@ -340,7 +339,7 @@
               data: githubData,
               success: function(data){
                 var html = $('<div>').html(data);
-                $('.modal-dialog').html(html.find('#jobmodal-content'));
+                $('#job-dialog').html(html.find('#jobmodal-content'));
               },
               error: function (data) { // 데이터 통신에 실패
                 alert("JSON data failed to retrieve!");

@@ -10,6 +10,7 @@
   <jsp:param name="pageTitle" value="Content" />
 </jsp:include>
 
+
   <div class="modal-content" id="jobmodal-content">
     <div class="modal-header">
       <h4 class="modal-title" id="myModalLabel" id="jobmodalTitle">
@@ -57,7 +58,7 @@
                 </div>
               </c:when>
               <c:otherwise>
-                <img src="${path}/resources/images/noimage.png" id="companyLogo" class="img-fluid" alt="">
+                <img src="${path}/resources/images/noimage.png" class="img-fluid" id="companyLogo" alt="">
               </c:otherwise>
             </c:choose>
           </div>
@@ -85,25 +86,16 @@
         <hr>
       </form>
     </div>
-      
-    <!-- <div class="modal-footer">
-      <div class="text-right pull-right col-md-3">Employee<br/> 
-        <span class="h3 text-muted"><strong> 77 </strong></span>
-      </div> 
-      <div class="text-right pull-right col-md-3">
-        Avg. Salary <br/> 
-        <span class="h3 text-muted"><strong>$30,000</strong></span>
-      </div>
-      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-    </div> -->
   </div>
 
 
   <script>
     $(function(){
-      $('input#imageURL').attr({
-        'value': $('#companyLogo').attr('src'),
-      });
+      // $('#companyLogo').css({
+      //   'height': '100px',
+      //   'width': '100%',
+      //   'object-fit': "cover",
+      // });
 
       $('#applyBtn').click(function(e) {
         e.preventDefault();
