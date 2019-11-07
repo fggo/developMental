@@ -176,10 +176,10 @@
 
                 <div class="ml-auto">
               <c:if test="${loginMember !=null}">
-       			<button id="poststudyBtn" class="ml-auto mr-3 align-self-center btn float-left btn-outline-primary">���͵� ����</button>
+       			<button id="poststudyBtn" class="ml-auto mr-3 align-self-center btn float-left btn-outline-primary">스터디 모집</button>
               </c:if>
               <c:if test="${loginMember == null}">
-                <button id="poststudyBtn1" class="ml-auto mr-3 align-self-center btn float-left btn-outline-primary">���͵� ����</button>
+                <button id="poststudyBtn1" class="ml-auto mr-3 align-self-center btn float-left btn-outline-primary">스터디 모집</button>
               </c:if>
                 <button id="demo" class="ml-auto mr-3 align-self-center btn float-left btn-outline-primary" onclick="location.href='${pageContext.request.contextPath }/study/applyconfirm'">demo</button>
             </div>
@@ -230,20 +230,20 @@
              <form action="${path}/study/studyrecruit" method="post">
          				   <div class="modal-body recruit-form">
                         <div class="form-group my-0">
-                      <label for="writer">&nbsp;&nbsp;</label>���� �̸�
+                      <label for="writer">&nbsp;&nbsp;</label>유저 이름
                       <c:if test="${loginMember != null}">
                         <input type="text" class="form-control text-primary" name="writer" value="${loginMember.nickname}" readonly required />
                       </c:if>
                     </div>
                     <div class="form-group">
-                      <label for="title">����</label>
-                      <input type="text" name='title' placeholder="����"required class="form-control">
+                      <label for="title">제목</label>
+                      <input type="text" name='title' placeholder="제목"required class="form-control">
                     </div>
                     <!-- content -->
                     <hr>
                     <div class="form-group my-0">
-                      <label for="description">�� ����</label>
-                      <textarea name="content" placeholder="�� ����" required class="form-control" rows="5" style="resize:none"></textarea>
+                      <label for="description">상세 정보</label>
+                      <textarea name="content" placeholder="상세 정보" required class="form-control" rows="5" style="resize:none"></textarea>
                     </div>
                     <hr>
                     <!-- /content end -->
