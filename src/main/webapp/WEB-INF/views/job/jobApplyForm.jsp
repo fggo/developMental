@@ -50,7 +50,7 @@
                       <input type="hidden" name="count" value="${jobBoard.count}" />
                       <input type="hidden" name="status" value="${jobBoard.status}" />
                       <input type="hidden" name="applicants" value="${jobBoard.applicants}" />
-                      <input type="hidden" name="fileNewName" value="${jobBoard.fileNewName}" />
+                      <input type="hidden" name="imageURL" value="${imageURL}" />
 
                     <!-- companyLogo -->
                     <!-- <div class="form-group my-0">

@@ -44,7 +44,10 @@ public class MemberDaoImpl implements MemberDao {
 	public List<Member> selectAllMember(SqlSessionTemplate session) {
 		return session.selectList("member.selectAllMemberSearch");
 	}
-	
-	
+
+  @Override
+  public Member selectMemberNickname(SqlSessionTemplate session, Member m) {
+    return session.selectOne("member.selectMemberNickname", m);
+  }
 
 }

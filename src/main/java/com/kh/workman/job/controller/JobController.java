@@ -1,6 +1,9 @@
 package com.kh.workman.job.controller;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -8,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -26,6 +29,8 @@ import com.kh.workman.job.model.service.JobService;
 import com.kh.workman.job.model.vo.JobApply;
 import com.kh.workman.job.model.vo.JobBoard;
 import com.kh.workman.job.model.vo.JobBoardFile;
+import com.kh.workman.member.model.service.MemberService;
+import com.kh.workman.member.model.vo.Member;
 
 @Controller
 public class JobController {
@@ -33,7 +38,10 @@ public class JobController {
   private Logger logger = LoggerFactory.getLogger(JobController.class);
 
   @Autowired
-  private JobService service;
+  private JobService jobService;
+
+  @Autowired
+  private MemberService memberService;
   
   @RequestMapping("/job/jobBoardList")
   public ModelAndView jobBoardList(
@@ -46,8 +54,8 @@ public class JobController {
     ModelAndView mv = new ModelAndView();
     int numPerPage = 5;
 
-    List<Map<String, Object>> list = service.selectPageJobBoardList(cPage, numPerPage);
-    int totalCount = service.selectJobBoardCount();
+    List<Map<String, Object>> list = jobService.selectPageJobBoardList(cPage, numPerPage);
+    int totalCount = jobService.selectJobBoardCount();
 
     //2. Additional Job Listings From Github Job API (Not inserted into DB yet!)
     //   this data lists are inserted AFTER at least one Member applies for the position!
@@ -86,7 +94,7 @@ public class JobController {
     LocalDate localDate = LocalDate.parse(regDateRaw, formatter);
 
     if(j.getNo() != 0)
-      board = service.selectJobBoardOne(j);
+      board = jobService.selectJobBoardOne(j);
     else
       board = j;
 
@@ -107,14 +115,6 @@ public class JobController {
   public ModelAndView applyJob(JobBoard j, HttpSession session,
    String imageURL) {
 
-//    int result = service.insertJobBoard(j);
-//
-//    JobApply apply = new JobApply();
-//    apply.setBoardNo(j.getNo());
-//    apply.setIntro("");
-//    apply.setMemberNo(((Member)session.getAttribute("loginMember")).getNo());
-//    apply.setResume("");
-
     ModelAndView mv = new ModelAndView();
     mv.addObject("jobBoard", j);
     mv.setViewName("job/jobApplyForm");
@@ -123,27 +123,55 @@ public class JobController {
   }
 
   @RequestMapping("/job/jobApplyEnd.do")
-  public ModelAndView applyJobEnd(HttpSession session, JobApply ja, JobBoard board,
-      @RequestParam(value="resume", required=false) MultipartFile[] resume,
-      @RequestParam(value="coverLetter", required=false) MultipartFile[] coverLetter,
-        String imageURL) {
-//  private int boardNo; //default0
-//  private int memberNo; //
-//  private String resume; //
-//  private String intro; //
+  public ModelAndView applyJobEnd(HttpSession session, JobBoard board,
+        @RequestParam(value="resume", required=false) MultipartFile[] resume,
+        @RequestParam(value="coverLetter", required=false) MultipartFile[] coverLetter,
+        @RequestParam(value="imageURL", required=false) String imageUrl) {
 
-//  private int no;
-//  private String writer;
-//  private String title;
-//  private String content;
-//  private Date regDate;
-//  private int count;
-//  private int status;
-//  private int applicants; //new column
-//  private String fileNewName; //JobBoardFile column
-    System.out.println(ja);
-    logger.debug("Original resume " + resume[0].getOriginalFilename());
-    logger.debug("Original coverLetter " + coverLetter[0].getOriginalFilename());
+//    board = jobService.selectJobBoardOne(board);
+    List<JobBoardFile> jobBoardFileList = new ArrayList<JobBoardFile>();
+
+    // save API data to DB
+    if(board.getNo() == 0) {
+      String logoSaveDir = session.getServletContext().getRealPath("/resources/upload/job");
+
+      BufferedImage image = null;
+      try {
+        URL url = new URL(imageUrl);
+        image = ImageIO.read(url);
+
+        File file = new File(logoSaveDir + File.separator + board.getWriter() +".jpg");
+        ImageIO.write(image, "jpg", file);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHMMssSSS");
+
+        String orgName = board.getWriter() + ".jpg";
+        String ext=".jpg";
+
+        int rdv=(int)(Math.random()*1000);
+
+        String newName = sdf.format(System.currentTimeMillis()) + "_" + rdv + ext;
+
+        JobBoardFile jobBoardFile = new JobBoardFile();
+        jobBoardFile.setBoardNo(board.getNo());
+        jobBoardFile.setOrgName(orgName);
+        jobBoardFile.setNewName(newName);
+
+        jobBoardFileList.add(jobBoardFile);
+
+        //JobBoard, JobBoardFile
+        jobService.insertJobBoard(board, jobBoardFileList);
+
+      } catch(Exception e) {
+        e.printStackTrace();
+      }
+    }
+
+    Member m = (Member)session.getAttribute("loginMember");
+
+    JobApply apply = new JobApply();
+    apply.setBoardNo(board.getNo());
+    apply.setMemberNo(m.getNo());
 
     String saveDirResume = session.getServletContext().getRealPath("/resources/upload/job/resume");
     String saveDirCoverLetter = session.getServletContext().getRealPath("/resources/upload/job/coverLetter");
@@ -151,8 +179,14 @@ public class JobController {
     File dirResume = new File(saveDirResume);
     File dirCoverLetter = new File(saveDirCoverLetter);
 
-    if(!dirResume.exists()) logger.debug("" + dirResume.mkdirs());
-    if(!dirCoverLetter.exists()) logger.debug("" + dirCoverLetter.mkdirs());
+    if(!dirResume.exists()) {
+      logger.debug("Original resume " + resume[0].getOriginalFilename());
+      logger.debug("" + dirResume.mkdirs());
+    }
+    if(!dirCoverLetter.exists()) {
+      logger.debug("Original coverLetter " + coverLetter[0].getOriginalFilename());
+      logger.debug("" + dirCoverLetter.mkdirs());
+    }
     
     for(MultipartFile f : resume) {
       if(!f.isEmpty()){
@@ -169,10 +203,10 @@ public class JobController {
         } catch(Exception e) {
           e.printStackTrace();
         }
-        ja.setResume(newName);
+        apply.setResume(newName);
       }
-      
     }
+
     for(MultipartFile f : coverLetter) {
       if(!f.isEmpty()){
         String orgName = f.getOriginalFilename();
@@ -188,12 +222,27 @@ public class JobController {
         } catch(Exception e) {
           e.printStackTrace();
         }
-        ja.setIntro(newName);
+        apply.setIntro(newName);
       }
     }
+    int result = 0;
+    result = jobService.insertJobApply(apply);
+//  <insert id="insertJobApply" parameterType="jobApply">
+//    insert into APPLY_JOB values(#{boardNo}, #{memberNo}, #{resume}, #{intro})
+//  </insert>
 
+    String loc="";
+    String msg="";
+    if(result >0) {
+      msg = board.getWriter() + "회사 지원에 성공했습니다";
+      loc = "/";
+    }
+    else {
+      msg = board.getWriter() + "회사 지원에 실패했습니다";
+      loc = "/";
+    }
     ModelAndView mv = new ModelAndView();
-    mv.setViewName("/");
+    mv.setViewName("common/msg");
     
     return mv;
   }
@@ -268,7 +317,7 @@ public class JobController {
 
     int result = 0;
     try {
-      result = service.insertJobBoard(j, jobBoardFileList);
+      result = jobService.insertJobBoard(j, jobBoardFileList);
     } catch(Exception e) {
       e.printStackTrace();
     }

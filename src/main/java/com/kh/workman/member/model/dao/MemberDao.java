@@ -14,4 +14,5 @@ public interface MemberDao {
 	int updateMember(SqlSessionTemplate session, Member m);
 	int updateInfoMember(SqlSessionTemplate session, Member m);
 	List<Member> selectAllMember(SqlSessionTemplate session);
+	Member selectMemberNickname(SqlSessionTemplate session, Member m);
 }

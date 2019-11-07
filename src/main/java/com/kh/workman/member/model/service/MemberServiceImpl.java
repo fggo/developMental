@@ -54,6 +54,10 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	
+	@Override
+	public Member selectMemberNickname(Member m) {
+	  return dao.selectMemberNickname(session, m);
+	}
 	
 
 }

@@ -74,10 +74,12 @@
                 </c:if>
                 <c:if test="${newList != null}">
                   <thead>
-                    <tr>
+                    <tr class="table-primary">
                       <th class="text-center w-0" style="display:none">NO.</th>
-                      <th class="text-center w-10 px-0">
-                        <img src="${path}/resources/images/icons8-api-32.png" width="30px" height="30px" class="img-fluid" alt=""/>
+                      <th class="text-center w-10 px-0 pt-0 mt-0">
+                        <div class="bg-primary">
+                          <i class="fa fa-bookmark" aria-hidden="true">&nbsp;Github/사람인 추천</i>
+                        </div>
                       </th>
                       <th class="text-center w-10 px-0">회사명</th>
                       <th class="text-center w-25">제목</th>
@@ -87,6 +89,8 @@
                       <th class="text-center w-5">
                         <img src="${path}/resources/images/icons8-queue-48.png" width="33px" height="33px" class="img-fluid" alt="">
                       </th>
+                      <th class="text-center w-0" style="display:none">조회수 count</th>
+                      <th class="text-center w-0" style="display:none">글상태 status</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -108,6 +112,8 @@
                         <td class="text-center">${j['REGDATE']}</td>
                         <%-- <td class="text-center">${j['STATUS']}</td> --%>
                         <td class="text-center">${j['APPLICANTS']}</td>
+                        <td class="text-center" style="display:none">${j['COUNT']}</td>
+                        <td class="text-center" style="display:none">${j['STATUS']}</td>
                       </tr>
                     </c:forEach>
                   </tbody>
@@ -118,16 +124,20 @@
             <div id="databaseJobBoardList" class="my-3 rounded">
               <table class="table table-sm table-hover jobmodal-tbl1" style="font-size:14px;">
                 <thead>
-                  <tr>
+                  <tr class="table-primary">
                     <th class="text-center w-0" style="display:none">번호</th>
-                    <th class="text-center w-10 px-0">
-                      <img src="${path}/resources/images/icons8-sql-32.png" class="img-fluid" alt=""/>
+                    <th class="text-center w-10 px-0 h-50 pt-0 mt-0">
+                      <div class="bg-warning">
+                        <i class="fa fa-bookmark" aria-hidden="true">&nbsp;워크맨 추천</i>
+                      </div>
+                      <!-- <img src="${path}/resources/images/icons8-sql-32.png" class="img-fluid" alt=""/> -->
                     </th>
                     <th class="text-center w-10 px-0">회사명</th>
                     <th class="text-center w-25">제목</th>
                     <th class="text-center w-40">글내용</th>
                     <th class="text-center w-10">작성일</th>
-                    <!-- <th class="text-center">Status</th> -->
+                    <th class="text-center" style="display:none">조회수 count</th>
+                    <th class="text-center" style="display:none">글상태 status</th>
                     <th class="text-center w-5">
                       <img src="${path}/resources/images/icons8-queue-48.png" width="33px" height="33px" alt="">
                     </th>
@@ -149,9 +159,9 @@
                       <td>${j['content']}</td>
                       <%-- <td class="text-center"><fmt:formatDate value="${j['regDate']}" pattern="yy-MM-dd" /></td> --%>
                       <td class="text-center">${j['regDate']}</td>
-      
-                      <%-- <td class="text-center">${j['status']}</td> --%>
                       <td class="text-center">${j['applicants']}</td>
+                      <td class="text-center" style="display:none">${j['count']}</td>
+                      <td class="text-center" style="display:none">${j['status']}</td>
                     </tr>
                   </c:forEach>
                 </tbody>
@@ -333,33 +343,21 @@
           function addRowEvent(tr){
             var githubData = {};
             var no,writer,title,content,regDate,count,status,applicants;
+
             tr.each(function (i, el) {
               var tds = $(this).find('td');
 
               githubData = {};
 
-              console.log(tds.eq(0).text()); //no
-              console.log(tds.eq(0).text().trim()); //no
               githubData["no"]= (tds.eq(0).text()).trim() ==""? 0:tds.eq(0).text().trim();
               githubData["imageURL"]= tds.eq(1).find('img.imageURL').attr("src");
               githubData["writer"]= tds.eq(2).text();
               githubData["title"]= tds.eq(3).text();
               githubData["content"]= tds.eq(4).text();
-              // githubData["regDate"]= new Date(tds.eq(5).text());
-              githubData["regDateRaw"]= tds.eq(5).text();
-              // githubData["count"]= tds.eq().text();
-              // githubData["status"]= tds.eq().text();
+              githubData["regDateRaw"]= tds.eq(5).text(); //new Date(tds.eq(5).text());
               githubData["applicants"]= tds.eq(6).text();
-                    // <th class="text-center w-0" style="display:none">번호</th>
-                    // <th class="text-center w-10">로고</th>
-                    // <th class="text-center w-10">회사명</th>
-                    // <th class="text-center w-25">제목</th>
-                    // <th class="text-center w-40">글내용</th>
-                    // <th class="text-center w-10">작성일</th>
-                    // <!-- <th class="text-center">Status</th> -->
-                    // <th class="text-center w-5">
-                    //   <img src="${path}/resources/images/icons8-queue-48.png" width="33px" height="33px" alt="">
-                    // </th>
+              githubData["count"]= tds.eq(7).text();
+              githubData["status"]= tds.eq(8).text();
             });
 
             console.log(githubData);
@@ -374,7 +372,7 @@
                 $('#job-dialog').html(html.find('#jobmodal-content'));
               },
               error: function (data) { // 데이터 통신에 실패
-                alert("JSON data failed to retrieve!");
+                alert("JSON 데이터 ajax 통신 실패!");
               }
             });
           }

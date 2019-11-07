@@ -122,6 +122,13 @@
           $('#databaseJobBoardList').html(html.find('.jobmodal-tbl1'));
           $('#pageBar').html(html.find('#pageBar'));
 
+          $('.w-0').css({'width': '0%', });
+          $('.w-5').css({'width': '5%', });
+          $('.w-10').css({'width': '10%', });
+          $('.w-25').css({'width': '25%', });
+          $('.w-30').css({'width': '30%', });
+          $('.w-40').css({'width': '40%', });
+          $('.w-45').css({'width': '45%', });
         },
         error: function(status, msg){
           alert('ajax error!');

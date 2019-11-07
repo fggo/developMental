@@ -18,6 +18,11 @@
 	<select id="selectMemberList" resultType="adminMember">
 		SELECT * FROM MEMBER ORDER BY NO
 	</select>
+
+	<select id="selectMemberNickname" resultType="member">
+		SELECT * FROM MEMBER WHERE NICKNAME=#{nickname}
+	</select>
+
 	<!--
 		update쿼리 int
 		# 자료형 맞춰주는것

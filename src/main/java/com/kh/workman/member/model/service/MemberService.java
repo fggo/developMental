@@ -11,4 +11,5 @@ public interface MemberService {
 	int updateMember(Member m);
 	int updateInfoMember(Member m);
 	List<Member> selectAllMember();
+	Member selectMemberNickname(Member m);
 }
