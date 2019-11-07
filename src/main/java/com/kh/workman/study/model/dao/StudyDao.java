@@ -12,8 +12,9 @@ public interface StudyDao {
 	
 	List<Map<String,String>> selectStudyBoardList(SqlSessionTemplate session, int cPage, int numPerPage);
 
+
 	int insertStudyBoard(SqlSessionTemplate session, Map<String, String> param);
 
 	int ApplyStudy(SqlSessionTemplate session, Map<String, Object> p);
-	
+
 }

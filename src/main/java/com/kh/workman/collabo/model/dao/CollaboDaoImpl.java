@@ -82,18 +82,33 @@ public class CollaboDaoImpl implements CollaboDao {
 	}
 
 	@Override
-  public int moveList(SqlSessionTemplate session, DataPacket receive) {
-    return session.update("collabo.moveList", receive);
-  }
+	public int moveList(SqlSessionTemplate session, DataPacket receive) {
+		return session.update("collabo.moveList", receive);
+	}
 
-  @Override
-  public int searchListPlaceNo(SqlSessionTemplate session, DataPacket receive) {
-    return session.selectOne("collabo.searchListPlaceNo", receive);
-  }
+	@Override
+	public int searchListPlaceNo(SqlSessionTemplate session, DataPacket receive) {
+		return session.selectOne("collabo.searchListPlaceNo", receive);
+	}
 
 	@Override
 	public List<CollaboTool> selectCollaboTools(SqlSessionTemplate session, String userId) {
 		return session.selectList("collabo.selectCollaboTools", userId);
+	}
+
+	@Override
+	public List<Map<String, String>> selectCollaboMemberList(SqlSessionTemplate session, String userId) {
+		return session.selectList("collabo.selectCollaboMemberList", userId);
+	}
+
+	@Override
+	public int createCollaboTool(SqlSessionTemplate session, Map<String, Object> temp) {
+		return session.insert("collabo.createCollaboTool", temp);
+	}
+
+	@Override
+	public int insertCollaboMember(SqlSessionTemplate session, Map<String, Object> temp) {
+		return session.insert("collabo.insertCollaboMember", temp);
 	}
 
 }

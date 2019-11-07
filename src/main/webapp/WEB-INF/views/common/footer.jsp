@@ -139,6 +139,10 @@
     <a target="_blank" href="https://icons8.com/icons/set/queue">Queue</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
     <a target="_blank" href="https://icons8.com/icons/set/open-box">Open Box</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
     <a target="_blank" href="https://icons8.com/icons/set/back">Back</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+    <a target="_blank" href="https://icons8.com/icons/set/database">Database</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+    <a target="_blank" href="https://icons8.com/icons/set/business-contact">Contact Details</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+    <a target="_blank" href="https://icons8.com/icons/set/api-settings">Rest API</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+    <a target="_blank" href="https://icons8.com/icons/set/api">API</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
 
     <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
   </div>

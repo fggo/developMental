@@ -42,4 +42,8 @@
     insert into FILE_BOARD_JOB values(#{boardNo}, #{orgName}, #{newName})
   </insert>
 
+  <insert id="insertJobApply" parameterType="jobApply">
+    insert into APPLY_JOB values(#{boardNo}, #{memberNo}, #{resume}, #{intro})
+  </insert>
+
 </mapper>

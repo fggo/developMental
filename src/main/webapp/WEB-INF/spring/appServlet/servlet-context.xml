@@ -31,8 +31,9 @@
       <!-- ** apply interceptor to all mapping to enable logs -->
       <!-- <mapping path="/**" /> -->
       <!-- exclude mapping -->
-      <!-- <exclude-mapping path="/member/*" /> -->
       <mapping path="/job/*" />
+      <exclude-mapping path="/*.png" />
+      <exclude-mapping path="/*.jpg" />
       <beans:bean id="loggerInterceptor" class="com.kh.workman.common.interceptor.LoggerInterceptor" />
     </interceptor>
   </interceptors>
@@ -68,7 +69,6 @@
   	<websocket:mapping handler="myHandler" path="/collabo/soc"/>
 		<websocket:sockjs></websocket:sockjs>
   </websocket:handlers>
-  
   
   
   

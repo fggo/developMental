@@ -2,10 +2,13 @@ package com.kh.workman.job.controller;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -23,7 +26,6 @@ import com.kh.workman.job.model.service.JobService;
 import com.kh.workman.job.model.vo.JobApply;
 import com.kh.workman.job.model.vo.JobBoard;
 import com.kh.workman.job.model.vo.JobBoardFile;
-import com.kh.workman.member.model.vo.Member;
 
 @Controller
 public class JobController {
@@ -33,11 +35,6 @@ public class JobController {
   @Autowired
   private JobService service;
   
-  @RequestMapping("/job/jobApplyList")
-  public String jobApplyList() {
-    return "job/jobApplyList";
-  }
-
   @RequestMapping("/job/jobBoardList")
   public ModelAndView jobBoardList(
       @RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
@@ -76,15 +73,26 @@ public class JobController {
 
   @RequestMapping("/job/jobContentView.do")
   public ModelAndView jobContentView(JobBoard j, 
-        @RequestParam(value="imageURL", required=false) String imageURL) {
-
+        @RequestParam(value="imageURL", required=false) String imageURL,
+        @RequestParam(value="regDateRaw", required=false) String regDateRaw) {
     System.out.println(j);
+    System.out.println(regDateRaw);
+
     JobBoard board = null;
+
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+    //convert String to LocalDate
+    LocalDate localDate = LocalDate.parse(regDateRaw, formatter);
 
     if(j.getNo() != 0)
       board = service.selectJobBoardOne(j);
     else
       board = j;
+
+    java.sql.Date regDate = java.sql.Date.valueOf(localDate);
+
+    board.setRegDate(regDate);
 
     ModelAndView mv = new ModelAndView();
     mv.addObject("jobBoard", board);
@@ -97,13 +105,8 @@ public class JobController {
 
   @RequestMapping("/job/jobApply")
   public ModelAndView applyJob(JobBoard j, HttpSession session,
-      @RequestParam(value="imageURL", required=false, defaultValue="${path}/resources/images/noimage.png")
-        String imageURL) {
-    String type = j.getContent().substring(j.getContent().indexOf("Ⅰ"), j.getContent().indexOf("Ⅱ"));
-    String location = j.getContent().substring(j.getContent().indexOf("Ⅱ"), j.getContent().indexOf("Ⅲ"));
-    String description = j.getContent().substring(j.getContent().indexOf("Ⅲ"), j.getContent().indexOf("Ⅳ"));
-    String howToApply = j.getContent().substring(j.getContent().indexOf("Ⅳ"));
-    
+   String imageURL) {
+
 //    int result = service.insertJobBoard(j);
 //
 //    JobApply apply = new JobApply();
@@ -113,28 +116,84 @@ public class JobController {
 //    apply.setResume("");
 
     ModelAndView mv = new ModelAndView();
-    mv.addObject("imageURL", imageURL);
+    mv.addObject("jobBoard", j);
     mv.setViewName("job/jobApplyForm");
     
     return mv;
   }
 
   @RequestMapping("/job/jobApplyEnd.do")
-  public ModelAndView applyJobEnd(HttpSession session,
-      @RequestParam(value="imageURL", required=false, defaultValue="${path}/resources/images/noimage.png")
+  public ModelAndView applyJobEnd(HttpSession session, JobApply ja, JobBoard board,
+      @RequestParam(value="resume", required=false) MultipartFile[] resume,
+      @RequestParam(value="coverLetter", required=false) MultipartFile[] coverLetter,
         String imageURL) {
-//  private String company;
-//  private String title; 
-//  private String companyUrl; input type ="text"
-//  private String url; input type="text"
-//  private Date createdAt;  calendar
-//  private String location; input google api
-//  private String description; input type="text"
-//  private String howToApply; input type="text"
-//  private String companyLogo; input type="file"
+//  private int boardNo; //default0
+//  private int memberNo; //
+//  private String resume; //
+//  private String intro; //
+
+//  private int no;
+//  private String writer;
+//  private String title;
+//  private String content;
+//  private Date regDate;
+//  private int count;
+//  private int status;
+//  private int applicants; //new column
+//  private String fileNewName; //JobBoardFile column
+    System.out.println(ja);
+    logger.debug("Original resume " + resume[0].getOriginalFilename());
+    logger.debug("Original coverLetter " + coverLetter[0].getOriginalFilename());
+
+    String saveDirResume = session.getServletContext().getRealPath("/resources/upload/job/resume");
+    String saveDirCoverLetter = session.getServletContext().getRealPath("/resources/upload/job/coverLetter");
+    
+    File dirResume = new File(saveDirResume);
+    File dirCoverLetter = new File(saveDirCoverLetter);
+
+    if(!dirResume.exists()) logger.debug("" + dirResume.mkdirs());
+    if(!dirCoverLetter.exists()) logger.debug("" + dirCoverLetter.mkdirs());
+    
+    for(MultipartFile f : resume) {
+      if(!f.isEmpty()){
+        String orgName = f.getOriginalFilename();
+        String ext = orgName.substring(orgName.lastIndexOf("."));
+
+        //set file extensions
+        SimpleDateFormat sdf =new SimpleDateFormat("yyyyMMdd_HHMMssSSS");
+        int rdv = (int)(Math.random() * 1000);
+        String newName = sdf.format(System.currentTimeMillis()) + "_"+rdv+ext;
+        
+        try {
+          f.transferTo(new File(saveDirResume + "/" + newName));
+        } catch(Exception e) {
+          e.printStackTrace();
+        }
+        ja.setResume(newName);
+      }
+      
+    }
+    for(MultipartFile f : coverLetter) {
+      if(!f.isEmpty()){
+        String orgName = f.getOriginalFilename();
+        String ext = orgName.substring(orgName.lastIndexOf("."));
+
+        //set file extensions
+        SimpleDateFormat sdf =new SimpleDateFormat("yyyyMMdd_HHMMssSSS");
+        int rdv = (int)(Math.random() * 1000);
+        String newName = sdf.format(System.currentTimeMillis()) + "_"+rdv+ext;
+        
+        try {
+          f.transferTo(new File(saveDirCoverLetter + "/" + newName));
+        } catch(Exception e) {
+          e.printStackTrace();
+        }
+        ja.setIntro(newName);
+      }
+    }
 
     ModelAndView mv = new ModelAndView();
-    mv.setViewName("mainView");
+    mv.setViewName("/");
     
     return mv;
   }

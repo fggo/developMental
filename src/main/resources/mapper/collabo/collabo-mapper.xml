@@ -89,4 +89,27 @@
 			)
 		)
 	</select>
+	
+	<select id="selectCollaboMemberList" parameterType="string" resultType="map">
+		SELECT COLLABO_MEMBER.NO, MEMBER.NICKNAME, MEMBER.PROFILE FROM MEMBER, COLLABO_MEMBER WHERE COLLABO_MEMBER.NO IN (
+			SELECT NO FROM COLLABO_TOOL WHERE NO IN (
+				SELECT NO FROM COLLABO_MEMBER WHERE MEMBER IN(
+					SELECT NO FROM MEMBER WHERE ID = #{userId}))) 
+		AND COLLABO_MEMBER.MEMBER = MEMBER.NO
+	</select>
+	
+	<insert id="createCollaboTool" parameterType="map">
+		<selectKey keyProperty="no" resultType="_int" order="AFTER">
+			SELECT COLLABO_TOOL_SEQ.CURRVAL FROM DUAL
+		</selectKey>
+		INSERT INTO COLLABO_TOOL VALUES(DEFAULT, 
+			(SELECT NO FROM MEMBER WHERE ID = #{userId}), 
+		 #{title}, DEFAULT, DEFAULT, DEFAULT)
+	</insert>
+	
+	<insert id="insertCollaboMember" parameterType="map">
+		INSERT INTO COLLABO_MEMBER VALUES(#{no},
+			(SELECT NO FROM MEMBER WHERE ID = #{userId}
+		), DEFAULT)
+	</insert>
 </mapper>

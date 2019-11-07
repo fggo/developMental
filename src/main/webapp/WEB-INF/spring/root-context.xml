@@ -36,22 +36,34 @@
     <property name="mapperLocations" value="classpath*:mapper/**/*.xml"/>
     <property name="configLocation" value="classpath:mybatis-config.xml"/>
   </bean>
+  
+  <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+  	<property name="location" value="classpath:/properties/config.properties"/>
+  </bean>
+  
+   <!-- Gmail -->
+  <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+    <property name="host" value="smtp.gmail.com" />
+    <property name="port" value="587" />
+    <property name="username" value="${gmail}" />
+    <property name="password" value="${pw}" />
+    <property name="javaMailProperties">
+    <props>
+      <prop key="mail.smtp.auth">true</prop>
+      <prop key="mail.smtp.starttls.enable">true</prop>
+    </props>
+    </property>
+  </bean>
 
   <!-- SessionTemplate을 springbean으로 등록하여 활용 -->
   <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
     <constructor-arg index="0" ref="sqlSessionFactoryBean"/>
   </bean> 
   
-<!-- <bean id="collaboHandler" class="com.kh.workman.collabo.controller.CollaboHandler"/>
-  <websocket:handlers>
-    <websocket:mapping handler="collaboHandler" path="/collabo/soc"/>
-     <websocket:sockjs/> 
-  </websocket:handlers> -->
 
 
   <!-- bean to be handled by transaction (spring provided) -->
-  <bean id="transactionManager" 
-  class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+  <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
     <property name="dataSource" ref="dataSource"/>
   </bean>
 
@@ -65,8 +77,7 @@
   </tx:advice>
 
   <aop:config>
-    <aop:pointcut expression="execution(* com.kh.workman..*ServiceImpl.*(..))" 
-    id="serviceMethod"/>
+    <aop:pointcut expression="execution(* com.kh.workman..*ServiceImpl.*(..))" id="serviceMethod"/>
     <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethod"/>
   </aop:config>
 

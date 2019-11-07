@@ -21,6 +21,7 @@ public class StudyDaoImpl implements StudyDao {
 		return session.selectList("study.selectStudyBoardList",null,rows);
 	}
 
+
 	@Override
 	public int insertStudyBoard(SqlSessionTemplate session, Map<String, String> param) {
 		return session.insert("study.insertStudyBoard", param);
@@ -31,7 +32,7 @@ public class StudyDaoImpl implements StudyDao {
 		return session.insert("study.ApplyStudy", p);
 	}
 	
-	
+
 	
 	
 }

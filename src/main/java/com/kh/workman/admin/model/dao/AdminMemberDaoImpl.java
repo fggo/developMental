@@ -19,7 +19,7 @@ public class AdminMemberDaoImpl implements AdminMemberDao {
 	}
 
 	@Override
-	public List<AdminMember> selectMemberList(SqlSessionTemplate session, int cPage, int numPerpage) {
+	public List<AdminMember> selectMemberList(SqlSessionTemplate session, int cPage, int numPerpage ) {
 		RowBounds rows=new RowBounds((cPage-1)*numPerpage,numPerpage);
 		return session.selectList("member.selectMemberList",null,rows);
 	}

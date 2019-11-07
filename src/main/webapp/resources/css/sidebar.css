@@ -25,15 +25,24 @@ a:focus {
     margin-left: -190px;
 }
 
-#sidebar .sidebar-header {
+.sidebar-header{
+  background-image: url("../images/luca-bravo-XJXWbfSo2f0-unsplash.jpg");
+  background-size: cover !important;
+  background-position: center center !important;
+  height: 10vh !important;
+  display: flex !important;
+  margin-bottom: 0px;
     padding: 20px;
-    background: #6d7fcc;
+}
+#sidebar{
+    padding: 20px;
+    background: #0a0b0c;
     margin-top: 58px;
 }
 
 #sidebar ul.components {
     padding: 20px 0;
-    border-bottom: 1px solid #47748b;
+    /* border-bottom: 1px solid #397897; */
 }
 
 #sidebar ul p {
@@ -48,14 +57,17 @@ a:focus {
 }
 
 #sidebar ul li a:hover {
-    color: #7386D5;
-    background: #fff;
+  background: #1DA1F2 !important;
+  border-radius: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  text-decoration: none;
 }
 
 #sidebar ul li.active>a,
 a[aria-expanded="true"] {
     color: #fff;
-    background: #6d7fcc;
+    background: #1a1b22;
 }
 
 a[data-toggle="collapse"] {
@@ -73,7 +85,7 @@ a[data-toggle="collapse"] {
 ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
-    background: #6d7fcc;
+    background: #000000;
 }
 
 ul.CTAs {
@@ -90,12 +102,12 @@ ul.CTAs a {
 
 a.download {
     background: #fff;
-    color: #7386D5;
+    color: rgb(49, 72, 167);
 }
 
 a.article,
 a.article:hover {
-    background: #6d7fcc !important;
+    background: #0e289b !important;
     color: #fff !important;
 }
 

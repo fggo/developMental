@@ -10,95 +10,100 @@
   <jsp:param name="pageTitle" value="Content" />
 </jsp:include>
 
+
   <div class="modal-content" id="jobmodal-content">
     <div class="modal-header">
-      <h4 class="modal-title" id="myModalLabel" id="jobmodalTitle"><img src="${path }/resources/images/icons8-open-box-48.png" class="" alt="">&nbsp;<strong>Job Description </strong>${title}</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="text-danger fa fa-times"></i></button>
+      <h4 class="modal-title" id="myModalLabel" id="jobmodalTitle">
+        <img src="${path }/resources/images/icons8-open-box-48.png" class="" alt="">&nbsp;
+        <strong></strong>${jobBoard.title}
+      </h4>
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+        <i class="text-danger fa fa-times"></i>
+      </button>
     </div>
 
-    <div class="modal-body container" id="jobmodal-body">
-      <form action="${path}/job/jobApply" id="applyFrm" method="get">
-        <div class="row container">
-          <table class="pull-left col-md-8 bg-transparent">
-            <tbody>
-              <tr>
-                <td class="h6"><strong>NO.</strong></td>
-                <td class="h5"><input type="text" name="no" id="no" class="form-control" value="${jobBoard.no}" readonly /></td>
-              </tr>
-              <tr>
-                <td class="h6"><strong>Writer</strong></td>
-                <td class="h5">
-                  <input type="text" name="writer" class="form-control" value="${jobBoard.writer}" readonly />
-                </td>
-              </tr> 
-              <tr>
-                <td class="h6"><strong>Title</strong></td>
-                <td class="h5">
-                  <input class="form-control" name="title" value="${jobBoard.title}" readonly />
-                </td>
-              </tr> 
-              <tr>
-                <td class="h6"><strong>Reg. Date</strong></td>
-                <td class="h5">
-                  <!-- <input type="date" name="regDate" class="form-control" value="${jobBoard.regDate}" readonly /> -->
-                </td>
-              </tr> 
-              <tr>
-                <td class="h6"><strong>Count</strong></td>
-                <td class="h5">
-                  <input type="text" name="count" class="form-control" value="${jobBoard.count}" readonly />
-                </td>
-              </tr> 
-              <tr>
-                <td class="h6"><strong>Status</strong></td>
-                <td class="h5">
-                  <input type="text" name="status" class="form-control" value="${jobBoard.status}" readonly />
-                </td>
-              </tr> 
-            </tbody>
-          </table>
-          <div class="col-md-4 container card justify-content-center align-content-center">
+    <div class="modal-body" id="jobmodal-body">
+      <form action="${path}/job/jobApply" id="applyFrm" method="get" class="form">
+        <div class="container row">
+          <div class="col-md-8 bg-transparent">
+            <div class="form-inline form-group">
+              <div class="col-md-3"><strong>번호</strong></div>
+              <div class="col-md-9"><input type="text" name="no" id="no" class="form-control w-100" value="${jobBoard.no}" readonly />
+              </div>
+            </div>
+
+            <input type="hidden" name="title" value="${jobBoard.title}">
+  <!-- private String content;
+  private Date regDate;
+  private int count;
+  private int status;
+  private int applicants; //new column
+  private String fileNewName; //JobBoardFile column -->
+            <div class="form-inline form-group">
+              <div class="col-md-3"><strong>회사명</strong></div>
+              <div class="col-md-9">
+                <input type="text" name="writer" class="form-control w-100" value="${jobBoard.writer}" readonly />
+              </div>
+            </div> 
+            <div class="form-inline form-group">
+              <div class="col-md-3"><strong>제목</strong></div>
+              <div class="col-md-9">
+                <input class="form-control w-100" name="title" value="${jobBoard.title}" readonly />
+              </div>
+            </div> 
+            <div class="form-inline form-group">
+              <div class="col-md-3"><strong>등록일</strong></div>
+              <div class="col-md-9">
+                <input type="date" name="regDate" class="form-control w-100" value="${jobBoard.regDate}" readonly />
+              </div>
+            </div> 
+          </div>
+          <div class="col-md-4 card justify-content-center align-content-center">
             <c:choose>
               <c:when test='${imageURL != null}'>
-                <img src="${imageURL}" class="img-fluid" id="companyLogo" alt="">
+                <div class="text-center">
+                  <img src="${imageURL}" class="img-fluid" id="companyLogo" alt="">
+                </div>
               </c:when>
               <c:otherwise>
-                <img src="${path}/resources/images/noimage.png" id="companyLogo" class="img-fluid" alt="">
+                <img src="${path}/resources/images/noimage.png" class="img-fluid" id="companyLogo" alt="">
               </c:otherwise>
             </c:choose>
-            <input type="hidden" id="imageURL" name="imageURL" value="" />
           </div>
         </div>
-
-        <div>
-          <h6><strong>Content</strong></h6>
-          <textarea class="form-control h-50" rows='10' name="content" readonly>${jobBoard.content}</textarea>
+        <hr>
+        <div class="container row form-inline form-group">
+          <div class="">
+            <strong>내용</strong>
+          </div>
+          <textarea class="form-control w-100 h-50" rows='10' name="content" readonly>${jobBoard.content}</textarea>
         </div>
         <hr>
-        <!-- <input id="applyBtn" type="submit" class="btn btn-primary" value="Apply Now" /> -->
-        <button type="submit" class="btn btn-primary" id="applyBtn">Apply Now</button>
+        <div class="container row form-inline form-group justify-content-center text-center">
+          <c:if test="${loginMember !=null}">
+            <button type="submit" class="btn btn-lg btn-primary" id="applyBtn">지원하기</button>
+          </c:if>
+          <c:if test="${loginMember ==null}">
+            <button type="button" class="btn btn-lg btn-secondary disabled" id="applyBtn">지원하기</button>
+          </c:if>
+          <button type="button" class="btn btn-lg btn-outline-danger ml-2" data-dismiss="modal" aria-hidden="true">
+            취소
+          </button>
+        </div>
+
+        <hr>
       </form>
-    </div>
-      
-    <div class="modal-footer">
-      <div class="text-right pull-right col-md-3">Employee<br/> 
-        <span class="h3 text-muted"><strong> 77 </strong></span>
-      </div> 
-      <div class="text-right pull-right col-md-3">
-        Avg. Salary <br/> 
-        <span class="h3 text-muted"><strong>$30,000</strong></span>
-      </div>
-      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
     </div>
   </div>
 
 
   <script>
     $(function(){
-      alert($('#companyLogo').attr('src'));
-      $('input#imageURL').attr({
-        'value': $('#companyLogo').attr('src'),
-      });
+      // $('#companyLogo').css({
+      //   'height': '100px',
+      //   'width': '100%',
+      //   'object-fit': "cover",
+      // });
 
       $('#applyBtn').click(function(e) {
         e.preventDefault();

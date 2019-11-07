@@ -1,10 +1,12 @@
 package com.kh.workman.study.controller;
 
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +42,7 @@ public class StudyBoardController {
 	}
 	
 	  
+
 	@RequestMapping("/study/studyrecruit")
 	public ModelAndView insertBoard(@RequestParam Map<String,String> param, 			
 			HttpServletRequest request){
@@ -96,4 +99,5 @@ public class StudyBoardController {
 	public String applyconfirm() {
 		return "study/applyconfirm";
 	}
+
 }

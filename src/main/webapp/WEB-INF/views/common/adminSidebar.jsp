@@ -37,7 +37,7 @@
               <a href="${path }/admin/noticeList" id="">Notice List</a>
             </li>
             <li>
-              <a href="${path }/admin/noticeInsert.do" id="">Notice Registration</a>
+              <a href="${path }/admin/noticeForm" id="">Notice Registration</a>
             </li>
           </ul>
         </li>

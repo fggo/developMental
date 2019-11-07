@@ -28,6 +28,7 @@ public class StudyServiceImpl implements StudyService {
 			return dao.selectStudyBoardList(session,cPage,numPerpage);
 		}
 
+
 		@Override
 		public int insertStudyBoard(Map<String, String> param) {
 			return dao.insertStudyBoard(session, param);
@@ -39,5 +40,5 @@ public class StudyServiceImpl implements StudyService {
 		}
 
 	
-		
+
 }
