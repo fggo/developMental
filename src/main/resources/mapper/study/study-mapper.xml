@@ -4,7 +4,6 @@
  
 	<select id="selectStudyBoardCount" resultType="_int">
 		 SELECT COUNT(*) FROM BOARD_MEETUP
-		 select count(*) from board_meetup
 	</select>
 	
 	<select id="selectStudyBoardList" resultType="map">

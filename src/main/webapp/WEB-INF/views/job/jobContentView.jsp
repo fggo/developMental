@@ -33,7 +33,6 @@
             </div>
 
             <input type="hidden" name="title" value="${jobBoard.title}">
-
             <div class="form-inline form-group">
               <div class="col-md-3"><strong>회사명</strong></div>
               <div class="col-md-9">
