@@ -1,3 +1,4 @@
+﻿ss
 select * from tab;
 
 SELECT J.*, (SELECT COUNT(*) FROM APPLY_JOB WHERE J.NO = MEMBERNO) AS APPLICANTS
