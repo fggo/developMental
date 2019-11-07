@@ -23,8 +23,9 @@
       padding-left: 15px; padding-right: 15px;
       margin: 0 auto;
     }
-    .modal {
-      text-align: center;
+ 
+ /*    .modal {
+      text-align: center; */
     }
 
     @media screen and (min-width: 768px) { 
@@ -76,6 +77,71 @@
         box-shadow: 2px 2px 2px #535353;
       }
   </style>
+ 
+<!--    <div class="modal fade hide in" id="studyrecruitment" tabindex="-1" role="dialog"
+	data-keyboard="false" data-backdrop="static" aria-labelledby="exampleModalCenterTitle"
+	aria-hidden="true"> -->
+<div class="modal fade" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title" id="myModalLabel" id="jobmodalTitle"><img src="${path }/resources/images/icons8-book-64.png" class="" alt="">&nbsp;<strong>Study Information </strong>${title}</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="text-danger fa fa-times"></i></button>
+    </div>
+
+    <div class="modal-body container" id="studymodal-body">
+      <form action="${path}/study/studyApply" id="applyFrm" method="post">
+        <div class="row container">
+          <table class="pull-left col-md-8 bg-transparent">
+            <tbody>
+              <tr>
+                <td class="h6"><strong>NO.</strong></td>
+                <td class="h5">
+                <input type="text"  class="form-control" name='no' id="txtfname" readonly/></td>
+              </tr>
+              <tr>
+                <td class="h6"><strong>Writer</strong></td>
+                <td class="h5">
+                  <input type="text"  class="form-control" name='writer' id="txtlname" readonly />
+                </td>
+              </tr> 
+              <tr>
+                <td class="h6"><strong>Title</strong></td>
+                <td class="h5">
+                  <input class="form-control"  id="txttname" readonly />
+                </td>
+              </tr>
+              <tr>
+                <td class="h6"><strong>Reg. Date</strong></td>
+                <td class="h5">
+                     <input class="form-control"  id="txtdname" readonly />
+                </td>
+              </tr> 
+            </tbody>
+          </table>
+
+        </div>
+
+        <div>
+          <h6><strong>Content</strong></h6>
+          <textarea class="form-control h-50" rows='10'  id="txtcname"></textarea>
+        </div>
+        <hr>
+        <!-- <input id="applyBtn" type="submit" class="btn btn-primary" value="Apply Now" /> -->
+        <button type="submit" class="btn btn-primary" id="applyBtn">Apply Now</button>
+      </form>
+    </div>
+      
+    <div class="modal-footer">
+      <div class="text-right pull-right ">Max # of Participants<br/> 
+        <span class="h3 text-muted"><strong>6</strong></span>
+      </div> 
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    </div>
+  </div>
+  </div>
+  </div>
+
 
 
   <main id="main-wrapper" class="p-0 w-100">
@@ -93,7 +159,7 @@
           </div>
         </div>
       </div>
-
+          
       <div class="card-body">
         <div class="media mb-2">
           <div class="media-body d-flex pl-3 my-0 py-0">
@@ -101,6 +167,19 @@
               <h3 class="card-title">Study Board</h3>
               <h6 class="card-subtitle text-muted">Total of <b>0</b> listings</h6>
               
+              
+                <div class="ml-auto">
+              <c:if test="${loginMember !=null}">
+       			<button id="poststudyBtn" class="ml-auto mr-3 align-self-center btn float-left btn-outline-primary">스터디 모집</button>
+              </c:if>
+              <c:if test="${loginMember == null}">
+                <button id="poststudyBtn1" class="ml-auto mr-3 align-self-center btn float-left btn-outline-primary">스터디 모집</button>
+              </c:if>
+                <button id="demo" class="ml-auto mr-3 align-self-center btn float-left btn-outline-primary" onclick="location.href='${pageContext.request.contextPath }/study/applyconfirm'">demo</button>
+            </div>
+         
+
+
               
                 <div id="databaseJobBoardList">
           <table class="table table-sm table-hover studymodal-tbl1" style="font-size:14px;">
@@ -117,7 +196,7 @@
             </thead>
             <tbody>
               <c:forEach var="s" items="${list}" varStatus="status">
-                <tr class="">            
+                <tr class="clickable-row">            
                   <td class="text-center">${s['NO']}</td>
                   <td class="text-center">${s['WRITER']}</td>
                   <td class="text-center study-title">${s['TITLE']}</td>
@@ -131,50 +210,75 @@
 				   ${pageBar}
 				
         </div>
+        
+        
+
+   
+   
+   <div class="modal fade hide in" id="studyrecruitment" tabindex="-1" role="dialog"
+	data-keyboard="false" data-backdrop="static" aria-labelledby="exampleModalCenterTitle"
+	aria-hidden="true">
+    <div class="modal-dialog modal-80size">
+        <div class="modal-content modal-80size">
+           <div class="modal-header">
+               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&#xD7;</button>
+           </div>	
+             <form action="${path}/study/studyrecruit" method="post">
+         				   <div class="modal-body recruit-form">
+                        <div class="form-group my-0">
+                      <label for="writer">&nbsp;&nbsp;</label>유저 이름
+                      <c:if test="${loginMember != null}">
+                        <input type="text" class="form-control text-primary" name="writer" value="${loginMember.nickname}" readonly required />
+                      </c:if>
+                    </div>
+                    <div class="form-group">
+                      <label for="title">제목</label>
+                      <input type="text" name='title' placeholder="제목"required class="form-control">
+                    </div>
+                    <!-- content -->
+                    <hr>
+                    <div class="form-group my-0">
+                      <label for="description">상세 정보</label>
+                      <textarea name="content" placeholder="상세 정보" required class="form-control" rows="5" style="resize:none"></textarea>
+                    </div>
+                    <hr>
+                    <!-- /content end -->
+             
+                    <input type="submit" class="subscribe btn btn-outline-dark btn-block rounded-lg shadow-sm" value="모집" />
+                  </form>
+                </div>
+              </div>
+             
+        </div>
+        
+
+        
 <script>
-$(function(){
-  
-        $('td.hide-html-tag *').css({
-          'display': 'none',
-        })
-
-        $('.studymodal-tbl1 tbody tr').css({ 'cursor': 'pointer', });
-        $('.studymodal-tbl2 tbody tr').css({ 'cursor': 'pointer', });
-
-        $('.studymodal-tbl1 > tbody  > tr').on('click', function() {
-
-          addRowEvent($(this));
-
-          $('#studymodal').modal({
-            backdrop: false,
-            keyboard: false,
-            show: true,
-          });
-          $('.modal-dialog').draggable({
-            handle: ".modal-content",
-            // containment: "window",
-          });
-        });
-
-        $('.studymodal-tbl2 > tbody  > tr').on('click', function() {
-
-          addRowEvent($(this));
-
-          $('#studymodal').modal({
-            backdrop: false,
-            keyboard: false,
-            show: true,
-          });
-          $('.modal-dialog').draggable({
-            handle: ".modal-content",
-            // containment: "window",
-          });
-        });
-
-	
-	
+$('table tbody tr  td').on('click',function(){
+    $("#myModal").modal("show");
+    $("#txtfname").val($(this).closest('tr').children()[0].textContent);
+    $("#txtlname").val($(this).closest('tr').children()[1].textContent);
+    $("#txttname").val($(this).closest('tr').children()[2].textContent);
+    $("#txtcname").val($(this).closest('tr').children()[3].textContent);
+    $("#txtdname").val($(this).closest('tr').children()[4].textContent);
+ 
 });
 
+
+	$('#poststudyBtn').click(function(){
+        $("#studyrecruitment").modal('show');
+      });
+
+      $('#poststudyBtn1').click(function(){
+        $("#loginModal").modal('show');
+      });
+      
+      $('.clickable-row').click(function(){
+          $("#studymodal-content").modal('show');
+        });
+        
+      
+     
 </script>
 
       </div>

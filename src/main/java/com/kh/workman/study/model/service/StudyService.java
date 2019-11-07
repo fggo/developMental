@@ -7,4 +7,6 @@ public interface StudyService {
 
 	int selectStudyBoardCount();
 	List<Map<String,String>> selectStudyBoardList(int cPage,int numPerpage);
+	int insertStudyBoard(Map<String, String> param);
+	int ApplyStudy(Map<String, Object> p);
 }

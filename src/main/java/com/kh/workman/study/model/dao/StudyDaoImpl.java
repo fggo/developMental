@@ -20,6 +20,17 @@ public class StudyDaoImpl implements StudyDao {
 		RowBounds rows=new RowBounds((cPage-1)*numPerPage,numPerPage);
 		return session.selectList("study.selectStudyBoardList",null,rows);
 	}
+
+	@Override
+	public int insertStudyBoard(SqlSessionTemplate session, Map<String, String> param) {
+		return session.insert("study.insertStudyBoard", param);
+	}
+
+	@Override
+	public int ApplyStudy(SqlSessionTemplate session, Map<String, Object> p) {
+		return session.insert("study.ApplyStudy", p);
+	}
+	
 	
 	
 	

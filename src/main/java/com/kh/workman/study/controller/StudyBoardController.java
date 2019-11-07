@@ -1,7 +1,10 @@
 package com.kh.workman.study.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,5 +40,60 @@ public class StudyBoardController {
 	}
 	
 	  
-	 
+	@RequestMapping("/study/studyrecruit")
+	public ModelAndView insertBoard(@RequestParam Map<String,String> param, 			
+			HttpServletRequest request){
+	
+		
+		int result=service.insertStudyBoard(param);
+		
+		String msg="";
+		String loc="/study/studyList";
+		if(result>0) {
+			msg="입력성공";
+		}else {
+			msg="입력실패";
+		}
+		ModelAndView mv= new ModelAndView();
+				
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		
+		mv.setViewName("common/msg");
+		return mv;
+	}
+	
+	@RequestMapping("/study/studyApply")
+	public ModelAndView ApplyStudy(int no, String writer){
+		
+		Map<String, Object> p = new HashMap();
+		p.put("no",no);
+		p.put("writer", writer);
+		int result = service.ApplyStudy(p);
+		
+		
+		String msg="";
+		String loc="/study/studyList";
+		if(result>0) {
+			msg="신청 완료";
+		}else {
+			msg="신청 실패";
+		}
+		
+		ModelAndView mv= new ModelAndView();
+		
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		
+		mv.setViewName("common/msg");
+		return mv;
+		
+		
+		
+	}
+	
+	@RequestMapping("/study/applyconfirm")
+	public String applyconfirm() {
+		return "study/applyconfirm";
+	}
 }

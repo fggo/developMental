@@ -100,6 +100,8 @@
           </div>
         </div>
         <div id="githubJobBoardList">
+        
+        
           <table class="table table-sm table-hover jobmodal-tbl2" style="font-size:14px;">
             <c:if test="${newList == null}">
               <div class="container card my-1 py-3 text-center border-secondary"><i class="text-muted">No Github Job List! Please type keyword and location.</i></div>
