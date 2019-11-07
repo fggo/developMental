@@ -14,16 +14,6 @@
   <jsp:param name="pageTitle" value="구인게시판" />
 </jsp:include>
 
-  <style>
-    .w-0{ width: 0%;}
-    .w-5{ width: 5%;}
-    .w-10{ width: 10%;}
-    .w-25{ width: 25%;}
-    .w-30{ width: 30%;}
-    .w-40{ width: 40%;}
-    .w-45{ width: 45%;}
-  </style>
-
   <main id="main-wrapper" class="p-0 w-100">
     <jsp:include page="/WEB-INF/views/common/loading.jsp"/>
 
@@ -78,7 +68,6 @@
             </div>
 
             <div id="githubJobBoardList" class="rounded">
-              <img src="${path}/resources/images/icons8-api-32.png" width="30px" height="30px" class="img-fluid" alt=""/>
               <table class="table table-sm table-hover jobmodal-tbl2" style="font-size:14px;">
                 <c:if test="${newList == null}">
                     <div class="m-0 p-0 w-100 text-center"><i class="text-muted">해외취업 리스트가 없습니다! 검색어를 입력해주세요.</i></div>
@@ -87,8 +76,10 @@
                   <thead>
                     <tr>
                       <th class="text-center w-0" style="display:none">NO.</th>
-                      <th class="text-center w-10">로고</th>
-                      <th class="text-center w-10">회사명</th>
+                      <th class="text-center w-10 px-0">
+                        <img src="${path}/resources/images/icons8-api-32.png" width="30px" height="30px" class="img-fluid" alt=""/>
+                      </th>
+                      <th class="text-center w-10 px-0">회사명</th>
                       <th class="text-center w-25">제목</th>
                       <th class="text-center w-40">글내용</th>
                       <th class="text-center w-10">작성일</th>
@@ -100,9 +91,9 @@
                   </thead>
                   <tbody>
                     <c:forEach var="j" items="${newList}" varStatus="status">
-                      <tr class="table-primary">
+                      <tr class="">
                         <td class="text-center" style="display:none">0</td>
-                        <td class="text-center">
+                        <td class="text-center px-0">
                           <c:if test="${fn:substring(j['imageURL'],2,6) =='path'}">
                             <img src="${path}${j['imageURL']}" class="img-fluid" alt="">
                           </c:if>
@@ -110,7 +101,7 @@
                             <img src="${j['imageURL']}" class="imageURL img-fluid" alt="">
                           </c:if>
                         </td>
-                        <td class="text-center">${j['WRITER']}</td>
+                        <td class="text-center px-0">${j['WRITER']}</td>
                         <td class="text-center job-title">${j['TITLE']}</td>
                         <td class="hide-html-tag " >${j['CONTENT']}</td>
                         <%-- <td class="text-center"><fmt:formatDate value="${j['REGDATE']}" pattern="yy-MM-dd" /></td> --%>
@@ -125,13 +116,14 @@
               </table>
             </div>
             <div id="databaseJobBoardList" class="my-3 rounded">
-              <img src="${path}/resources/images/icons8-sql-32.png" class="img-fluid" alt=""/>
               <table class="table table-sm table-hover jobmodal-tbl1" style="font-size:14px;">
                 <thead>
                   <tr>
                     <th class="text-center w-0" style="display:none">번호</th>
-                    <th class="text-center w-10">로고</th>
-                    <th class="text-center w-10">회사명</th>
+                    <th class="text-center w-10 px-0">
+                      <img src="${path}/resources/images/icons8-sql-32.png" class="img-fluid" alt=""/>
+                    </th>
+                    <th class="text-center w-10 px-0">회사명</th>
                     <th class="text-center w-25">제목</th>
                     <th class="text-center w-40">글내용</th>
                     <th class="text-center w-10">작성일</th>
@@ -148,11 +140,11 @@
                       <td class="text-center" style="display:none">
                         ${j['no']}
                       </td>
-                      <td class="text-center">
+                      <td class="text-center px-0">
                         <img src="${path}/resources/upload/job/${j['fileNewName']}" 
                           class="imageURL img-fluid" alt=""/>
                       </td>
-                      <td class="text-center">${j['writer']}</td>
+                      <td class="text-center px-0">${j['writer']}</td>
                       <td class="text-center job-title">${j['title']}</td>
                       <td>${j['content']}</td>
                       <%-- <td class="text-center"><fmt:formatDate value="${j['regDate']}" pattern="yy-MM-dd" /></td> --%>
