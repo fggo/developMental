@@ -2,6 +2,9 @@ package com.kh.workman.job.controller;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -20,10 +23,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.workman.common.PageBarFactory;
 import com.kh.workman.common.api.JobGithubApi;
 import com.kh.workman.job.model.service.JobService;
-import com.kh.workman.job.model.vo.JobApply;
 import com.kh.workman.job.model.vo.JobBoard;
 import com.kh.workman.job.model.vo.JobBoardFile;
-import com.kh.workman.member.model.vo.Member;
 
 @Controller
 public class JobController {
@@ -33,11 +34,6 @@ public class JobController {
   @Autowired
   private JobService service;
   
-  @RequestMapping("/job/jobApplyList")
-  public String jobApplyList() {
-    return "job/jobApplyList";
-  }
-
   @RequestMapping("/job/jobBoardList")
   public ModelAndView jobBoardList(
       @RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
@@ -76,15 +72,26 @@ public class JobController {
 
   @RequestMapping("/job/jobContentView.do")
   public ModelAndView jobContentView(JobBoard j, 
-        @RequestParam(value="imageURL", required=false) String imageURL) {
-
+        @RequestParam(value="imageURL", required=false) String imageURL,
+        @RequestParam(value="regDateRaw", required=false) String regDateRaw) {
     System.out.println(j);
+    System.out.println(regDateRaw);
+
     JobBoard board = null;
+
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+    //convert String to LocalDate
+    LocalDate localDate = LocalDate.parse(regDateRaw, formatter);
 
     if(j.getNo() != 0)
       board = service.selectJobBoardOne(j);
     else
       board = j;
+
+    java.sql.Date regDate = java.sql.Date.valueOf(localDate);
+
+    board.setRegDate(regDate);
 
     ModelAndView mv = new ModelAndView();
     mv.addObject("jobBoard", board);
@@ -96,7 +103,8 @@ public class JobController {
   }
 
   @RequestMapping("/job/jobApply")
-  public ModelAndView applyJob(JobBoard j, HttpSession session, String imageURL) {
+  public ModelAndView applyJob(JobBoard j, HttpSession session,
+   String imageURL) {
 
 //    int result = service.insertJobBoard(j);
 //
