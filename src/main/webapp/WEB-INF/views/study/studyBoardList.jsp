@@ -248,7 +248,7 @@
                     <hr>
                     <!-- /content end -->
              
-                    <input type="submit" class="subscribe btn btn-outline-dark btn-block rounded-lg shadow-sm" value="����" />
+                    <input type="submit" class="subscribe btn btn-outline-dark btn-block rounded-lg shadow-sm" value="모집" />
                   </form>
                 </div>
               </div>
