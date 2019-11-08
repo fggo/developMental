@@ -9,8 +9,17 @@
 </jsp:include>
 
 
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="https://code.jquery.com/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+<script src="${path }/resources/js/detail.js" type="text/javascript"></script>
+<!-- jqeury -->
+<!-- <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script> -->
 <!-- Popper -->
- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <!-- Google material Icons -->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <!-- collabo/detail.css -->
@@ -19,11 +28,19 @@
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" rel="stylesheet">
 <!-- Socket -->
 <script src="https://cdn.jsdelivr.net/sockjs/1/sockjs.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> 
+<!-- bootstrap -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
 <section class="container-fluid" id="content">
 	<div class="row collabo-header" >
-		<span style="font-size:18px;color:white;font-weight:bold;">대충 트렐로 메뉴</span>
-		<button type="button" data-toggle="modal" data-target="#cardModal">모달테스트</button>
+		<div style="width:200px">
+			<span style="font-size:18px;color:white;font-weight:bold;">${collaboTool.title }</span>
+		</div>
+		<div>
+			<button style="margin-right:5px;border-radius:8px" class="btn btn-sm btn-primary" type="button" data-toggle="modal" data-target="#inviteModal">초대</button>
+			<button style="border-radius:8px"class="btn btn-sm btn-primary" type="button" data-toggle="modal" data-target="">추방</button>
+		</div>
+		
 	</div>
 	<div class="board" >
 		<c:if test="${loginMember != null}">
@@ -95,7 +112,32 @@
 		 <!-- The Modal -->
  
 </div>
-  <!-- The Modal -->
+<!-- Invite Modal -->
+<div class="modal fade" id="inviteModal">
+	<div class="modal-dialog" style="width:450px;">
+		<div class="modal-content">
+			<div class="modal-header">
+			  <h3 class="modal-title"><span class="material-icons">input</span>[팀워크 초대]<span id="modal-title"></span></h3>
+       	 	  <button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<div class="modal-body">
+			<hr/>
+				<div class="ui-widget">
+					<label for="userId">ID : </label>
+					<input type="text" id="userId"/>
+					<img id="userProfile"/>
+				</div>
+			</div>
+			<div class="modal-footer">
+			   <button name="btnModalClose" type="button" class="btn btn-primary" onclick="requestInvite()">초대</button>
+			   <button name="btnModalClose" type="button" class="btn btn-secondary" data-dismiss="modal">나가기</button>
+			</div>		
+		</div>
+	</div>
+</div>
+
+
+  <!-- Card Modal -->
   <div class="modal fade" id="cardModal">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
@@ -150,6 +192,87 @@
   
 </section>
 <script>
+function requestInvite(){
+	var userId = $("#userId").val();
+	$.ajax({
+		type : "post",
+		url : "${path}/collabo/inviteMember",
+		dataType : "json",
+		data : {
+			userId : userId,
+			collaboNo : collaboNo
+		},
+		success : function(data){
+			console.log(data);
+		}
+	});
+}
+
+
+$(function(){
+	var userIds = new Array();
+	<c:forEach items="${userIds}" var="v" varStatus="i">
+		var temp = {
+				userId : "${v}",
+				profile : "${userProfiles[i.count]}"
+		};
+		userIds.push(temp);
+	</c:forEach>
+	$("#userId").autocomplete({
+		minLength : 0,
+		
+		source : userIds/* function(request, response){
+			$.ajax({
+				type: 'post',
+			url : "${path}/collabo/idAutoComplete",
+			dataType:"json",
+			data : { value: request.term},
+			success : function(data){
+				response(
+					$.map(data, function(item){
+						return{
+							label : item.data,
+							value: item.data
+						}
+					})		
+				);
+			}
+			});
+		} */,
+		
+		select : function (event, ui){
+			$("#userId").val(ui.item.userId);
+			return false;
+		},
+		focus : function (event, ui){
+			$("#userId").val(ui.item.userId);
+			return false;
+		}
+	}).autocomplete("instance")._renderItem = function( ul, item ) {
+	    /* return $( "<li>" )
+	      .append( "<div>" + item.userId +"<img src='${path}/resources/images/"+ "teamwork.png'"+"width='20px' height='20px'/>" + "</div>" )
+	      .appendTo( ul ); */
+      	var li = $("<li/>");
+	  	var div = $("<div/>");
+	    var img = $("<img/>");
+	    div.text(item.userId);
+	    if(item.profile!=""){
+			img.attr("src","${path}/resources/images/"+ "teamwork.png");
+			img.attr("width","20px");
+			img.attr("hegiht","20px");
+			div.append(img);
+	  	}
+	    return li.append(div).appendTo(ul);
+	}
+});
+ 
+
+
+$("#inviteModal").on("show.bs.modal",function(){
+	$("#userId").autocomplete("option", "appendTo", "#inviteModal");
+});
+
+
 var userId =  "${loginMember.id}";
 var collaboNo = ${collaboNo};
 let sock = new SockJS("<c:url value="/collabo/soc"/>");
@@ -169,90 +292,6 @@ sock.onopen = function(){
 	sendMessage(sendData);
 }
 
-
-function requestMoveList(element, ev){
-	console.log($(element));
-	console.log(ev.dataTransfer.getData("text"));
-	/* document.getElementById("listNo_"+listNo).appendChild(document.getElementById("cardNo_"+cardNo)); */
- 	var listNo = $("#"+ev.dataTransfer.getData("text")).attr("id").substring(7);
-	var targetListNo = $(element).children().children('.list-cards').attr("id").substring(7);
-	var sendData = {
-		type : "list",
-		method : "move",
-		listNo : listNo,
-		userId : userId,
-		collaboNo : collaboNo,
-		targetNo : targetListNo
-	};
-	sendMessage(sendData); 
-}
-
-function responseUpdateList(receive){
-	var targetList = $("#listNo_"+receive.listNo).parent().children().children('.list-title');
-	targetList.text(receive.content);
-}
-
-function requestUpdateList(target){
-	var listNo = $(target).parent().parent().parent().parent().parent().children(".list-cards").attr("id").substring(7);
-	var content = prompt("Please enter the title of the list to modify");
-	sendData={
-		type :"list",
-		method :"update",
-		content : content,
-		listNo : listNo,
-		userId : userId,
-		collaboNo : collaboNo
-	};
-	sendMessage(sendData);
-}
-
-
-
-function requestDeleteList(target){
-	if(confirm("Are you Delete This List?")){
-		var targetList = $(target).parent().parent().parent().parent().parent().children(".list-cards").attr("id").substring(7);
-		sendData={
-			type : "list",
-			method : "delete",
-			collaboNo : collaboNo,
-			userId : userId,
-			listNo : targetList
-		};
-		sendMessage(sendData);
-	}
-}
-
-
-function requestDeletCard(target){
-	var isDelete = confirm("Are you delete this card?");
-	if(isDelete){
-		var cardNo = $("#modalCardNo").val();
-		var sendData ={
-			type:"card",
-			method:"delete",
-			userId:userId,
-			collaboNo:collaboNo,
-			cardNo:cardNo
-		};
-		sendMessage(sendData);
-	}
-}
-
-
-function requestUpdateCard(target){
-	var content = $(target).parent().children("#editContent").val();
-	var cardNo = $("#modalCardNo").val();
-	var sendData ={
-		type:"card",
-		userId:userId,
-		method : "update",
-		collaboNo : collaboNo,
-		content : content,
-		cardNo : cardNo
-	};
-	
-	sendMessage(sendData);
-}
 
 // 메시지 전송
 function sendMessage(sendData) {
@@ -307,56 +346,14 @@ function onClose(evt) {
 	
 }
 
-</script>
-
-<script>
-function responseMoveList(receive){
-  var listNo = $("#listNo_"+receive.listNo); 
-  var wrapper = $("#listNo_"+receive.targetNo).parent().parent();
-  
-  listNo.parent().parent().append(wrapper.children());
-  wrapper.append(listNo.parent());
-  
-}
-
-function responseDeleteList(receive){
-	var list = $("#listNo_"+receive.listNo).parent().parent();
-	console.log(list.attr("class"));
-	if(list.attr("class")== 'list-wrapper'){
-		list.remove();
-	}
-	if(list.attr("class") == 'list-content'){
-		list.parent().remove();
-	}
-}
-
-
-function responseDeleteCard(receive){
-	var card = $('#cardNo_'+receive.cardNo).children('.card-content').parent();
-	card.remove();
-	
-	var btnClose = $("button[name=btnModalClose]");
-	btnClose.click();
-}
-
-function responseUpdateCard(receive){
-	var card = $('#cardNo_'+receive.cardNo).children('.card-content');
-	var modalCard = $("#modalContent");
-	
-	modalCard.text(receive.content);
-	card.text(receive.content);
-	
-	var btnEdit = $("#btnEdit");
-	btnEdit.click();
-	
-}
-
 $("#modifyContent").on('show.bs.collapse',function(){
 	/* var editArea = document.getElementById('edit').innerHTML = ""; */
 	var editContent = $("#editContent");
 	editContent.val('');
 });
-
+ $("#cardModal").on('hide.bs.modal',function(e){
+	$("#modifyContent").collapse('hide');
+});
 
 $("#cardModal").on('show.bs.modal',function(e){
 	var data=$(e.relatedTarget).data('test');
@@ -378,303 +375,6 @@ $("#cardModal").on('show.bs.modal',function(e){
 	}
 </c:forEach>
 });
-
-function createWrapper(ele){
-	var wrapper=$("<div/>");
-	wrapper.attr("class","list-wrapper");
-	
-	var content=$("<div/>");
-	content.attr("class","list-content");
-	
-	var dropdiv=$("<div/>");
-	dropdiv.attr("class","dropdown div-drop");
-	
-	var btndrop=$("<button/>");
-	btndrop.attr("class","dropdown btn-addList");
-	btndrop.attr("type","button");
-	btndrop.attr("onclick",'$("#listTitle").val(" ");');
-	btndrop.attr("name","btn_addList");
-	btndrop.attr("data-toggle","dropdown");
-	
-	var faplus =$("<span/>");
-	faplus.text("Add another list");
-	faplus.attr("class","fa fa-plus");
-	
-	btndrop.append(faplus);
-	dropdiv.append(btndrop);
-	
-	var dropmenu=$("<div/>");
-	dropmenu.attr("class","dropdown-menu");
-	dropdiv.append(dropmenu);
-	
-	var listTitle = $("<input/>");
-	listTitle.attr("type","text");
-	listTitle.attr("id","listTitle");
-	listTitle.attr("placeholder","리스트 제목을 입력하세요");
-	
-	
-	var btncList = $("<button/>");
-	btncList.text("Create");
-	btncList.attr("class","btn btn-sm btn-primary");
-	btncList.attr("type","button");
-	btncList.attr("name","btn_cList");
-	btncList.attr("onclick","requestCreateList();");
-	
-
-	var dropItem=$("<div/>");
-	dropItem.attr("class","dropdown-item");
-	
-	dropItem.append(listTitle);
-	dropItem.append(btncList);
-	
-	dropmenu.append(dropItem);
-	
-	content.append(dropdiv);
-	
-	wrapper.append(content);
-	
-	
-	ele.append(wrapper);
-}
-
-
-
-function responseCreateCard(receive){
-	var listCards = $('div[name=listNo_'+receive.listNo+']');
-	
-	
-	var card = $('<div/>');
-	var content = $('<span/>');
-	var button = $("<span/>");
-	button.attr("class",'material-icons btn-edit');
-	button.attr("data-toggle","modal");
-	button.attr("data-test","cardNo_"+receive.cardNo);
-	button.attr("data-target","#cardModal");
-	button.text("edit");
-	
-	
-	
-	content.text(receive.content);
-	
-	card.attr("class","list-card");
-	card.attr("ondrop","return false");
-	card.attr("draggable","true");
-	card.attr("ondragstart","cardDrag(this,event)");
-	card.attr("ondragend","endCardDrag()");
-	card.attr("id","cardNo_"+receive.cardNo);
-	card.attr("name","cardNo_"+receive.cardNo);
-	
-	content.attr("class","card-content");
-	
-	card.append(content);
-	card.append(button);
-	listCards.append(card);
-}
-function requestCreateCard(ele){
-	var content = prompt("Card's Title ? ");
-	var listNo = parseInt($(ele).parent().parent().children('.list-cards').attr('id').substring(7));
-	if(content!=''){
-		var sendData = {
-				type : "card",
-				method : "create",
-				content : content,
-				userId : userId,
-				collaboNo : collaboNo,
-				listNo : listNo
-		};
-		sendMessage(sendData);
-	}
-}
-
-function requestCreateList(){
-	var listTitle= $("#listTitle").val();
-	 if(listTitle!=' '){
-	
-		var sendData = {
-			type : "list",
-			method : "create",
-			content : listTitle,
-			userId : userId,
-			collaboNo : collaboNo
-		};
-		sendMessage(sendData);
-	 }else{
-		 alert('공백은 불가능 합니다.');
-	 }
-	 
-}
-
-function responseCreateList(receive){
-		var content = $("button[name=btn_cList]").parent().parent().parent();
-		var board = $("button[name=btn_cList]").parent().parent().parent().parent().parent().parent();
-		content.empty();
-		
-		content.attr("draggable","true");
-		content.attr("ondrop","return false;");
-		content.attr("ondragstart","listDrag(this,event)");
-		content.attr("ondragend","endListDrag()");
-		
-		content.parent().attr("ondrop","requestMoveList(this,event)");
-		content.parent().attr("ondragover","return false");
-		
-		var listHeader = $('<div/>');
-		listHeader.attr("class","list-header");
-		
-		var listTitle = $('<span/>');
-		listTitle.attr("class","list-title");
-		listTitle.text(receive.content);
-	
-		var btnMenu = $('<button>');
-		btnMenu.attr("type","button");
-		btnMenu.attr("class","fa fa-align-justify btn-menu");
-		btnMenu.attr("data-toggle","dropdown");
-		
-	    var dropMenu = $("<div/>");
-	    dropMenu.attr("class","dropdown-menu");
-	    
-	    var dropitem = $("<div/>");
-	    dropitem.attr("class","dropdown-item");
-	    
-	    var dropspan = $("<span/>");
-	    dropspan.text("리스트 메뉴");
-	    dropspan.css({
-	    	"text-align":"center;",
-	    	"margin-left" : "17px"
-	    });
-	    var hr = $("<hr/>");
-	    
-	    
-	    var dropbtnDiv = $("<div/>");
-	    dropbtnDiv.css({
-	    	"text-align":"center"
-	    });
-	    
-	    var btnEdit = $("<button/>");
-	    btnEdit.attr("type","button");
-	    btnEdit.attr("onclick","requestUpdateList(this)");
-	    btnEdit.attr("class","btn btn-sm btn-primary");
-	    btnEdit.css({
-	    	"margin-right":"3px"
-	    });
-	    btnEdit.text("수정");
-	    
-	    var btnRemove = $("<button/>");
-	    btnRemove.attr("type","button");
-	    btnRemove.attr("onclick","requestDeleteList(this)");
-	    btnRemove.attr("class","btn btn-sm btn-primary");
-	    btnRemove.text("삭제");
-	    
-	    dropbtnDiv.append(btnEdit);
-	    dropbtnDiv.append(btnRemove);
-	    
-	    dropitem.append(dropspan);
-	    dropitem.append(hr);
-	    dropitem.append(dropbtnDiv);
-	    
-	    dropMenu.append(dropitem);
-		
-		var listCards = $('<div/>');
-		listCards.attr("class","list-cards");
-		listCards.attr("ondrop","requestMoveCard(this,event)");
-		listCards.attr("ondragover","return false;");
-		listCards.attr("name","listNo_"+receive.listNo);
-		listCards.attr("id","listNo_"+receive.listNo);
-		
-		
-		var openCard = $('<div/>');
-		openCard.attr("class","open-card");
-	
-		var faplus = $('<span/>');
-		faplus.text("카드 생성");
-		faplus.attr("onclick","requestCreateCard(this);");
-		faplus.attr("class","fa fa-plus");
-	
-		openCard.append(faplus);
-		
-		listHeader.append(listTitle);
-		listHeader.append(btnMenu);
-		listHeader.append(dropMenu);
-		
-		content.append(listHeader);
-		content.append(listCards);
-		content.append(openCard);
-		
-		createWrapper(board);
-	
-}
-function requestMoveCard(element, ev){
-	var cardNo = parseInt(ev.dataTransfer.getData("text").substring(7));
-	var listNo = parseInt(element.id.substring(7));
-	var sendData = {
-			type : "card",
-			method : "move",
-			userId : userId,
-			collaboNo : collaboNo,
-			cardNo : cardNo,
-			listNo : listNo
-	};
-	sendMessage(sendData);
-}
-
-function responseMoveCard(receive){
-	var listNo = receive.listNo+"";
-	var cardNo = receive.cardNo+"";
-	
-	/* $("#listNo").append(document.getElementById(cardNo)); */
-	document.getElementById("listNo_"+listNo).appendChild(document.getElementById("cardNo_"+cardNo));
-}
-
-function allowDrop(ev) {
-	  ev.preventDefault();
-	}
-
-function cardDrag(element, ev) {
-	var wrapper = $(".list-wrapper");
-	var content = $(".list-content");
-	
-	wrapper.removeAttr("ondrop");
-	wrapper.removeAttr("ondragover");
-	content.removeAttr("draggable");
-	content.removeAttr("ondrop");
-	content.removeAttr("ondragstart");
-	
-  	ev.dataTransfer.setData("text",element.id);
-}
-
-function endCardDrag(){
-	var wrapper = $(".list-wrapper");
-	var content = $(".list-content");
-	
-	wrapper.attr("ondrop","requestMoveList(this,event)");
-	wrapper.attr("ondragover","return false;");
-	
-	content.attr("draggable","true");
-	content.attr("ondrop","return false;");
-	content.attr("ondragstart","listDrag(this,event)");
-}
-function listDrag(element, ev){
-	var list = $(".list-cards");
-	var card = $(".list-card");
-	
-	list.removeAttr("ondrop");
-	list.removeAttr("ondragover");
-	card.removeAttr("ondrop");
-	card.removeAttr("draggable");
-	card.removeAttr("ondragstart");
-	
-	ev.dataTransfer.setData("text",$(element).children('.list-cards').attr("id"));
-}
-
-function endListDrag(){
-	var list = $(".list-cards");
-	var card = $(".list-card");
-	
-	list.attr("ondrop","requestMoveCard(this,event)");
-	list.attr("ondragover","return false;");
-	card.attr("ondrop","return false;");
-	card.attr("draggable","true");
-	card.attr("ondragstart","cardDrag(this,event)");
-}
 
 </script>
 <%-- <jsp:include page="/WEB-INF/views/common/footer.jsp"/> 

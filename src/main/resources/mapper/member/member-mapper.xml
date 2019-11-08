@@ -18,6 +18,11 @@
 	<select id="selectMemberList" resultType="adminMember">
 		SELECT * FROM MEMBER ORDER BY NO
 	</select>
+
+	<select id="selectMemberNickname" resultType="member">
+		SELECT * FROM MEMBER WHERE NICKNAME=#{nickname}
+	</select>
+
 	<!--
 		update쿼리 int
 		# 자료형 맞춰주는것
@@ -82,4 +87,8 @@
   <insert id="insertMember" parameterType="com.kh.workman.member.model.vo.Member">
   	INSERT INTO MEMBER VALUES(DEFAULT,#{id},#{pw},#{name},#{nickname},#{email},#{addr},#{tel},DEFAULT,DEFAULT,DEFAULT,DEFAULT,NULL,DEFAULT,0)
   </insert>
+  
+  <select id="selectAllMemberSearch" resultType="com.kh.workman.member.model.vo.Member">
+  	SELECT ID, PROFILE FROM MEMBER
+  </select>
 </mapper>

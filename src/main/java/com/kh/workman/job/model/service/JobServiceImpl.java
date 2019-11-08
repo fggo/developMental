@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.workman.job.model.dao.JobDao;
+import com.kh.workman.job.model.vo.JobApply;
 import com.kh.workman.job.model.vo.JobBoard;
 import com.kh.workman.job.model.vo.JobBoardFile;
 
@@ -53,4 +54,10 @@ public class JobServiceImpl implements JobService {
     return result;
   }
 
+  @Override
+  public int insertJobApply(JobApply apply) {
+    return dao.insertJobApply(session, apply);
+  }
+
+  
 }

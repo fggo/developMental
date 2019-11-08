@@ -112,4 +112,14 @@
 			(SELECT NO FROM MEMBER WHERE ID = #{userId}
 		), DEFAULT)
 	</insert>
+	
+	<select id="selectCollaboTool" parameterType="_int" resultType="collaboTool">
+		SELECT * FROM COLLABO_TOOL WHERE NO = #{collaboNo}
+	</select>
+	
+	<select id="selectCollaboOwner" parameterType="_int" resultType="com.kh.workman.member.model.vo.Member">
+		SELECT * FROM MEMBER WHERE NO = (
+			SELECT OWNER FROM COLLABO_TOOL WHERE NO = #{collaboNo}
+		)
+	</select>
 </mapper>

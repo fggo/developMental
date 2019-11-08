@@ -33,12 +33,6 @@
             </div>
 
             <input type="hidden" name="title" value="${jobBoard.title}">
-  <!-- private String content;
-  private Date regDate;
-  private int count;
-  private int status;
-  private int applicants; //new column
-  private String fileNewName; //JobBoardFile column -->
             <div class="form-inline form-group">
               <div class="col-md-3"><strong>회사명</strong></div>
               <div class="col-md-9">
@@ -78,6 +72,12 @@
           </div>
           <textarea class="form-control w-100 h-50" rows='10' name="content" readonly>${jobBoard.content}</textarea>
         </div>
+        
+        <input type="hidden" name="imageURL" id="imageURL" value="${imageURL}">
+        <input type="hidden" name="count" value="${jobBoard.count}" />
+        <input type="hidden" name="status" value="${jobBoard.status}" />
+        <input type="hidden" name="applicants" value="${jobBoard.applicants}" />
+
         <hr>
         <div class="container row form-inline form-group justify-content-center text-center">
           <c:if test="${loginMember !=null}">
@@ -99,11 +99,6 @@
 
   <script>
     $(function(){
-      // $('#companyLogo').css({
-      //   'height': '100px',
-      //   'width': '100%',
-      //   'object-fit': "cover",
-      // });
 
       $('#applyBtn').click(function(e) {
         e.preventDefault();

@@ -52,12 +52,14 @@
       </div>
       <ul class="list-unstyled components">
 
+
         <li class="active">
           <a href="#myPageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle sidebar-dropdown-toggle">마이페이지</a>
           <ul class="collapse list-unstyled" id="myPageSubmenu">
             <li>
               <a href="javascript: ajaxJobPage('${path }/member/setting.do');" id="jobBoardBtn">개인정보수정</a>
             </li>
+
             <li>
               <a href="javascript: ajaxJobPage('${path }/job/jobApplyList');" id="jobApplyBtn">마이게시판</a>
             </li>
@@ -73,14 +75,13 @@
           </ul>
         </li>
         <li>
-          <a href="#studySubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle sidebar-dropdown-toggle">Study</a>
-           <ul class="collapse list-unstyled" id="studySubmenu">
+
+          <a href="#pageSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle sidebar-dropdown-toggle">Study</a>
+           <ul class="collapse list-unstyled" id="pageSubmenu1">
             <li>
             	<a href='${path }/study/studyList'>Board</a>
-            </li>
-            <li>
-             <a href='${path }/study/studyApplyList'>Apply</a>
-            </li>
+            </li>       
+
           </ul>
            </li>
       </ul>
@@ -121,6 +122,13 @@
           $('#databaseJobBoardList').html(html.find('.jobmodal-tbl1'));
           $('#pageBar').html(html.find('#pageBar'));
 
+          $('.w-0').css({'width': '0%', });
+          $('.w-5').css({'width': '5%', });
+          $('.w-10').css({'width': '10%', });
+          $('.w-25').css({'width': '25%', });
+          $('.w-30').css({'width': '30%', });
+          $('.w-40').css({'width': '40%', });
+          $('.w-45').css({'width': '45%', });
         },
         error: function(status, msg){
           alert('ajax error!');

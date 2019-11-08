@@ -51,4 +51,8 @@ public interface CollaboDao {
 	int createCollaboTool(SqlSessionTemplate session, Map<String, Object> temp);
 
 	int insertCollaboMember(SqlSessionTemplate session, Map<String, Object> temp);
+
+	CollaboTool selectCollaboTool(SqlSessionTemplate session, int collaboNo);
+
+	Member selectCollaboOwner(SqlSessionTemplate session, int collaboNo);
 }
