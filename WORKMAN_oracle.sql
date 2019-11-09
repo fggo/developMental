@@ -129,5 +129,3 @@ CREATE TABLE "WORKMAN"."HASHTAG_JOB" (
  );
 COMMENT ON COLUMN "WORKMAN"."HASHTAG_JOB"."BOARDNO" IS '게시판번호 FK';
 COMMENT ON COLUMN "WORKMAN"."HASHTAG_JOB"."HASHTAGNO" IS '해시태그번호 FK';
-
-                                                                            
