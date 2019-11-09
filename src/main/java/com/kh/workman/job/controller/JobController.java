@@ -395,10 +395,10 @@ public class JobController {
     logger.debug(description);
     logger.debug(howToApply);
 
-    j.setContent("Ⅰ. Job Type : " + jobType
-            + "\nⅡ. Location : " + location
-            + "\nⅢ. Description : " + description
-            + "\nⅣ. How to Apply : " + howToApply + "\n");
+    j.setContent("Ⅰ. 근무형태 : " + jobType
+            + "\nⅡ. 위치 : " + location
+            + "\nⅢ. 세부내용 : " + description
+            + "\nⅣ. 지원방법 : " + howToApply + "\n");
 
     int result = 0;
     try {
@@ -409,11 +409,11 @@ public class JobController {
 
     String msg = "", loc= "";
     if(result > 0) {
-      msg = "Job Recruiting post Successful!";
+      msg = "성공적으로 구인공고를 업로드 했습니다";
       loc = "jobBoardList";
     }
     else {
-      msg="Job Recruiting post Failed!\nYour company has already posted one...";
+      msg="구인공고 등록에 실패했습니다.!";
       loc="/";
     }
     

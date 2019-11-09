@@ -38,14 +38,14 @@
 			<div class="wrapper-my wrapper--w680-my">
             	<div class="card-my card-4-my">
                 	<div class="card-body-my">
-                		<h2 class="title-my">공지사항 등록</h2>
-                		<form name="noticeFrm" action="${path}/admin/noticeFormEnd.do" method="post" enctype="multipart/form-data" >
+                		<h2 class="title-my">공지사항 수정</h2>
+                		<form name="noticeFrm" action="${path}/admin/noticeUpdateEnd.do" method="post" enctype="multipart/form-data" >
                 		
                 			<div class="row-my row-space-my">
                 				<div class="col-2-my">
                 					<div class="input-group-my">
                 						<label class="label-my">제목</label>
-                						<input type="text" class="input--style-4-my" placeholder="제목" name="noticeTitle" id="noticeTitle" required>
+                						<input type="text" class="input--style-4-my" name="noticeTitle" id="noticeTitle" value="${notice.noticeTitle }" required>
                 						<input type="hidden"/>
                 					</div>
                 				</div>
@@ -61,6 +61,11 @@
                 			<div class="row-my row-space-my">
                             	<div class="col-2-my">
                             		<div class="input-group-my">
+	                            		<c:forEach items="${aa }" var="aa" varStatus="vs">
+	                            			<c:if test="${aa.originalFileName != null }">
+	                            				<!-- 파일도 셋팅해야함 -->
+	                            			</c:if>
+	                            		</c:forEach>
                             			<label class="label-my">첨부파일</label>
 										<div class="custom-file">
 										    <input type="file" class="custom-file-input" name="upFile" id="upFile1">
@@ -85,7 +90,7 @@
                 				<div class="col-1-my">
                 					<div class="input-group-my">
                 						<label class="label-my">내용</label>
-                						<textarea class="form-control" id="noticeContent" name="noticeContent" rows="10" placeholder="내용" required></textarea>
+                						<textarea class="form-control" id="noticeContent" name="noticeContent" rows="10" required>${notice.noticeContent }</textarea>
                 						<input type="hidden"/>
                 					</div>
                					</div>
@@ -117,29 +122,34 @@
 
 
 <script>
-	function noticeSubmit(){
-		
-		var noticeTitle=$("#noticeTitle").val();
-		var noticeContent=$("#noticeContent").val();
-		
-		if( (noticeTitle== "null" || noticeTitle== "undefined" || noticeTitle== "NaN" || noticeTitle== '') || 
-				(noticeContent== "null" || noticeContent== "undefined" || noticeContent== "NaN" || noticeContent== '') ){
-			alert("제목 또는 내용을 입력하세요");
-			return;
-		}else{
-			var form=$("form");
-			form.submit();
-		}
-		
-	};
-	function noticeCancel(){
-		history.back();
-	};
+function noticeSubmit(){
 	
-	$(".custom-file-input").on("change", function() {
-	  var fileName = $(this).val().split("\\").pop();
-	  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-	});
+	var noticeTitle=$("#noticeTitle").val();
+	var noticeContent=$("#noticeContent").val();
+	
+	if( (noticeTitle== "null" || noticeTitle== "undefined" || noticeTitle== "NaN" || noticeTitle== '') || 
+			(noticeContent== "null" || noticeContent== "undefined" || noticeContent== "NaN" || noticeContent== '') ){
+		alert("제목 또는 내용을 입력하세요");
+		return;
+	}else{
+		var form=$("form");
+		form.submit();
+	}
+		
+	
+};
+function noticeCancel(){
+	history.back();
+};
+
+$(".custom-file-input").on("change", function() {
+  var fileName = $(this).val().split("\\").pop();
+  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+});
+
 </script>
+	
+	
+
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

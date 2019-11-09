@@ -19,6 +19,8 @@ public interface AdminMemberService {
 	
 	List<AdminMember> listAll(String searchType, String keyword);
 	int countArticle(String searchType, String keyword);
+	int memberReport(int no);
+	int memberReportEnd(int no);
 
 	
 	

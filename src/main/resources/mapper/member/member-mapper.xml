@@ -18,16 +18,18 @@
 	<select id="selectMemberList" resultType="adminMember">
 		SELECT * FROM MEMBER ORDER BY NO
 	</select>
-
+	
+	<update id="memberReport" parameterType="_int">
+		UPDATE MEMBER SET REPORTCOUNT=REPORTCOUNT+1 WHERE REPORTCOUNT <![CDATA[<]]>3 AND NO=#{no}
+	</update>
+	<update id="memberReportEnd" parameterType="_int">
+		UPDATE MEMBER SET STATUS=0, REPORTCOUNT=REPORTCOUNT+1  WHERE NO=#{no}
+	</update>
+	
 	<select id="selectMemberNickname" resultType="member">
 		SELECT * FROM MEMBER WHERE NICKNAME=#{nickname}
 	</select>
 
-	<!--
-		update쿼리 int
-		# 자료형 맞춰주는것
-		$ 무조건 문자열
-	 -->
 	<update id="statusUpdate" parameterType="map">
 		UPDATE MEMBER SET STATUS=#{status} WHERE NO=#{no}
 	</update>

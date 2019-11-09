@@ -4,10 +4,10 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <jsp:include page="/WEB-INF/views/common/header.jsp">
-	<jsp:param name="pageTitle" value=""/>
+	<jsp:param name="pageTitle" value="Admin Member Detail"/>
 </jsp:include>
 <jsp:include page="/WEB-INF/views/common/adminSidebar.jsp">
-  <jsp:param name="pageTitle" value="sidebar - mainview" />
+  <jsp:param name="pageTitle" value="admin - sidebar" />
 </jsp:include>
 
 <section id="faq-container" class="container">
@@ -95,8 +95,10 @@
 				</td>
 			</tr>
 			<tr>
-				<td>
-					<input type="button" class="btn btn-outline-secondary" onclick="moveBack();" value="Back"/>
+				<td colspan="3" align="center">
+					<input type="button" class="btn btn-outline-secondary" onclick="moveBack();" value="이전화면"/>
+					<input type="button" class="btn btn-outline-secondary" onclick="reportCountUp();" value="회원경고"/>
+					<input type="button" class="btn btn-outline-secondary" onclick="sendEmail();" value="메일전송"/>
 				</td>
 			</tr>
 		</table>
@@ -107,6 +109,12 @@
 <script>
 	function moveBack() {
 		history.back();
+	}
+	function reportCountUp(){
+		var no = $('input[name=no]').val();
+		var reportCount = ($('input[name=reportCount]').val()).substr(0,1);
+		console.log(reportCount);
+		location.href='${path}/admin/memberReportUp?no='+no+'&reportCount='+reportCount;
 	}
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

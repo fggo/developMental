@@ -50,13 +50,4 @@ public class JobGithubCrawler {
     
     return url;
   }
-  
-  public static void main(String[] args) {
-    JobGithubCrawler.crawlImg("Sesame");
-    JobGithubCrawler.crawlImg("Datadog");
-    JobGithubCrawler.crawlImg("Qualia Investments");
-    JobGithubCrawler.crawlImg("Rational Consulting");
-
-    
-  }
 }

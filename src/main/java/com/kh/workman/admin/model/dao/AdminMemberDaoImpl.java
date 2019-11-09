@@ -55,6 +55,20 @@ public class AdminMemberDaoImpl implements AdminMemberDao {
 		map.put("keyword", keyword);
 		return session.selectOne("member.countArticle", map);
 	}
+
+	@Override
+	public int memberReport(SqlSessionTemplate session, int no) {
+		return session.update("member.memberReport", no);
+	}
+
+	@Override
+	public int memberReportEnd(SqlSessionTemplate session, int no) {
+		return session.update("member.memberReportEnd", no);
+	}
+	
+	
+	
+	
 	
 	
 	

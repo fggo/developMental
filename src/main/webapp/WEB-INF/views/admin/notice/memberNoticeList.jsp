@@ -7,16 +7,17 @@
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
 <jsp:include page="/WEB-INF/views/common/header.jsp">
-  <jsp:param name="pageTitle" value="관리자" />
+  <jsp:param name="pageTitle" value="공지사항" />
 </jsp:include>
 
-<jsp:include page="/WEB-INF/views/common/adminSidebar.jsp">
-  <jsp:param name="pageTitle" value="관리자" />
+<jsp:include page="/WEB-INF/views/common/sidebar.jsp">
+  <jsp:param name="pageTitle" value="공지사항" />
 </jsp:include>
 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> 
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
   <style>
     .container-1200 {
@@ -70,7 +71,7 @@
               <th class="text-center">작성자</th>
               <th class="text-center">작성일</th>
               <th class="text-center">조회수</th>
-              <th class="text-center" colspan="3">sup_btn</th>
+              <th class="text-center">확인</th>
             </tr>
           </thead>
           <tbody>
@@ -94,14 +95,7 @@
               <td class="noticeDate text-center">${n.noticeDate }</td>
               <td class="noticeReadcount text-center">${n.noticeReadcount }</td>
 			  <td align="center">
-				  <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#myModal">상세</button>
-			  </td>
-			  <td align="center">
-				  <button class="btn btn-outline-secondary" name="btn_u">수정</button>
-<%--  <button class="btn btn--radius-2 btn--blue pull-right" type="button" onclick="location.href='${path}/member/mainPage.do'">취소</button> --%>
-			  </td>
-			  <td align="center">
-				  <button type="button" class="btn btn-outline-secondary" name="btn_d">삭제</button>
+				  <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#myModal">상세보기</button>
 			  </td>
             <tr>
           </c:forEach>
@@ -109,6 +103,7 @@
       </table>
       
       <nav aria-label="Page navigation example">
+      
        <div id="paging">
        	${pageBar }
        </div>
@@ -181,11 +176,19 @@
   </div>
   </div>
   </div>
-  </div>
+
+<!--     <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" -->
+<!--       integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" -->
+<!--       crossorigin="anonymous"></script> -->
+    
+<!--     Bootstrap JS -->
+<!--     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" -->
+<!--       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> -->
 
     <script>
    // 파일다운
       function fileDownload(oName, rName) {
+      	console.log("돌아는 가네");
       	console.log(oName+":"+rName);
 //           oName=encodeURIComponent(oName);
 //           location.href="${path}/board/filedownLoad.do?oName="+oName+"&rName="+rName;
@@ -195,7 +198,7 @@
 //       	$("#filecontainer").empty();
       // });
 
-      $("#myModal").on('show.bs.modal',function(e){	  
+      $("#myModal").on('show.bs.modal',function(e){
       	var data=$(e.relatedTarget).parents("tr").children();
        	var noticeNo = parseInt($(e.relatedTarget).parents("tr").children('.noticeNo').text());
        	var title =  $(e.relatedTarget).parents("tr").children('.noticeTitle').text().trim();
@@ -225,15 +228,7 @@
       	$("#renamedFileName").val(renamedFileName);
       	
       });
-      
-      function noticeUpdate(){
-    	  
-    	  var data=$(this).parent().parent();
-    	  console.log(data)
-    	  
-//     	  location.href="${path}/admin/noticeUpdate?no="+no;
-      }
-      
+
       $("button[name=btn_d]").click(function(){
       	var tr = $(this).parent().parent();
       	var td = tr.children();
@@ -248,12 +243,14 @@
       	var tr = $(this).parent().parent();
       	var td = tr.children();
       	
-      	var noticeNo=td.eq(0).text();
+      	var noticeNo=td.eq(1).text();
       	if(confirm("공지사항을 수정합니다.")){
       		location.href="${path}/admin/noticeUpdate?noticeNo="+noticeNo;
       	}
+      	
       });
       
     </script>
+  </div>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />

@@ -38,62 +38,31 @@
 			<div class="wrapper-my wrapper--w680-my">
             	<div class="card-my card-4-my">
                 	<div class="card-body-my">
-                		<h2 class="title-my">공지사항 등록</h2>
-                		<form name="noticeFrm" action="${path}/admin/noticeFormEnd.do" method="post" enctype="multipart/form-data" >
+                		<h2 class="title-my">FAQ 등록</h2>
+                		<form name="faqFrm" action="${path}/admin/faqFormEnd.do" method="post">
                 		
                 			<div class="row-my row-space-my">
                 				<div class="col-2-my">
                 					<div class="input-group-my">
                 						<label class="label-my">제목</label>
-                						<input type="text" class="input--style-4-my" placeholder="제목" name="noticeTitle" id="noticeTitle" required>
+                						<input type="text" class="input--style-4-my" placeholder="제목" name="faqTitle" id="faqTitle" required>
                 						<input type="hidden"/>
                 					</div>
                 				</div>
-                				<div class="col-2-my">
-                                	<div class="input-group-my">
-                                    	<label class="label-my">작성자</label>
-                                    	<input type="text" class="form-control" name="noticeWriter" value="admin" readonly required>
-                                    	<input type="hidden"/>
-                                    </div>
-                            	</div>
-                			</div>
-                			
-                			<div class="row-my row-space-my">
-                            	<div class="col-2-my">
-                            		<div class="input-group-my">
-                            			<label class="label-my">첨부파일</label>
-										<div class="custom-file">
-										    <input type="file" class="custom-file-input" name="upFile" id="upFile1">
-										    <label class="custom-file-label" for="customFile">Choose file</label>
-										    <input type="hidden"/>
-										</div>
-                            		</div>
-                            	</div>
-                            	<div class="col-2-my">
-                            		<div class="input-group-my">
-                            			<label class="label-my">첨부파일2</label>
-										<div class="custom-file">
-										    <input type="file" class="custom-file-input" name="upFile" id="upFile2">
-										    <label class="custom-file-label" for="customFile">Choose file</label>
-										    <input type="hidden"/>
-										</div>
-                            		</div>
-                            	</div>
-                			</div>
-                			
+                			</div>                			
                 			<div class="row-my row-space-my">
                 				<div class="col-1-my">
                 					<div class="input-group-my">
                 						<label class="label-my">내용</label>
-                						<textarea class="form-control" id="noticeContent" name="noticeContent" rows="10" placeholder="내용" required></textarea>
+                						<textarea class="form-control" id="faqContent" name="faqContent" rows="10" placeholder="내용" required></textarea>
                 						<input type="hidden"/>
                 					</div>
                					</div>
             				</div>
             				<div class="p-t-15-my">
 <!-- 	                            <input type="submit" class="btn btn-link" value="저장" > -->
-	                            <button class="btn-my btn--radius-2-my btn--blue-my pull-left" type="button" onclick="noticeSubmit();">저장</button>
-	                            <button class="btn-my btn--radius-2-my btn--blue-my pull-right" type="button" onclick="noticeCancel();">취소</button>
+	                            <button class="btn-my btn--radius-2-my btn--blue-my pull-left" type="button" onclick="faqSubmit();">저장</button>
+	                            <button class="btn-my btn--radius-2-my btn--blue-my pull-right" type="button" onclick="faqCancel();">취소</button>
                         	</div>
                 					
                 		</form>
@@ -117,13 +86,13 @@
 
 
 <script>
-	function noticeSubmit(){
+	function faqSubmit(){
 		
-		var noticeTitle=$("#noticeTitle").val();
-		var noticeContent=$("#noticeContent").val();
+		var faqTitle=$("#faqTitle").val();
+		var faqContent=$("#faqContent").val();
 		
-		if( (noticeTitle== "null" || noticeTitle== "undefined" || noticeTitle== "NaN" || noticeTitle== '') || 
-				(noticeContent== "null" || noticeContent== "undefined" || noticeContent== "NaN" || noticeContent== '') ){
+		if( (faqTitle== "null" || faqTitle== "undefined" || faqTitle== "NaN" || faqTitle== '') || 
+				(faqContent== "null" || faqContent== "undefined" || faqContent== "NaN" || faqContent== '') ){
 			alert("제목 또는 내용을 입력하세요");
 			return;
 		}else{
@@ -132,14 +101,9 @@
 		}
 		
 	};
-	function noticeCancel(){
+	function faqCancel(){
 		history.back();
 	};
-	
-	$(".custom-file-input").on("change", function() {
-	  var fileName = $(this).val().split("\\").pop();
-	  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-	});
 </script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
