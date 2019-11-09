@@ -11,6 +11,8 @@ public interface JobService {
 
   JobBoard selectJobBoardOne(JobBoard j);
 
+  JobBoard selectJobBoardWriter(JobBoard j);
+
   List<Map<String, Object>> selectPageJobBoardList(int cPage, int numPerPage);
 
   int selectJobBoardCount();
@@ -18,4 +20,5 @@ public interface JobService {
   int insertJobBoard(JobBoard job, List<JobBoardFile> jobBoardFileList) throws Exception;
 
   int insertJobApply(JobApply apply);
+  
 }

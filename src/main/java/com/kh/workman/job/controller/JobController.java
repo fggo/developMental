@@ -1,8 +1,16 @@
 package com.kh.workman.job.controller;
 
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
+import java.awt.image.ColorModel;
+import java.awt.image.DataBuffer;
+import java.awt.image.DataBufferInt;
+import java.awt.image.DirectColorModel;
+import java.awt.image.PixelGrabber;
+import java.awt.image.Raster;
+import java.awt.image.WritableRaster;
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -17,6 +25,9 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,6 +43,7 @@ import com.kh.workman.job.model.vo.JobBoardFile;
 import com.kh.workman.member.model.service.MemberService;
 import com.kh.workman.member.model.vo.Member;
 
+@PropertySource("classpath:/properties/config.properties")
 @Controller
 public class JobController {
 
@@ -42,6 +54,12 @@ public class JobController {
 
   @Autowired
   private MemberService memberService;
+
+	@Autowired
+	BCryptPasswordEncoder pwEncoder;
+
+	@Value("${outlook}")
+	private String boss;
   
   @RequestMapping("/job/jobBoardList")
   public ModelAndView jobBoardList(
@@ -113,65 +131,135 @@ public class JobController {
 
   @RequestMapping("/job/jobApply")
   public ModelAndView applyJob(JobBoard j, HttpSession session,
-   String imageURL) {
+        @RequestParam(value="imageURL", required=false) String imageUrl) {
 
     ModelAndView mv = new ModelAndView();
     mv.addObject("jobBoard", j);
+    mv.addObject("imageURL", imageUrl);
     mv.setViewName("job/jobApplyForm");
     
     return mv;
   }
 
   @RequestMapping("/job/jobApplyEnd.do")
-  public ModelAndView applyJobEnd(HttpSession session, JobBoard board,
+  public ModelAndView applyJobEnd(HttpSession session, JobBoard board, Member member,
         @RequestParam(value="resume", required=false) MultipartFile[] resume,
         @RequestParam(value="coverLetter", required=false) MultipartFile[] coverLetter,
         @RequestParam(value="imageURL", required=false) String imageUrl) {
+//        @RequestParam(value="memberNo", required=false) Integer memberNo) {
 
-//    board = jobService.selectJobBoardOne(board);
-    List<JobBoardFile> jobBoardFileList = new ArrayList<JobBoardFile>();
+    ModelAndView mv = new ModelAndView();
+    String msg = "";
+    String loc = "/";
+      
+    //1. 'Member' check company is a member
+    Member newMember = new Member();
+    String writer = "";
 
-    // save API data to DB
-    if(board.getNo() == 0) {
+    if(board!=null && board.getWriter() !=null)
+      writer = board.getWriter().replace(" ", "");
+
+    board.setWriter(writer);
+
+    newMember.setNickname(board.getWriter());
+    newMember = memberService.selectMemberNickname(newMember);
+
+    if(newMember == null) { // save API data to DB
+
+      newMember = new Member(// put github / saramin posted company into our DB
+          0/*no*/, writer, pwEncoder.encode(writer), writer, writer, boss/*email*/,
+          "서울 강남구 테헤란로14길 6 남도빌딩 2층, 3층, 4층"/*addr*/, "1544-9970"/*tel*/, null/*regdate*/,
+          null /*moddate*/, 0/*status*/, null/*sns*/, null/*profile*/, 0/*reportcount*/, 0/*rmessage*/);
+      int result = memberService.insertMember(newMember);
+      
+      if(result <= 0) {
+        msg = board.getWriter() + " 회사 : 'Member' 데이터 등록에 실패하였습니다.";
+        mv.addObject("msg", msg);
+        mv.addObject("loc", loc);
+        mv.setViewName("common/msg");
+        return mv;
+      }
+    }
+
+    //2. 'JobBoard', 'JobBoardFile'
+    JobBoard newJobBoard = new JobBoard();
+    JobBoardFile newJobBoardFile = new JobBoardFile();
+    List<JobBoardFile> newJobBoardFileList = new ArrayList<JobBoardFile>();
+    
+    newJobBoard = jobService.selectJobBoardWriter(board);
+
+    //check company registered a job post
+    if(newJobBoard == null || newJobBoard.getNo() ==0) {
       String logoSaveDir = session.getServletContext().getRealPath("/resources/upload/job");
 
-      BufferedImage image = null;
+      newJobBoard = board;
+      
+      Image image = null;
       try {
         URL url = new URL(imageUrl);
-        image = ImageIO.read(url);
+        image = Toolkit.getDefaultToolkit().createImage(url);
+        PixelGrabber pg = new PixelGrabber(image, 0, 0, -1, -1, true);
+        pg.grabPixels();
+        int width = pg.getWidth(), height = pg.getHeight();
 
-        File file = new File(logoSaveDir + File.separator + board.getWriter() +".jpg");
-        ImageIO.write(image, "jpg", file);
+        int[] RGB_MASKS = {0xFF0000, 0xFF00, 0xFF};
+        ColorModel RGB_OPAQUE =
+            new DirectColorModel(32, RGB_MASKS[0], RGB_MASKS[1], RGB_MASKS[2]);
+        DataBuffer buffer = new DataBufferInt((int[]) pg.getPixels(), pg.getWidth() * pg.getHeight());
+        WritableRaster raster = Raster.createPackedRaster(buffer, width, height, width, RGB_MASKS, null);
+        BufferedImage bi = new BufferedImage(RGB_OPAQUE, raster, false, null);
+        
+        String orgName = newJobBoard.getWriter() + ".jpg";
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHMMssSSS");
-
-        String orgName = board.getWriter() + ".jpg";
-        String ext=".jpg";
-
         int rdv=(int)(Math.random()*1000);
 
+        String ext = orgName.substring(orgName.lastIndexOf("."));
         String newName = sdf.format(System.currentTimeMillis()) + "_" + rdv + ext;
 
-        JobBoardFile jobBoardFile = new JobBoardFile();
-        jobBoardFile.setBoardNo(board.getNo());
-        jobBoardFile.setOrgName(orgName);
-        jobBoardFile.setNewName(newName);
+        File file = new File(logoSaveDir + File.separator + newName);
 
-        jobBoardFileList.add(jobBoardFile);
+        ImageIO.write(bi, "jpg", file);
+        
 
+        //'JobBoardFile'
+        newJobBoardFile = new JobBoardFile();
+//        newJobBoardFile.setBoardNo(newMember.getNo());
+        newJobBoardFile.setOrgName(orgName);
+        newJobBoardFile.setNewName(newName);
+        
+        newJobBoardFileList = new ArrayList<JobBoardFile>();
+        newJobBoardFileList.add(newJobBoardFile);
+        
         //JobBoard, JobBoardFile
-        jobService.insertJobBoard(board, jobBoardFileList);
+        int result = jobService.insertJobBoard(newJobBoard, newJobBoardFileList);
 
+        if(result <=0) {
+          msg = newJobBoard.getWriter() + " 회사 : 'JobBoard' 데이터 등록에 실패하였습니다.";
+
+          mv.addObject("msg", msg);
+          mv.addObject("loc", loc);
+          mv.setViewName("common/msg");
+
+          return mv;
+        }
       } catch(Exception e) {
         e.printStackTrace();
       }
     }
+    else { //memberNo !=0 && board.getNo() !=0
+      //just save JobApply DB
+    }
 
-    Member m = (Member)session.getAttribute("loginMember");
+    //3. 'JobApply'
+    JobApply newJobApply = new JobApply();
 
-    JobApply apply = new JobApply();
-    apply.setBoardNo(board.getNo());
-    apply.setMemberNo(m.getNo());
+    newJobBoard = jobService.selectJobBoardWriter(newJobBoard);
+    newMember = memberService.selectMemberNickname(newMember);
+
+    newJobApply = new JobApply();
+    newJobApply.setBoardNo(newJobBoard.getNo());
+    newJobApply.setMemberNo(newMember.getNo());
 
     String saveDirResume = session.getServletContext().getRealPath("/resources/upload/job/resume");
     String saveDirCoverLetter = session.getServletContext().getRealPath("/resources/upload/job/coverLetter");
@@ -203,7 +291,7 @@ public class JobController {
         } catch(Exception e) {
           e.printStackTrace();
         }
-        apply.setResume(newName);
+        newJobApply.setResume(newName);
       }
     }
 
@@ -222,17 +310,12 @@ public class JobController {
         } catch(Exception e) {
           e.printStackTrace();
         }
-        apply.setIntro(newName);
+        newJobApply.setIntro(newName);
       }
     }
     int result = 0;
-    result = jobService.insertJobApply(apply);
-//  <insert id="insertJobApply" parameterType="jobApply">
-//    insert into APPLY_JOB values(#{boardNo}, #{memberNo}, #{resume}, #{intro})
-//  </insert>
+    result = jobService.insertJobApply(newJobApply);
 
-    String loc="";
-    String msg="";
     if(result >0) {
       msg = board.getWriter() + "회사 지원에 성공했습니다";
       loc = "/";
@@ -241,7 +324,9 @@ public class JobController {
       msg = board.getWriter() + "회사 지원에 실패했습니다";
       loc = "/";
     }
-    ModelAndView mv = new ModelAndView();
+    mv = new ModelAndView();
+    mv.addObject("msg",msg);
+    mv.addObject("loc",loc);
     mv.setViewName("common/msg");
     
     return mv;

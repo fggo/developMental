@@ -74,18 +74,19 @@
                     </div>
 
                     <div class="form-group my-0">
-                      <label for="writer" class="fa fa-user-o">&nbsp;&nbsp;</label>지원자
+                      <label for="nickname" class="fa fa-user-o">&nbsp;&nbsp;</label>지원자
                       <c:if test="${loginMember != null}">
-                        <input type="text" class="form-control text-primary" name="writer" value="${loginMember.nickname}" readonly required />
+                        <input type="text" class="form-control text-primary" name="nickname" value="${loginMember.nickname}" readonly required />
+                        <input type="hidden" class="form-control text-primary" name="memberNo" value="${loginMember.no}" readonly required />
                       </c:if>
                     </div>
                     <div class="form-group">
                       <label for="resume"><i class="fa fa-file-text-o" aria-hidden="true"></i> 이력서</label>
-                      <input type="file" class="file-upload form-control" accept="application/msword, text/plain, application/pdf, image/*" name="resume" />
+                      <input type="file" class="file-upload form-control" accept="application/msword, text/plain, application/pdf, image/*, .docx" name="resume" />
                     </div>
                     <div class="form-group">
                       <label for="intro"><i class="fa fa-sticky-note-o"></i> 자기소개서</label>
-                      <input type="file" class="file-upload form-control" accept="application/msword, text/plain, application/pdf, image/*" name="coverLetter" />
+                      <input type="file" class="file-upload form-control" accept="application/msword, text/plain, application/pdf, image/*, .docx" name="coverLetter" />
                     </div>
                     <hr>
                     <!-- /content end -->

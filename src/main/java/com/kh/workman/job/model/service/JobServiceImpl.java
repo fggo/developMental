@@ -25,6 +25,11 @@ public class JobServiceImpl implements JobService {
   public JobBoard selectJobBoardOne(JobBoard j) {
     return dao.selectJobBoardOne(session, j);
   }
+
+  @Override
+  public JobBoard selectJobBoardWriter(JobBoard j) {
+    return dao.selectJobBoardWriter(session, j);
+  }
   
   @Override
   public List<Map<String, Object>> selectPageJobBoardList(int cPage, int numPerPage) {

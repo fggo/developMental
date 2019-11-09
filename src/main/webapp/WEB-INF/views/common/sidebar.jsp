@@ -44,7 +44,7 @@
     <nav id="sidebar" class="p-0 flex-shrink-1">
       <div class="sidebar-header">
         <c:if test="${param.pageTitle == ''}">
-          <h4><a href="${path }/"><i class="fa fa-home">&nbsp;&nbsp;Home</i></a></h4>
+          <h4><a href="${path }/"><i class="fa fa-home">&nbsp;&nbsp;Workman</i></a></h4>
         </c:if>
         <c:if test="${param.pageTitle != ''}">
           <h3><a href="${path }/">${ param.pageTitle }</a></h3>

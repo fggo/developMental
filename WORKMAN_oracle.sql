@@ -18,28 +18,24 @@ SELECT * FROM HASHTAG_FREE;
 SELECT * FROM HASHTAG_MEETUP;
 SELECT * FROM HASHTAG_QNA;
 SELECT * FROM QNA_CATEGORY;
-
-
-
-SELECT * FROM MEMBER;
 SELECT * FROM HASHTAG;
+
 SELECT * FROM HASHTAG_JOB;
+SELECT * FROM MEMBER;
+SELECT * FROM BOARD_JOB;
 SELECT * FROM FILE_BOARD_JOB;
 SELECT * FROM APPLY_JOB;
-SELECT * FROM BOARD_JOB;
-      
+
 select BOARD_JOB_SEQ.currval from dual;
---delete from board_job;
+
+--delete from apply_job where boardno=83;
+--delete from file_board_job where orgname='Datadog.jpg';
+--delete from board_job where writer='Datadog';
+--delete from member where id='Datadog';
+
 commit;
 
 -- no(int), writer, title, content, regdate(date), count(int), status(int)
-
-INSERT into board_job values(default, 'user01', 'Not Hiring', 'clulululul dsajhda sjhdsajjdsa', default, default, default);
-INSERT into board_job values(default, 'user02', 'Recruit', 'THis is a job description. Hello just apply and have an interview.', default, default, default);
-INSERT into board_job values(default, 'user02', 'Skwwwwww', 'ehllo. please don;t. no interview available', default, default, default);
-INSERT into board_job values(default, 'user00', 'Aint no joke', 'We are laboring company. Please dont apply.', default, default, default);
-INSERT into board_job values(default, 'user00', 'Aint no joke', 'We are laboring company. Please dont apply.', default, default, default);
-INSERT into board_job values(default, 'Yoon', 'TeamYS', 'we are hiring noobies. Please submit your $5000 fee and youre good to work here', default, default, default);
 
 SELECT * FROM USER_CONSTRAINTS WHERE TABLE_NAME ='BOARD_JOB';
 select * from user_sequences;

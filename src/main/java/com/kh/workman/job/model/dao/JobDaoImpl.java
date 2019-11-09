@@ -20,6 +20,11 @@ public class JobDaoImpl implements JobDao {
   }
   
   @Override
+  public JobBoard selectJobBoardWriter(SqlSessionTemplate session, JobBoard j) {
+    return session.selectOne("job.selectJobBoardWriter", j);
+  }
+
+  @Override
   public List<Map<String, Object>> selectPageJobBoardList(SqlSessionTemplate session, int cPage, int numPerPage) {
     RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
 

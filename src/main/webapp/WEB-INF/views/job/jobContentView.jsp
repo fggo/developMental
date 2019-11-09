@@ -23,6 +23,7 @@
     </div>
 
     <div class="modal-body" id="jobmodal-body">
+      <!-- apply form -->
       <form action="${path}/job/jobApply" id="applyFrm" method="get" class="form">
         <div class="container row">
           <div class="col-md-8 bg-transparent">
@@ -81,10 +82,10 @@
         <hr>
         <div class="container row form-inline form-group justify-content-center text-center">
           <c:if test="${loginMember !=null}">
-            <button type="submit" class="btn btn-lg btn-primary" id="applyBtn">지원하기</button>
+            <button type="submit" class="btn btn-lg btn-primary applyBtn" id="applyBtn">지원하기</button>
           </c:if>
           <c:if test="${loginMember ==null}">
-            <button type="button" class="btn btn-lg btn-secondary disabled" id="applyBtn">지원하기</button>
+            <button type="button" class="btn btn-lg btn-secondary disabled applyBtn" id="disabledApplyBtn">지원하기</button>
           </c:if>
           <button type="button" class="btn btn-lg btn-outline-danger ml-2" data-dismiss="modal" aria-hidden="true">
             취소
@@ -100,8 +101,10 @@
   <script>
     $(function(){
 
-      $('#applyBtn').click(function(e) {
-        e.preventDefault();
+      window.localStorage.setItem("imageURL", '${imageURL}');
+
+      $('.applyBtn').click(function(e) {
+        // e.preventDefault();
         alert("ajax");
 
         $.ajax({

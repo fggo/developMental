@@ -13,6 +13,8 @@ public interface JobDao {
 
   JobBoard selectJobBoardOne(SqlSessionTemplate session, JobBoard j);
 
+  JobBoard selectJobBoardWriter(SqlSessionTemplate session, JobBoard j);
+
   List<Map<String, Object>> selectPageJobBoardList(SqlSessionTemplate session, int cPage, int numPerPage);
   
   int selectJobBoardCount(SqlSessionTemplate session);
