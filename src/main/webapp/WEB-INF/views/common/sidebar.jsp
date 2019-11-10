@@ -42,15 +42,11 @@
   <!-- Sidebar  -->
   <div class="d-flex">
     <nav id="sidebar" class="p-0 flex-shrink-1">
-      <div class="sidebar-header">
-        <c:if test="${param.pageTitle == ''}">
-          <h4><a href="${path }/"><i class="fa fa-home">&nbsp;&nbsp;Workman</i></a></h4>
-        </c:if>
-        <c:if test="${param.pageTitle != ''}">
-          <h3><a href="${path }/">${ param.pageTitle }</a></h3>
-        </c:if>
+      <div class="sidebar-header py-4">
+        <!-- c:if test="${param.pageTitle == ''}" -->
+        <h4><a href="${path }"><i class="fa fa-home">&nbsp;&nbsp;Workman</i></a></h4>
       </div>
-      <ul class="list-unstyled components">
+      <ul class="list-unstyled components pt-0">
 
 
         <li class="active">
@@ -67,10 +63,10 @@
         </li>
 
         <li class="active">
-          <a href="#jobSidemenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle sidebar-dropdown-toggle">구인</a>
+          <a href="#jobSidemenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle sidebar-dropdown-toggle">구인구직</a>
           <ul class="collapse list-unstyled" id="jobSidemenu">
             <li>
-              <a href="javascript: ajaxJobPage('${path }/job/jobBoardList');" id="jobBoardBtn">구인게시판</a>
+              <a href="javascript: ajaxJobPage('${path }/job/jobBoardList');" id="jobBoardBtn">채용정보</a>
             </li>
           </ul>
         </li>

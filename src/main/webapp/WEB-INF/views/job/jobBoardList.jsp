@@ -29,7 +29,7 @@
               <i class="fa fa-briefcase text-white mr-3" style="font-size:32px;"></i>
               <div class="lh-100 ml-2">
                 <p class="h5 mb-0 text-white lh-100">구인구직 게시판</p>
-                <small><i class="fa fa-asia"></i>국내/해외취업을 선택할 수 있습니다.</small>
+                <small><i class="fa fa-asia"></i>국내/해외 취업정보를 제공합니다.</small>
               </div>
             </div>
           </div>

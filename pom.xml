@@ -232,7 +232,7 @@
       <artifactId>json</artifactId>
       <version>20190722</version>
     </dependency>
-
+    
     <!-- Web Crawling -->
     <!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
     <dependency>
