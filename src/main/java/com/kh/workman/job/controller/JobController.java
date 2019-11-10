@@ -31,11 +31,15 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.workman.common.PageBarFactory;
 import com.kh.workman.common.api.JobGithubApi;
+import com.kh.workman.common.api.JobITWorldCrawler;
 import com.kh.workman.job.model.service.JobService;
 import com.kh.workman.job.model.vo.JobApply;
 import com.kh.workman.job.model.vo.JobBoard;
@@ -250,8 +254,9 @@ public class JobController {
     else { //memberNo !=0 && board.getNo() !=0
       //just save JobApply DB
     }
+    //3. JobHashtag Hashtag
 
-    //3. 'JobApply'
+    //4. 'JobApply'
     JobApply newJobApply = new JobApply();
 
     newJobBoard = jobService.selectJobBoardWriter(newJobBoard);
@@ -424,4 +429,15 @@ public class JobController {
 
     return mv;
   }
+  
+  @ResponseBody
+  @RequestMapping("/job/newsList")
+  public String showNewsList() throws JsonProcessingException {
+
+    List<Map<String,String>> crawlNewsList = JobITWorldCrawler.crawlNewsList();
+    
+    ObjectMapper mapper = new ObjectMapper();
+    return mapper.writeValueAsString(crawlNewsList);
+  }
+  
 }

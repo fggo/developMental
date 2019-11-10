@@ -9,27 +9,26 @@ import org.jsoup.nodes.Element;
 public class JobGithubCrawler {
     
   /**
-   * @since 19.10.26
+   * @since 19.11.11
    * @author jnuho@outlook.com
    * @param id : parameter appended to request url
    * @return url : company logo image url
-   * @implNote visited https://jobs.github.com/robots.txt
+   * @implNote visited http://www.itworld.co.kr/robots.txt
    * to check if crawling is allowed.
-   * and subdirectories. It turned out users are allowed to crawl pages with 
-   * this particular url patterns : https://jobs.github.com/positions/JOB_POST_ID_HERE
    */
-//  The following is specification from https://jobs.github.com/robots.txt
-//  String robotsTxt =""
-//      + "User-agent: *            "
-//      + "Allow: /$                "
-//      + "Allow: /positions        "
-//      + "Disallow: /positions/*/  "
-//      + "Allow: /positions/       "
-//      + "Allow: /companies/       "
-//      + "Allow: /faq              "
-//      + "Allow: /api              "
-//      + "Allow: /post             "
-//      + "Disallow: /              ";
+//  The following is specification from http://www.itworld.co.kr/robots.txt
+//  User-agent: *
+//  Crawl-delay: 5
+//  Allow: /
+//
+//  Disallow: 
+//  # Directories
+//  Disallow: /_connector/
+//  Disallow: /_extension/
+//  Disallow: /download/
+//  # Paths (clean URLs)
+//  Disallow: /node/
+//  Disallow: /admin/
 
   public static String crawlImg(String id) {
 

@@ -2,7 +2,6 @@ package com.kh.workman.common.api;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -18,11 +17,15 @@ public class JobSaramIn {
 //	private static String junho;
 
   public static void main(String[] args) throws IOException {
-    String reqUrl ="http://oapi.saramin.co.kr/job-search";
-
-    String junho="9cqG2CIeznBzcZq9soJjeJmbsNP18TVHbNr7g8eeOpvp7BHn06";
-    reqUrl+= "?access-key=" + junho;
+    //api 키
+    String apikey="9cqG2CIeznBzcZq9soJjeJmbsNP18TVHbNr7g8eeOpvp7BHn06";
+    
+    //테스트용 검색어
     String keywords = "자바 백엔드".replace(" ", "%20");
+
+    //요청 url
+    String reqUrl ="http://oapi.saramin.co.kr/job-search";
+    reqUrl+= "?access-key=" + apikey;
     reqUrl += "&keywords=" + keywords; //separated by %20 and , // PHP%20MySQL, PHP+MySQL, PHP,MySQL
     reqUrl += "&job_type=" + "1"; //"" all 1 full time / 2 contract
     reqUrl += "&loc_cd=" + "101000"; //location 101000  서울
@@ -30,13 +33,15 @@ public class JobSaramIn {
     reqUrl += "&job_category=" + "402"; //job category 402 서버·네트워크·보안  4
     reqUrl += "&count=10"; //10 ~ max 110 jobs
     reqUrl += "&sort=da";
+
     System.out.println(reqUrl);
 
     URL url = new URL(reqUrl);
     HttpURLConnection conn = (HttpURLConnection)url.openConnection();
     conn.setRequestMethod("GET");
-    conn.setRequestProperty("Accept", "application/json");  // conn.setRequestProperty("Content-Type", "application/json");
-    //read
+    conn.setRequestProperty("Accept", "application/json");
+    // conn.setRequestProperty("Content-Type", "application/json");
+
     String result = "";
     String line = "";
 
