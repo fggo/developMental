@@ -2,9 +2,11 @@ package com.kh.workman.common.api;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.IntStream;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -57,14 +59,25 @@ public class JobITWorldCrawler {
     List<Map<String, String>> list = new ArrayList<Map<String, String>>();
     Map<String, String> map = new HashMap<String, String>();
 
-    for(int i =0 ;i<5; i++) {
-      Element head = headerList.get(i);
+
+    //random integers
+    List<Integer> nums = new ArrayList<Integer>();
+    IntStream.range(0, 20).forEach( //0~19 뉴스 20개 인덱스
+      i -> nums.add(i)
+    );
+
+    Collections.shuffle(nums); //순서 섞음
+
+    for(int i =0 ;i<5; i++) { //0~4 랜덤 뉴스 인덱스 5개
+      int idx = nums.get(i);
+
+      Element head = headerList.get(idx);
       head.attr("href", "http://www.itworld.co.kr" + head.attr("href"));
       head.attr("target", "_blank");
 
       map = new HashMap<String, String>();
       map.put("newsTag", head.toString());
-      map.put("newsImageUrl", imgList.get(i).absUrl("src"));
+      map.put("newsImageUrl", imgList.get(idx).absUrl("src"));
 
       list.add(map);
     }
