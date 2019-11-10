@@ -299,7 +299,7 @@ public class MemberController {
 	   {
 		   ((MyStudyBoard)studylist.get(j)).setBoardName("STUDY");
 		   String str = ((MyStudyBoard)studylist.get(j)).getContent().replaceAll("(\r\n|\r|\n|\n\r)", " ");
-		   ((MyStudyBoard)studylist.get(j)).setContent( str);   
+		   ((MyStudyBoard)studylist.get(j)).setContent(str);   
 	   }
 	   
 	   String jsonlist = gson.toJson(list);
@@ -310,10 +310,41 @@ public class MemberController {
 	    mv.addObject("studylist", studylist);
 	    model.addAttribute("jsonlist",jsonlist);
 	    model.addAttribute("jsonStudylist",jsonStudylist);
+	    
 //	    mv.addObject("newList", newList);
 	    mv.setViewName("/member/jobMyBoardList");
 
 	    return mv;
 	  }
+	 
+	 @RequestMapping("/member/deleteMyBoard.do")
+	 public ModelAndView deleteMyBoard(HttpServletRequest request)
+	 {
+		 String msg = "";
+		 String loc = "/";
+		 
+		 int no = Integer.parseInt(request.getParameter("no"));
+		 String boardName = request.getParameter("boardName");
+		 String content = request.getParameter("content");
+		 String title = request.getParameter("title");
+		 int result = 0;
+		 
+		 if(boardName.equals("JOB"))
+		 {
+			 result = service.updateMyJobBoardStatus(no);
+			 msg = "Job 게시판 삭제완료";
+		 }else if(boardName.equals("STUDY"))
+		 {
+			 result = service.updateMyStudyBoardStatus(no);
+			 msg = "study 게시판 삭제완료";
+		 }
+		 
+		 ModelAndView mv = new ModelAndView();
+	 	mv.addObject("msg", msg);
+		mv.addObject("loc", loc);
+		mv.setViewName("/common/msg");
+		
+		return mv;	
+	 }
 	
 }

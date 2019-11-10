@@ -80,5 +80,17 @@ public class MemberDaoImpl implements MemberDao {
   public Member selectMemberNickname(SqlSessionTemplate session, Member m) {
     return session.selectOne("member.selectMemberNickname", m);
   }
+  @Override
+  public int updateMyJobBoardStatus(SqlSessionTemplate session, int no) {
+	// TODO Auto-generated method stub
+	return session.update("member.updateMyJobBoardStatus", no);
+  }
+  
+  @Override
+  public int updateMyStudyBoardStatus(SqlSessionTemplate session, int no) {
+	// TODO Auto-generated method stub
+	return session.update("member.updateMyStudyBoardStatus", no);
+}
+  
 
 }

@@ -28,6 +28,14 @@
 	<select id="selectStudyMyBoardList" parameterType="String" resultType="com.kh.workman.member.model.vo.MyStudyBoard">
 	 SELECT * FROM BOARD_MEETUP WHERE WRITER=#{nickname} ORDER BY REGDATE DESC
 	</select>
+	
+	<update id="updateMyJobBoardStatus" parameterType="_int">
+		UPDATE BOARD_JOB SET STATUS='0' WHERE NO=#{no} 
+	</update>
+	
+	<update id="updateMyStudyBoardStatus" parameterType="_int">
+		UPDATE BOARD_MEETUP SET STATUS='0' WHERE NO=#{no} 
+	</update>
   	
 	
 	<!-- END 게시판 -->

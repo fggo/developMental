@@ -85,6 +85,18 @@ public class MemberServiceImpl implements MemberService {
 	public Member selectMemberNickname(Member m) {
 	  return dao.selectMemberNickname(session, m);
 	}
+	
+	@Override
+	public int updateMyJobBoardStatus(int no) {
+		// TODO Auto-generated method stub
+		return dao.updateMyJobBoardStatus(session, no);
+	}
+	
+	@Override
+	public int updateMyStudyBoardStatus(int no) {
+		// TODO Auto-generated method stub
+		return dao.updateMyStudyBoardStatus(session,no);
+	}
 
 
 }
