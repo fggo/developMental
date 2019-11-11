@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -289,10 +289,12 @@ public class MemberController {
 	  Gson gson = new Gson();
 	   
 	   for(int i=0; i < list.size(); i++)
-	   {
+	   {	if(((JobBoard)list.get(i)).getContent() == null)
+		   		((JobBoard)list.get(i)).setContent("sdfsdfasdfasdfasd sadfasdf");
+	   
 		   ((JobBoard)list.get(i)).setBoardName("JOB");
 		   String str = ((JobBoard)list.get(i)).getContent().replaceAll("(\r\n|\r|\n|\n\r)", " ");
-		   ((JobBoard)list.get(i)).setContent( str);   
+		   ((JobBoard)list.get(i)).setContent(str);
 	   }
 	   
 	   for(int j =0; j < studylist.size(); j++)
@@ -321,7 +323,7 @@ public class MemberController {
 	 public ModelAndView deleteMyBoard(HttpServletRequest request)
 	 {
 		 String msg = "";
-		 String loc = "/";
+		 String loc = "/member/jobMyBoardList";
 		 
 		 int no = Integer.parseInt(request.getParameter("no"));
 		 String boardName = request.getParameter("boardName");
@@ -339,12 +341,68 @@ public class MemberController {
 			 msg = "study 게시판 삭제완료";
 		 }
 		 
-		 ModelAndView mv = new ModelAndView();
+		ModelAndView mv = new ModelAndView();
 	 	mv.addObject("msg", msg);
 		mv.addObject("loc", loc);
 		mv.setViewName("/common/msg");
 		
 		return mv;	
 	 }
+	 
+	 @RequestMapping("/member/myBoardForm.do")
+	 public ModelAndView myBoardForm(HttpServletRequest request)
+	 {
+		 int no = Integer.parseInt(request.getParameter("no"));
+		 String boardName = request.getParameter("boardName");
+		 String content = request.getParameter("content");
+		 String title = request.getParameter("title");
+		 String writer = request.getParameter("writer");
+//		 HttpSession session = request.getSession();
+//		 Member loginMember = (Member)session.getAttribute("loginMember");
+		 
+		 ModelAndView mv = new ModelAndView();
+		 mv.addObject("no", no);
+		 mv.addObject("boardName", boardName);
+		 mv.addObject("content", content);
+		 mv.addObject("title", title);
+		 mv.addObject("writer", writer);
+		 
+		 mv.setViewName("/member/myBoardForm");
+		 return mv; 
+	 }
+	 
+	 @RequestMapping("/member/myBoardFormEnd.do")
+	 public ModelAndView myBoardFormEnd(HttpServletRequest request, MyStudyBoard b)
+	 {
+		 String msg = "";
+		 String loc = "/member/jobMyBoardList";
+		 //int no = Integer.parseInt(request.getParameter("no"));
+		 String boardName = request.getParameter("boardName");
+		 String content = request.getParameter("content");
+		 String title = request.getParameter("title");
+		 String writer = request.getParameter("writer");
+		 
+		 System.out.println("content : "  + b.getContent());
+		 System.out.println("title" + title);
+		 int result = 0;
+		 
+		 if(boardName.equals("JOB"))
+		 {
+			 result = service.updateMyJobBoardContent(b);
+			 msg = "Job 게시판 title/content 수정 완료";
+		 }else if(boardName.equals("STUDY"))
+		 {
+			 result = service.updateMyStudyBoardContent(b);
+			 msg = "study 게시판 title/content 수정 완료";
+		 }
+		 
+		 ModelAndView mv = new ModelAndView();
+		 mv.addObject("msg", msg);
+		 mv.addObject("loc", loc);
+		 mv.setViewName("common/msg");
+		 
+		 return mv;
+	 }
+	
 	
 }

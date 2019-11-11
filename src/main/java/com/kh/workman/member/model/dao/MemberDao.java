@@ -7,6 +7,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.workman.member.model.vo.Member;
+import com.kh.workman.member.model.vo.MyStudyBoard;
 
 public interface MemberDao {
 	
@@ -30,4 +31,9 @@ public interface MemberDao {
 	
 	int updateMyJobBoardStatus(SqlSessionTemplate session, int no);
 	int updateMyStudyBoardStatus(SqlSessionTemplate session, int no);
+	
+	int updateMyJobBoardContent(SqlSessionTemplate session, MyStudyBoard b);
+	int updateMyStudyBoardContent(SqlSessionTemplate session, MyStudyBoard b);
+	
+	
 }

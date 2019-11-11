@@ -12,6 +12,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.workman.member.model.vo.Member;
+import com.kh.workman.member.model.vo.MyStudyBoard;
 
 @Repository
 public class MemberDaoImpl implements MemberDao {
@@ -92,5 +93,16 @@ public class MemberDaoImpl implements MemberDao {
 	return session.update("member.updateMyStudyBoardStatus", no);
 }
   
+@Override
+public int updateMyJobBoardContent(SqlSessionTemplate session, MyStudyBoard b) {
+	// TODO Auto-generated method stub
+	return session.update("member.updateMyJobBoardContent", b);
+}
 
+@Override
+public int updateMyStudyBoardContent(SqlSessionTemplate session, MyStudyBoard b) {
+	// TODO Auto-generated method stub
+	return session.update("member.updateMyStudyBoardContent", b);
+}
+  
 }
