@@ -727,7 +727,7 @@ function responseReplyWrite(receive){
 
 function requestCommentUpdate(ele){
 	var content = $(ele).parent().children('textarea');
-	if(content != ''){
+	if(!content.val() == ''){
 		var commentNo = $(ele).parent().parent().attr('id').substring(13);
 		var sendData = {
 				type : "comment",
