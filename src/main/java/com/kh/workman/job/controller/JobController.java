@@ -11,6 +11,8 @@ import java.awt.image.PixelGrabber;
 import java.awt.image.Raster;
 import java.awt.image.WritableRaster;
 import java.io.File;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -29,6 +31,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -39,7 +42,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.workman.common.PageBarFactory;
 import com.kh.workman.common.api.JobGithubApi;
-import com.kh.workman.common.api.JobITWorldCrawler;
+import com.kh.workman.common.api.JobSaraminApi;
+import com.kh.workman.common.crawling.JobITWorldCrawler;
 import com.kh.workman.job.model.service.JobService;
 import com.kh.workman.job.model.vo.JobApply;
 import com.kh.workman.job.model.vo.JobBoard;
@@ -64,13 +68,16 @@ public class JobController {
 
 	@Value("${outlook}")
 	private String boss;
+
+	@Value("${saramin}")
+	private String apikey;
   
   @RequestMapping("/job/jobBoardList")
   public ModelAndView jobBoardList(
       @RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
-      @RequestParam(value="skill", required=false) String skill,
-      @RequestParam(value="loc", required=false) String loc,
-      @RequestParam(value="page", required=false, defaultValue="1") String page) {
+      @RequestParam(value="page", required=false, defaultValue="1") String page,
+      @RequestBody(required=false) Map<String,String> udf)
+          throws UnsupportedEncodingException, IOException{
 
     //1. Job Listings From Database (At least 1 Member Applied for the position)
     ModelAndView mv = new ModelAndView();
@@ -79,16 +86,19 @@ public class JobController {
     List<Map<String, Object>> list = jobService.selectPageJobBoardList(cPage, numPerPage);
     int totalCount = jobService.selectJobBoardCount();
 
-    //2. Additional Job Listings From Github Job API (Not inserted into DB yet!)
+    //2. Additional Job Listings From Github or Saramin Job API (Not inserted into DB yet!)
     //   this data lists are inserted AFTER at least one Member applies for the position!
     //TODO: test data(to be replaced with User Input!)
-//    skill="java";
-//    loc = "Los Angeles";
-//    page = "1";
 
     List<Map<String, Object>> newList = null;
-    if(skill != null && loc!=null ) {
-      newList = JobGithubApi.jobsGithubApi(skill, loc, Integer.valueOf(page));
+    if(udf !=null && udf.size() > 0) {
+      String apiType = udf.get("apiType");
+      
+      if(apiType.equals("github")) {
+        newList = JobGithubApi.jobsGithubApi(udf, Integer.valueOf(page));
+      } else if(apiType.contentEquals("saramin")) {
+        newList = JobSaraminApi.jobSaraminApi(apikey, udf, Integer.valueOf(page));
+      }
     }
 
     mv.addObject("pageBar", PageBarFactory.getPageBar(totalCount, cPage, numPerPage, "/job/jobBoardList"));

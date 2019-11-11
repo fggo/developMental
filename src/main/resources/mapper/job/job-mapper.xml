@@ -15,7 +15,7 @@
 
   <!-- <select id="selectJobBoardOne" resultType="jobBoard" resultMap="jobBoardMap"> -->
   <select id="selectJobBoardOne" parameterType="_int" resultType="HashMap" resultMap="clobMap">
-    SELECT * FROM BOARD_JOB WHERE 1=1 AND NO=#{no}
+    SELECT * FROM BOARD_JOB WHERE 1=1 AND NO=#{no} AND STATUS=1
   </select>
 
   <select id="selectJobBoardWriter" resultType="HashMap" resultMap="clobMap">
@@ -28,6 +28,7 @@
       (SELECT COUNT(*) FROM APPLY_JOB WHERE J.NO = BOARDNO AND J.WRITER=M.NICKNAME) AS APPLICANTS,
       (select newname from FILE_BOARD_JOB F where J.NO = F.BOARDNO) AS FILENEWNAME
     FROM BOARD_JOB J JOIN MEMBER M ON J.WRITER = M.NICKNAME
+    WHERE J.STATUS=1
       ORDER BY J.REGDATE DESC
   </select>
 

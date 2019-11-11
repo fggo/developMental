@@ -12,6 +12,9 @@
   <meta charset="UTF-8">
   <title>${ param.pageTitle }</title>
   
+  <!-- favicon -->
+  <link rel="icon" href="${path}/resources/images/logo.png">
+
   <!-- CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -21,6 +24,10 @@
   <link rel="stylesheet" href="${path }/resources/css/header.css">
   
   <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+      integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+      crossorigin="anonymous"></script>
+
   <link rel="stylesheet" href="${path }/resources/css/header.css">
 
   <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
