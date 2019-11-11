@@ -91,6 +91,8 @@ public class CollaboHandler extends TextWebSocketHandler {
 			case "delete":
 				deleteComment(receive, session);
 				break;
+			case "update":
+				updateComment(receive, session);
 			}
 			break;
 		case "reply":
@@ -98,8 +100,88 @@ public class CollaboHandler extends TextWebSocketHandler {
 			case "write":
 				createReply(receive, session);
 				break;
+			case "delete":
+				deleteReply(receive, session);
+				break;
+			case "update":
+				updateReply(receive, session);
+				break;
+			}
+			break;
+		case "collabo":
+			if (receive.getMethod().equals("delete")) {
+				deleteCollabo(receive, session);
+			}
+			break;
+		}
+	}
+
+	private void deleteCollabo(DataPacket receive, WebSocketSession session) throws IOException {
+		boolean isCompleted = service.deleteCollabo(receive) == 1 ? true : false;
+		List<HashMap> collabos = service.participation(receive.getCollaboNo());
+
+		if (isCompleted) {
+			for (String key : sessionList.keySet()) {
+				for (int i = 0; i < collabos.size(); i++) {
+					if (key.equals(collabos.get(i).get("ID"))) {
+						sessionList.get(key).sendMessage(new TextMessage(toJson(receive)));
+						break;
+					}
+				}
 			}
 		}
+		logger.debug("Move Card Success [USER ID : " + receive.getUserId() + " Card NO : " + receive.getCardNo() + "]");
+	}
+
+	private void updateReply(DataPacket receive, WebSocketSession session) throws IOException {
+		boolean isCompleted = service.updateReply(receive) == 1 ? true : false;
+		List<HashMap> collabos = service.participation(receive.getCollaboNo());
+
+		if (isCompleted) {
+			for (String key : sessionList.keySet()) {
+				for (int i = 0; i < collabos.size(); i++) {
+					if (key.equals(collabos.get(i).get("ID"))) {
+						sessionList.get(key).sendMessage(new TextMessage(toJson(receive)));
+						break;
+					}
+				}
+			}
+		}
+		logger.debug("Move Card Success [USER ID : " + receive.getUserId() + " Card NO : " + receive.getCardNo() + "]");
+	}
+
+	private void deleteReply(DataPacket receive, WebSocketSession session) throws IOException {
+		boolean isCompleted = service.deleteReply(receive) == 1 ? true : false;
+		List<HashMap> collabos = service.participation(receive.getCollaboNo());
+
+		if (isCompleted) {
+			for (String key : sessionList.keySet()) {
+				for (int i = 0; i < collabos.size(); i++) {
+					if (key.equals(collabos.get(i).get("ID"))) {
+						sessionList.get(key).sendMessage(new TextMessage(toJson(receive)));
+						break;
+					}
+				}
+			}
+		}
+		logger.debug("Move Card Success [USER ID : " + receive.getUserId() + " Card NO : " + receive.getCardNo() + "]");
+	}
+
+	private void updateComment(DataPacket receive, WebSocketSession session) throws IOException {
+		boolean isCompleted = service.updateComment(receive) == 1 ? true : false;
+		List<HashMap> collabos = service.participation(receive.getCollaboNo());
+
+		if (isCompleted) {
+			for (String key : sessionList.keySet()) {
+				for (int i = 0; i < collabos.size(); i++) {
+					if (key.equals(collabos.get(i).get("ID"))) {
+						sessionList.get(key).sendMessage(new TextMessage(toJson(receive)));
+						break;
+					}
+				}
+			}
+		}
+		logger.debug("Move Card Success [USER ID : " + receive.getUserId() + " Card NO : " + receive.getCardNo() + "]");
 	}
 
 	private void createReply(DataPacket receive, WebSocketSession session) throws IOException {
@@ -120,8 +202,8 @@ public class CollaboHandler extends TextWebSocketHandler {
 					}
 				}
 			}
-			logger.debug("Create REPLY Success [USER ID : " + receive.getUserId() + " CARD NO : "
-					+ receive.getCardNo() + "]");
+			logger.debug("Create REPLY Success [USER ID : " + receive.getUserId() + " CARD NO : " + receive.getCardNo()
+					+ "]");
 		}
 	}
 

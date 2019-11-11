@@ -1,5 +1,5 @@
 function responseCreateList(receive){
-		var content = $("button[name=btn_cList]").parent().parent().parent();
+		var content = $("button[name=btn_cList]").parent().parent().parent().parent();
 		var board = $("button[name=btn_cList]").parent().parent().parent().parent().parent().parent();
 		content.empty();
 		
@@ -87,7 +87,7 @@ function responseCreateList(receive){
 		
 		listHeader.append(listTitle);
 		listHeader.append(btnMenu);
-		listHeader.append(dropMenu);
+		btnMenu.append(dropMenu);
 		
 		content.append(listHeader);
 		content.append(listCards);
@@ -268,7 +268,7 @@ function responseCreateCard(receive){
 	listCards.append(card);
 }
 function requestCreateCard(ele){
-	var content = prompt("Card's Title ? ");
+	var content = prompt("카드의 내용을 입력하세요. ");
 	var listNo = parseInt($(ele).parent().parent().children('.list-cards').attr('id').substring(7));
 	if(content!=''){
 		var sendData = {
@@ -323,8 +323,6 @@ function responseUpdateCard(receive){
 }
 
 function requestMoveList(element, ev){
-	console.log($(element));
-	console.log(ev.dataTransfer.getData("text"));
 	/* document.getElementById("listNo_"+listNo).appendChild(document.getElementById("cardNo_"+cardNo)); */
  	var listNo = $("#"+ev.dataTransfer.getData("text")).attr("id").substring(7);
 	var targetListNo = $(element).children().children('.list-cards').attr("id").substring(7);
@@ -345,23 +343,27 @@ function responseUpdateList(receive){
 }
 
 function requestUpdateList(target){
-	var listNo = $(target).parent().parent().parent().parent().parent().children(".list-cards").attr("id").substring(7);
-	var content = prompt("Please enter the title of the list to modify");
-	sendData={
-		type :"list",
-		method :"update",
-		content : content,
-		listNo : listNo,
-		userId : userId,
-		collaboNo : collaboNo
-	};
-	sendMessage(sendData);
+	var content = prompt("수정하실 리스트의 제목을 입력하세요.");
+	if(content != ''){
+		var listNo = $(target).parent().parent().parent().parent().parent().children(".list-cards").attr("id").substring(7);
+		sendData={
+				type :"list",
+				method :"update",
+				content : content,
+				listNo : listNo,
+				userId : userId,
+				collaboNo : collaboNo
+			};
+			sendMessage(sendData);
+	}
 }
 
 
 
 function requestDeleteList(target){
-	if(confirm("Are you Delete This List?")){
+//	alert('리스트 삭제 기능 공사중입니다.');
+//	리스트 삭제기능 방어
+	if(confirm("삭제하시겠습니까?")){
 		var targetList = $(target).parent().parent().parent().parent().parent().children(".list-cards").attr("id").substring(7);
 		sendData={
 			type : "list",
@@ -376,13 +378,13 @@ function requestDeleteList(target){
 
 
 function requestDeletCard(target){
-	var isDelete = confirm("Are you delete this card?");
+	var isDelete = confirm("삭제하시겠습니까?");
 	if(isDelete){
 		var cardNo = $("#modalCardNo").val();
 		var sendData ={
 			type:"card",
 			method:"delete",
-			userId:userId,
+			userId : userId,
 			collaboNo:collaboNo,
 			cardNo:cardNo
 		};
@@ -393,17 +395,22 @@ function requestDeletCard(target){
 
 function requestUpdateCard(target){
 	var content = $(target).parent().children("#editContent").val();
-	var cardNo = $("#modalCardNo").val();
-	var sendData ={
-		type:"card",
-		userId:userId,
-		method : "update",
-		collaboNo : collaboNo,
-		content : content,
-		cardNo : cardNo
-	};
-	
-	sendMessage(sendData);
+	if(content != ''){
+		var cardNo = $("#modalCardNo").val();
+		var sendData ={
+			type:"card",
+			userId:userId,
+			method : "update",
+			collaboNo : collaboNo,
+			content : content,
+			cardNo : cardNo
+		};
+		
+		sendMessage(sendData);
+	}else{
+		alert('내용을 입력해 주세요');
+	}
+
 }
 
 
@@ -418,7 +425,6 @@ function responseMoveList(receive){
 
 function responseDeleteList(receive){
 	var list = $("#listNo_"+receive.listNo).parent().parent();
-	console.log(list.attr("class"));
 	if(list.attr("class")== 'list-wrapper'){
 		list.remove();
 	}

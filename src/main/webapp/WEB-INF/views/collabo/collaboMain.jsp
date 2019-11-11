@@ -5,10 +5,11 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="path" value="<%=request.getContextPath()%>"/>
 <!-- Google material Icons -->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="pageTitle" value="This is Very Nice Tools!"/>
 </jsp:include>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <script>
 var user = "${loginMember}";
 if(user == ""){

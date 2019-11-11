@@ -65,22 +65,22 @@ public class CollaboDaoImpl implements CollaboDao {
 
 	@Override
 	public int deleteCard(SqlSessionTemplate session, DataPacket receive) {
-		return session.delete("collabo.deleteCard", receive);
+		return session.update("collabo.deleteCard", receive);
 	}
 
 	@Override
 	public int deleteList(SqlSessionTemplate session, DataPacket receive) {
-		return session.delete("collabo.deleteList", receive);
+		return session.update("collabo.deleteList", receive);
 	}
 
 	@Override
 	public int deleteListToCards(SqlSessionTemplate session, DataPacket receive) {
-		return session.delete("collabo.deleteListToCards", receive);
+		return session.update("collabo.deleteListToCards", receive);
 	}
 
 	@Override
 	public int updateList(SqlSessionTemplate session, DataPacket receive) {
-		return session.delete("collabo.updateList", receive);
+		return session.update("collabo.updateList", receive);
 	}
 
 	@Override
@@ -160,7 +160,7 @@ public class CollaboDaoImpl implements CollaboDao {
 
 	@Override
 	public int deleteComment(SqlSessionTemplate session, DataPacket receive) {
-		return session.delete("collabo.deleteComment", receive);
+		return session.update("collabo.deleteComment", receive);
 	}
 
 	@Override
@@ -170,9 +170,27 @@ public class CollaboDaoImpl implements CollaboDao {
 
 	@Override
 	public CollaboCommentReply selectOneReply(SqlSessionTemplate session, DataPacket receive) {
-		return session.selectOne("collabo.selectOneReply",receive);
+		return session.selectOne("collabo.selectOneReply", receive);
 	}
-	
-	
+
+	@Override
+	public int updateComment(SqlSessionTemplate session, DataPacket receive) {
+		return session.update("collabo.updateComment", receive);
+	}
+
+	@Override
+	public int delteReply(SqlSessionTemplate session, DataPacket receive) {
+		return session.update("collabo.deleteReply", receive);
+	}
+
+	@Override
+	public int updateReply(SqlSessionTemplate session, DataPacket receive) {
+		return session.update("collabo.updateReply", receive);
+	}
+
+	@Override
+	public int deleteCollabo(SqlSessionTemplate session, DataPacket receive) {
+		return session.update("collabo.deleteCollabo", receive);
+	}
 
 }

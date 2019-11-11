@@ -180,4 +180,26 @@ public class CollaboServiceImpl implements CollaboService {
 		return dao.selectOneReply(session, receive);
 	}
 
+	@Override
+	public int updateComment(DataPacket receive) {
+		return dao.updateComment(session, receive);
+	}
+
+	@Override
+	public int deleteReply(DataPacket receive) {
+		return dao.delteReply(session, receive);
+	}
+
+	@Override
+	public int updateReply(DataPacket receive) {
+		return dao.updateReply(session, receive);
+	}
+
+	@Override
+	public int deleteCollabo(DataPacket receive) {
+		return dao.deleteCollabo(session, receive);
+	}
+	
+	
+
 }

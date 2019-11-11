@@ -36,7 +36,6 @@
     
   </style>
 
-  <!-- CSS -->
 
   <div class="py-4 col-lg-10 container submenu-container" id ="main-container">
 
@@ -70,7 +69,6 @@
               <th class="text-center">제목</th>
               <th class="text-center">작성자</th>
               <th class="text-center">작성일</th>
-              <th class="text-center">조회수</th>
               <th class="text-center">확인</th>
             </tr>
           </thead>
@@ -82,18 +80,15 @@
               <input name="content" type="hidden" value="${n.noticeContent }"/>
               <c:forEach items="${attList }" var="a" varStatus="as">
               	<c:if test="${n.noticeNo == a.noticeNo }">
-              		<input  name="renamedFileName" type="hidden" id="${a.renamedFileName }" value="${a.originalFileName }"/>
+              		<input  name="renamedFileName_${n.noticeNo }" type="hidden" id="${a.renamedFileName }" value="${a.originalFileName }"/>
               	</c:if>
               </c:forEach>
               </td>
               <td class="noticeTitle text-center">
-<%--               	<a href='${path }/admin/adminNoticeView.do?noticeNo=${n.noticeNo }'> --%>
 					<c:out value='${n.noticeTitle }'/>
-<!-- 				</a> -->
               </td>
               <td class="noticeWriter text-center">${n.noticeWriter }</td>
               <td class="noticeDate text-center">${n.noticeDate }</td>
-              <td class="noticeReadcount text-center">${n.noticeReadcount }</td>
 			  <td align="center">
 				  <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#myModal">상세보기</button>
 			  </td>
@@ -153,7 +148,6 @@
             <tr>
               <td class="h6"><strong>Content : </strong></td> <td></td>
               <td class="h5">
-<!--                  <input type="textarea" name="content" id="content" class="form-control" rows="10" readonly />  -->
 			  <textarea name="content" id="content" class="form-control" rows="5"></textarea>
               </td>
             </tr>
@@ -177,29 +171,18 @@
   </div>
   </div>
 
-<!--     <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" -->
-<!--       integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" -->
-<!--       crossorigin="anonymous"></script> -->
-    
-<!--     Bootstrap JS -->
-<!--     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" -->
-<!--       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> -->
+<script>
+	
+</script>
 
     <script>
-   // 파일다운
-      function fileDownload(oName, rName) {
-      	console.log("돌아는 가네");
-      	console.log(oName+":"+rName);
-//           oName=encodeURIComponent(oName);
-//           location.href="${path}/board/filedownLoad.do?oName="+oName+"&rName="+rName;
+      function fileDownload(oName,rName) {
+          oName=encodeURIComponent(oName);
+          location.href="${path}/notice/filedownLoad.do?oName="+oName+"&rName="+rName;
        }
-       
-      // $("#myModal").on('hide.bs.modal',function(e){
-//       	$("#filecontainer").empty();
-      // });
 
       $("#myModal").on('show.bs.modal',function(e){
-      	var data=$(e.relatedTarget).parents("tr").children();
+      	var data=$(e.relatedTarget).parents("tr").children();	
        	var noticeNo = parseInt($(e.relatedTarget).parents("tr").children('.noticeNo').text());
        	var title =  $(e.relatedTarget).parents("tr").children('.noticeTitle').text().trim();
        	var writer =  $(e.relatedTarget).parents("tr").children('.noticeWriter').text().trim();
@@ -210,13 +193,28 @@
        	var renamedFileName = $(e.relatedTarget).parents("tr").children('.noticeNo').children('input[name=renamedFileName]');
        	
        	e.stopPropagation();
-       	
-       	$.each(renamedFileName,function(i,item){
-       		$(item).attr({"type":"button","onclick":"fileDownload('"+$(item).attr("id")+"','"+$(item).val()+")"});
-       		$(item).addClass("btn btn-outline-info");
-       		$("#filecontainer").append(item);
-       		
-       	});
+        if($("#filecontainer").children().legnth != 0){
+			 $("#filecontainer").empty(); 
+		 }else{
+			
+		 }
+        
+        $.each($("input[name=renamedFileName_"+noticeNo+"]"),function(f){
+        	var btnDown = $("<button/>");
+        	var originFileName = $("input[name=renamedFileName_"+noticeNo+"]").val();
+        	var renameFileName = $("input[name=renamedFileName_"+noticeNo+"]").attr('id');
+        	btnDown.text(originFileName);
+        	btnDown.attr("type","button");
+        	btnDown.attr("onclick","fileDownload('"+originFileName+"','"+renameFileName+"')");
+        	btnDown.attr("class","btn btn-outline-info");
+        	$("#filecontainer").append(btnDown);
+        });
+        
+//     	$.each(renamedFileName,function(i,item){
+//        		$(item).attr({"type":"button","onclick":"fileDownload('"+$(item).attr("id")+"','"+$(item).val()+"')"});
+//        		$(item).addClass("btn btn-outline-info");
+//        		$("#filecontainer").append(item);
+//        	});
        	
       	$("#no").val(noticeNo);
       	$("#content2").val(content);
