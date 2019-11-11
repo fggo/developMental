@@ -105,10 +105,12 @@ public class JobSaraminApi {
           .getJSONObject("detail").getString("href");
 
       String timestampStr = arr.getJSONObject(i).getString("posting-timestamp");
-      Timestamp timestamp = new Timestamp(Long.valueOf(timestampStr));
+      Timestamp timestamp = new Timestamp(Long.valueOf(timestampStr) * 1000);
       Date regDate = Date.valueOf(timestamp.toLocalDateTime().toLocalDate());
 
       content = jobType+"\n"+loc + "\n" + desc +"\n" + howToApply + "\n";
+      
+      newMap = new HashMap<String, Object>();
 
       newMap.put("NO", 0);
       newMap.put("WRITER", writer);
