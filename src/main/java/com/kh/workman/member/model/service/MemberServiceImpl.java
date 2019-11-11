@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.workman.member.model.dao.MemberDao;
 import com.kh.workman.member.model.vo.Member;
+import com.kh.workman.member.model.vo.MyStudyBoard;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -96,6 +97,18 @@ public class MemberServiceImpl implements MemberService {
 	public int updateMyStudyBoardStatus(int no) {
 		// TODO Auto-generated method stub
 		return dao.updateMyStudyBoardStatus(session,no);
+	}
+	
+	@Override
+	public int updateMyJobBoardContent(MyStudyBoard b) {
+		// TODO Auto-generated method stub
+		return dao.updateMyJobBoardContent(session, b);
+	}
+	
+	@Override
+	public int updateMyStudyBoardContent(MyStudyBoard b) {
+		// TODO Auto-generated method stub
+		return dao.updateMyStudyBoardContent(session, b);
 	}
 
 

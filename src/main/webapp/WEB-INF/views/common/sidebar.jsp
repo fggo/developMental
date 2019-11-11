@@ -116,6 +116,40 @@
 
 
   <script>
+  
+	  function ajaxMyBoardPage(mapping){
+	      $.ajax({
+	        type: "POST",
+	        url:mapping,
+	        data:{ "no":$("#no").val(),"boardName":$("#boardName").val(), "content":$("#content").val(),"title":$("#title").val(),"writer":$("#writer").val()},
+	        dataType: "html",
+	        success: function(data){
+	          html = $('<div>').html(data);
+	          $('#main-container').html(html.find('div.submenu-container'));
+	        },
+	        error: function(status, msg){
+	          alert('ajax error!');
+	        },
+	      });
+	    }
+
+      function ajaxMyBoardEndPage(mapping){
+	      $.ajax({
+	        type: "POST",
+	        url:mapping,
+	        data:{ "no":$("#no").val(),"boardName":$("#boardName").val(), "content":$("textarea#content").val(),"title":$("#title").val(),"writer":$("#writer").val()},
+	        dataType: "html",
+	        success: function(data){
+	          html = $('<div>').html(data);
+	          $('#main-container').html(html.find('div.submenu-container'));
+	        },
+	        error: function(status, msg){
+	          alert('ajax error!');
+	        },
+	      });
+	    }
+      
+  
     function ajaxJobPage(mapping){
       $.ajax({
         type: "POST",
@@ -130,6 +164,7 @@
         },
       });
     }
+    
     function ajaxJobBoardPagination(mapping){
       $.ajax({
         type: "POST",

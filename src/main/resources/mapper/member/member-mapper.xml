@@ -14,7 +14,7 @@
 	<select id="selectPageJobMyBoardList" parameterType="String" resultMap="clobMap">
 	   SELECT J.*, (SELECT COUNT(*) FROM APPLY_JOB WHERE J.NO = MEMBERNO) AS APPLICANTS,
 	      (select newname from FILE_BOARD_JOB F where J.NO = F.BOARDNO) AS FILENEWNAME
-	      FROM BOARD_JOB J WHERE WRITER=#{nickname} ORDER BY REGDATE DESC
+	      FROM BOARD_JOB J WHERE WRITER=#{nickname} AND STATUS='1' ORDER BY REGDATE DESC
   	</select>
   	
   	<select id="selectJobMyBoardCount" parameterType="String" resultType="_int">
@@ -35,6 +35,14 @@
 	
 	<update id="updateMyStudyBoardStatus" parameterType="_int">
 		UPDATE BOARD_MEETUP SET STATUS='0' WHERE NO=#{no} 
+	</update>
+	
+	<update id="updateMyJobBoardContent" parameterType="com.kh.workman.member.model.vo.MyStudyBoard">
+		UPDATE BOARD_JOB SET CONTENT=#{content},TITLE=#{title} WHERE NO= #{no}
+	</update>
+	
+	<update id="updateMyStudyBoardContent" parameterType="com.kh.workman.member.model.vo.MyStudyBoard">
+		UPDATE BOARD_MEETUP SET CONTENT=#{content},TITLE=#{title} WHERE NO= #{no}
 	</update>
   	
 	
