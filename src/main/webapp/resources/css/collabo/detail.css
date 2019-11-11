@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+.list-card:hover{
+	background-color:#E0E0E0;
+}
+
 .container-fluid {
 	margin-top:58px;
 	background-color:rgb(131,140,145);

@@ -20,6 +20,23 @@
   	<select id="selectJobMyBoardCount" parameterType="String" resultType="_int">
     	SELECT COUNT(*) FROM BOARD_JOB WHERE WRITER=#{nickname}
   	</select>
+  	
+  	<select id="selectMyStudyBoardCount" parameterType="String" resultType="_int">
+		 select count(*) from board_meetup WHERE WRITER=#{nickname}
+	</select>
+	
+	<select id="selectStudyMyBoardList" parameterType="String" resultType="com.kh.workman.member.model.vo.MyStudyBoard">
+	 SELECT * FROM BOARD_MEETUP WHERE WRITER=#{nickname} ORDER BY REGDATE DESC
+	</select>
+	
+	<update id="updateMyJobBoardStatus" parameterType="_int">
+		UPDATE BOARD_JOB SET STATUS='0' WHERE NO=#{no} 
+	</update>
+	
+	<update id="updateMyStudyBoardStatus" parameterType="_int">
+		UPDATE BOARD_MEETUP SET STATUS='0' WHERE NO=#{no} 
+	</update>
+  	
 	
 	<!-- END 게시판 -->
 	
@@ -40,11 +57,18 @@
 	<select id="selectMemberList" resultType="adminMember">
 		SELECT * FROM MEMBER ORDER BY NO
 	</select>
-	<!--
-		update쿼리 int
-		# 자료형 맞춰주는것
-		$ 무조건 문자열
-	 -->
+	
+	<update id="memberReport" parameterType="_int">
+		UPDATE MEMBER SET REPORTCOUNT=REPORTCOUNT+1 WHERE REPORTCOUNT <![CDATA[<]]>3 AND NO=#{no}
+	</update>
+	<update id="memberReportEnd" parameterType="_int">
+		UPDATE MEMBER SET STATUS=0, REPORTCOUNT=REPORTCOUNT+1  WHERE NO=#{no}
+	</update>
+	
+	<select id="selectMemberNickname" resultType="member">
+		SELECT * FROM MEMBER WHERE NICKNAME=#{nickname}
+	</select>
+
 	<update id="statusUpdate" parameterType="map">
 		UPDATE MEMBER SET STATUS=#{status} WHERE NO=#{no}
 	</update>
@@ -104,4 +128,8 @@
   <insert id="insertMember" parameterType="com.kh.workman.member.model.vo.Member">
   	INSERT INTO MEMBER VALUES(DEFAULT,#{id},#{pw},#{name},#{nickname},#{email},#{addr},#{tel},DEFAULT,DEFAULT,DEFAULT,DEFAULT,NULL,DEFAULT,0)
   </insert>
+  
+  <select id="selectAllMemberSearch" resultType="com.kh.workman.member.model.vo.Member">
+  	SELECT ID, NICKNAME, PROFILE FROM MEMBER WHERE STATUS = 1 AND NOT ID = '2010vienna'
+  </select>
 </mapper>

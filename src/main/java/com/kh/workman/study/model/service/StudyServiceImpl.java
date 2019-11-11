@@ -28,5 +28,17 @@ public class StudyServiceImpl implements StudyService {
 			return dao.selectStudyBoardList(session,cPage,numPerpage);
 		}
 
+
+		@Override
+		public int insertStudyBoard(Map<String, String> param) {
+			return dao.insertStudyBoard(session, param);
+		}
+
+		@Override
+		public int ApplyStudy(Map<String, Object> p) {
+			return dao.ApplyStudy(session, p);
+		}
+
 	
+
 }

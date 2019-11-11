@@ -111,4 +111,21 @@ public class CollaboDaoImpl implements CollaboDao {
 		return session.insert("collabo.insertCollaboMember", temp);
 	}
 
+	@Override
+	public CollaboTool selectCollaboTool(SqlSessionTemplate session, int collaboNo) {
+		return session.selectOne("collabo.selectCollaboTool", collaboNo);
+	}
+
+	@Override
+	public Member selectCollaboOwner(SqlSessionTemplate session, int collaboNo) {
+		return session.selectOne("collabo.selectCollaboOwner", collaboNo);
+	}
+
+	@Override
+	public int expulsionMember(SqlSessionTemplate session, HashMap<String, Object> receiveData) {
+		return session.delete("collabo.expulsionMember",receiveData);
+	}
+	
+	
+
 }

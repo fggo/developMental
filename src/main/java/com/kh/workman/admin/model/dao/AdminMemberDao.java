@@ -20,5 +20,7 @@ public interface AdminMemberDao {
 	
 	List<AdminMember> listAll(SqlSessionTemplate session, String searchType, String keyword);
 	int countArticle(SqlSessionTemplate session, String searchType, String keyword);
+	int memberReport(SqlSessionTemplate session, int no);
+	int memberReportEnd(SqlSessionTemplate session, int no);
 
 }

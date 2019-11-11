@@ -41,6 +41,17 @@
                 <div id="nav-tab-card" class="tab-pane fade show active">
                   <!-- <p class="alert alert-success">Some text success or error</p> -->
                   <form action="${path}/job/jobApplyEnd.do" method="post" enctype="multipart/form-data">
+
+                      <input type="hidden" name="no" value="${jobBoard.no}" />
+                      <input type="hidden" name="writer" value="${jobBoard.writer}" />
+                      <input type="hidden" name="title" value="${jobBoard.title}" />
+                      <input type="hidden" name="content" value="${jobBoard.content}" />
+                      <input type="hidden" name="regDate" value="${jobBoard.regDate}" />
+                      <input type="hidden" name="count" value="${jobBoard.count}" />
+                      <input type="hidden" name="status" value="${jobBoard.status}" />
+                      <input type="hidden" name="applicants" value="${jobBoard.applicants}" />
+                      <input type="hidden" name="imageURL" value="${imageURL}" />
+
                     <!-- companyLogo -->
                     <!-- <div class="form-group my-0">
                       <div class="companyLogo-wrapper my-0 mx-auto">
@@ -56,25 +67,26 @@
                     <!-- /companyLogo -->
 
                     <div class="form-group my-0">
-                      <label for="no" class="fa fa-list-ol">&nbsp;&nbsp;</label>게시판번호
+                      <!-- <label for="no" class="fa fa-list-ol">&nbsp;&nbsp;</label>게시판번호 -->
                       <c:if test="${jobBoard != null}">
-                        <input type="text" class="form-control text-primary" name="no" value="${jobBoard.no}" readonly required />
+                        <input type="hidden" class="form-control text-primary" name="no" value="${jobBoard.no}" readonly required />
                       </c:if>
                     </div>
 
                     <div class="form-group my-0">
-                      <label for="writer" class="fa fa-user-o">&nbsp;&nbsp;</label>지원자
+                      <label for="nickname" class="fa fa-user-o">&nbsp;&nbsp;</label>지원자
                       <c:if test="${loginMember != null}">
-                        <input type="text" class="form-control text-primary" name="writer" value="${loginMember.nickname}" readonly required />
+                        <input type="text" class="form-control text-primary" name="nickname" value="${loginMember.nickname}" readonly required />
+                        <input type="hidden" class="form-control text-primary" name="memberNo" value="${loginMember.no}" readonly required />
                       </c:if>
                     </div>
                     <div class="form-group">
                       <label for="resume"><i class="fa fa-file-text-o" aria-hidden="true"></i> 이력서</label>
-                      <input type="file" class="file-upload form-control" accept="application/msword, text/plain, application/pdf, image/*" name="resume" />
+                      <input type="file" class="file-upload form-control" accept="application/msword, text/plain, application/pdf, image/*, .docx" name="resume" />
                     </div>
                     <div class="form-group">
                       <label for="intro"><i class="fa fa-sticky-note-o"></i> 자기소개서</label>
-                      <input type="file" class="file-upload form-control" accept="application/msword, text/plain, application/pdf, image/*" name="coverLetter" />
+                      <input type="file" class="file-upload form-control" accept="application/msword, text/plain, application/pdf, image/*, .docx" name="coverLetter" />
                     </div>
                     <hr>
                     <!-- /content end -->

@@ -6,7 +6,7 @@
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 
 <jsp:include page="/WEB-INF/views/common/header.jsp">
-  <jsp:param name="pageTitle" value="Job - Board" />
+  <jsp:param name="pageTitle" value="Admin - Member Manag" />
 </jsp:include>
 
 <jsp:include page="/WEB-INF/views/common/adminSidebar.jsp">
@@ -82,7 +82,7 @@
 				<td>${m.addr }</td>
 				<td>${m.tel }</td>
 				<td>${m.sns }</td>
-				<td>${m.rmessage }</td>
+				<td>${m.reportCount }</td>
 				<td>
 					<button type="button" name="btn_s" class="btn btn-outline-secondary" >회원 상태변경</button>
 				</td>

@@ -18,37 +18,27 @@
         <h3><a href="${path }/admin/adminMain">Admin Menu</a></h3>
       </div>
   
-        <p>Menus</p><!-- 안되면 위치 두칸아래로 -->
       <ul class="list-unstyled components">
         
         <li class="active">
-          <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle sidebar-dropdown-toggle">Management</a>
+          <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle sidebar-dropdown-toggle">회원 & FAQ</a>
           <ul class="collapse list-unstyled" id="pageSubmenu">
             <li>
-              <a href="${path }/admin/selectMemberList.do" id="">Member</a>
+              <a href="${path }/admin/selectMemberList.do" id="">회원관리</a>
             </li>
             <li>
-              <a href="${path }/admin/adminBoard" id="">Board</a>
+              <a href="${path }/admin/faqList" id="">FAQ관리</a>
             </li>
           </ul>
           <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle sidebar-dropdown-toggle">Notice</a>
           <ul class="collapse list-unstyled" id="pageSubmenu">
             <li>
-              <a href="${path }/admin/noticeList" id="">Notice List</a>
+              <a href="${path }/admin/noticeList" id="">공지 목록</a>
             </li>
             <li>
-              <a href="${path }/admin/noticeForm" id="">Notice Registration</a>
+              <a href="${path }/admin/noticeForm" id="">공지사항 등록</a>
             </li>
           </ul>
-        </li>
-      </ul>
-  
-      <ul class="list-unstyled CTAs">
-        <li>
-          <a href="#" class="download">Dummy Btn1</a>
-        </li>
-        <li>
-          <a href="#" class="article">Dummy Btn2</a>
         </li>
       </ul>
     </nav>

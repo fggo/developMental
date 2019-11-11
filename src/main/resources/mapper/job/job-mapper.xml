@@ -17,12 +17,18 @@
   <select id="selectJobBoardOne" parameterType="_int" resultType="HashMap" resultMap="clobMap">
     SELECT * FROM BOARD_JOB WHERE 1=1 AND NO=#{no}
   </select>
+
+  <select id="selectJobBoardWriter" resultType="HashMap" resultMap="clobMap">
+    SELECT * FROM BOARD_JOB WHERE 1=1 AND WRITER=#{writer}
+  </select>
   
 
   <select id="selectPageJobBoardList" resultMap="clobMap">
-    SELECT J.*, (SELECT COUNT(*) FROM APPLY_JOB WHERE J.NO = MEMBERNO) AS APPLICANTS,
+    SELECT J.*,
+      (SELECT COUNT(*) FROM APPLY_JOB WHERE J.NO = BOARDNO AND J.WRITER=M.NICKNAME) AS APPLICANTS,
       (select newname from FILE_BOARD_JOB F where J.NO = F.BOARDNO) AS FILENEWNAME
-      FROM BOARD_JOB J ORDER BY REGDATE DESC
+    FROM BOARD_JOB J JOIN MEMBER M ON J.WRITER = M.NICKNAME
+      ORDER BY J.REGDATE DESC
   </select>
 
   <select id="selectJobBoardCount" resultType="_int">
@@ -40,6 +46,10 @@
 
   <insert id="insertJobBoardFile" parameterType="jobBoardFile">
     insert into FILE_BOARD_JOB values(#{boardNo}, #{orgName}, #{newName})
+  </insert>
+
+  <insert id="insertJobApply" parameterType="jobApply">
+    insert into APPLY_JOB values(#{boardNo}, #{memberNo}, #{resume}, #{intro})
   </insert>
 
 </mapper>

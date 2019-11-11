@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -116,7 +117,6 @@ public class AdminMemberController {
 	
 	@RequestMapping("/admin/memberView")
 	public ModelAndView memberView(String id) {
-		System.out.println(id);
 		ModelAndView mv = new ModelAndView();
 		Map<String, String> member = service.memberView(id);
 		
@@ -124,8 +124,50 @@ public class AdminMemberController {
 		mv.setViewName("admin/adminMemberView");
 		
 		return mv;
-		
 	}
+	
+	@RequestMapping("/admin/memberReportUp")
+	public String memberReport(int no, int reportCount, Model model) {
+		ModelAndView mv=new ModelAndView();
+		System.out.println("no : "+no);
+		System.out.println("reportCount : "+reportCount);
+		
+		String msg="";
+		String loc="";
+		
+		if(reportCount>=2) {
+			int result = service.memberReportEnd(no);
+			
+			if(result==1) {
+				msg+="신고카운트 누적완료, 회원이 비활성화됩니다.";
+				loc+="/admin/selectMemberList.do";
+				model.addAttribute("msg", msg);
+				model.addAttribute("loc", loc);
+			}else {
+				msg+="오류발생! 다시 시도해주세요";
+				loc+="/admin/selectMemberList.do";
+				model.addAttribute("msg", msg);
+				model.addAttribute("loc", loc);
+			}
+			
+		}else {
+			int result = service.memberReport(no);
+			
+			if(result==1) {
+				msg+="신고카운트 누적완료";
+				loc+="/admin/selectMemberList.do";
+				model.addAttribute("msg", msg);
+				model.addAttribute("loc", loc);
+			}else {
+				msg+="오류발생! 다시 시도해주세요";
+				loc+="/admin/selectMemberList.do";
+				model.addAttribute("msg", msg);
+				model.addAttribute("loc", loc);
+			}
+		}
+		return "common/msg";
+	}
+	
 	
 	
 

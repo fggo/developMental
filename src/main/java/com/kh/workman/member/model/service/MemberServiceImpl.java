@@ -1,7 +1,9 @@
 package com.kh.workman.member.model.service;
 
 import java.util.List;
+
 import java.util.Map;
+
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +50,11 @@ public class MemberServiceImpl implements MemberService {
 		
 		return dao.updateInfoMember(session, m);
 	}
+
+	@Override
+	public List<Member> selectAllMember() {
+		return dao.selectAllMember(session);
+	}
 	
 	
 	@Override
@@ -62,6 +69,34 @@ public class MemberServiceImpl implements MemberService {
 		return dao.selectPageJobMyBoardList(session, cPage, numPerPage, nickname);
 	}
 	
+	@Override
+	public int selectMyStudyBoardCount(String nickname) {
+		// TODO Auto-generated method stub
+		return dao.selectMyStudyBoardCount(session, nickname);
+	}
 	
+	@Override
+	public List<Map<String, Object>> selectStudyMyBoardList(String nickname) {
+		// TODO Auto-generated method stub
+		return dao.selectStudyMyBoardList(session, nickname);
+	}
+	
+	@Override
+	public Member selectMemberNickname(Member m) {
+	  return dao.selectMemberNickname(session, m);
+	}
+	
+	@Override
+	public int updateMyJobBoardStatus(int no) {
+		// TODO Auto-generated method stub
+		return dao.updateMyJobBoardStatus(session, no);
+	}
+	
+	@Override
+	public int updateMyStudyBoardStatus(int no) {
+		// TODO Auto-generated method stub
+		return dao.updateMyStudyBoardStatus(session,no);
+	}
+
 
 }

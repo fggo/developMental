@@ -253,7 +253,7 @@ hr { margin-top: 5px;margin-bottom: 10px; }
 		<div class="card shadow-sm border-dark text-left" id="listScroll" style="height:500px">
           <c:if test="${list != null}">
           	<c:forEach var="j" items="${list}" varStatus="status">
-	          <a class="list-group-item border-primary list-group-item-action" name="jobBoard" id="j${status.index}"> 
+	          <a class="list-group-item border-primary list-group-item-action" name="jobBoard" id="${j['no']}"> 
 	            <span>
 	              <span>${j['boardName']} - ${j['title']}</span>
 	               <span></span>
@@ -267,9 +267,9 @@ hr { margin-top: 5px;margin-bottom: 10px; }
           </c:if>
           <c:if test="${studylist != null}">
           	<c:forEach var="s" items="${studylist}" varStatus="status">
-	          <a class="list-group-item border-info list-group-item-action" name="studyBoard" id="studyBoard"> 
+	          <a class="list-group-item border-info list-group-item-action" name="studyBoard" id="${s['no']}"> 
 	              <span>
-	                <span>Study - java Study</span>
+						<span>${s['boardName']} - ${s['title']}</span>
 	                 <span></span>
 	                 <!--  <span>
 	                      <input type="button" class="btn btn-info more-info" onclick="parkingInfoPopup()" value="More Info">    
@@ -295,7 +295,7 @@ hr { margin-top: 5px;margin-bottom: 10px; }
       
       
       	
-      <div class="card border-primary mb-3" style="height: 100%;">
+       <div class="card border-primary mb-3" style="height: 100%;">
         <div class="card-header bg-primary h3">Job</div>
         <div class="card-body text-primary">
           <h5 class="card-title text-center">FrontEnd</h5><h6 class="text-right">Yoon</h6>
@@ -304,12 +304,12 @@ hr { margin-top: 5px;margin-bottom: 10px; }
             sdfdsfddddddddddddddddddddddddddddddddddddddddddddddddddddddd
           </p>
         </div>
-        <div class="card-footer bg-info h5">신청한 인원</div>
+        <!-- <div class="card-footer bg-info h5">신청한 인원</div>
         <div class="card-body text-primary">
           <div class="card-text">
               <div class="my-3 p-3 bg-white rounded box-shadow">
-                  <!-- <h6 class="border-bottom border-gray pb-2 mb-0">Suggestions</h6> -->
-                  <div class="media text-muted pt-3">
+                 
+                   <div class="media text-muted pt-3">
                     <img data-src="holder.js/32x32?theme=thumb&amp;bg=007bff&amp;fg=007bff&amp;size=1" alt="32x32" class="mr-2 rounded" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2232%22%20height%3D%2232%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_16e4874d895%20text%20%7B%20fill%3A%23007bff%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A2pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_16e4874d895%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20fill%3D%22%23007bff%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2212.03125%22%20y%3D%2216.9%22%3E32x32%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true" style="width: 32px; height: 32px;">
                     <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
                       <div class="d-flex justify-content-between align-items-center w-100">
@@ -318,8 +318,9 @@ hr { margin-top: 5px;margin-bottom: 10px; }
                       </div>
                       <span class="d-block" style="float: left;">@fasdfsdfsdfsdfsdfsdaf</span>
                     </div>
-                  </div>
-                  <div class="media text-muted pt-3">
+						</div> 
+						
+                   <div class="media text-muted pt-3">
                     <img data-src="holder.js/32x32?theme=thumb&amp;bg=007bff&amp;fg=007bff&amp;size=1" alt="32x32" class="mr-2 rounded" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2232%22%20height%3D%2232%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_16e4874d896%20text%20%7B%20fill%3A%23007bff%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A2pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_16e4874d896%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20fill%3D%22%23007bff%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2212.03125%22%20y%3D%2216.9%22%3E32x32%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true" style="width: 32px; height: 32px;">
                     <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
                       <div class="d-flex justify-content-between align-items-center w-100">
@@ -328,7 +329,7 @@ hr { margin-top: 5px;margin-bottom: 10px; }
                       </div>
                       <span class="d-block" style="float: left;">@username</span>
                     </div>
-                  </div>
+                  </div> 
                   <div class="media text-muted pt-3">
                     <img data-src="holder.js/32x32?theme=thumb&amp;bg=007bff&amp;fg=007bff&amp;size=1" alt="32x32" class="mr-2 rounded" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2232%22%20height%3D%2232%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_16e4874d898%20text%20%7B%20fill%3A%23007bff%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A2pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_16e4874d898%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20fill%3D%22%23007bff%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2212.03125%22%20y%3D%2216.9%22%3E32x32%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true" style="width: 32px; height: 32px;">
                     <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
@@ -338,14 +339,20 @@ hr { margin-top: 5px;margin-bottom: 10px; }
                       </div>
                       <span class="d-block" style="float: left;">@username</span>
                     </div>
-                  </div>
+						</div>
+						
                 </div>
               </div>
-            </div>
+				</div> -->
+				
           <h6 class="d-block text-right mt-3 mr-3">
-            <a href="#">${j['regDate']}</a>
-          </h6>
-      </div>
+            <a href="#">2019-10-19</a>
+			 </h6>
+			 <div class="p-t">
+				<button class="btn btn--radius-2 btn-primary pull-left" type="button" onclick="updateMyBoard()" style="width: 100px; height: 50px;">변경</button>
+				<button class="btn btn--radius-2 btn-primary pull-right" type="button" onclick="deletePage()" style="width: 100px; height: 50px;">삭제</button>
+		  </div>
+      </div> 
       	
       	
       
@@ -358,8 +365,13 @@ hr { margin-top: 5px;margin-bottom: 10px; }
         </div> -->
        
     </div>
-    <div class="shadow-sm col-sm-8" id="loadview">
-      
+    <div class="shadow-sm col-sm-8" id="hiddenInput">
+			<form action="${path}/member/deleteMyBoard.do" method="POST" id="hiddenFrm">			 
+				<input type="hidden" name="no" id="no">
+				<input type="hidden" name="boardName" id="boardName">
+				<input type="hidden" name="content" id="content">
+				<input type="hidden" name="title" id="title">
+			</form>
       </div>
       <!-- style="width:950px;height:500px;" -->
 
@@ -507,6 +519,8 @@ hr { margin-top: 5px;margin-bottom: 10px; }
              
             </nav> -->
           </div>
+         
+          
         </div> 
 
         <style>
@@ -566,6 +580,19 @@ hr { margin-top: 5px;margin-bottom: 10px; }
           integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
         <script>
+			  
+			  function deletePage()
+			  {
+				  var result = confirm("정말로 삭제하시겠습니까?");
+				  if(result)
+				  {
+					  var form = $("#hiddenFrm");
+						//location.href='${path}/member/deleteMyBoard.do';
+						form.submit();
+				  }else{
+					  
+				  }
+			  }
 
         
         /* Board */
@@ -600,41 +627,182 @@ hr { margin-top: 5px;margin-bottom: 10px; }
               $(this).css("opacity","1");
             });
       });
+		
+		$('#listScroll').click(function(e){
+			
+				console.log($(e.target).attr('id'));
+				var number = $(e.target).attr('id');
+				
+				var data ='${jsonlist}';
+				var data2 = JSON.parse(data);
+				
+				var data3 = '${jsonStudylist}';
+				var data4 = JSON.parse(data3);
+				//var jsonList = JSON.parse(data);
+				console.log(data2);
+				console.log(data4);
+				var startDiv = $("#TotalBoardContent");
+				
+				if(startDiv != null)
+					startDiv.empty();
+					
+				for(var d in data2)
+				{
+					if(data2[d]['no'] == number)
+					{
+						console.log(data2[d]);
+						var borderDiv = $("<div class='card border-primary mb-3' style='height:100%;'>");
+						var headerDiv = $("<div class='card-header bg-primary h3'>"+data2[d]['boardName']+"</div>");
+						var bodyDiv = $("<div class='card-body text-primary'>");
+						var h5Tag = $("<h5 class='card-title text-center'>"+data2[d]['title']+"</h5><h6 class='text-right'>"+data2[d]['writer']+"</h6>")
+						var pTag = $("<p class='card-text'>"+data2[d]['content']+"</p>");
+						var h6Tage = $("<h6 class='d-block text-right mt-3 mr-3'> <a href='#''>"+data2[d]['regDate']+"</a></h6>")
+						bodyDiv.append(h5Tag).append(pTag);
+						borderDiv.append(headerDiv).append(bodyDiv).append(h6Tage);
+						startDiv.append(borderDiv);
+						
+						$("#no").val(data2[d]['no']);
+						$("#boardName").val(data2[d]['boardName']);
+						$("#content").val(data2[d]['content']);
+						$("#title").val(data2[d]['title']);
+					}
+				}
+				
+				for(var d2 in data4)
+				{
+					if(data4[d2]['no'] == number && data4[d2]['boardName'] == 'STUDY')
+					{
+						console.log(data2[d]);
+						var borderDiv = $("<div class='card border-primary mb-3' style='height:100%;'>");
+						var headerDiv = $("<div class='card-header bg-primary h3'>"+data4[d2]['boardName']+"</div>");
+						var bodyDiv = $("<div class='card-body text-primary'>");
+						var h5Tag = $("<h5 class='card-title text-center'>"+data4[d2]['title']+"</h5><h6 class='text-right'>"+data4[d2]['writer']+"</h6>")
+						var pTag = $("<p class='card-text'>"+data4[d2]['content']+"</p>");
+						var h6Tage = $("<h6 class='d-block text-right mt-3 mr-3'> <a href='#''>"+data4[d2]['regDate']+"</a></h6>")
+						bodyDiv.append(h5Tag).append(pTag);
+						borderDiv.append(headerDiv).append(bodyDiv).append(h6Tage);
+						startDiv.append(borderDiv);
+						
+						var applyDiv = $("<div class='card-footer bg-info h5'>신청한 인원</div>");
+						borderDiv.append(applyDiv);
+						
+						// 신청한 사람이 몇명인지 체크 하고 for문을 여기서 돌리면됨
+						
+						var applybodyDiv = $("<div class='card-body text-primary'>");
+						var applytext = $("<div class='card-text'>");
+						var applyRounded = $("<div class='my-3 p-3 bg-white rounded box-shadow'>");
+					
+						var mediaDiv =$("<div class='media text-muted pt-3'>");
+						var imgData = $("<img data-src='holder.js/32x32?theme=thumb&amp;bg=007bff&amp;fg=007bff&amp;size=1' alt='32x32' class='mr-2 rounded' src='data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2232%22%20height%3D%2232%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_16e4874d898%20text%20%7B%20fill%3A%23007bff%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A2pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_16e4874d898%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20fill%3D%22%23007bff%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2212.03125%22%20y%3D%2216.9%22%3E32x32%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E' data-holder-rendered='true' style='width: 32px; height: 32px;'>");
+						var imgNextDiv = $("<div class='media-body pb-3 mb-0 small lh-125 border-bottom border-gray'>");
+						var itemDiv = $("<div class='d-flex justify-content-between align-items-center w-100'>");
+						var strongData = $("<strong class='text-gray-dark'>"+'Full Name'+"</strong>");
+						var strongNextA = $("<a href='#'' style='color: black;''>Follow</a>");
+						var userNameSpan = $("<span class='d-block' style='float: left;'>@username</span>");
+						
+						itemDiv.append(strongData);
+						itemDiv.append(strongNextA);
+						imgNextDiv.append(itemDiv);
+						imgNextDiv.append(userNameSpan);
+						
+						mediaDiv.append(imgData).append(imgNextDiv);
+						applyRounded.append(mediaDiv);
+						applytext.append(applyRounded);
+						applybodyDiv.append(applytext);
+						
+						borderDiv.append(applybodyDiv);	
+						
+						$("#no").val(data2[d]['no']);
+						$("#boardName").val(data2[d]['boardName']);
+						$("#content").val(data2[d]['content']);
+						$("#title").val(data2[d]['title']);
+					}
+				}
+				
+
+			//<div class="card-footer bg-info h5">신청한 인원</div>
+			//<div class="card-body text-primary">
+			//	<div class="card-text">
+         //     <div class="my-3 p-3 bg-white rounded box-shadow">
+				// <div class="media text-muted pt-3">
+            //         <img data-src="holder.js/32x32?theme=thumb&amp;bg=007bff&amp;fg=007bff&amp;size=1" alt="32x32" class="mr-2 rounded" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2232%22%20height%3D%2232%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_16e4874d898%20text%20%7B%20fill%3A%23007bff%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A2pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_16e4874d898%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20fill%3D%22%23007bff%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2212.03125%22%20y%3D%2216.9%22%3E32x32%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true" style="width: 32px; height: 32px;">
+            //         <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+				
+            //           <div class="d-flex justify-content-between align-items-center w-100">
+            //             <strong class="text-gray-dark">Full Name</strong>
+            //             <a href="#" style="color: black;">Follow</a>
+            //           </div>
+				
+            //           <span class="d-block" style="float: left;">@username</span>
+				
+            //         </div>
+				// 		</div>
+
+         // <div class="card border-primary mb-3" style="height: 100%;">
+         // <div class="card-header bg-primary h3">Job</div>
+         // <div class="card-body text-primary">
+         //   <h5 class="card-title text-center">FrontEnd</h5><h6 class="text-right">Yoon</h6>
+         //   <p class="card-text">
+         //     Some quick example text to build on the card title and make up the bulk of the card's content.
+         //     sdfdsfddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+       	//   </p>
+       	//   </div>
+       	//   </div> 
+			//  <h6 class="d-block text-right mt-3 mr-3">
+         //    <a href="#">${j['regDate']}</a>
+         //  </h6>
+			
+			
+			
+			
+				
+			});
+		
+		
+		
+		
         
-      $('#listScroll').click(function(e){
+   /*    $('#listScroll').click(function(e){
     	var jobList = new Array();
         var data = e.target;
         console.log(e.target);
-        console.log($(e.target).attr('id').substr(0,1));
-        var dataNum = $(e.target).attr('id').substr(0,1);
+        //console.log($(e.target).attr('id').substr(0,1));
+        //var dataNum = $(e.target).attr('id').substr(0,1);
 		
-        <c:forEach var="j" items="${list}" varStatus="status">
-        	<c:if test="${status.index == dataNum}">
+		//   var boardArr = new Array();
+		//   boardArr = ${list};
+		  
+		//   for(d in boardArr)
+		//   {
+		// 	  console.log(d);
+		//   }
+       //   <c:forEach var="j" items="${list}" varStatus="status">
+      //   	<c:if test="${status.index == dataNum}">
         		
-        	</c:if>
-        </c:forEach>
+       //   	</c:if>
+       //   </c:forEach>
         
         var startDiv = $("#TotalBoardContent");
         var mainDiv = $("<div class='card border-primary mb-3' style='height:100%;'>");
-        var headerDiv = $("<div class='card-header bg-primary h3'>"++"</div>");
+        //var headerDiv = $("<div class='card-header bg-primary h3'>"++"</div>");
 
 
 
 
 
-        <div class="card border-primary mb-3" style="height: 100%;">
-        <div class="card-header bg-primary h3">Job</div>
-        <div class="card-body text-primary">
-          <h5 class="card-title text-center">FrontEnd</h5><h6 class="text-right">Yoon</h6>
-          <p class="card-text">
-            Some quick example text to build on the card title and make up the bulk of the card's content.
-            sdfdsfddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-          </p>
-        </div>
-        </div>
+         <div class="card border-primary mb-3" style="height: 100%;">
+         <div class="card-header bg-primary h3">Job</div>
+         <div class="card-body text-primary">
+           <h5 class="card-title text-center">FrontEnd</h5><h6 class="text-right">Yoon</h6>
+           <p class="card-text">
+             Some quick example text to build on the card title and make up the bulk of the card's content.
+             sdfdsfddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+       	  </p>
+       	  </div>
+       	  </div> 
 			
 			
-		});
+		}); */
         
          
 
