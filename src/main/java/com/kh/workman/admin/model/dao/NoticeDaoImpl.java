@@ -55,7 +55,7 @@ public class NoticeDaoImpl implements NoticeDao {
 	}
 
 	@Override
-	public int updateNotice(SqlSessionTemplate session, Map<String, String> param) {
+	public int updateNotice(SqlSessionTemplate session, Map<String, Object> param) {
 		return session.update("adminNotice.updateNotice", param);
 	}
 

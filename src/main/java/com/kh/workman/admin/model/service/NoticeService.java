@@ -17,6 +17,6 @@ public interface NoticeService {
 	List<AdminAttachment> selectAttachList();
 	AdminNotice selectNoticeOne(int noticeNo);
 	List<AdminAttachment> selectAttachment(int noticeNo);
-	int updateNotice(Map<String, String> param, List<AdminAttachment> attachList);
+	int updateNotice(Map<String, Object> param, List<AdminAttachment> attachList);
 
 }

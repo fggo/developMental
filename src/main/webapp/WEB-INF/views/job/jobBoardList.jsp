@@ -47,6 +47,16 @@
                   <span class='text-muted'>해외취업 </span>
                   <span class='text-white bg-dark rounded px-1'>github</span>
                 </button>
+                <!-- <button class='apiToggleBtn btn btn-outline-light text-dark px-1'
+                    id='githubBtn'>
+                  <span class='text-muted'>해외취업 </span>
+                  <span class='text-white bg-dark rounded px-1'>github</span>
+                </button>
+                <button type="button" class="apiToggleBtn collapse btn btn-outline-light text-dark mr-1 d-none px-1" 
+                    id="saramInBtn">
+                  <span class="text-muted">국내취업 </span>
+                  <span class="text-white bg-primary rounded px-1">Saramin</span>
+                </button> -->
               </div>
               <div class="ml-auto float-left" style="width:150px;">
                 <c:if test="${loginMember !=null}">
@@ -71,102 +81,104 @@
             <div id="row2" class="d-flex px-1 my-1 py-0">
               <div class="form form-inline">
                 <input type="text" class="form-control form-control-sm ml-0" placeholder="예. 자바" id="keywords" required />
-                <input type="text" class="form-control form-control-sm ml-1" placeholder="예. 뉴욕" id="loc_cd" required />
+                <input type="text" class="form-control form-control-sm ml-1 d-none" placeholder="예. New York" id="loc" required />
                 <div class="input-group-append">
                   <button type="button" class="btn btn-outline-info ml-0" id="jobSearchBtn"><i class="fa fa-search"></i></button>
                 </div>
               </div>
             </div>
-            <div id="row3" class="form-row d-flex px-1 my-1 py-0">
-              <div class="my-1 mx-1">
-                <select class="form-control-sm custom-select mr-2" name="job_type" id="job_type" required>
-                  <option selected disabled>근무형태</option>
-                  <option value="1">정규직</option>
-                  <option value="2">계약직</option>
-                </select>
+            <div id="detailSrchArea">
+              <div id="row3" class="form-row d-flex px-1 my-1 py-0">
+                <div class="my-1 mx-1">
+                  <select class="form-control-sm custom-select mr-2" name="job_type" id="job_type" required>
+                    <option selected disabled>근무형태</option>
+                    <option value="1">정규직</option>
+                    <option value="2">계약직</option>
+                  </select>
+                </div>
+                <div class="my-1 mr-1">
+                  <select class="form-control-sm custom-select mr-1" name="loc_cd" id="loc_cd" required>
+                    <option selected disabled>근무지역</option>
+                    <option value="117000">전국</option>
+                    <option value="101000">서울</option>
+                    <option value="102000">경기</option>
+                    <option value="103000">광주</option>
+                    <option value="104000">대구</option>
+                    <option value="105000">대전</option>
+                    <option value="106000">부산</option>
+                    <option value="107000">울산</option>
+                    <option value="108000">인천</option>
+                    <option value="109000">강원</option>
+                    <option value="110000">경남</option>
+                    <option value="111000">경북</option>
+                    <option value="112000">전남</option>
+                    <option value="113000">전북</option>
+                    <option value="114000">충북</option>
+                    <option value="115000">충남</option>
+                    <option value="116000">제주</option>
+                    <option value="118000">세종</option>
+                  </select>
+                </div>
+                <div class="my-1 mr-1">
+                  <select class="form-control-sm custom-select mr-1" name="ind_cd" id="ind_cd" required>
+                    <option selected disabled>산업/업종</option>
+                    <option value="301">솔루션·SI·ERP·CRM</option>
+                    <option value="302">웹에이젼시</option>
+                    <option value="304">쇼핑몰·오픈마켓</option>
+                    <option value="305">포털·인터넷·컨텐츠</option>
+                    <option value="306">네트워크·통신·모바일</option>
+                    <option value="307">하드웨어·장비</option>
+                    <option value="308">정보보안·백신</option>
+                    <option value="313">IT컨설팅</option>
+                    <option value="314">게임</option>
+                  </select>
+                </div>
+                <div class="my-1 mr-1">
+                  <select class="form-control-sm custom-select mr-1" name="job_category" id="job_category" required>
+                    <option selected disabled>직업/직종</option>
+                    <option value="401">웹마스터·QA·테스터</option>
+                    <option value="402">서버·네트워크·보안</option>
+                    <option value="403">웹기획·PM</option>
+                    <option value="404">웹개발</option>
+                    <option value="405">게임·Game</option>
+                    <option value="406">컨텐츠·사이트운영</option>
+                    <option value="407">응용프로그램개발 </option>
+                    <option value="408">시스템개발</option>
+                    <option value="409">ERP·시스템분석·설계</option>
+                    <option value="410">통신·모바일</option>
+                    <option value="411">하드웨어·소프트웨어</option>
+                    <option value="412">웹디자인</option>
+                    <option value="413">퍼블리싱·UI개발</option>
+                    <option value="414">동영상·편집·코덱</option>
+                    <option value="415">IT·디자인·컴퓨터교육</option>
+                    <option value="416">데이터베이스·DBA</option>
+                    <option value="417">인공지능(AI)·빅데이터</option>
+                  </select>
+                </div>
               </div>
-              <div class="my-1 mr-1">
-                <select class="form-control-sm custom-select mr-1" name="loc_cd" id="loc_cd" required>
-                  <option selected disabled>근무지역</option>
-                  <option value="117000">전국</option>
-                  <option value="101000">서울</option>
-                  <option value="102000">경기</option>
-                  <option value="103000">광주</option>
-                  <option value="104000">대구</option>
-                  <option value="105000">대전</option>
-                  <option value="106000">부산</option>
-                  <option value="107000">울산</option>
-                  <option value="108000">인천</option>
-                  <option value="109000">강원</option>
-                  <option value="110000">경남</option>
-                  <option value="111000">경북</option>
-                  <option value="112000">전남</option>
-                  <option value="113000">전북</option>
-                  <option value="114000">충북</option>
-                  <option value="115000">충남</option>
-                  <option value="116000">제주</option>
-                  <option value="118000">세종</option>
-                </select>
-              </div>
-              <div class="my-1 mr-1">
-                <select class="form-control-sm custom-select mr-1" name="ind_cd" id="ind_cd" required>
-                  <option selected disabled>산업/업종</option>
-                  <option value="301">솔루션·SI·ERP·CRM</option>
-                  <option value="302">웹에이젼시</option>
-                  <option value="304">쇼핑몰·오픈마켓</option>
-                  <option value="305">포털·인터넷·컨텐츠</option>
-                  <option value="306">네트워크·통신·모바일</option>
-                  <option value="307">하드웨어·장비</option>
-                  <option value="308">정보보안·백신</option>
-                  <option value="313">IT컨설팅</option>
-                  <option value="314">게임</option>
-                </select>
-              </div>
-              <div class="my-1 mr-1">
-                <select class="form-control-sm custom-select mr-1" name="job_category" id="job_category" required>
-                  <option selected disabled>직업/직종</option>
-                  <option value="401">웹마스터·QA·테스터</option>
-                  <option value="402">서버·네트워크·보안</option>
-                  <option value="403">웹기획·PM</option>
-                  <option value="404">웹개발</option>
-                  <option value="405">게임·Game</option>
-                  <option value="406">컨텐츠·사이트운영</option>
-                  <option value="407">응용프로그램개발 </option>
-                  <option value="408">시스템개발</option>
-                  <option value="409">ERP·시스템분석·설계</option>
-                  <option value="410">통신·모바일</option>
-                  <option value="411">하드웨어·소프트웨어</option>
-                  <option value="412">웹디자인</option>
-                  <option value="413">퍼블리싱·UI개발</option>
-                  <option value="414">동영상·편집·코덱</option>
-                  <option value="415">IT·디자인·컴퓨터교육</option>
-                  <option value="416">데이터베이스·DBA</option>
-                  <option value="417">인공지능(AI)·빅데이터</option>
-                </select>
+  
+              <style>
+                .custom-control-input:checked ~ .custom-control-label::before {
+                  color: #fff;
+                  border-color: #17A2B8;
+                  background-color: #17A2B8;
+                }
+              </style>
+  
+              <div id="row3" class="form-row d-flex px-1 my-1 py-0">
+                <div class="my-1 mx-1 text-muted">마감일수</div>
+                <div class="my-1 mr-1 custom-control custom-radio custom-control-inline">
+                  <input type="radio" id="da" name="sort" class="custom-control-input" value="da" checked />
+                  <label class="custom-control-label" for="da">오름차순</label>
+                </div>
+                <div class="my-1 custom-control custom-radio custom-control-inline">
+                  <input type="radio" id="dd" name="sort" class="custom-control-input" value="dd" />
+                  <label class="custom-control-label" for="dd">내림차순</label>
+                </div>
               </div>
             </div>
 
-            <style>
-              .custom-control-input:checked ~ .custom-control-label::before {
-                color: #fff;
-                border-color: #17A2B8;
-                background-color: #17A2B8;
-              }
-            </style>
-
-            <div id="row3" class="form-row d-flex px-1 my-1 py-0">
-              <div class="my-1 mx-1 text-muted">마감일수</div>
-              <div class="my-1 mr-1 custom-control custom-radio custom-control-inline">
-                <input type="radio" id="da" name="sort" class="custom-control-input" checked >
-                <label class="custom-control-label" for="da">오름차순</label>
-              </div>
-              <div class="my-1 custom-control custom-radio custom-control-inline">
-                <input type="radio" id="dd" name="sort" class="custom-control-input">
-                <label class="custom-control-label" for="dd">내림차순</label>
-              </div>
-            </div>
-
-            <div id="githubJobBoardList" class="rounded py-2 mt-0">
+            <div id="apiJobBoardList" class="rounded py-2 mt-0">
               <table class="table table-sm table-hover jobmodal-tbl2" style="font-size:14px;">
                 <c:if test="${newList == null}">
                   <small>
@@ -333,22 +345,26 @@
 
         <script>
           $(function(){
+
             $('.apiToggleBtn').on('click', function () {
 
               // $('#keywords').val('');
-              // $('#loc_cd').val('');
+              // $('#loc').val('');
 
+              $('#detailSrchArea').fadeToggle();
+              
               var id = $('.apiToggleBtn').attr('id');
               if(id == "saramInBtn"){
                 $(this).html("<span class='text-muted'>해외취업 </span><span class='text-white bg-dark rounded px-1'>github</span>");
                 $(this).attr({"id": 'githubBtn'});
                 $('#keywords').attr({"placeholder": "예. java"});
-                $('#loc_cd').attr({"placeholder": "예. New York"});
+                $('#loc').removeClass('d-none');
+                $('#loc').attr({"placeholder": "예. New York"});
               } else if(id=='githubBtn'){
                 $(this).html("<span class='text-muted'>국내취업 </span><span class='text-white bg-primary rounded px-1'>Saramin</span>");
                 $(this).attr({"id": 'saramInBtn'});
                 $('#keywords').attr({"placeholder": "예. 자바"});
-                $('#loc_cd').attr({"placeholder": "예. 서울"});
+                $('#loc').addClass('d-none');
               }
             });
 
@@ -369,7 +385,6 @@
             .ajaxStop(function () {
               $apiLoading.hide();
             });
-
 
             $('td.hide-html-tag *').css({
               'display': 'none',
@@ -408,48 +423,51 @@
               });
             });
 
-            $('#keywords, #loc_cd').bind("enterKey",function(e){
+            $('#keywords, #loc').bind("enterKey",function(e){
               $('#jobSearchBtn')[0].click();
             });
-            $('#keywords, #loc_cd').keyup(function(e){
+            $('#keywords, #loc').keyup(function(e){
               if(e.keyCode == 13) {
                 $(this).trigger("enterKey");
               }
             });
 
             $('#jobSearchBtn').click(function(){
-              // <button data-toggle='collapse' id='saramInBtn' class='apiToggleBtn btn btn-outline-light text-dark' value="">
-              //   국내취업 <span class="text-white bg-primary rounded px-1">Saramin</span>
-              // </button>
-              // <button type="button" class="apiToggleBtn collapse btn btn-outline-light text-dark mr-1 d-none" id="githubBtn" value="Search github">
-              //   해외취업 <i class="fa fa-github" aria-hidden="true"></i>
-              // </button>
-              var inputFields = {
-                "skill": $('#keywords').val(),
-                "loc": $('#loc_cd').val(),
-              };
 
-              if(inputFields["skill"]=="" || inputFields["loc"] =="") {
-                alert("검색어를 입력 해주세요.");
-                return;
-              }
+              var githubInputFields = {
+                "apiType": "github",
+                "keywords": $('#keywords').val(),
+                "loc": $('#loc').val(),
+              };
+              var saraminInputFields = {
+                "apiType": "saramin",
+                "keywords": $('#keywords').val(),
+                "job_type": $('#job_type').val(),
+                "loc_cd": $('#loc_cd').val(),
+                "ind_cd": $('#ind_cd').val(),
+                "job_category": $('#job_category').val(),
+                "sort": $("input[name='sort']:checked").val(),
+              };
 
               var btn = $('.apiToggleBtn').attr('id');
 
               if(btn == 'saramInBtn'){
-                alert("사람인 api 구현안됨")
-              }
-              else if(btn == 'githubBtn'){
+                if( $('#loc').hasClass('d-none')
+                    && saraminInputFields["keywords"]=="") {
+                  alert(" 사람인에 검색할 키워드를 입력 해주세요.");
+                  return;
+                }
                 $.ajax({
                   type: "POST",
                   url: "${path}/job/jobBoardList",
-                  data: inputFields,
+                  data: JSON.stringify(saraminInputFields),
+                  contentType: 'application/json; charset=utf-8',
                   dataType: "html",
                   success: function(data) {
                     html = $('<div>').html(data);
                     // $('#main-container').html(html.find('div.submenu-container'));
 
-                    $('#githubJobBoardList').html(html.find('.jobmodal-tbl2'));
+                    $('#apiJobBoardList').html(html.find('.jobmodal-tbl2'));
                     // $('#pageBar').html(html.find('#pageBar'));
 
                     $('.w-0').css({'width': '0%', });
@@ -461,7 +479,38 @@
                     $('.w-45').css({'width': '45%', });
                   },
                   error: function(status, error) {
-                    alert("ajax api parameter call Error!");
+                    alert("ajax 사람인 api parameter call Error!");
+                  }
+                });
+              }
+              else if(btn == 'githubBtn'){
+                if( !$('#loc').hasClass('d-none')
+                  && (githubInputFields["keywords"]=="" || githubInputFields["loc"] =="")) {
+                  alert("Github 검색어를 모두 입력 해주세요.");
+                  return;
+                }
+                $.ajax({
+                  type: "POST",
+                  url: "${path}/job/jobBoardList",
+                  data: JSON.stringify(githubInputFields),
+                  contentType: 'application/json; charset=utf-8',
+                  dataType: "html",
+                  success: function(data) {
+                    html = $('<div>').html(data);
+
+                    $('#apiJobBoardList').html(html.find('.jobmodal-tbl2'));
+                    // $('#pageBar').html(html.find('#pageBar'));
+
+                    $('.w-0').css({'width': '0%', });
+                    $('.w-5').css({'width': '5%', });
+                    $('.w-10').css({'width': '10%', });
+                    $('.w-25').css({'width': '25%', });
+                    $('.w-30').css({'width': '30%', });
+                    $('.w-40').css({'width': '40%', });
+                    $('.w-45').css({'width': '45%', });
+                  },
+                  error: function(status, error) {
+                    alert("ajax 깃허브 api parameter call Error!");
                   }
                 });
               }

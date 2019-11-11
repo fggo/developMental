@@ -13,6 +13,8 @@ classes/
 config.properties
 local.properties
 s3cr3tk3y.properties
+pom.properties
+MANIFEST.MF
 #.settings/
 #.loadpath
 #.recommenders
@@ -76,5 +78,7 @@ s3cr3tk3y.properties
 ### Java-Web ###
 ## ignoring target file
 target/
+
+
 
 # End of https://www.gitignore.io/api/eclipse,java-web

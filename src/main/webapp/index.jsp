@@ -41,10 +41,10 @@
         $("[rel='tooltip']").tooltip();    
         $('.thumbnail').hover(
           function(){
-            $(this).find('.caption').slideDown(250); //.fadeIn(250)
+            $(this).find('.caption').fadeIn(150) //.slideDown(90); 
           },
           function(){
-            $(this).find('.caption').slideUp(250); //.fadeOut(205)
+            $(this).find('.caption').fadeOut(150) //.slideUp(90);
           }
         ); 
       });
@@ -71,7 +71,7 @@
                     </a>
                   </c:if>
                   <footer class="blockquote-footer text-white">
-                    <small>powered by <cite title="Source Title">junyoung</cite></small>
+                    <small>provided by <cite title="Source Title">junyoung</cite></small>
                   </footer>
                 </blockquote>
               </div>
@@ -102,7 +102,7 @@
                     </a>
                   </c:if>
                   <footer class="blockquote-footer text-white">
-                    <small>powered by <cite title="Source Title">junho <br> & 사람인 & github</cite></small>
+                    <small>provided by <cite title="Source Title">junho <br> & 사람인 & github</cite></small>
                   </footer>
                 </blockquote>
               </div>
@@ -131,7 +131,7 @@
                     </a>
                   </c:if>
                   <footer class="blockquote-footer text-white">
-                    <small>powered by <cite title="Source Title">hojun</cite></small>
+                    <small>provided by <cite title="Source Title">hojun</cite></small>
                   </footer>
                 </blockquote>
               </div>
@@ -141,12 +141,64 @@
         </div>
         <hr>
         <div class="card-columns">
-          <h5>실시간 뉴스</h5>
+          <h5>IT 뉴스</h5>
+          <div class="card text-center">
+            <div class="thumbnail card-thumbnail">
+            <div class="caption card-caption" style="background:rgba(54, 63, 228, 0.75);">
+                <blockquote class="blockquote">
+                  <a class="text-white stretched-link my-2"
+                      href="javascript: ajaxGetNews('${path}/job/newsList');"
+                      style="text-decoration: none;"><b><br><i class="fa fa-refresh" aria-hidden="true"></i>뉴스 Refresh</b>
+                  </a>
+                  <footer class="blockquote-footer text-white">
+                    <small>provided by <cite title="Source Title">junho & ITWorld.co.kr</cite></small>
+                  </footer>
+                </blockquote>
+              </div>
+              <img src="${path }/resources/images/tim-mossholder-H6eaxcGNQbU-unsplash.jpg" class="card-img-top" width="100px" height="130px" alt="...">
+            </div>
+          </div>
+
+          <span class="text-muted" style="font-size:12px;">
+            provided by <a href="http://www.itworld.co.kr/" target="_blank">IT WORLD from IDG</a>
+            <a href="https://twitter.com/itworldkr"> twitter</a>
+          </span>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div id="crawlResult"></div>
+            </div>
+            <div class="col-md-6">
+            </div>
+          </div>
+
         </div>
       </div>
     <script>
-      $(function(){
+      function ajaxGetNews(mapping){ 
+        $.ajax({
+          type: "POST",
+          url:mapping,
+          dataType: "json",
+          success: function(data){
+            var crawlResult = $("#crawlResult");
+            crawlResult.html("");
 
+            for(var d in data) {
+              var image = $("<img>").attr({'src': data[d]['newsImageUrl']});
+              var newsTag = $("<div>").html(data[d]['newsTag']);
+              var row = $('<div>');
+              row.append(image).append(newsTag);
+              crawlResult.append(row);
+            }
+          },
+          error: function(status, msg){
+            alert('ajax : Get IT News error!');
+          },
+        });
+      }
+
+      $(function(){
         $('#collaboLoginBtn, #jobLoginBtn, #studyLoginBtn').click(function(){
           $("#loginModal").modal('show');
         })

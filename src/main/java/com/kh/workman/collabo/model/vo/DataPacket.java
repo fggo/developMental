@@ -1,5 +1,7 @@
 package com.kh.workman.collabo.model.vo;
 
+import java.sql.Date;
+
 import lombok.Data;
 import lombok.ToString;
 
@@ -15,4 +17,6 @@ public class DataPacket {
 	private int cardNo;
 	private int placeNo;
 	private int targetNo;
+	private int commentNo;
+	private Date regdate;
 }
