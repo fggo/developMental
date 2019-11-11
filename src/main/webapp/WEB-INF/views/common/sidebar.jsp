@@ -54,9 +54,10 @@
 	<c:if test="${loginMember != null}">
 
       <ul class="list-unstyled components pt-0">
-
-
-
+		<li class="active">
+          <a href="${path}/collabo/main?userId=${loginMember.id}" class="sidebar-dropdown-toggle">Team Work</a>
+        </li>
+		
         <li class="active">
           <a href="#myPageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle sidebar-dropdown-toggle">마이페이지</a>
           <ul class="collapse list-unstyled" id="myPageSubmenu">
