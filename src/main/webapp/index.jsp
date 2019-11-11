@@ -148,7 +148,7 @@
                 <blockquote class="blockquote">
                   <a class="text-white stretched-link my-2"
                       href="javascript: ajaxGetNews('${path}/job/newsList');"
-                      style="text-decoration: none;"><b><br>IT뉴스 Refresh</b>
+                      style="text-decoration: none;"><b><br><i class="fa fa-refresh" aria-hidden="true"></i>뉴스 Refresh</b>
                   </a>
                   <footer class="blockquote-footer text-white">
                     <small>provided by <cite title="Source Title">junho & ITWorld.co.kr</cite></small>
