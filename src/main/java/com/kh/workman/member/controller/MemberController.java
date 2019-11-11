@@ -295,6 +295,7 @@ public class MemberController {
 		List<Map<String, Object>> list2 = service.selectApplyList(loginMember.getNickname());
 		System.out.println("loginno: "+loginMember.getNickname());
 		System.out.println("list2 :" +list2);
+		System.out.println("studylist :" +studylist);
 
 		mv.addObject("list2", list2);
 		

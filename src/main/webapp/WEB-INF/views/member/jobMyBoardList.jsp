@@ -514,6 +514,59 @@ hr { margin-top: 5px;margin-bottom: 10px; }
           
         </div> 
 
+       <!-- apply confirm -->
+   <div class="modal fade" id="applycollabo">
+	<div class="modal-dialog" style="width:450px;">
+		<div class="modal-content">
+			<div class="modal-header">
+			  <h3 class="modal-title">초대<span id="modal-title"></span></h3>
+       	 	  <button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<div class="modal-body">
+			<hr/>
+			<c:forEach var="s" items="${list2}" varStatus="status">
+				<div class="ui-widget">
+					<label for="userId">ID : </label>
+					<label type="text" id="userId">${s['NICKNAME']}</label>
+					<img id="userProfile"/>
+				</div>			
+			</c:forEach>	
+			</div>
+			
+			
+			
+			
+			
+			<div class="modal-footer">
+			   <button name="btnModalClose" type="button" class="btn btn-primary" onclick="requestInvite()">초대</button>
+			   <button name="btnModalClose" type="button" class="btn btn-secondary" data-dismiss="modal">나가기</button>
+			</div>		
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <style>
           td img {
             height: 10px;
@@ -572,6 +625,13 @@ hr { margin-top: 5px;margin-bottom: 10px; }
 
         <script>
 
+ 
+
+        
+        
+        
+        
+        
         
         /* Board */
         
@@ -626,7 +686,7 @@ hr { margin-top: 5px;margin-bottom: 10px; }
 				var startDiv = $("#TotalBoardContent");
 				
 				for(var dd in data6)
-				{console.log(data6[dd])}
+				{console.log(data6[dd]['NICKNAME'])}
 				
 
 				
@@ -653,7 +713,7 @@ hr { margin-top: 5px;margin-bottom: 10px; }
 				{
 					if(data4[d2]['no'] == number && data4[d2]['boardName'] == 'STUDY')
 					{
-						console.log("fuckers" +data4[d2]['no']);
+						
 						
 						var borderDiv = $("<div class='card border-primary mb-3' style='height:100%;'>");
 						var headerDiv = $("<div class='card-header bg-primary h3'>"+data4[d2]['boardName']+"</div>");
@@ -671,7 +731,9 @@ hr { margin-top: 5px;margin-bottom: 10px; }
 						// 신청한 사람이 몇명인지 체크 하고 for문을 여기서 돌리면됨\
 				for (var dd in data6)
 				{
-					if(data4[d2]['no'] == data6[dd]['NO']) {
+					if(data4[d2]['no'] == data6[dd]['BOARDNO']) {
+						var result = data6[dd]['NICKNAME'];
+					/* 	console.log("result" +result) */
 						var applybodyDiv = $("<div class='card-body text-primary'>");
 						var applytext = $("<div class='card-text'>");
 						var applyRounded = $("<div class='my-3 p-3 bg-white rounded box-shadow'>");
@@ -680,9 +742,10 @@ hr { margin-top: 5px;margin-bottom: 10px; }
 						var imgData = $("<img data-src='holder.js/32x32?theme=thumb&amp;bg=007bff&amp;fg=007bff&amp;size=1' alt='32x32' class='mr-2 rounded' src='data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2232%22%20height%3D%2232%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_16e4874d898%20text%20%7B%20fill%3A%23007bff%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A2pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_16e4874d898%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20fill%3D%22%23007bff%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2212.03125%22%20y%3D%2216.9%22%3E32x32%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E' data-holder-rendered='true' style='width: 32px; height: 32px;'>");
 						var imgNextDiv = $("<div class='media-body pb-3 mb-0 small lh-125 border-bottom border-gray'>");
 						var itemDiv = $("<div class='d-flex justify-content-between align-items-center w-100'>");
-						var strongData = $("<strong class='text-gray-dark'>"+'Full Name'+"</strong>");
-						var strongNextA = $("<a href='#'' style='color: black;''>Follow</a>");
-						var userNameSpan = $("<span class='d-block' style='float: left;'>"+data6[dd]['MEMBERNO']+"</span>");
+						var strongData = $("<strong class='text-gray-dark'>"+'ID'+"</strong>");
+						/* var strongNextA = $("<a data-target='#applycollabo' data-toggle='modal' href='#applycollabo'  style='color: black;''>Follow</a>");  */
+					 	var strongNextA = $("<a href='' id='useridd' data-value='1' onclick='requestinvite1()'  style='color: black;''>Follow</a>"); 
+						var userNameSpan = $("<span class='d-block' style='float: left;'>"+result+"</span>");
 					
 				 
 						itemDiv.append(strongData);
@@ -738,8 +801,11 @@ hr { margin-top: 5px;margin-bottom: 10px; }
 			
 				
 			});
-		
-		
+	
+		function requestinvite1(){
+			var userId = $("#useridd").val();
+			alert(userId)
+		}
 		
 		
         
@@ -941,6 +1007,13 @@ hr { margin-top: 5px;margin-bottom: 10px; }
               }
             });
           }
+          
+          
+ /*      	$('#apply').click(function(){
+            $("#applycollabo").modal('show');
+          }); */
+      	
+      	
         </script>
       </div>
     </div>

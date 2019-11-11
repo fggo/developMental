@@ -126,7 +126,7 @@
   </select>
   
   <select id="selectApplylist"  parameterType="String" resultType="map">
-  		select no, memberno from board_meetup inner join apply_meetup on board_meetup.no= apply_meetup.boardno where writer=#{nickname}	order by no desc	
+  		select t2.boardno, t2.memberno, t3.nickname from board_meetup t1, apply_meetup t2 , member t3 where t1.no = t2.boardno and t2.memberno = t3.no and t1.writer=#{nickname} order by boardno desc
   </select>
   
 </mapper>

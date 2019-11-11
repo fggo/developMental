@@ -212,7 +212,7 @@
                 <th class="text-center">Title</th>
                 <th class="text-center">Content</th>
                 <th class="text-center">RegDate</th>
-				<th class="text-center">Count</th>
+				
 
               </tr>
             </thead>
@@ -225,7 +225,7 @@
                   <td class="text-center study-title">${s['TITLE']}</td>
                   <td class="text-center">${s['CONTENT']}</td>
                   <td class="text-center">${s['REGDATE']}</td>  
-                  <td class="text-center">${s['COUNT']}</td>
+                  
                 </tr>
               </c:forEach>
             </tbody>
