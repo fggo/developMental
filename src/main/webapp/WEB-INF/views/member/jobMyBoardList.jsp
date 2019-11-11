@@ -295,7 +295,7 @@ hr { margin-top: 5px;margin-bottom: 10px; }
       
       
       	
-       <div class="card border-primary mb-3" style="height: 100%;">
+       <!-- <div class="card border-primary mb-3" style="height: 100%;">
         <div class="card-header bg-primary h3">Job</div>
         <div class="card-body text-primary">
           <h5 class="card-title text-center">FrontEnd</h5><h6 class="text-right">Yoon</h6>
@@ -303,7 +303,7 @@ hr { margin-top: 5px;margin-bottom: 10px; }
             Some quick example text to build on the card title and make up the bulk of the card's content.
             sdfdsfddddddddddddddddddddddddddddddddddddddddddddddddddddddd
           </p>
-        </div>
+        </div> -->
         <!-- <div class="card-footer bg-info h5">신청한 인원</div>
         <div class="card-body text-primary">
           <div class="card-text">
@@ -345,10 +345,14 @@ hr { margin-top: 5px;margin-bottom: 10px; }
               </div>
 				</div> -->
 				
-          <h6 class="d-block text-right mt-3 mr-3">
-            <a href="#">${j['regDate']}</a>
-          </h6>
-      </div> 
+          <!-- <h6 class="d-block text-right mt-3 mr-3">
+            <a href="#">2019-10-19</a>
+			  </h6>
+			 <div class="p-t">
+         <button class="btn btn--radius-2 btn-primary pull-right" type="button" onclick="deletePage()" style="width: 60px; height: 50px; ">삭제</button>
+				<button class="btn btn--radius-2 btn-primary pull-right" type="button" onclick="updateMyBoard()" style="width: 60px; height: 50px; margin-right: 2px;">변경</button>
+		  </div>
+      </div>  -->
       	
       	
       
@@ -361,9 +365,16 @@ hr { margin-top: 5px;margin-bottom: 10px; }
         </div> -->
        
     </div>
-    <div class="shadow-sm col-sm-8" id="loadview">
-      
+    <div class="shadow-sm col-sm-8" id="hiddenInput">
+			<form action="${path}/member/deleteMyBoard.do" method="POST" id="hiddenFrm">			 
+				<input type="hidden" name="no" id="no">
+				<input type="hidden" name="boardName" id="boardName">
+				<input type="hidden" name="content" id="content">
+        <input type="hidden" name="title" id="title">
+        <input type="hidden" name="writer" id="writer">
+			</form>
       </div>
+
       <!-- style="width:950px;height:500px;" -->
 
 
@@ -624,6 +635,31 @@ hr { margin-top: 5px;margin-bottom: 10px; }
           integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
         <script>
+			  
+			  function deletePage()
+			  {
+				  var result = confirm("정말로 삭제하시겠습니까?");
+				  if(result)
+				  {
+					  var form = $("#hiddenFrm");
+						//location.href='${path}/member/deleteMyBoard.do';
+						form.submit();
+				  }else{
+					  
+				  }
+			  }
+
+        function updateMyBoard()
+        {
+          var result = confirm("정말로 변경하시겠습니까?");
+          if(result)
+          {
+        	  location.href="javascript: ajaxMyBoardPage('${path}/member/myBoardForm.do')";
+            //var form = $("#hiddenFrm");
+           //form.attr("action","${path}/member/myBoardForm.do");
+            //form.submit();
+          }
+        }
 
  
 
@@ -670,6 +706,7 @@ hr { margin-top: 5px;margin-bottom: 10px; }
 			
 				console.log($(e.target).attr('id'));
 				var number = $(e.target).attr('id');
+				
 				var data ='${jsonlist}';
 				var data2 = JSON.parse(data);
 				
@@ -701,14 +738,27 @@ hr { margin-top: 5px;margin-bottom: 10px; }
 						var borderDiv = $("<div class='card border-primary mb-3' style='height:100%;'>");
 						var headerDiv = $("<div class='card-header bg-primary h3'>"+data2[d]['boardName']+"</div>");
 						var bodyDiv = $("<div class='card-body text-primary'>");
-						var h5Tag = $("<h5 class='card-title text-center'>FrontEnd</h5><h6 class='text-right'>"+data2[d]['writer']+"</h6>")
+						var h5Tag = $("<h5 class='card-title text-center'>"+data2[d]['title']+"</h5><h6 class='text-right'>"+data2[d]['writer']+"</h6>")
 						var pTag = $("<p class='card-text'>"+data2[d]['content']+"</p>");
 						var h6Tage = $("<h6 class='d-block text-right mt-3 mr-3'> <a href='#''>"+data2[d]['regDate']+"</a></h6>")
+
+            var btnDivTag = $("<div class='p-t-15'>")
+            var btnTag1 = $("<button class='btn btn--radius-2 btn-primary pull-right' type='button' onclick='deletePage()' style='width: 60px; height: 50px;'>삭제</button>");
+            var btnTag2 = $("<button class='btn btn--radius-2 btn-primary pull-right' type='button' onclick='updateMyBoard()' style='width: 60px; height: 50px; margin-right: 2px;'>변경</button>");
+            btnDivTag.append(btnTag1).append(btnTag2); 
+
 						bodyDiv.append(h5Tag).append(pTag);
-						borderDiv.append(headerDiv).append(bodyDiv).append(h6Tage);
-						startDiv.append(borderDiv);	
+						borderDiv.append(headerDiv).append(bodyDiv).append(h6Tage).append(btnDivTag);
+						startDiv.append(borderDiv);
+						
+						$("#no").val(data2[d]['no']);
+						$("#boardName").val(data2[d]['boardName']);
+						$("#content").val(data2[d]['content']);
+						$("#title").val(data2[d]['title']);
+            $("#writer").val(data2[d]['writer']);
 					}
 				}
+				
 				for(var d2 in data4)
 				{
 					if(data4[d2]['no'] == number && data4[d2]['boardName'] == 'STUDY')
@@ -718,11 +768,17 @@ hr { margin-top: 5px;margin-bottom: 10px; }
 						var borderDiv = $("<div class='card border-primary mb-3' style='height:100%;'>");
 						var headerDiv = $("<div class='card-header bg-primary h3'>"+data4[d2]['boardName']+"</div>");
 						var bodyDiv = $("<div class='card-body text-primary'>");
-						var h5Tag = $("<h5 class='card-title text-center'>FrontEnd</h5><h6 class='text-right'>"+data4[d2]['writer']+"</h6>")
+						var h5Tag = $("<h5 class='card-title text-center'>"+data4[d2]['title']+"</h5><h6 class='text-right'>"+data4[d2]['writer']+"</h6>")
 						var pTag = $("<p class='card-text'>"+data4[d2]['content']+"</p>");
-						var h6Tage = $("<h6 class='d-block text-right mt-3 mr-3'> <a href='#''>"+data4[d2]['regDate']+"</a></h6>")
+						var h6Tage = $("<h6 class='d-block text-right mt-3 mr-3'> <a href='#''>"+data4[d2]['regDate']+"</a></h6>");
+
+            var btnDivTag = $("<div class='p-t-15'>")
+            var btnTag1 = $("<button class='btn btn--radius-2 btn-primary pull-right' type='button' onclick='deletePage()' style='width: 60px; height: 50px;'>삭제</button>");
+            var btnTag2 = $("<button class='btn btn--radius-2 btn-primary pull-right' type='button' onclick='updateMyBoard()' style='width: 60px; height: 50px; margin-right: 2px;'>변경</button>");
+            btnDivTag.append(btnTag1).append(btnTag2);
+
 						bodyDiv.append(h5Tag).append(pTag);
-						borderDiv.append(headerDiv).append(bodyDiv).append(h6Tage);
+						borderDiv.append(headerDiv).append(bodyDiv).append(h6Tage).append(btnDivTag);
 						startDiv.append(borderDiv);
 						
 						var applyDiv = $("<div class='card-footer bg-info h5'>신청한 인원</div>");
@@ -759,11 +815,26 @@ hr { margin-top: 5px;margin-bottom: 10px; }
 						applybodyDiv.append(applytext);
 						
 						borderDiv.append(applybodyDiv);	
+						
+						$("#no").val(data4[d2]['no']);
+						$("#boardName").val(data4[d2]['boardName']);
+						$("#content").val(data4[d2]['content']);
+						$("#title").val(data4[d2]['title']);
+            $("#writer").val(data4[d2]['writer']);
+
+           
 					}
 				}
 				}
 				}
 				
+
+      //   <div class="p-t">
+			// 	<button class="btn btn--radius-2 btn-primary pull-left" type="button" onclick="updateMyBoard()" style="width: 100px; height: 50px;">변경</button>
+			// 	<button class="btn btn--radius-2 btn-primary pull-right" type="button" onclick="deletePage()" style="width: 100px; height: 50px;">삭제</button>
+		  // </div>
+
+
 			//<div class="card-footer bg-info h5">신청한 인원</div>
 			//<div class="card-body text-primary">
 			//	<div class="card-text">

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.kh.workman.member.model.vo.Member;
+import com.kh.workman.member.model.vo.MyStudyBoard;
 
 public interface MemberService {
 	Member selectLogin(Member m);
@@ -20,6 +21,16 @@ public interface MemberService {
 	 int selectMyStudyBoardCount(String nickname);
 	List<Member> selectAllMember();
 	Member selectMemberNickname(Member m);
+
 	List<Map<String, Object>> selectApplyList(String nickname);
 
+	
+	int updateMyJobBoardStatus(int no);
+	int updateMyStudyBoardStatus(int no);
+	
+	int updateMyJobBoardContent(MyStudyBoard b);
+	int updateMyStudyBoardContent(MyStudyBoard b);
+
+
+	int updatedeleteMember(Member m);
 }

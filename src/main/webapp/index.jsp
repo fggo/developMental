@@ -41,10 +41,10 @@
         $("[rel='tooltip']").tooltip();    
         $('.thumbnail').hover(
           function(){
-            $(this).find('.caption').slideDown(250); //.fadeIn(250)
+            $(this).find('.caption').fadeIn(150) //.slideDown(90); 
           },
           function(){
-            $(this).find('.caption').slideUp(250); //.fadeOut(205)
+            $(this).find('.caption').fadeOut(150) //.slideUp(90);
           }
         ); 
       });
@@ -148,7 +148,7 @@
                 <blockquote class="blockquote">
                   <a class="text-white stretched-link my-2"
                       href="javascript: ajaxGetNews('${path}/job/newsList');"
-                      style="text-decoration: none;"><b><br>IT뉴스 Refresh</b>
+                      style="text-decoration: none;"><b><br><i class="fa fa-refresh" aria-hidden="true"></i>뉴스 Refresh</b>
                   </a>
                   <footer class="blockquote-footer text-white">
                     <small>provided by <cite title="Source Title">junho & ITWorld.co.kr</cite></small>

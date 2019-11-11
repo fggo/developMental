@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -44,9 +44,6 @@ public class MemberController {
 	@Autowired
 	BCryptPasswordEncoder pwEncoder;
 
-	// @Autowired
-	// MyEncrypt en;
-
 	@RequestMapping("/member/login.do")
 	public ModelAndView login(Member m, HttpServletRequest request) {
 		HttpSession session = request.getSession();
@@ -56,28 +53,27 @@ public class MemberController {
 		String loc = "/";
 
 		Member loginMember = service.selectLogin(m);
-		System.out.println("로그인" + pwEncoder.matches(m.getPw(), loginMember.getPw()));
 
-//		try {
-//			loginMember.setPw(en.decrypt(loginMember.getPw()));
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-		// System.out.println(m.getPw());
-		// System.out.println(loginMember.getPw());
-
-		if (m.getId().equals(loginMember.getId()) && pwEncoder.matches(m.getPw(), loginMember.getPw()))
-		// if(m.getPw().equals(loginMember.getPw()))
+		if(loginMember == null)
 		{
+			msg = "아이디/비밀번호가 없습니다. 회원 등록 하세요";
+		}else
+		{
+			System.out.println("로그인" + pwEncoder.matches(m.getPw(), loginMember.getPw()));
 
-			if (session.getAttribute("loginMember") != null)
-				session.removeAttribute("loginMember");
-
-			msg = "로그인 성공";
-			session.setAttribute("loginMember", loginMember);
-
-		} else {
-			msg = "로그인 실패";
+			if(m.getId().equals(loginMember.getId()) && pwEncoder.matches(m.getPw(), loginMember.getPw()))
+			{
+				if(session.getAttribute("loginMember") != null)
+					session.removeAttribute("loginMember");
+				
+				msg = "로그인 성공";
+				session.setAttribute("loginMember", loginMember);		
+				
+			}
+			else
+			{
+				msg = "아이디 비밀버호가 틀립니다. 로그인 실패";
+			}	
 		}
 
 		mv.addObject("msg", msg);
@@ -116,13 +112,7 @@ public class MemberController {
 	@RequestMapping("/member/register.do")
 	public ModelAndView register(Member m, Model model) {
 		m.setPw(pwEncoder.encode(m.getPw()));
-//		try
-//		{
-//			m.setPw(en.encrypt(m.getPw()));			
-//		}catch(Exception e)
-//		{
-//			e.printStackTrace();
-//		}
+
 		int result = service.insertMember(m);
 
 		String msg = "";
@@ -267,6 +257,7 @@ public class MemberController {
 //	      newList = JobGithubApi.jobsGithubApi(skill, loc, Integer.valueOf(page));
 //	    }
 
+
 		mv.addObject("pageBar",
 				PageBarFactory.getJobMyPageBar(totalCount, cPage, numPerPage, "/member/jobMyBoardList"));
 		mv.addObject("count", totalCount);
@@ -312,5 +303,122 @@ public class MemberController {
 
 		return mv;
 	}
+
+	 
+	 @RequestMapping("/member/deleteMyBoard.do")
+	 public ModelAndView deleteMyBoard(HttpServletRequest request)
+	 {
+		 String msg = "";
+		 String loc = "/member/jobMyBoardList";
+		 
+		 int no = Integer.parseInt(request.getParameter("no"));
+		 String boardName = request.getParameter("boardName");
+		 String content = request.getParameter("content");
+		 String title = request.getParameter("title");
+		 int result = 0;
+		 
+		 if(boardName.equals("JOB"))
+		 {
+			 result = service.updateMyJobBoardStatus(no);
+			 msg = "Job 게시판 삭제완료";
+		 }else if(boardName.equals("STUDY"))
+		 {
+			 result = service.updateMyStudyBoardStatus(no);
+			 msg = "study 게시판 삭제완료";
+		 }
+		 
+		ModelAndView mv = new ModelAndView();
+	 	mv.addObject("msg", msg);
+		mv.addObject("loc", loc);
+		mv.setViewName("/common/msg");
+		
+		return mv;	
+	 }
+	 
+	 @RequestMapping("/member/myBoardForm.do")
+	 public ModelAndView myBoardForm(HttpServletRequest request)
+	 {
+		 int no = Integer.parseInt(request.getParameter("no"));
+		 String boardName = request.getParameter("boardName");
+		 String content = request.getParameter("content");
+		 String title = request.getParameter("title");
+		 String writer = request.getParameter("writer");
+//		 HttpSession session = request.getSession();
+//		 Member loginMember = (Member)session.getAttribute("loginMember");
+		 
+		 ModelAndView mv = new ModelAndView();
+		 mv.addObject("no", no);
+		 mv.addObject("boardName", boardName);
+		 mv.addObject("content", content);
+		 mv.addObject("title", title);
+		 mv.addObject("writer", writer);
+		 
+		 mv.setViewName("/member/myBoardForm");
+		 return mv; 
+	 }
+	 
+	 @RequestMapping("/member/myBoardFormEnd.do")
+	 public ModelAndView myBoardFormEnd(HttpServletRequest request, MyStudyBoard b)
+	 {
+		 String msg = "";
+		 String loc = "/member/jobMyBoardList";
+		 //int no = Integer.parseInt(request.getParameter("no"));
+		 String boardName = request.getParameter("boardName");
+		 String content = request.getParameter("content");
+		 String title = request.getParameter("title");
+		 String writer = request.getParameter("writer");
+		 
+		 System.out.println("content : "  + b.getContent());
+		 System.out.println("title" + title);
+		 int result = 0;
+		 
+		 if(boardName.equals("JOB"))
+		 {
+			 result = service.updateMyJobBoardContent(b);
+			 msg = "Job 게시판 title/content 수정 완료";
+		 }else if(boardName.equals("STUDY"))
+		 {
+			 result = service.updateMyStudyBoardContent(b);
+			 msg = "study 게시판 title/content 수정 완료";
+		 }
+		 
+		 ModelAndView mv = new ModelAndView();
+		 mv.addObject("msg", msg);
+		 mv.addObject("loc", loc);
+		 mv.setViewName("/common/msg");
+		 
+		 return mv;
+	 }
+	 
+	 @RequestMapping("/member/deleteMeber.do")
+	 public ModelAndView deleteMember(HttpServletRequest request)
+	 {
+		 String msg = "";
+		 String loc= "/";
+		 
+		 HttpSession session = request.getSession();
+		 Member m = (Member)session.getAttribute("loginMember");
+		 
+		 int result = service.updatedeleteMember(m);
+		 
+		 if(result>0)
+		 {
+			 msg = "회원 탈퇴 완료";
+		 }else
+		 {
+			 msg = "회원 탈퇴 실패";
+		 }
+		 
+		 session.invalidate();
+		 
+		 ModelAndView mv = new ModelAndView();
+		 mv.addObject("msg", msg);
+		 mv.addObject("loc", loc);
+		 mv.setViewName("/common/msg");
+		 
+		 return mv;
+		 
+	 }
+
 
 }
