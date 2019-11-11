@@ -99,14 +99,14 @@ public class JobSaraminCrawler {
 
     //회사 로고 
     if(doc ==null) {
-      return "{path}/resources/images/noimage.png";
+      return "/resources/images/noimage.png";
     }
     else {
       Element img= doc.select("div.thumb_company span.inner_thumb img").first();
       Element imgTxt= doc.select("div.thumb_company span.txt_name").first();
       if(imgTxt!=null || img == null || img.absUrl("src") ==null
           || img.absUrl("src").length() ==0)
-        return "{path}/resources/images/noimage.png";
+        return "/resources/images/noimage.png";
 
       String absUrl = img.absUrl("src");
       return absUrl;
