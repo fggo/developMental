@@ -107,6 +107,10 @@
 </section>
 
 <script>
+	function sendEmail(){
+		var email = $('input[name=email]').val();
+		location.href='${path}/admin/emailToMember?email='+email;
+	}
 	function moveBack() {
 		history.back();
 	}

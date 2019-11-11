@@ -127,7 +127,7 @@
 			alert("제목 또는 내용을 입력하세요");
 			return;
 		}else{
-			var form=$("form");
+			var form=$("[name=noticeFrm]");
 			form.submit();
 		}
 		
