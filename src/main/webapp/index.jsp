@@ -41,10 +41,10 @@
         $("[rel='tooltip']").tooltip();    
         $('.thumbnail').hover(
           function(){
-            $(this).find('.caption').slideDown(250); //.fadeIn(250)
+            $(this).find('.caption').fadeIn(150) //.slideDown(90); 
           },
           function(){
-            $(this).find('.caption').slideUp(250); //.fadeOut(205)
+            $(this).find('.caption').fadeOut(150) //.slideUp(90);
           }
         ); 
       });

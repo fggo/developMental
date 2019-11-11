@@ -23,7 +23,7 @@
 }
 .companyLogo-wrapper .logo-pic:after {
   font-family: FontAwesome;
-  content: "\f071";
+  content: "\f1ad";
   top: 0;
   left: 0;
   width: 100%;
@@ -31,7 +31,7 @@
   position: absolute;
   font-size: 55px;
   background: #ecf0f1;
-  color: #e5aeac;
+  color: #e9a11b;
   text-align: center;
 }
 .companyLogo-wrapper .upload-button {
