@@ -104,5 +104,11 @@ public int updateMyStudyBoardContent(SqlSessionTemplate session, MyStudyBoard b)
 	// TODO Auto-generated method stub
 	return session.update("member.updateMyStudyBoardContent", b);
 }
+
+@Override
+public int updatedeleteMember(SqlSessionTemplate session, Member m) {
+	// TODO Auto-generated method stub
+	return session.update("member.updatedeleteMember", m);
+}
   
 }

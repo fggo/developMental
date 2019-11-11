@@ -66,7 +66,8 @@
 
             <li>
                 <a href="javascript: ajaxJobPage('${path }/member/jobMyBoardList');" id="jobApplyBtn">내 게시판</a> 
-            </li>
+				</li>
+				
           </ul>
         </li>
 	</c:if>

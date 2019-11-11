@@ -44,6 +44,10 @@
 	<update id="updateMyStudyBoardContent" parameterType="com.kh.workman.member.model.vo.MyStudyBoard">
 		UPDATE BOARD_MEETUP SET CONTENT=#{content},TITLE=#{title} WHERE NO= #{no}
 	</update>
+	
+	<update id="updatedeleteMember" parameterType="com.kh.workman.member.model.vo.Member">
+		UPDATE MEMBER SET STATUS='0' WHERE ID=#{id}
+	</update>
   	
 	
 	<!-- END 게시판 -->

@@ -295,7 +295,7 @@ hr { margin-top: 5px;margin-bottom: 10px; }
       
       
       	
-       <div class="card border-primary mb-3" style="height: 100%;">
+       <!-- <div class="card border-primary mb-3" style="height: 100%;">
         <div class="card-header bg-primary h3">Job</div>
         <div class="card-body text-primary">
           <h5 class="card-title text-center">FrontEnd</h5><h6 class="text-right">Yoon</h6>
@@ -303,7 +303,7 @@ hr { margin-top: 5px;margin-bottom: 10px; }
             Some quick example text to build on the card title and make up the bulk of the card's content.
             sdfdsfddddddddddddddddddddddddddddddddddddddddddddddddddddddd
           </p>
-        </div>
+        </div> -->
         <!-- <div class="card-footer bg-info h5">신청한 인원</div>
         <div class="card-body text-primary">
           <div class="card-text">
@@ -345,14 +345,14 @@ hr { margin-top: 5px;margin-bottom: 10px; }
               </div>
 				</div> -->
 				
-          <h6 class="d-block text-right mt-3 mr-3">
+          <!-- <h6 class="d-block text-right mt-3 mr-3">
             <a href="#">2019-10-19</a>
 			  </h6>
 			 <div class="p-t">
          <button class="btn btn--radius-2 btn-primary pull-right" type="button" onclick="deletePage()" style="width: 60px; height: 50px; ">삭제</button>
 				<button class="btn btn--radius-2 btn-primary pull-right" type="button" onclick="updateMyBoard()" style="width: 60px; height: 50px; margin-right: 2px;">변경</button>
 		  </div>
-      </div> 
+      </div>  -->
       	
       	
       

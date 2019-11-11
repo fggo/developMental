@@ -222,6 +222,7 @@
                          </div>  
                         <div class="p-t-15-my">
                             <button class="btn-my btn--radius-2-my btn--blue-my pull-left" type="button" onclick="changeData()">변경</button>
+                            <button class="btn-my btn--radius-2-my btn--blue-my" style="margin-left: 70px;" type="button" onclick="deleteMember()">탈퇴</button>
                             <button class="btn-my btn--radius-2-my btn--blue-my pull-right" type="button" onclick="location.href='${path}'">취소</button>
                         </div>
                         
@@ -268,6 +269,15 @@
 </script>
 
 <script>
+	
+	function deleteMember()
+	{
+		var result = confirm("정말로 삭제하시겠습니까?");
+		if(result)
+		{
+			location.href="${path}/member/deleteMeber.do";
+		}
+	}
 
         
 /* $("#roadAddress").focus(function(){

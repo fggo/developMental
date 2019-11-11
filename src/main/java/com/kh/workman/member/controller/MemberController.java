@@ -57,29 +57,35 @@ public class MemberController {
 		String loc = "/";
 				
 		Member loginMember = service.selectLogin(m);
-		System.out.println("로그인" + pwEncoder.matches(m.getPw(), loginMember.getPw()));
-		
+		if(loginMember == null)
+		{
+			msg = "아이디/비밀번호가 없습니다. 회원 등록 하세요";
+		}else
+		{
+			System.out.println("로그인" + pwEncoder.matches(m.getPw(), loginMember.getPw()));
+			
 //		try {
 //			loginMember.setPw(en.decrypt(loginMember.getPw()));
 //		} catch (Exception e) {
 //			e.printStackTrace();
 //		}
-		//System.out.println(m.getPw());
-		//System.out.println(loginMember.getPw());
-		
-		if(m.getId().equals(loginMember.getId()) && pwEncoder.matches(m.getPw(), loginMember.getPw()))
-		//if(m.getPw().equals(loginMember.getPw()))
-		{
-			if(session.getAttribute("loginMember") != null)
-				session.removeAttribute("loginMember");
+			//System.out.println(m.getPw());
+			//System.out.println(loginMember.getPw());
 			
-			msg = "로그인 성공";
-			session.setAttribute("loginMember", loginMember);		
-			
-		}
-		else
-		{
-			msg = "로그인 실패";
+			if(m.getId().equals(loginMember.getId()) && pwEncoder.matches(m.getPw(), loginMember.getPw()))
+				//if(m.getPw().equals(loginMember.getPw()))
+			{
+				if(session.getAttribute("loginMember") != null)
+					session.removeAttribute("loginMember");
+				
+				msg = "로그인 성공";
+				session.setAttribute("loginMember", loginMember);		
+				
+			}
+			else
+			{
+				msg = "아이디 비밀버호가 틀립니다. 로그인 실패";
+			}	
 		}
 		
 		mv.addObject("msg", msg);
@@ -402,6 +408,36 @@ public class MemberController {
 		 mv.setViewName("/common/msg");
 		 
 		 return mv;
+	 }
+	 
+	 @RequestMapping("/member/deleteMeber.do")
+	 public ModelAndView deleteMember(HttpServletRequest request)
+	 {
+		 String msg = "";
+		 String loc= "/";
+		 
+		 HttpSession session = request.getSession();
+		 Member m = (Member)session.getAttribute("loginMember");
+		 
+		 int result = service.updatedeleteMember(m);
+		 
+		 if(result>0)
+		 {
+			 msg = "회원 탈퇴 완료";
+		 }else
+		 {
+			 msg = "회원 탈퇴 실패";
+		 }
+		 
+		 session.invalidate();
+		 
+		 ModelAndView mv = new ModelAndView();
+		 mv.addObject("msg", msg);
+		 mv.addObject("loc", loc);
+		 mv.setViewName("/common/msg");
+		 
+		 return mv;
+		 
 	 }
 	
 	

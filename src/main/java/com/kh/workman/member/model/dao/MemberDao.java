@@ -34,6 +34,6 @@ public interface MemberDao {
 	
 	int updateMyJobBoardContent(SqlSessionTemplate session, MyStudyBoard b);
 	int updateMyStudyBoardContent(SqlSessionTemplate session, MyStudyBoard b);
-	
+	int updatedeleteMember(SqlSessionTemplate session, Member m);
 	
 }

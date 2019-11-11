@@ -110,6 +110,12 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return dao.updateMyStudyBoardContent(session, b);
 	}
+	
+	@Override
+	public int updatedeleteMember(Member m) {
+		// TODO Auto-generated method stub
+		return dao.updatedeleteMember(session, m);
+	}
 
 
 }

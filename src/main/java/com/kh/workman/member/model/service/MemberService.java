@@ -28,4 +28,5 @@ public interface MemberService {
 	int updateMyJobBoardContent(MyStudyBoard b);
 	int updateMyStudyBoardContent(MyStudyBoard b);
 
+	int updatedeleteMember(Member m);
 }
