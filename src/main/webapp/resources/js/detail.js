@@ -378,8 +378,6 @@ function requestDeleteList(target){
 
 
 function requestDeletCard(target){
-//	alert('카드 삭제 기능 공사중입니다.');
-//	카드삭제기능 방어
 	var isDelete = confirm("삭제하시겠습니까?");
 	if(isDelete){
 		var cardNo = $("#modalCardNo").val();

@@ -151,7 +151,7 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-			   <button name="btnModalClose" type="button" class="btn btn-primary" onclick="requestDeleteTeamwork()">삭제</button>
+			   <button type="button" class="btn btn-primary" onclick="requestDeleteTeamwork()">삭제</button>
 			   <button name="btnModalClose" type="button" class="btn btn-secondary" data-dismiss="modal">나가기</button>
 			</div>		
 		</div>
@@ -1060,7 +1060,8 @@ function requestDeleteTeamwork(){
 		};
 		sendMessage(sendData);
 	}else{
-		alert('잘못입력하셨습니다. 다시 입력해주세요.');
+// 		$("#validate").val('잘못입력하셨습니다.');
+		alert('잘못입력하셨습니다.');
 	}
 }
 
