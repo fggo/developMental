@@ -27,5 +27,6 @@ public interface MemberDao {
 
 	List<Member> selectAllMember(SqlSessionTemplate session);
 	Member selectMemberNickname(SqlSessionTemplate session, Member m);
+	List<Map<String, Object>> selectApplylist(SqlSessionTemplate session, String nickname);
 
 }

@@ -81,4 +81,13 @@ public class MemberDaoImpl implements MemberDao {
     return session.selectOne("member.selectMemberNickname", m);
   }
 
+@Override
+public List<Map<String, Object>> selectApplylist(SqlSessionTemplate session, String nickname) {
+	return session.selectList("member.selectApplylist", nickname);
+}
+
+  
+  
+  
+  
 }

@@ -615,10 +615,20 @@ hr { margin-top: 5px;margin-bottom: 10px; }
 				
 				var data3 = '${jsonStudylist}';
 				var data4 = JSON.parse(data3);
+				
+				var data5 = '${jsonStudylist2}';
+				var data6 = JSON.parse(data5);
+	
 				//var jsonList = JSON.parse(data);
 				console.log(data2);
 				console.log(data4);
+				console.log("hello" +data6);
 				var startDiv = $("#TotalBoardContent");
+				
+				for(var dd in data6)
+				{console.log(data6[dd])}
+				
+
 				
 				if(startDiv != null)
 					startDiv.empty();
@@ -643,7 +653,8 @@ hr { margin-top: 5px;margin-bottom: 10px; }
 				{
 					if(data4[d2]['no'] == number && data4[d2]['boardName'] == 'STUDY')
 					{
-						console.log(data2[d]);
+						console.log("fuckers" +data4[d2]['no']);
+						
 						var borderDiv = $("<div class='card border-primary mb-3' style='height:100%;'>");
 						var headerDiv = $("<div class='card-header bg-primary h3'>"+data4[d2]['boardName']+"</div>");
 						var bodyDiv = $("<div class='card-body text-primary'>");
@@ -657,8 +668,10 @@ hr { margin-top: 5px;margin-bottom: 10px; }
 						var applyDiv = $("<div class='card-footer bg-info h5'>신청한 인원</div>");
 						borderDiv.append(applyDiv);
 						
-						// 신청한 사람이 몇명인지 체크 하고 for문을 여기서 돌리면됨
-						
+						// 신청한 사람이 몇명인지 체크 하고 for문을 여기서 돌리면됨\
+				for (var dd in data6)
+				{
+					if(data4[d2]['no'] == data6[dd]['NO']) {
 						var applybodyDiv = $("<div class='card-body text-primary'>");
 						var applytext = $("<div class='card-text'>");
 						var applyRounded = $("<div class='my-3 p-3 bg-white rounded box-shadow'>");
@@ -669,8 +682,9 @@ hr { margin-top: 5px;margin-bottom: 10px; }
 						var itemDiv = $("<div class='d-flex justify-content-between align-items-center w-100'>");
 						var strongData = $("<strong class='text-gray-dark'>"+'Full Name'+"</strong>");
 						var strongNextA = $("<a href='#'' style='color: black;''>Follow</a>");
-						var userNameSpan = $("<span class='d-block' style='float: left;'>@username</span>");
-						
+						var userNameSpan = $("<span class='d-block' style='float: left;'>"+data6[dd]['MEMBERNO']+"</span>");
+					
+				 
 						itemDiv.append(strongData);
 						itemDiv.append(strongNextA);
 						imgNextDiv.append(itemDiv);
@@ -684,8 +698,9 @@ hr { margin-top: 5px;margin-bottom: 10px; }
 						borderDiv.append(applybodyDiv);	
 					}
 				}
+				}
+				}
 				
-
 			//<div class="card-footer bg-info h5">신청한 인원</div>
 			//<div class="card-body text-primary">
 			//	<div class="card-text">

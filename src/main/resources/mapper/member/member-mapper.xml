@@ -124,4 +124,9 @@
   <select id="selectAllMemberSearch" resultType="com.kh.workman.member.model.vo.Member">
   	SELECT ID, NICKNAME, PROFILE FROM MEMBER WHERE STATUS = 1 AND NOT ID = '2010vienna'
   </select>
+  
+  <select id="selectApplylist"  parameterType="String" resultType="map">
+  		select no, memberno from board_meetup inner join apply_meetup on board_meetup.no= apply_meetup.boardno where writer=#{nickname}	order by no desc	
+  </select>
+  
 </mapper>

@@ -120,6 +120,17 @@
                      <input class="form-control"  id="txtdname" readonly />
                 </td>
               </tr> 
+               <tr>
+                <td class="h6"></td>
+                <td class="h5">
+                     <input class="form-control"  id="txtdname" readonly />
+                </td>
+              </tr> 
+              	<tr>
+              		<td>
+              			<input type=hidden name="logininfo" value="${loginMember.id}">
+              		</td>
+              	</tr>
             </tbody>
           </table>
 

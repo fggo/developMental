@@ -20,5 +20,6 @@ public interface MemberService {
 	 int selectMyStudyBoardCount(String nickname);
 	List<Member> selectAllMember();
 	Member selectMemberNickname(Member m);
+	List<Map<String, Object>> selectApplyList(String nickname);
 
 }

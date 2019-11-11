@@ -29,6 +29,7 @@ import com.kh.workman.job.model.vo.JobBoard;
 import com.kh.workman.member.model.service.MemberService;
 import com.kh.workman.member.model.vo.Member;
 import com.kh.workman.member.model.vo.MyStudyBoard;
+import com.kh.workman.member.model.vo.ApplyMeetUp;
 
 import net.sf.json.JSONArray;
 
@@ -282,14 +283,27 @@ public class MemberController {
 			String str = ((MyStudyBoard) studylist.get(j)).getContent().replaceAll("(\r\n|\r|\n|\n\r)", " ");
 			((MyStudyBoard) studylist.get(j)).setContent(str);
 		}
+		
+
 
 		String jsonlist = gson.toJson(list);
 		String jsonStudylist = gson.toJson(studylist);
 		// System.out.println(jsonlist);
+		
+		
+		List<Map<String, Object>> list2 = service.selectApplyList(loginMember.getNickname());
+		System.out.println("loginno: "+loginMember.getNickname());
+		System.out.println("list2 :" +list2);
+
+		mv.addObject("list2", list2);
+		
+		String jsonStudylist2 = gson.toJson(list2);
+		
 
 		mv.addObject("list", list);
 		mv.addObject("studylist", studylist);
 		model.addAttribute("jsonlist", jsonlist);
+		model.addAttribute("jsonStudylist2", jsonStudylist2);
 		model.addAttribute("jsonStudylist", jsonStudylist);
 //	    mv.addObject("newList", newList);
 		mv.setViewName("/member/jobMyBoardList");

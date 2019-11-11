@@ -17,7 +17,7 @@
 		 INSERT INTO BOARD_MEETUP VALUES(SEQ_BOARD_MEETUP.NEXTVAL, #{writer}, #{title}, #{content}, SYSDATE, 0, 1)
 	</insert>
 	<insert id="study.ApplyStudy" parameterType="map">
-		INSERT INTO APPLY_MEETUP VALUES(#{no}, (SELECT NO FROM MEMBER WHERE ID= #{writer}))
+		INSERT INTO APPLY_MEETUP VALUES(#{no}, (SELECT NO FROM MEMBER WHERE ID= #{logininfo}))
 	</insert>
 
 </mapper>

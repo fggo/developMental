@@ -67,11 +67,12 @@ public class StudyBoardController {
 	}
 	
 	@RequestMapping("/study/studyApply")
-	public ModelAndView ApplyStudy(int no, String writer){
+	public ModelAndView ApplyStudy(int no, String logininfo){
 		
 		Map<String, Object> p = new HashMap();
 		p.put("no",no);
-		p.put("writer", writer);
+		p.put("logininfo", logininfo);
+		System.out.println("writer : " +logininfo);
 		int result = service.ApplyStudy(p);
 		
 		
