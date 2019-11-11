@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.kh.workman.collabo.model.vo.CollaboCard;
+import com.kh.workman.collabo.model.vo.CollaboComment;
+import com.kh.workman.collabo.model.vo.CollaboCommentReply;
 import com.kh.workman.collabo.model.vo.CollaboList;
 import com.kh.workman.collabo.model.vo.CollaboTool;
 import com.kh.workman.collabo.model.vo.DataPacket;
@@ -49,5 +51,31 @@ public interface CollaboService {
 	int createCollaboTool(Map<String, Object> temp);
 
 	int insertCollaboMember(Map<String, Object> temp);
+
+	CollaboTool selectCollaboTool(int collaboNo);
+
+	Member selectCollaboOwner(int collaboNo);
+
+	int expulsionMember(HashMap<String, Object> receiveData);
+
+	int exitCollabo(HashMap<String, Object> receiveData);
+
+	int updateCollaboOwner(HashMap<String, Object> receiveData);
+
+	List<CollaboComment> requestCommentData(int cardNo);
+
+	List<CollaboCommentReply> requestCommentReply(int cardNo);
+
+	int createComment(DataPacket receive);
+
+	CollaboComment selectOneComment(DataPacket receive);
+
+	int deleteComment(DataPacket receive);
+
+	int createReply(DataPacket receive);
+
+	CollaboCommentReply selectOneReply(DataPacket receive);
+	
+	
 
 }

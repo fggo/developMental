@@ -1,42 +1,66 @@
 package com.kh.workman.common.api;
 
-import java.io.FileReader;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.Properties;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import org.springframework.context.annotation.PropertySource;
-
-  /** GitHub Jobs API implementation
-   * @apiNote https://oapi.saramin.co.kr
-   * @author junholee(jnuho@outlook.com)
+  /**
+   * @apiNote saramin
+   * @author jnuho@outlook.com
    * @since 2019.11.03
    */
-@PropertySource("classpath:s3cr3tk3y.properties")
+//@PropertySource("classpath:/properties/config.properties")
 public class JobSaramIn {
-  private String id; // The unique identifier for a job.
-  private String url; //채용공고 표준 URL. 공채속보의 경우, 리디렉션이 있을 수 있습니다.
-  private int active;  //공고 진행 여부 1 : 진행중  0 : 마감
+//	@Value("${junho}")
+//	private static String junho;
 
-  private static Properties prop = new Properties();
+  public static void main(String[] args) throws IOException {
+    //api 키
+    String apikey="9cqG2CIeznBzcZq9soJjeJmbsNP18TVHbNr7g8eeOpvp7BHn06";
+    
+    //테스트용 검색어
+    String keywords = "자바 백엔드".replace(" ", "%20");
 
-  public static void main(String[] args) {
-    System.out.println();
-//    File file = new File("/").
+    //요청 url
+    String reqUrl ="http://oapi.saramin.co.kr/job-search";
+    reqUrl+= "?access-key=" + apikey;
+    reqUrl += "&keywords=" + keywords; //separated by %20 and , // PHP%20MySQL, PHP+MySQL, PHP,MySQL
+    reqUrl += "&job_type=" + "1"; //"" all 1 full time / 2 contract
+    reqUrl += "&loc_cd=" + "101000"; //location 101000  서울
+    reqUrl += "&ind_cd=" + "308"; //industry category 308 정보보안·백신 3
+    reqUrl += "&job_category=" + "402"; //job category 402 서버·네트워크·보안  4
+    reqUrl += "&count=10"; //10 ~ max 110 jobs
+    reqUrl += "&sort=da";
 
-    try {
-      String path = JobSaramIn.class.getResource("/s3cr3tk3y.properties").getPath();
-      prop.load(new FileReader(path));
+    System.out.println(reqUrl);
+
+    URL url = new URL(reqUrl);
+    HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+    conn.setRequestMethod("GET");
+    conn.setRequestProperty("Accept", "application/json");
+    // conn.setRequestProperty("Content-Type", "application/json");
+
+    String result = "";
+    String line = "";
+
+    try(InputStreamReader is = new InputStreamReader(conn.getInputStream());
+      BufferedReader br = new BufferedReader(is);){
+      line = br.readLine();
+      System.out.println(line);
+
+//      while((line = br.readLine()) != null)
+//        result += (line + "\n");
+      
+      System.out.println(result);
+      
     } catch(IOException e) {
       e.printStackTrace();
     }
-    
-    String key = prop.getProperty("apikey");
 
-
-    ObjectMapper mapper = new ObjectMapper();
-
-    
+//    ObjectMapper mapper = new ObjectMapper();
+//    List<Map<String, String>> list = bService.selectBoardList(1, 5);
+//    return mapper.writeValueAsString(list);
   }
 }

@@ -45,9 +45,11 @@ public class MailController {
 		String toemail = request.getParameter("email");
 		String title = "잊어 버린 비밀 번호";
 		Member m = service.selectFindEmail(toemail);
+		System.out.println(m);
 		String requestURL = String.valueOf(request.getRequestURL()); //URL = http://localhost:9090/member/mailSending.do
 		requestURL = requestURL.replaceAll(request.getRequestURI(), ""); // URI = /member/mailSending.do 를 잘라 문자 특정 문자 가져오기
 		System.out.println("requestUrL : " + requestURL);  // http://localhost:9090
+		// server upload request.getContextPath();
 		String content ="<html><body><h3>비밀번호 새로 설정 하기</h3></br><a href='"+requestURL+"/member/resetPassword.do?toemail="+toemail+"'"+">비밀번호 새로 설정하기-링크클릭</a></body><html>";
 		
 		//System.out.println("requestURL index : " + requestURL.indexOf('/'));

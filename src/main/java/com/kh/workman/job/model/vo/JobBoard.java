@@ -22,6 +22,7 @@ public class JobBoard {
   private int status;
   private int applicants; //new column
   private String fileNewName; //JobBoardFile column
+  private String boardName;
   
   @JsonDeserialize(using = CustomJsonDateDeserializer.class)
   public Date getRegDate() { return this.regDate; }
@@ -34,5 +35,14 @@ public class JobBoard {
 
   public String getFileNewName(){ return fileNewName; }
   public void setFileNewName(String fileNewName) { this.fileNewName = fileNewName; }
+  
+  public String getBoardName()
+	{
+		return boardName;
+	}
+	public void setBoardName(String boardName)
+	{
+		this.boardName = boardName;
+	}
   
 }

@@ -8,7 +8,7 @@
 
   <!-- ..* 모든 클래스 모든 메소드 모든 매개변수
     <aop:pointcut expression="execution(* com.kh.spring.memo..*(..))" id="loggerTest"/>
-   dao에 있는 모든 패키지
+     dao에 있는 모든 패키지
      loggerTest 밑에 모든 매소드 가져오고 실행전에 loggerAdvice()실행 해!
      <aop:around method="loggerAdvice" pointcut-ref="loggerTest"/> -->
   <!-- 위에 등록된 aspect객체 이용하여 aop를 적용함 -->

@@ -178,7 +178,7 @@
       <artifactId>spring-security-config</artifactId>
       <version>${org.springframework-version}</version>
     </dependency>
-    
+
     <dependency> 
     	<groupId>org.springframework.security</groupId> 
     	<artifactId>spring-security-taglibs</artifactId>
@@ -192,8 +192,6 @@
       <artifactId>aspectjweaver</artifactId>
       <version>${org.aspectj-version}</version>
     </dependency>
-        
-
         
     <!-- Gson -->
     <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
@@ -217,6 +215,8 @@
         <artifactId>json-lib-ext-spring</artifactId>
         <version>1.0.2</version>
     </dependency>
+    
+    <!-- https://mvnrepository.com/artifact/net.sf.json-lib/json-lib -->
     <!-- jackson-databind : ResponseBody방식(jackson과 연결)을 이용한 ajax -->
     <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
     <dependency>
@@ -232,7 +232,7 @@
       <artifactId>json</artifactId>
       <version>20190722</version>
     </dependency>
-
+    
     <!-- Web Crawling -->
     <!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
     <dependency>
@@ -240,8 +240,12 @@
       <artifactId>jsoup</artifactId>
       <version>1.12.1</version>
     </dependency>
+ 
+
+
 
 	<dependency>
+
 	 <groupId>org.springframework</groupId>
 	 <artifactId>spring-context-support</artifactId>
 	 <version>${org.springframework-version}</version>
@@ -252,7 +256,6 @@
 	 <artifactId>mail</artifactId>
 	 <version>1.4.7</version>
 	</dependency>
-  
 
     <!-- log4jdbc-remix library : to print DB query result logs -->
     <!-- https://mvnrepository.com/artifact/org.lazyluke/log4jdbc-remix -->

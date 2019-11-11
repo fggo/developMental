@@ -52,12 +52,28 @@ public class NoticeServiceImpl implements NoticeService {
 		return dao.selectAttchList(session);
 	}
 	
+	@Override
+	public AdminNotice selectNoticeOne(int noticeNo) {
+		return dao.selectNoticeOne(session, noticeNo);
+	}
+	@Override
+	public List<AdminAttachment> selectAttachment(int noticeNo) {
+		return dao.selectAttachment(session,noticeNo);
+	}
 	
-	
-	
-	
-	
-	
-	
+	@Override
+	@Transactional(rollbackFor = Exception.class) //RuntimeException 발생시
+	public int updateNotice(Map<String, Object> param, List<AdminAttachment> attachList) {
+		int result=0;
+		result=dao.updateNotice(session,param);//notice테이블에 데이터 입력!
+		if(attachList.size()>0) {
+			for(AdminAttachment a : attachList) {
+				a.setNoticeNo((int)param.get("noticeNo"));
+				result=dao.updateAttachment(session,a);
+			}
+		}
+		
+		return result;
+	}	
 	
 }

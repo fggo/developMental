@@ -1,118 +1,121 @@
-<%@ page language="java" contentType="text/html;charset=utf-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<c:set var="path" value="${pageContext.request.contextPath}"/>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+<c:set var="path" value="${pageContext.request.contextPath}" />
 
 <jsp:include page="/WEB-INF/views/common/header.jsp">
-  <jsp:param name="pageTitle" value="" />
+  <jsp:param name="pageTitle" value="관리자" />
 </jsp:include>
 
 <jsp:include page="/WEB-INF/views/common/adminSidebar.jsp">
-  <jsp:param name="pageTitle" value="sidebar - mainview" />
+  <jsp:param name="pageTitle" value="관리자" />
 </jsp:include>
 
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> 
 
-<style>
-    #container {
-      width: 70%;
-      margin: 0 auto;     /* 가로로 중앙에 배치 */
-      padding-top: 10%;   /* 테두리와 내용 사이의 패딩 여백 */
+  <style>
+    .container-1200 {
+      width: 100%;
+      min-width: 1200px;
+      padding-left: 15px; padding-right: 15px;
+      margin: 0 auto;
     }
-     
-    #list {
-      text-align: center;
+    #main-container {
+    	margin-top: 50px;
+    	margin-left: 240px;
     }
-   
-    #write {
-      text-align: right;
-    }
-     
-    div > #paging {
-      text-align: center;
-    }
-     
-    #container {
-    	margin-left:250px;
-    }
-    #container > div > table > thead > tr > th {
-    	text-align: center;
-    	background-color:#6666ff;
+    .text-gray td {
+    	text-align:center;
     }
     
-    .top {
-    	caption-side: top;
-    }
-    th {
-    	border: 1px solid #444444;
-    }
-    td {
-    	text-align: center;
-    	border: 1px solid #ffffff;
-    }
-	#notice-modal{
-		width:800px;
-	}
   </style>
-  
-  
-  <div id="container">
-    <div>
-      <table class="table table-hover table-dark">
-      <caption class=top><Strong>Notice List</Strong></caption>
-        <thead>
-          <tr>
-            <th scope="col">No</th>
-            <th scope="col">Title</th>
-            <th scope="col">Writer</th>
-            <th scope="col">Date</th>
-            <th scope="col">ReadCnt</th>
-            <th colspan="2">btn_sup</th>
-          </tr>
-        </thead>
-        <tbody>
+
+  <!-- CSS -->
+
+  <div class="py-4 col-lg-10 container submenu-container" id ="main-container">
+
+    <div class="card card-fluid" id="job-listings">
+
+      <h6 class="card-header">
+        <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-primary rounded shadow-sm">
+          <i class="fa fa-check-square-o text-white mr-3 my-2" style="font-size:42px;"></i>
+          <div class="lh-100 ml-2">
+            <p class="h5 mb-0 text-white lh-100">&nbsp;&nbsp;공지사항</p>
+          </div>
+        </div>
+      </h6>
+
+      <div class="card-body">
+        <div class="media mb-2">
+          <div class="media-body pl-3 my-0 py-0">
+            <h2 class="card-title"><strong>Notice List</strong></h2>
+            <p class="card-text">
+              <small>사이트 운영방침 준수를 부탁드립니다.</small>
+            </p>
+          </div>
+          <div class="row d-flex mt-5">
+          </div>
+        </div>
+        <!-- form -->
+        <table class="table table-sm" id='qna_table' style="font-size:14px;">
+          <thead>
+            <tr>
+              <th class="text-center">번호</th>
+              <th class="text-center">제목</th>
+              <th class="text-center">작성자</th>
+              <th class="text-center">작성일</th>
+              <th class="text-center">조회수</th>
+              <th class="text-center" colspan="3">sup_btn</th>
+            </tr>
+          </thead>
+          <tbody>
           <c:forEach items="${list }" var="n" varStatus="s">
-            <tr class="text-white">
-              <td class="noticeNo">
+            <tr class="text-gray">
+              <td class="noticeNo text-center">
               ${n.noticeNo }
               <input name="content" type="hidden" value="${n.noticeContent }"/>
               <c:forEach items="${attList }" var="a" varStatus="as">
               	<c:if test="${n.noticeNo == a.noticeNo }">
-              		<input  name="renamedFileName" type="hidden" value="${a.renamedFileName }"/>
+              		<input  name="renamedFileName" type="hidden" id="${a.renamedFileName }" value="${a.originalFileName }"/>
               	</c:if>
               </c:forEach>
               </td>
-              <td class="noticeTitle">
-              	<a href='${path }/admin/adminNoticeView.do?noticeNo=${n.noticeNo }'>
+              <td class="noticeTitle text-center">
+<%--               	<a href='${path }/admin/adminNoticeView.do?noticeNo=${n.noticeNo }'> --%>
 					<c:out value='${n.noticeTitle }'/>
-				</a>
+<!-- 				</a> -->
               </td>
-              <td class="noticeWriter">${n.noticeWriter }</td>
-              <td class="noticeDate">${n.noticeDate }</td>
-              <td class="noticeReadcount">${n.noticeReadcount }</td>
-			  <td>
-				  <button type="button" name="btn_d" class="btn btn-outline-secondary" >삭제</button>
+              <td class="noticeWriter text-center">${n.noticeWriter }</td>
+              <td class="noticeDate text-center">${n.noticeDate }</td>
+              <td class="noticeReadcount text-center">${n.noticeReadcount }</td>
+			  <td align="center">
+				  <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#myModal">상세</button>
 			  </td>
-			  <td>
-				  <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#myModal">수정</button>
+			  <td align="center">
+				  <button class="btn btn-outline-secondary" name="btn_u">수정</button>
+<%--  <button class="btn btn--radius-2 btn--blue pull-right" type="button" onclick="location.href='${path}/member/mainPage.do'">취소</button> --%>
+			  </td>
+			  <td align="center">
+				  <button type="button" class="btn btn-outline-secondary" name="btn_d">삭제</button>
 			  </td>
             <tr>
           </c:forEach>
         </tbody>
       </table>
       
-      <!-- Paging 처리 -->
-      <div id="paging">
-      ${pageBar }
-      </div>
+      <nav aria-label="Page navigation example">
+       <div id="paging">
+       	${pageBar }
+       </div>
+      </nav>
     </div>
-  </div>
-  
-  <!-- The Modal -->
+    
+    <!-- The Modal -->
   <div class="modal" id="myModal">
     <div class="modal-dialog">
       <div class="modal-content" id="notice-modal">
@@ -125,7 +128,7 @@
         
         <!-- Modal body -->
         <div class="modal-body">
-          <div class="row" style="height:600px;">
+          <div class="row" style="height:400px;">
         	<table class="pull-left col-md-8">
          	 <tbody>
           	<tr>
@@ -161,8 +164,7 @@
             </tr>
             <tr>
               <td class="h6"><strong>File : </strong></td> <td></td>
-              <td class="h5">
-              <input type="button" class="btn btn-outline-info" name="renamedFileName" id="renamedFileName" onclick="fileDownload('${a.originalFileName}','${a.renamedFileName }');">
+              <td id='filecontainer' class="h5">
               </td>
             </tr>
           </tbody>
@@ -178,60 +180,72 @@
     </div>
   </div>
   </div>
+  </div>
+  </div>
 
+    <script>
+   // 파일다운
+      function fileDownload(oName, rName) {
+//       	console.log(oName+":"+rName);
+          oName=encodeURIComponent(oName);
+          location.href="${path}/notice/filedownLoad.do?oName="+oName+"&rName="+rName;
+       }
+       
+      // $("#myModal").on('hide.bs.modal',function(e){
+//       	$("#filecontainer").empty();
+      // });
 
+      $("#myModal").on('show.bs.modal',function(e){	  
+      	var data=$(e.relatedTarget).parents("tr").children();
+       	var noticeNo = parseInt($(e.relatedTarget).parents("tr").children('.noticeNo').text());
+       	var title =  $(e.relatedTarget).parents("tr").children('.noticeTitle').text().trim();
+       	var writer =  $(e.relatedTarget).parents("tr").children('.noticeWriter').text().trim();
+       	var date =  $(e.relatedTarget).parents("tr").children('.noticeDate').text().trim();
+       	var readCount =  $(e.relatedTarget).parents("tr").children('.noticeReadcount').text().trim();
+       	
+       	var content = $(e.relatedTarget).parents("tr").children('.noticeNo').children('input[name=content]').val();
+       	var renamedFileName = $(e.relatedTarget).parents("tr").children('.noticeNo').children('input[name=renamedFileName]');
+       	
+       	e.stopPropagation();
+       	
+       	$.each(renamedFileName,function(i,item){
+       		$(item).attr({"type":"button","onclick":"fileDownload('"+$(item).attr("id")+"','"+$(item).val()+"')"});
+       		$(item).addClass("btn btn-outline-info");
+       		$("#filecontainer").append(item);
+       		
+       	});
+       	
+      	$("#no").val(noticeNo);
+      	$("#content2").val(content);
+      	$("#content").val(content);
+      	$("#title").val(title);
+      	$("#writer").val(writer);
+      	$("#date").val(date);
+      	$("#readCount").val(readCount);
+      	$("#renamedFileName").val(renamedFileName);
+      	
+      });
+      
+      $("button[name=btn_d]").click(function(){
+      	var tr = $(this).parent().parent();
+      	var td = tr.children();
+      	
+      	var noticeNo=td.eq(0).text();
+      	if(confirm("삭제된 정보는 복구되지 않습니다. 정말로 삭제합니까?")){
+      		location.href="${path}/admin/noticeDelete?noticeNo="+noticeNo;
+      	}
+      });
 
-<script>
-// 파일다운
-function fileDownload(oName, rName) {
-	console.log("돌아는 가네");
-//     oName=encodeURIComponent(oName);
-//     location.href="${path}/board/filedownLoad.do?oName="+oName+"&rName="+rName;
- }
+      $("button[name=btn_u]").click(function(){
+      	var tr = $(this).parent().parent();
+      	var td = tr.children();
+      	
+      	var noticeNo=td.eq(0).text();
+      	if(confirm("공지사항을 수정합니다.")){
+      		location.href="${path}/admin/noticeUpdate?noticeNo="+noticeNo;
+      	}
+      });
+      
+    </script>
 
-$("#myModal").on('show.bs.modal',function(e){
-	var data=$(e.relatedTarget).parents("tr").children();
- 	var noticeNo = parseInt($(e.relatedTarget).parents("tr").children('.noticeNo').text());
- 	var title =  $(e.relatedTarget).parents("tr").children('.noticeTitle').text().trim();
- 	var writer =  $(e.relatedTarget).parents("tr").children('.noticeWriter').text().trim();
- 	var date =  $(e.relatedTarget).parents("tr").children('.noticeDate').text().trim();
- 	var readCount =  $(e.relatedTarget).parents("tr").children('.noticeReadcount').text().trim();
- 	
- 	var content = $(e.relatedTarget).parents("tr").children('.noticeNo').children('input[name=content]').val();
- 	var renamedFileName = $(e.relatedTarget).parents("tr").children('.noticeNo').children('input[name=renamedFileName]').val();
- 	
- 	console.log(renamedFileName);
- 	
-	$("#no").val(noticeNo);
-	$("#content2").val(content);
-	$("#content").val(content);
-	$("#title").val(title);
-	$("#writer").val(writer);
-	$("#date").val(date);
-	$("#readCount").val(readCount);
-	$("#renamedFileName").val(renamedFileName);
-	
-});
-
-$("button[name=btn_d]").click(function(){
-	var tr = $(this).parent().parent();
-	var td = tr.children();
-	
-	var noticeNo=td.eq(0).text();
-	if(confirm("삭제된 정보는 복구되지 않습니다. 정말로 삭제합니까?")){
-		location.href="${path}/admin/noticeDelete?noticeNo="+noticeNo;
-	}
-});
-
-$("button[name=btn_u]").click(function(){
-	var tr = $(this).parent().parent();
-	var td = tr.children();
-	
-	var noticeNo=td.eq(1).text();
-	if(confirm("공지사항을 수정합니다.")){
-		location.href="${path}/admin/noticeUpdate?noticeNo="+noticeNo;
-	}
-	
-});
-
-</script>
+<jsp:include page="/WEB-INF/views/common/footer.jsp" />

@@ -23,8 +23,6 @@
         <div class="row mb-4">
           <div class="col-lg-8 mx-auto text-center">
             <h2 class="">구인글 등록</h2>
-            <p class="lead mb-0">
-            </p>
           </div>
         </div>
         <!-- End -->
@@ -71,18 +69,27 @@
                     <hr>
                     <div class="row">
                       <div class="col-sm-6">
-                        <div class="form-group my-0">
+                        <!-- <div class="form-group my-0">
                           <label for="jobType">Ⅰ. 직업 타입</label>
                           <select name="jobType" id="jobType" class="form-control" required>
                             <option value="Full Time">정규직</option>
                             <option value="Part Time">Part Time</option>
                           </select>
+                        </div> -->
+                        <div class="my-1">
+                          <label for="jobType">Ⅰ. 근무형태</label>
+                          <select name="jobType" id="jobType" class="form-control-sm custom-select mr-2" required>
+                            <option selected disabled>근무형태</option>
+                            <option value="정규직">정규직</option>
+                            <option value="계약직">계약직</option>
+                          </select>
                         </div>
                       </div>
                       <div class="col-sm-6">
-                        <div class="form-group my-0">
+                        <div class="my-1">
                           <label for="location">Ⅱ. 회사위치</label>
-                          <textarea name="location" placeholder="address..." required class="form-control" rows="2" style="resize:none"></textarea>
+                          <textarea name="location" placeholder="address..." class="form-control"
+                            rows="3" style="resize:none" required></textarea>
                         </div>
                       </div>
                     </div>

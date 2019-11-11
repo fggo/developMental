@@ -23,6 +23,7 @@
     </div>
 
     <div class="modal-body" id="jobmodal-body">
+      <!-- apply form -->
       <form action="${path}/job/jobApply" id="applyFrm" method="get" class="form">
         <div class="container row">
           <div class="col-md-8 bg-transparent">
@@ -33,12 +34,6 @@
             </div>
 
             <input type="hidden" name="title" value="${jobBoard.title}">
-  <!-- private String content;
-  private Date regDate;
-  private int count;
-  private int status;
-  private int applicants; //new column
-  private String fileNewName; //JobBoardFile column -->
             <div class="form-inline form-group">
               <div class="col-md-3"><strong>회사명</strong></div>
               <div class="col-md-9">
@@ -78,13 +73,19 @@
           </div>
           <textarea class="form-control w-100 h-50" rows='10' name="content" readonly>${jobBoard.content}</textarea>
         </div>
+        
+        <input type="hidden" name="imageURL" id="imageURL" value="${imageURL}">
+        <input type="hidden" name="count" value="${jobBoard.count}" />
+        <input type="hidden" name="status" value="${jobBoard.status}" />
+        <input type="hidden" name="applicants" value="${jobBoard.applicants}" />
+
         <hr>
         <div class="container row form-inline form-group justify-content-center text-center">
           <c:if test="${loginMember !=null}">
-            <button type="submit" class="btn btn-lg btn-primary" id="applyBtn">지원하기</button>
+            <button type="submit" class="btn btn-lg btn-primary applyBtn" id="applyBtn">지원하기</button>
           </c:if>
           <c:if test="${loginMember ==null}">
-            <button type="button" class="btn btn-lg btn-secondary disabled" id="applyBtn">지원하기</button>
+            <button type="button" class="btn btn-lg btn-secondary disabled applyBtn" id="disabledApplyBtn">지원하기</button>
           </c:if>
           <button type="button" class="btn btn-lg btn-outline-danger ml-2" data-dismiss="modal" aria-hidden="true">
             취소
@@ -99,14 +100,11 @@
 
   <script>
     $(function(){
-      // $('#companyLogo').css({
-      //   'height': '100px',
-      //   'width': '100%',
-      //   'object-fit': "cover",
-      // });
 
-      $('#applyBtn').click(function(e) {
-        e.preventDefault();
+      window.localStorage.setItem("imageURL", '${imageURL}');
+
+      $('.applyBtn').click(function(e) {
+        // e.preventDefault();
         alert("ajax");
 
         $.ajax({

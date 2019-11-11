@@ -8,6 +8,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.workman.collabo.model.vo.CollaboCard;
+import com.kh.workman.collabo.model.vo.CollaboComment;
+import com.kh.workman.collabo.model.vo.CollaboCommentReply;
 import com.kh.workman.collabo.model.vo.CollaboList;
 import com.kh.workman.collabo.model.vo.CollaboTool;
 import com.kh.workman.collabo.model.vo.DataPacket;
@@ -63,22 +65,22 @@ public class CollaboDaoImpl implements CollaboDao {
 
 	@Override
 	public int deleteCard(SqlSessionTemplate session, DataPacket receive) {
-		return session.delete("collabo.deleteCard", receive);
+		return session.update("collabo.deleteCard", receive);
 	}
 
 	@Override
 	public int deleteList(SqlSessionTemplate session, DataPacket receive) {
-		return session.delete("collabo.deleteList", receive);
+		return session.update("collabo.deleteList", receive);
 	}
 
 	@Override
 	public int deleteListToCards(SqlSessionTemplate session, DataPacket receive) {
-		return session.delete("collabo.deleteListToCards", receive);
+		return session.update("collabo.deleteListToCards", receive);
 	}
 
 	@Override
 	public int updateList(SqlSessionTemplate session, DataPacket receive) {
-		return session.delete("collabo.updateList", receive);
+		return session.update("collabo.updateList", receive);
 	}
 
 	@Override
@@ -110,5 +112,67 @@ public class CollaboDaoImpl implements CollaboDao {
 	public int insertCollaboMember(SqlSessionTemplate session, Map<String, Object> temp) {
 		return session.insert("collabo.insertCollaboMember", temp);
 	}
+
+	@Override
+	public CollaboTool selectCollaboTool(SqlSessionTemplate session, int collaboNo) {
+		return session.selectOne("collabo.selectCollaboTool", collaboNo);
+	}
+
+	@Override
+	public Member selectCollaboOwner(SqlSessionTemplate session, int collaboNo) {
+		return session.selectOne("collabo.selectCollaboOwner", collaboNo);
+	}
+
+	@Override
+	public int expulsionMember(SqlSessionTemplate session, HashMap<String, Object> receiveData) {
+		return session.delete("collabo.expulsionMember", receiveData);
+	}
+
+	@Override
+	public int exitCollabo(SqlSessionTemplate session, HashMap<String, Object> receiveData) {
+		return session.delete("collabo.exitCollabo", receiveData);
+	}
+
+	@Override
+	public int updateCollaboOwner(SqlSessionTemplate session, HashMap<String, Object> receiveData) {
+		return session.update("collabo.updateCollaboOwner", receiveData);
+	}
+
+	@Override
+	public List<CollaboComment> requestCommentData(SqlSessionTemplate session, int cardNo) {
+		return session.selectList("collabo.requestCommentData", cardNo);
+	}
+
+	@Override
+	public List<CollaboCommentReply> requestCommentReply(SqlSessionTemplate session, int cardNo) {
+		return session.selectList("collabo.requestCommentReply", cardNo);
+	}
+
+	@Override
+	public int createComment(SqlSessionTemplate session, DataPacket receive) {
+		return session.insert("collabo.createComment", receive);
+	}
+
+	@Override
+	public CollaboComment selectOneComment(SqlSessionTemplate session, DataPacket receive) {
+		return session.selectOne("collabo.selectOneComment", receive);
+	}
+
+	@Override
+	public int deleteComment(SqlSessionTemplate session, DataPacket receive) {
+		return session.update("collabo.deleteComment", receive);
+	}
+
+	@Override
+	public int createReply(SqlSessionTemplate session, DataPacket receive) {
+		return session.insert("collabo.createReply", receive);
+	}
+
+	@Override
+	public CollaboCommentReply selectOneReply(SqlSessionTemplate session, DataPacket receive) {
+		return session.selectOne("collabo.selectOneReply",receive);
+	}
+	
+	
 
 }

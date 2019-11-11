@@ -10,17 +10,18 @@
   </settings>
 
   <typeAliases>
-
-    <!-- Job board CLOB type handler alias-->
+	
+	<!-- Job board CLOB type handler alias-->
     <typeAlias type="org.apache.ibatis.type.ClobTypeHandler" alias="clobType" />
-
+	
     <typeAlias type="com.kh.workman.common.ArrayTypeHandler" alias="arrType" />
-
+    
+    <typeAlias type="com.kh.workman.admin.model.vo.Faq" alias="faq" />
     <typeAlias type="com.kh.workman.admin.model.vo.AdminMember" alias="adminMember" />
     <typeAlias type="com.kh.workman.admin.model.vo.AdminAttachment" alias="adminAttachment" />
     <typeAlias type="com.kh.workman.admin.model.vo.AdminNotice" alias="adminNotice" />
-    <typeAlias type="com.kh.workman.member.model.vo.Member" alias="member"/>
-	 
+	<typeAlias type="com.kh.workman.member.model.vo.Member" alias="member"/>
+
     <!-- Collabo -->
     <typeAlias type="com.kh.workman.collabo.model.vo.CollaboList" alias="collaboList" />
     <typeAlias type="com.kh.workman.collabo.model.vo.CollaboCard" alias="collaboCard" />
@@ -33,10 +34,9 @@
     <typeAlias type="com.kh.workman.job.model.vo.JobApply" alias="jobApply" />
     
 
-    
 	<!-- Study -->
 	 <typeAlias type="com.kh.workman.study.model.vo.StudyBoard" alias="studyboard" />
-    
+
 
   </typeAliases>
 

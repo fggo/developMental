@@ -15,5 +15,8 @@ public interface NoticeService {
 	int deleteNotice(Map<String, Object> map);
 	
 	List<AdminAttachment> selectAttachList();
+	AdminNotice selectNoticeOne(int noticeNo);
+	List<AdminAttachment> selectAttachment(int noticeNo);
+	int updateNotice(Map<String, Object> param, List<AdminAttachment> attachList);
 
 }

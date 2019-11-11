@@ -42,16 +42,22 @@
   <!-- Sidebar  -->
   <div class="d-flex">
     <nav id="sidebar" class="p-0 flex-shrink-1">
-      <div class="sidebar-header">
-        <c:if test="${param.pageTitle == ''}">
-          <h4><a href="${path }/"><i class="fa fa-home">&nbsp;&nbsp;Home</i></a></h4>
-        </c:if>
-        <c:if test="${param.pageTitle != ''}">
-          <h3><a href="${path }/">${ param.pageTitle }</a></h3>
-        </c:if> 
-        
+
+      <div class="sidebar-header py-4">
+        <!-- c:if test="${param.pageTitle == ''}" -->
+        <h4><a href="${path }"><i class="fa fa-home">&nbsp;&nbsp;Workman</i></a></h4>
+
       </div>
+
       <ul class="list-unstyled components">
+        <p class="p-2"><i class="fa fa-tag" aria-hidden="true">&nbsp;&nbsp;메뉴</i></p>
+        <!-- <hr style="border-top: 1px solid white;"> -->
+        <hr>
+	<c:if test="${loginMember != null}">
+
+      <ul class="list-unstyled components pt-0">
+
+
 
 
         <li class="active">
@@ -62,20 +68,22 @@
             </li>
 
             <li>
-              <a href="javascript: ajaxJobPage('${path }/job/jobApplyList');" id="jobApplyBtn">마이게시판</a>
+                <a href="javascript: ajaxJobPage('${path }/member/jobMyBoardList');" id="jobApplyBtn">내 게시판</a> 
             </li>
           </ul>
         </li>
+	</c:if>
 
 
         <li class="active">
-          <a href="#jobSidemenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle sidebar-dropdown-toggle">구인</a>
+          <a href="#jobSidemenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle sidebar-dropdown-toggle">구인구직</a>
           <ul class="collapse list-unstyled" id="jobSidemenu">
             <li>
-              <a href="javascript: ajaxJobPage('${path }/job/jobBoardList');" id="jobBoardBtn">구인게시판</a>
+              <a href="javascript: ajaxJobPage('${path }/job/jobBoardList');" id="jobBoardBtn">채용정보</a>
             </li>
           </ul>
         </li>
+
         
         
         <li class="active">
@@ -87,19 +95,22 @@
             </li>
             </ul>
         </li>
-        
-        
-       <%--  <li class="active">
-          <a href="#studySubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle sidebar-dropdown-toggle">스터디</a>
-           <ul class="collapse list-unstyled" id="studySidemenu">
-            <li>
-            	<a href='${path }/study/studyList'>스터디 모임</a>
-            	<a href="javascript: ajaxJobPage('${path }/study/studyList);" id="jobBoardBtn">개인정보수정</a>
-            </li>       
 
-          </ul>
-           </li>
-      </ul> --%>
+           
+		<li class="active">
+		<a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle sidebar-dropdown-toggle">공지사항</a>
+			<ul class="collapse list-unstyled" id="pageSubmenu">
+				<li>
+					<a href="javascript: ajaxJobPage('${path }/admin/noticeList');" id="jobBoardBtn">공지사항</a>
+				</li>
+				<li>
+					<a href="javascript: ajaxJobPage('${path }/member/faqList');" id="jobApplyBtn">자주하는 질문</a>
+				</li>
+			</ul>
+		</li>
+           
+      </ul>
+
   
       <!-- <ul class="list-unstyled CTAs">
         <li>
@@ -137,6 +148,13 @@
           $('#databaseJobBoardList').html(html.find('.jobmodal-tbl1'));
           $('#pageBar').html(html.find('#pageBar'));
 
+          $('.w-0').css({'width': '0%', });
+          $('.w-5').css({'width': '5%', });
+          $('.w-10').css({'width': '10%', });
+          $('.w-25').css({'width': '25%', });
+          $('.w-30').css({'width': '30%', });
+          $('.w-40').css({'width': '40%', });
+          $('.w-45').css({'width': '45%', });
         },
         error: function(status, msg){
           alert('ajax error!');

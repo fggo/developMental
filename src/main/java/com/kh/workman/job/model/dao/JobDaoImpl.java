@@ -7,6 +7,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.workman.job.model.vo.JobApply;
 import com.kh.workman.job.model.vo.JobBoard;
 import com.kh.workman.job.model.vo.JobBoardFile;
 
@@ -18,6 +19,11 @@ public class JobDaoImpl implements JobDao {
     return session.selectOne("job.selectJobBoardOne", j);
   }
   
+  @Override
+  public JobBoard selectJobBoardWriter(SqlSessionTemplate session, JobBoard j) {
+    return session.selectOne("job.selectJobBoardWriter", j);
+  }
+
   @Override
   public List<Map<String, Object>> selectPageJobBoardList(SqlSessionTemplate session, int cPage, int numPerPage) {
     RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
@@ -44,6 +50,11 @@ public class JobDaoImpl implements JobDao {
   public int selectJobBoardSeq(SqlSessionTemplate session) {
     return session.selectOne("job.selectJobBoardSeq");
     
+  }
+
+  @Override
+  public int insertJobApply(SqlSessionTemplate session, JobApply apply) {
+    return session.insert("job.insertJobApply", apply);
   }
   
 }

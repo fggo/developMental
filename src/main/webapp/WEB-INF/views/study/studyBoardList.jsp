@@ -25,6 +25,10 @@
     }
 
  
+ /*    .modal {
+      text-align: center; */
+
+ 
      .modal {
       text-align: center
       }
@@ -76,6 +80,7 @@
    } 
 
   </style>
+
 
      
 
@@ -142,6 +147,7 @@
 
 
 
+
   <main id="main-wrapper" class="p-0 w-100">
   
   <div class="py-4 col-lg-10 container submenu-container">
@@ -150,6 +156,9 @@
     <div class="card card-fluid" id="job-listings">
 
       <div class="card-header my-0 py-0">
+
+
+        <a href="${path}/mainView"><img src="${path}/resources/images/home.png" alt=""></a>
 
 
         <div class="d-flex align-items-center p-3 my-0 text-white bg-dark rounded">
@@ -171,15 +180,19 @@
 
                 <div class="ml-auto">
               <c:if test="${loginMember !=null}">
+
        			<button id="poststudyBtn" class="ml-auto mr-3 align-self-center btn float-left btn-outline-primary">스터디 모집</button>
               </c:if>
               <c:if test="${loginMember == null}">
                 <button id="poststudyBtn1" class="ml-auto mr-3 align-self-center btn float-left btn-outline-primary">스터디 모집</button>
+
               </c:if>
                 <button id="demo" class="ml-auto mr-3 align-self-center btn float-left btn-outline-primary" onclick="location.href='${pageContext.request.contextPath }/study/applyconfirm'">demo</button>
             </div>
    
+
                 <div id="databaseStudyBoardList">
+
           <table class="table table-sm table-hover studymodal-tbl1" style="font-size:14px;">
             <thead>
               <tr>
@@ -225,25 +238,33 @@
              <form action="${path}/study/studyrecruit" method="post">
          				   <div class="modal-body recruit-form">
                         <div class="form-group my-0">
+
                       <label for="writer">&nbsp;&nbsp;</label>유저 이름
+
                       <c:if test="${loginMember != null}">
                         <input type="text" class="form-control text-primary" name="writer" value="${loginMember.nickname}" readonly required />
                       </c:if>
                     </div>
                     <div class="form-group">
+
                       <label for="title">제목</label>
                       <input type="text" name='title' placeholder="제목"required class="form-control">
+
                     </div>
                     <!-- content -->
                     <hr>
                     <div class="form-group my-0">
+
                       <label for="description">상세 정보</label>
                       <textarea name="content" placeholder="상세 정보" required class="form-control" rows="5" style="resize:none"></textarea>
+
                     </div>
                     <hr>
                     <!-- /content end -->
              
+
                     <input type="submit" class="subscribe btn btn-outline-dark btn-block rounded-lg shadow-sm" value="모집" />
+
                   </form>
                 </div>
               </div>

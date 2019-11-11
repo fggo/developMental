@@ -9,8 +9,12 @@
 </jsp:include>
 
 
-<!-- Popper -->
- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script src="${path }/resources/js/detail.js" type="text/javascript"></script>
+
 <!-- Google material Icons -->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <!-- collabo/detail.css -->
@@ -19,11 +23,22 @@
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" rel="stylesheet">
 <!-- Socket -->
 <script src="https://cdn.jsdelivr.net/sockjs/1/sockjs.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> 
+<!-- bootstrap -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.js"></script>
+
 <section class="container-fluid" id="content">
 	<div class="row collabo-header" >
-		<span style="font-size:18px;color:white;font-weight:bold;">대충 트렐로 메뉴</span>
-		<button type="button" data-toggle="modal" data-target="#cardModal">모달테스트</button>
+		<div style="width:200px">
+			<span style="font-size:18px;color:white;font-weight:bold;">${collaboTool.title }</span>
+		</div>
+		<div>
+			<c:if test="${collaboTool.owner eq loginMember.no }">
+				<button style="margin-right:5px;border-radius:8px" class="btn btn-sm btn-primary" type="button" data-toggle="modal" data-target="#inviteModal">초대</button>
+				<button style="border-radius:8px;margin-right:5px"class="btn btn-sm btn-primary" type="button" data-toggle="modal" data-target="#expulsionModal">추방</button>
+			</c:if>
+			<button type="button" class="btn btn-sm btn-primary" style="margin-right:5px;border-radius:8px" onclick="exitCollabo('${loginMember.no}')">탈퇴</button>
+		</div>
+		
 	</div>
 	<div class="board" >
 		<c:if test="${loginMember != null}">
@@ -95,14 +110,64 @@
 		 <!-- The Modal -->
  
 </div>
-  <!-- The Modal -->
+<!-- Invite Modal -->
+<div class="modal fade" id="inviteModal">
+	<div class="modal-dialog" style="width:450px;">
+		<div class="modal-content">
+			<div class="modal-header">
+			  <h3 class="modal-title"><span class="material-icons">input</span>[팀워크 초대]<span id="modal-title"></span></h3>
+       	 	  <button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<div class="modal-body">
+			<hr/>
+				<div class="ui-widget">
+					<label for="userId">ID : </label>
+					<input type="text" id="userId" autocomplete="off" />
+					<img id="userProfile"/>
+				</div>
+			</div>
+			<div class="modal-footer">
+			   <button name="btnModalClose" type="button" class="btn btn-primary" onclick="requestInvite()">초대</button>
+			   <button name="btnModalClose" type="button" class="btn btn-secondary" data-dismiss="modal">나가기</button>
+			</div>		
+		</div>
+	</div>
+</div>
+
+<!-- 추방 Modal -->
+<div class="modal fade" id="expulsionModal">
+	<div class="modal-dialog" style="width:450px;">
+		<div class="modal-content">
+			<div class="modal-header">
+			  <h3 class="modal-title"><span class="material-icons">input</span>[팀워크 추방]<span id="modal-title"></span></h3>
+       	 	  <button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<div class="modal-body">
+			<hr/>
+				<div class="ui-widget">
+					<label for="ExpulsionUserId">ID : </label>
+					<input type="text" id="expulsionUserId" autocomplete="off" />
+					<img id="userProfile"/>
+				</div>
+			</div>
+			<div class="modal-footer">
+			   <button name="btnModalClose" type="button" class="btn btn-primary" onclick="requestExpulsion()">추방</button>
+			   <button name="btnModalClose" type="button" class="btn btn-secondary" data-dismiss="modal">나가기</button>
+			</div>		
+		</div>
+	</div>
+</div>
+
+
+
+  <!-- CardModal -->
   <div class="modal fade" id="cardModal">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
       
         <!-- Modal Header -->
         <div class="modal-header">
-          <h3 class="modal-title"><span class="material-icons">dvr</span>[Title]<span id="modal-title"></span></h3>
+          <h3 class="modal-title"><span class="material-icons">dvr</span>[List]<span id="mtitle"></span></h3>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         
@@ -120,7 +185,7 @@
           		</div>
           		<div id="modifyContent" class="panel-collapse collapse">
           			<div class="panel-body">
-          				<textarea id="editContent" rows="3" cols="92"></textarea>
+          				<textarea id="editContent" rows="3" style="width:-webkit-fill-available"></textarea>
           				<br>
           				<button onclick="requestUpdateCard(this);"type="button" class="btn btn-sm btn-primary" style="margin-top:10px;">수정!</button>
           			</div>
@@ -135,7 +200,11 @@
           <div style="margin-top:70px;padding:10px 2px;">
           	<h5>댓글</h5>
           	<hr>
-          		<textarea id="editArea" rows="3" cols="92"></textarea>
+          	<div id="commentArea">
+          		
+          	</div>
+          		<textarea id="editArea" rows="3" cols="86" style="margin-top:10px"></textarea>
+          		<button type="button" class="btn btn-sm btn-primary" onclick="requestCommentWrite(this);" id="btnComment">덧글작성</button>
           </div>
         </div>
         
@@ -147,9 +216,84 @@
       </div>
     </div>
   </div>
-  
+
+<div class="wrap-loading display-none">
+    <div><img src="${path }/resources/images/loder.gif" /></div>
+</div>
+
 </section>
+<style>
+.wrap-loading{ /*화면 전체를 어둡게 합니다.*/
+    position: fixed;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+    background: rgba(0,0,0,0.2); /*not in ie */
+    filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr='#20000000', endColorstr='#20000000');    /* ie */
+}
+
+    .wrap-loading div{ /*로딩 이미지*/
+        position: fixed;
+        top:50%;
+        left:50%;
+        margin-left: -21px;
+        margin-top: -21px;
+    }
+    .display-none{ /*감추기*/
+        display:none;
+    }
+    
+    .ui-autocomplete{
+    	max-height:400px;
+    	overflow-y:auto;
+    	overflow-x:hidden;
+    }
+
+</style>
 <script>
+isCardModalOpen = false;
+
+function requestExpulsion(){
+	var userId = $("#expulsionUserId").val();
+		if(userId!=''){
+			$.ajax({
+				type : "post",
+				url : "${path}/collabo/expulsionMember",
+				dataType : "json",
+				data : {
+					userId : userId,
+					collaboNo : collaboNo
+				},
+				success : function(data){
+					console.log(data);
+					if(data){
+						alert('추방하였습니다.');
+					}
+					else{
+						alert('추방 실패!');
+					}
+				},
+				beforeSend:function(){
+					$('.wrap-loading').removeClass('display-none');
+				},
+				complete:function(){
+					$('.wrap-loading').addClass('display-none');
+				}
+			});
+		}
+}
+
+$("#expulsionModal").on("show.bs.modal",function(){
+	$("#expulsionUserId").autocomplete("option","appendTo","#expulsionModal");
+})
+
+
+$("#inviteModal").on("show.bs.modal",function(){
+	$("#userId").autocomplete("option", "appendTo", "#inviteModal");
+});
+
+
 var userId =  "${loginMember.id}";
 var collaboNo = ${collaboNo};
 let sock = new SockJS("<c:url value="/collabo/soc"/>");
@@ -170,90 +314,6 @@ sock.onopen = function(){
 }
 
 
-function requestMoveList(element, ev){
-	console.log($(element));
-	console.log(ev.dataTransfer.getData("text"));
-	/* document.getElementById("listNo_"+listNo).appendChild(document.getElementById("cardNo_"+cardNo)); */
- 	var listNo = $("#"+ev.dataTransfer.getData("text")).attr("id").substring(7);
-	var targetListNo = $(element).children().children('.list-cards').attr("id").substring(7);
-	var sendData = {
-		type : "list",
-		method : "move",
-		listNo : listNo,
-		userId : userId,
-		collaboNo : collaboNo,
-		targetNo : targetListNo
-	};
-	sendMessage(sendData); 
-}
-
-function responseUpdateList(receive){
-	var targetList = $("#listNo_"+receive.listNo).parent().children().children('.list-title');
-	targetList.text(receive.content);
-}
-
-function requestUpdateList(target){
-	var listNo = $(target).parent().parent().parent().parent().parent().children(".list-cards").attr("id").substring(7);
-	var content = prompt("Please enter the title of the list to modify");
-	sendData={
-		type :"list",
-		method :"update",
-		content : content,
-		listNo : listNo,
-		userId : userId,
-		collaboNo : collaboNo
-	};
-	sendMessage(sendData);
-}
-
-
-
-function requestDeleteList(target){
-	if(confirm("Are you Delete This List?")){
-		var targetList = $(target).parent().parent().parent().parent().parent().children(".list-cards").attr("id").substring(7);
-		sendData={
-			type : "list",
-			method : "delete",
-			collaboNo : collaboNo,
-			userId : userId,
-			listNo : targetList
-		};
-		sendMessage(sendData);
-	}
-}
-
-
-function requestDeletCard(target){
-	var isDelete = confirm("Are you delete this card?");
-	if(isDelete){
-		var cardNo = $("#modalCardNo").val();
-		var sendData ={
-			type:"card",
-			method:"delete",
-			userId:userId,
-			collaboNo:collaboNo,
-			cardNo:cardNo
-		};
-		sendMessage(sendData);
-	}
-}
-
-
-function requestUpdateCard(target){
-	var content = $(target).parent().children("#editContent").val();
-	var cardNo = $("#modalCardNo").val();
-	var sendData ={
-		type:"card",
-		userId:userId,
-		method : "update",
-		collaboNo : collaboNo,
-		content : content,
-		cardNo : cardNo
-	};
-	
-	sendMessage(sendData);
-}
-
 // 메시지 전송
 function sendMessage(sendData) {
 /* 	var sendData = {
@@ -272,6 +332,19 @@ function sendMessage(sendData) {
 // 서버로부터 메시지를 받았을 때
 function onMessage(msg) {
       var receive = JSON.parse(msg.data);
+      if(receive.type == 'reply'){
+    	  if(receive.method == 'write'){
+    		  responseReplyWrite(receive);
+    	  }
+      }
+      if(receive.type == 'comment'){
+    	  if(receive.method == 'write'){
+    		  responseCommentWrite(receive);
+    	  }
+    	  if(receive.method == 'delete'){
+    		  responseDeleteComment(receive);
+    	  }
+      }
       if(receive.type == 'list'){
     	  if(receive.method == 'create'){
     		  responseCreateList(receive);
@@ -307,375 +380,586 @@ function onClose(evt) {
 	
 }
 
-</script>
+$("#expulsionModal").on('hide.bs.modal',function(e){
+	$("#expulsionUserId").val('');
+});
 
-<script>
-function responseMoveList(receive){
-  var listNo = $("#listNo_"+receive.listNo); 
-  var wrapper = $("#listNo_"+receive.targetNo).parent().parent();
-  
-  listNo.parent().parent().append(wrapper.children());
-  wrapper.append(listNo.parent());
-  
-}
-
-function responseDeleteList(receive){
-	var list = $("#listNo_"+receive.listNo).parent().parent();
-	console.log(list.attr("class"));
-	if(list.attr("class")== 'list-wrapper'){
-		list.remove();
-	}
-	if(list.attr("class") == 'list-content'){
-		list.parent().remove();
-	}
-}
-
-
-function responseDeleteCard(receive){
-	var card = $('#cardNo_'+receive.cardNo).children('.card-content').parent();
-	card.remove();
-	
-	var btnClose = $("button[name=btnModalClose]");
-	btnClose.click();
-}
-
-function responseUpdateCard(receive){
-	var card = $('#cardNo_'+receive.cardNo).children('.card-content');
-	var modalCard = $("#modalContent");
-	
-	modalCard.text(receive.content);
-	card.text(receive.content);
-	
-	var btnEdit = $("#btnEdit");
-	btnEdit.click();
-	
-}
+$("#inviteModal").on('hide.bs.modal',function(e){
+	$("#userId").val('');
+});
 
 $("#modifyContent").on('show.bs.collapse',function(){
-	/* var editArea = document.getElementById('edit').innerHTML = ""; */
 	var editContent = $("#editContent");
 	editContent.val('');
 });
-
+ $("#cardModal").on('hide.bs.modal',function(e){
+	$("#modifyContent").collapse('hide');
+	isCardModalOpen = false;
+});
 
 $("#cardModal").on('show.bs.modal',function(e){
+	isCardModalOpen = true;
 	var data=$(e.relatedTarget).data('test');
 	var cardNo = $(e.relatedTarget).data('test').substring(7);
 	var card = $("#"+data);
-	var title = $("#modal-title");
+	var title = $("#mtitle");
 	var content = $("#modalContent");
 	var writer = $("#modal-writer");
 	$("#editArea").val('');
 	
-	//$("#modalCardNo").val(cardNo);
 	$("#modalCardNo").val(cardNo);
-	title.text(card.children('.card-content').parent().parent().parent().children('.list-header').children('.list-title').text());
+	title.text(card.children('.card-content').parent().parent().parent().children('.list-header').children('.list-title').text().trim()); 
 	content.text(card.children('.card-content').text());
-	 
-	<c:forEach items="${collaboMembers}" var="m">
-	if(${m.no} == (parseInt(card.children('input[name=cardWriter]').val()))){
-		writer.text("${m.nickname}");
-	}
-</c:forEach>
+	
+	var writerNo = card.children('input[name=cardWriter]').val();
+	collaboMembers.some(function(m){
+		if(writerNo == m.no){
+			writer.text(m.nickname);
+			return true;
+		}
+	});
+	
+	
+	$.ajax({
+		type : "post",
+		url : "${path}/collabo/requestCommentData",
+		dataType : "json",
+		data : {
+			cardNo : cardNo
+		},
+		success : function(data){
+			$("#commentArea").empty();
+// 			console.log(data.comments);
+			$.each(data.comments, function(i){
+// 				console.log(data.comments[i]);
+				collaboMembers.some(function(v){
+// 					console.log(v);
+					if(v.no == data.comments[i].writer){
+						var div = $("<div/>");
+						div.attr("id","commentNo_"+data.comments[i].no);
+						div.css({
+							"margin-bottom":"10px"
+						});
+						var img = $("<img/>");
+						img.attr("width","30px");
+						img.attr("hegiht","15px");
+						if(!v.profile == ""){
+							img.attr('src','${path}/resources/upload/member/'+m.profile);
+						}else{
+							img.attr("src","${path}/resources/images/"+ "teamwork.png");
+						}
+						div.append(img);
+						var name = $("<span/>");
+						var content = $("<div/>");
+						var date = $("<span/>");
+						
+						var comment = $("<span/>");
+						
+						
+						name.text(v.nickname);
+						name.css("margin-right","30px");
+						
+						date.html(new Date(data.comments[i].regdate).format('yyyy-MM-dd')+"<br/>");
+						date.css({
+							"font-size":"13px"
+						});
+						comment.text(data.comments[i].content);
+						content.css({
+							"padding":"10px 20px",
+							"font-size":"16px",
+							"width":"760px",
+							"margin-bottom":"10px",
+							"border-bottom":"solid lightgrey 0.5px",
+							"display":"flex"
+						});
+						content.attr("class","commentArea");
+						content.append(comment);
+						comment.css("flex","1");
+						//덧글 작성자 일시 수정,삭제버튼
+						if(data.comments[i].writer == "${loginMember.no}"){
+							var btnDel = $("<button/>");
+							btnDel.attr("type","button");
+							btnDel.attr("class","btn btn-sm btn-primary");
+							btnDel.text("삭제");
+							btnDel.css("margin-right","3px");
+							btnDel.attr("onclick","requestDeleteComment(this);");
+							content.append(btnDel);
+						}
+						
+						var reply = $("<button/>");
+						reply.attr("type","button");
+						reply.attr("class","btn btn-sm btn-primary");
+						reply.attr("data-toggle","collapse");
+						reply.attr("data-target","#replyContent"+data.comments[i].no);
+						reply.attr("area-expanded","true");
+						reply.text("답글");
+						content.append(reply);
+						
+						var replyContent = $("<div/>");
+						replyContent.attr("class","panel-collapse collapse");
+						replyContent.attr("id","replyContent"+data.comments[i].no);
+						
+						var panelBody = $("<div/>");
+						panelBody.attr("class","panel-body");
+						
+						var replyTextArea = $("<textarea/>");
+						replyTextArea.attr("id","replyArea"+data.comments[i].no);
+						replyTextArea.attr("row","2");
+						replyTextArea.attr("cols","86");
+						
+						
+						var btnRequestReply = $("<button/>");
+						btnRequestReply.attr("class","btn btn-sm btn-primary");
+						btnRequestReply.attr("type","button");
+						btnRequestReply.attr("onclick","requestReplyWrite(this);");
+						btnRequestReply.text("작성");
+						
+						panelBody.append(replyTextArea);
+						panelBody.append($("<br/>"));
+						panelBody.append(btnRequestReply);
+						
+						replyContent.append(panelBody);
+						replyContent.append($("<hr/>"));
+						
+											
+						div.append(name);
+						div.append(date);
+						div.append(content);
+						div.append(replyContent);
+						$("#commentArea").append(div);
+						return true;
+					}
+					
+				}) 
+				
+			});
+			$.each(data.commentReply,function(r){
+				collaboMembers.some(function(m){
+					if(m.no == data.commentReply[r].writer){
+						var target = $("#commentNo_"+data.commentReply[r].targetNo);
+						var div = $("<div/>");
+						div.attr("id","replyNo_"+data.commentReply[r].no);
+						
+						var icon = $("<span/>");
+						icon.attr("class","material-icons");
+						icon.css("margin-left","15px");
+						icon.text("subdirectory_arrow_right");
+						
+						var img = $("<img/>");
+						img.attr('width',"30px");
+						img.attr("hegiht","15px");
+						if(!m.profile == ''){
+							img.attr('src','${path}/resources/upload/member/'+m.profile);
+						}else{
+							img.attr("src","${path}/resources/images/"+ "teamwork.png");
+						}
+						
+						var writer = $("<span/>");
+						writer.css("margin-right","20px");
+						writer.text(m.nickname);
+						
+						var regdate = $("<span/>");
+						regdate.css("font-size","13px");
+						regdate.html(new Date(data.commentReply[r].regdate).format('yyyy-MM-dd')+"<br/>");
+						
+						var content = $("<span/>");
+						content.css('margin-left',"70px");
+						content.text(data.commentReply[r].content);
+						
+						div.append(icon);
+						div.append(img);
+						div.append(writer);
+						div.append(regdate);
+						div.append(content);
+						target.append(div);
+						
+						target.css("border-bottom","solid lightgrey 0.5px");
+						
+						return true;
+					}
+				});
+			});
+		},
+		beforeSend:function(){
+			$('.wrap-loading').removeClass('display-none');
+		},
+		complete:function(){
+			$('.wrap-loading').addClass('display-none');
+		}
+	});
 });
 
-function createWrapper(ele){
-	var wrapper=$("<div/>");
-	wrapper.attr("class","list-wrapper");
-	
-	var content=$("<div/>");
-	content.attr("class","list-content");
-	
-	var dropdiv=$("<div/>");
-	dropdiv.attr("class","dropdown div-drop");
-	
-	var btndrop=$("<button/>");
-	btndrop.attr("class","dropdown btn-addList");
-	btndrop.attr("type","button");
-	btndrop.attr("onclick",'$("#listTitle").val(" ");');
-	btndrop.attr("name","btn_addList");
-	btndrop.attr("data-toggle","dropdown");
-	
-	var faplus =$("<span/>");
-	faplus.text("Add another list");
-	faplus.attr("class","fa fa-plus");
-	
-	btndrop.append(faplus);
-	dropdiv.append(btndrop);
-	
-	var dropmenu=$("<div/>");
-	dropmenu.attr("class","dropdown-menu");
-	dropdiv.append(dropmenu);
-	
-	var listTitle = $("<input/>");
-	listTitle.attr("type","text");
-	listTitle.attr("id","listTitle");
-	listTitle.attr("placeholder","리스트 제목을 입력하세요");
-	
-	
-	var btncList = $("<button/>");
-	btncList.text("Create");
-	btncList.attr("class","btn btn-sm btn-primary");
-	btncList.attr("type","button");
-	btncList.attr("name","btn_cList");
-	btncList.attr("onclick","requestCreateList();");
-	
-
-	var dropItem=$("<div/>");
-	dropItem.attr("class","dropdown-item");
-	
-	dropItem.append(listTitle);
-	dropItem.append(btncList);
-	
-	dropmenu.append(dropItem);
-	
-	content.append(dropdiv);
-	
-	wrapper.append(content);
-	
-	
-	ele.append(wrapper);
-}
-
-
-
-function responseCreateCard(receive){
-	var listCards = $('div[name=listNo_'+receive.listNo+']');
-	
-	
-	var card = $('<div/>');
-	var content = $('<span/>');
-	var button = $("<span/>");
-	button.attr("class",'material-icons btn-edit');
-	button.attr("data-toggle","modal");
-	button.attr("data-test","cardNo_"+receive.cardNo);
-	button.attr("data-target","#cardModal");
-	button.text("edit");
-	
-	
-	
-	content.text(receive.content);
-	
-	card.attr("class","list-card");
-	card.attr("ondrop","return false");
-	card.attr("draggable","true");
-	card.attr("ondragstart","cardDrag(this,event)");
-	card.attr("ondragend","endCardDrag()");
-	card.attr("id","cardNo_"+receive.cardNo);
-	card.attr("name","cardNo_"+receive.cardNo);
-	
-	content.attr("class","card-content");
-	
-	card.append(content);
-	card.append(button);
-	listCards.append(card);
-}
-function requestCreateCard(ele){
-	var content = prompt("Card's Title ? ");
-	var listNo = parseInt($(ele).parent().parent().children('.list-cards').attr('id').substring(7));
-	if(content!=''){
-		var sendData = {
-				type : "card",
-				method : "create",
-				content : content,
-				userId : userId,
-				collaboNo : collaboNo,
-				listNo : listNo
-		};
-		sendMessage(sendData);
+	function requestInvite(){
+		var userId = $("#userId").val();
+		
+		if(userId!=''){
+			$.ajax({
+				type : "post",
+				url : "${path}/collabo/inviteMember",
+				dataType : "json",
+				data : {
+					userId : userId,
+					collaboNo : collaboNo
+				},
+				success : function(data){
+					if(data){
+						alert('초대 메일을 발송했습니다.');
+					}
+					else{
+						alert('초대 실패!');
+					}
+				},
+				beforeSend:function(){
+					$('.wrap-loading').removeClass('display-none');
+				},
+				complete:function(){
+					$('.wrap-loading').addClass('display-none');
+				}
+			});
 	}
 }
 
-function requestCreateList(){
-	var listTitle= $("#listTitle").val();
-	 if(listTitle!=' '){
+// expulsion function
+ $(function(){
 	
-		var sendData = {
-			type : "list",
-			method : "create",
-			content : listTitle,
-			userId : userId,
-			collaboNo : collaboNo
-		};
-		sendMessage(sendData);
-	 }else{
-		 alert('공백은 불가능 합니다.');
-	 }
-	 
-}
-
-function responseCreateList(receive){
-		var content = $("button[name=btn_cList]").parent().parent().parent();
-		var board = $("button[name=btn_cList]").parent().parent().parent().parent().parent().parent();
-		content.empty();
+	$("#expulsionUserId").autocomplete({
+		minLength : 1,
+		source : collaboMembersId,
+		select : function (event, ui){
+			$("#expulsionUserId").val(ui.item.value);
+			return false;
+		},
+		focus : function (event, ui){
+			$("#expulsionUserId").val(ui.item.value);
+			return false;
+		}
+	}).autocomplete("instance")._renderItem = function(ul, item){
+		var li = $("<li/>");
+		var div = $("<div/>");
+		var img = $("<img/>");
+		var span = $("<span/>");
 		
-		content.attr("draggable","true");
-		content.attr("ondrop","return false;");
-		content.attr("ondragstart","listDrag(this,event)");
-		content.attr("ondragend","endListDrag()");
+		div.css("display","flex");
+		span.css("flex","1");
 		
-		content.parent().attr("ondrop","requestMoveList(this,event)");
-		content.parent().attr("ondragover","return false");
-		
-		var listHeader = $('<div/>');
-		listHeader.attr("class","list-header");
-		
-		var listTitle = $('<span/>');
-		listTitle.attr("class","list-title");
-		listTitle.text(receive.content);
-	
-		var btnMenu = $('<button>');
-		btnMenu.attr("type","button");
-		btnMenu.attr("class","fa fa-align-justify btn-menu");
-		btnMenu.attr("data-toggle","dropdown");
-		
-	    var dropMenu = $("<div/>");
-	    dropMenu.attr("class","dropdown-menu");
-	    
-	    var dropitem = $("<div/>");
-	    dropitem.attr("class","dropdown-item");
-	    
-	    var dropspan = $("<span/>");
-	    dropspan.text("리스트 메뉴");
-	    dropspan.css({
-	    	"text-align":"center;",
-	    	"margin-left" : "17px"
-	    });
-	    var hr = $("<hr/>");
-	    
-	    
-	    var dropbtnDiv = $("<div/>");
-	    dropbtnDiv.css({
-	    	"text-align":"center"
-	    });
-	    
-	    var btnEdit = $("<button/>");
-	    btnEdit.attr("type","button");
-	    btnEdit.attr("onclick","requestUpdateList(this)");
-	    btnEdit.attr("class","btn btn-sm btn-primary");
-	    btnEdit.css({
-	    	"margin-right":"3px"
-	    });
-	    btnEdit.text("수정");
-	    
-	    var btnRemove = $("<button/>");
-	    btnRemove.attr("type","button");
-	    btnRemove.attr("onclick","requestDeleteList(this)");
-	    btnRemove.attr("class","btn btn-sm btn-primary");
-	    btnRemove.text("삭제");
-	    
-	    dropbtnDiv.append(btnEdit);
-	    dropbtnDiv.append(btnRemove);
-	    
-	    dropitem.append(dropspan);
-	    dropitem.append(hr);
-	    dropitem.append(dropbtnDiv);
-	    
-	    dropMenu.append(dropitem);
-		
-		var listCards = $('<div/>');
-		listCards.attr("class","list-cards");
-		listCards.attr("ondrop","requestMoveCard(this,event)");
-		listCards.attr("ondragover","return false;");
-		listCards.attr("name","listNo_"+receive.listNo);
-		listCards.attr("id","listNo_"+receive.listNo);
-		
-		
-		var openCard = $('<div/>');
-		openCard.attr("class","open-card");
-	
-		var faplus = $('<span/>');
-		faplus.text("카드 생성");
-		faplus.attr("onclick","requestCreateCard(this);");
-		faplus.attr("class","fa fa-plus");
-	
-		openCard.append(faplus);
-		
-		listHeader.append(listTitle);
-		listHeader.append(btnMenu);
-		listHeader.append(dropMenu);
-		
-		content.append(listHeader);
-		content.append(listCards);
-		content.append(openCard);
-		
-		createWrapper(board);
-	
-}
-function requestMoveCard(element, ev){
-	var cardNo = parseInt(ev.dataTransfer.getData("text").substring(7));
-	var listNo = parseInt(element.id.substring(7));
-	var sendData = {
-			type : "card",
-			method : "move",
-			userId : userId,
-			collaboNo : collaboNo,
-			cardNo : cardNo,
-			listNo : listNo
+		collaboMembers.some(function(m){
+			if(m.id == item.value){
+				span.html(item.value+"<br/>"+m.nickname);
+				
+				div.append(span);
+				if(!m.profile == ""){	
+					img.attr("src","${path}/resources/images/"+ "teamwork.png");
+					img.attr("width","40px");
+					img.attr("hegiht","20px");
+					div.append(img);
+		  		}
+				return true;
+			}
+		});
+			
+    return li.append(div).appendTo(ul);
 	};
-	sendMessage(sendData);
-}
+}); 
 
-function responseMoveCard(receive){
-	var listNo = receive.listNo+"";
-	var cardNo = receive.cardNo+"";
-	
-	/* $("#listNo").append(document.getElementById(cardNo)); */
-	document.getElementById("listNo_"+listNo).appendChild(document.getElementById("cardNo_"+cardNo));
-}
 
-function allowDrop(ev) {
-	  ev.preventDefault();
+$(function(){
+ 	$("#userId").autocomplete({
+ 		minLength : 3,
+		source : membersId,
+		select : function (event, ui){
+			$("#userId").val(ui.item.value);
+			return false;
+		},
+		focus : function (event, ui){
+			$("#userId").val(ui.item.value);
+			return false;
+		}
+	}).autocomplete("instance")._renderItem = function( ul, item ) {
+      	var li = $("<li/>");
+	  	var div = $("<div/>");
+	  	var span = $("<span/>");
+	    var img = $("<img/>");
+	    
+	    div.css("display","flex");
+	    span.css("flex","1");
+	    
+	    members.some(function(m){
+	    	if(item.value == m.id){
+    		  span.html(item.value+"<br/>"+m.nickname);
+    		  div.append(span);
+   		      if(!m.profile == ""){
+   				img.attr("src","${path}/resources/images/"+ "teamwork.png");
+   				img.attr("width","40px");
+   				img.attr("hegiht","20px");
+   				div.append(img);
+    		  	}
+   		      return true;
+	    	}
+	    })
+	  
+	    return li.append(div).appendTo(ul);
+	}; 
+});
+
+function exitCollabo(exitMemberNo){
+	if(confirm('정말 탈퇴 하시겠습니까?')){
+		$.ajax({
+			type : "post",
+			url : "${path}/collabo/exitCollabo",
+			dataType : "json",
+			data : {
+				userId : exitMemberNo,
+				collaboNo : collaboNo
+			},
+			success : function(data){
+				if(data){
+					alert('탈퇴 성공!');
+					location.href = "${path}/";
+				}
+				else{
+					alert('탈퇴 실패!');
+				}
+			},
+			beforeSend:function(){
+				$('.wrap-loading').removeClass('display-none');
+			},
+			complete:function(){
+				$('.wrap-loading').addClass('display-none');
+			}
+		});
 	}
-
-function cardDrag(element, ev) {
-	var wrapper = $(".list-wrapper");
-	var content = $(".list-content");
-	
-	wrapper.removeAttr("ondrop");
-	wrapper.removeAttr("ondragover");
-	content.removeAttr("draggable");
-	content.removeAttr("ondrop");
-	content.removeAttr("ondragstart");
-	
-  	ev.dataTransfer.setData("text",element.id);
 }
 
-function endCardDrag(){
-	var wrapper = $(".list-wrapper");
-	var content = $(".list-content");
-	
-	wrapper.attr("ondrop","requestMoveList(this,event)");
-	wrapper.attr("ondragover","return false;");
-	
-	content.attr("draggable","true");
-	content.attr("ondrop","return false;");
-	content.attr("ondragstart","listDrag(this,event)");
+function requestCommentWrite(ele){
+	var content = $("#editArea").val();
+	if(content != ''){
+		var cardNo = $("#modalCardNo").val();
+		var userId = "${loginMember.id}";
+
+		var sendData ={
+			type : "comment",
+			userId : userId,
+			cardNo : cardNo,
+			content : content,
+			method : "write",
+			collaboNo : collaboNo
+			
+		};
+		sendMessage(sendData);
+		$("#editArea").val('');
+	}else{
+		alert('내용을 입력해 주세요.');
+	}
 }
-function listDrag(element, ev){
-	var list = $(".list-cards");
-	var card = $(".list-card");
-	
-	list.removeAttr("ondrop");
-	list.removeAttr("ondragover");
-	card.removeAttr("ondrop");
-	card.removeAttr("draggable");
-	card.removeAttr("ondragstart");
-	
-	ev.dataTransfer.setData("text",$(element).children('.list-cards').attr("id"));
+function responseCommentWrite(receive){
+	if(isCardModalOpen){
+		collaboMembers.some(function(v){
+			if(v.id == receive.userId){
+				var div = $("<div/>");
+				div.attr("id","commentNo_"+receive.commentNo);
+				var img = $("<img/>");
+				img.attr("width","30px");
+				img.attr("hegiht","15px");
+				if(!v.profile == ""){
+					img.attr('src','${path}/resources/upload/member/'+m.profile);
+				}else{
+					img.attr("src","${path}/resources/images/"+ "teamwork.png");
+				}
+				div.append(img);
+				var name = $("<span/>");
+				var content = $("<div/>");
+				var date = $("<span/>");
+				
+				var comment = $("<span/>");
+				
+				
+				name.text(v.nickname);
+				name.css("margin-right","30px");
+
+
+				date.html(new Date(parseDate(receive.regdate)).format('yyyy-MM-dd')+"<br/>"); 
+				date.css({
+					"font-size":"13px"
+				});
+				comment.text(receive.content);
+				content.css({
+					"padding":"10px 20px",
+					"font-size":"16px",
+					"width":"713px",
+					"margin-bottom":"10px",
+					"border-bottom":"solid lightgrey 0.5px",
+					"display":"flex"
+				});
+				content.append(comment);
+				comment.css("flex","1");
+				//덧글 작성자 일시 수정,삭제버튼
+				if(v.id == "${loginMember.id}"){
+					var btnDel = $("<button/>");
+					btnDel.attr("type","button");
+					btnDel.attr("class","btn btn-sm btn-primary");
+					btnDel.css("margin-right","3px");
+					btnDel.text("삭제");
+					btnDel.attr("onclick","requestDeleteComment(this);");
+					content.append(btnDel);
+				}
+				
+				var reply = $("<button/>");
+				reply.attr("type","button");
+				reply.attr("class","btn btn-sm btn-primary");
+				reply.attr("data-toggle","collapse");
+				reply.attr("data-target","#replyContent"+receive.commentNo);
+				reply.attr("area-expanded","true");
+				reply.text("답글");
+				content.append(reply);
+				
+				var replyContent = $("<div/>");
+				replyContent.attr("class","panel-collapse collapse");
+				replyContent.attr("id","replyContent"+receive.commentNo);
+				
+				var panelBody = $("<div/>");
+				panelBody.attr("class","panel-body");
+				
+				var replyTextArea = $("<textarea/>");
+				replyTextArea.attr("id","replyArea"+receive.commentNo);
+				replyTextArea.attr("row","2");
+				replyTextArea.attr("cols","86");
+				
+				
+				var btnRequestReply = $("<button/>");
+				btnRequestReply.attr("class","btn btn-sm btn-primary");
+				btnRequestReply.attr("type","button");
+				btnRequestReply.attr("onclick","requestReplyWrite(this);");
+				btnRequestReply.text("작성");
+				
+				panelBody.append(replyTextArea);
+				panelBody.append($("<br/>"));
+				panelBody.append(btnRequestReply);
+				
+				replyContent.append(panelBody);
+				replyContent.append($("<hr/>"));
+				
+				
+				div.append(name);
+				div.append(date);
+				div.append(content);
+				div.append(replyContent);
+				$("#commentArea").append(div);
+				return true;
+			}
+		});
+	}
 }
 
-function endListDrag(){
-	var list = $(".list-cards");
-	var card = $(".list-card");
+members = ${members};
+membersId = new Array();
+members.forEach(function(m){
+	membersId.push(m.id);
+});
+
+collaboMembers = ${collaboMembers};
+collaboMembersId = new Array();
+collaboMembers.forEach(function(m){
+	collaboMembersId.push(m.id);
+});
+function requestDeleteComment(ele){
+// 	alert('댓글 삭제 기능 공사중');
+// 	댓글삭제 일시 방어
+	if(confirm('댓글을 삭제하시겠습니까?')){
+		var commentNo = $(ele).parent().parent().attr("id").substring(10);
+		var sendData ={
+				type : "comment",
+				userId : userId,
+				method : "delete",
+				commentNo : commentNo,
+				collaboNo : collaboNo
+			};
+			sendMessage(sendData);
+	}
+}
+
+function responseDeleteComment(receive){
+	if(isCardModalOpen){
+		$("#commentNo_"+receive.commentNo).remove();
+	}
+}
+
+function parseDate(str) {
+    var y = str.substr(8, 4);
+    var m = str.substr(0, 2);
+    var d = str.substr(4, 2);
+    return new Date(y,m-1,d);
+}
+
+function responseReplyWrite(receive){
+	if(isCardModalOpen){
+		collaboMembers.some(function(m){
+			if(m.no == receive.userId){
+				
+				var target = $("#commentNo_"+receive.targetNo);
+				var div = $("<div/>");
+				div.attr("id","replyNo_"+receive.commentNo);
+				
+				var icon = $("<span/>");
+				icon.attr("class","material-icons");
+				icon.css("margin-left","15px");
+				icon.text("subdirectory_arrow_right");
+				
+				var img = $("<img/>");
+				img.attr('width',"30px");
+				img.attr("hegiht","15px");
+				if(!m.profile == ''){
+					img.attr('src','${path}/resources/upload/member/'+m.profile);
+				}else{
+					img.attr("src","${path}/resources/images/"+ "teamwork.png");
+				}
+				
+				var writer = $("<span/>");
+				writer.css("margin-right","20px");
+				writer.text(m.nickname);
+				
+				var regdate = $("<span/>");
+				regdate.css("font-size","13px");
+				regdate.html(new Date(parseDate(receive.regdate)).format('yyyy-MM-dd')+"<br/>");
+				
+				var content = $("<span/>");
+				content.css('margin-left',"70px");
+				content.text(receive.content);
+				
+				div.append(icon);
+				div.append(img);
+				div.append(writer);
+				div.append(regdate);
+				div.append(content);
+				target.append(div);
+				
+				target.css("border-bottom","solid lightgrey 0.5px");
+				
+				return true;
+			}
+		});
+	}
+}
+
+function requestReplyWrite(ele){
+	var targetNo = $(ele).parent().parent().attr('id').substring(12);
+	var content = $("#replyArea"+targetNo).val();
+	if(!content == ''){
+		var sendData = {
+			collaboNo : collaboNo,
+			targetNo : targetNo,
+			content : content,
+			userId : "${loginMember.no}",
+			type : "reply",
+			method : "write"
+		};
+		sendMessage(sendData);
+		$("#replyArea"+targetNo).val('');
+		$(ele).parent().parent().collapse('hide');
+	}else{
+		alert('내용을 입력해 주세요.');
+	}
 	
-	list.attr("ondrop","requestMoveCard(this,event)");
-	list.attr("ondragover","return false;");
-	card.attr("ondrop","return false;");
-	card.attr("draggable","true");
-	card.attr("ondragstart","cardDrag(this,event)");
 }
 
 </script>
-<%-- <jsp:include page="/WEB-INF/views/common/footer.jsp"/> 
- --%>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/> 

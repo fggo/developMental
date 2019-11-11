@@ -52,6 +52,20 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 	public int countArticle(String searchType, String keyword) {
 		return dao.countArticle(session, searchType, keyword);
 	}
+
+	@Override
+	public int memberReport(int no) {
+		return dao.memberReport(session, no);
+	}
+
+	@Override
+	public int memberReportEnd(int no) {
+		return dao.memberReportEnd(session, no);
+	}
+	
+	
+	
+	
 	
 	
 	
