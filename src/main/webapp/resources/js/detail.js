@@ -1,5 +1,5 @@
 function responseCreateList(receive){
-		var content = $("button[name=btn_cList]").parent().parent().parent();
+		var content = $("button[name=btn_cList]").parent().parent().parent().parent();
 		var board = $("button[name=btn_cList]").parent().parent().parent().parent().parent().parent();
 		content.empty();
 		
@@ -87,7 +87,7 @@ function responseCreateList(receive){
 		
 		listHeader.append(listTitle);
 		listHeader.append(btnMenu);
-		listHeader.append(dropMenu);
+		btnMenu.append(dropMenu);
 		
 		content.append(listHeader);
 		content.append(listCards);
@@ -323,8 +323,6 @@ function responseUpdateCard(receive){
 }
 
 function requestMoveList(element, ev){
-	console.log($(element));
-	console.log(ev.dataTransfer.getData("text"));
 	/* document.getElementById("listNo_"+listNo).appendChild(document.getElementById("cardNo_"+cardNo)); */
  	var listNo = $("#"+ev.dataTransfer.getData("text")).attr("id").substring(7);
 	var targetListNo = $(element).children().children('.list-cards').attr("id").substring(7);
@@ -380,8 +378,6 @@ function requestDeleteList(target){
 
 
 function requestDeletCard(target){
-//	alert('카드 삭제 기능 공사중입니다.');
-//	카드삭제기능 방어
 	var isDelete = confirm("삭제하시겠습니까?");
 	if(isDelete){
 		var cardNo = $("#modalCardNo").val();
@@ -429,7 +425,6 @@ function responseMoveList(receive){
 
 function responseDeleteList(receive){
 	var list = $("#listNo_"+receive.listNo).parent().parent();
-	console.log(list.attr("class"));
 	if(list.attr("class")== 'list-wrapper'){
 		list.remove();
 	}

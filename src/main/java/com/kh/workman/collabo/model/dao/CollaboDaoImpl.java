@@ -170,9 +170,27 @@ public class CollaboDaoImpl implements CollaboDao {
 
 	@Override
 	public CollaboCommentReply selectOneReply(SqlSessionTemplate session, DataPacket receive) {
-		return session.selectOne("collabo.selectOneReply",receive);
+		return session.selectOne("collabo.selectOneReply", receive);
 	}
-	
-	
+
+	@Override
+	public int updateComment(SqlSessionTemplate session, DataPacket receive) {
+		return session.update("collabo.updateComment", receive);
+	}
+
+	@Override
+	public int delteReply(SqlSessionTemplate session, DataPacket receive) {
+		return session.update("collabo.deleteReply", receive);
+	}
+
+	@Override
+	public int updateReply(SqlSessionTemplate session, DataPacket receive) {
+		return session.update("collabo.updateReply", receive);
+	}
+
+	@Override
+	public int deleteCollabo(SqlSessionTemplate session, DataPacket receive) {
+		return session.update("collabo.deleteCollabo", receive);
+	}
 
 }

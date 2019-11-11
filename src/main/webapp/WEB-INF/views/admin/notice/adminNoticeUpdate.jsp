@@ -39,7 +39,7 @@
             	<div class="card-my card-4-my">
                 	<div class="card-body-my">
                 		<h2 class="title-my">공지사항 수정</h2>
-                		<form name="noticeFrm" action="${path}/admin/noticeUpdateEnd.do" method="post" enctype="multipart/form-data" >
+                		<form name="noticeFrm" id="noticeFrm" action="${path}/admin/noticeUpdateEnd.do" method="post" enctype="multipart/form-data" >
                 		
                 			<div class="row-my row-space-my">
                 				<div class="col-2-my">
@@ -123,18 +123,19 @@
 
 <script>
 function noticeSubmit(){
-	
 	var noticeTitle=$("#noticeTitle").val();
 	var noticeContent=$("#noticeContent").val();
+	$("#noticeFrm").submit();
+// 	console.log('asd');
 	
-	if( (noticeTitle== "null" || noticeTitle== "undefined" || noticeTitle== "NaN" || noticeTitle== '') || 
-			(noticeContent== "null" || noticeContent== "undefined" || noticeContent== "NaN" || noticeContent== '') ){
-		alert("제목 또는 내용을 입력하세요");
-		return;
-	}else{
-		var form=$("form");
-		form.submit();
-	}
+// 	if( (noticeTitle== "null" || noticeTitle== "undefined" || noticeTitle== "NaN" || noticeTitle== '') || 
+// 			(noticeContent== "null" || noticeContent== "undefined" || noticeContent== "NaN" || noticeContent== '') ){
+// 		alert("제목 또는 내용을 입력하세요");
+// 		return;
+// 	}else{
+// 		var form=$("#noticeFrm");
+// 		form.submit();
+// 	}
 		
 	
 };

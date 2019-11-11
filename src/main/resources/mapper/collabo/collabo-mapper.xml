@@ -108,7 +108,7 @@
 	</insert>
 	
 	<insert id="insertCollaboMember" parameterType="map">
-		INSERT INTO COLLABO_MEMBER VALUES(#{collaboNo},
+		INSERT INTO COLLABO_MEMBER VALUES(#{no},
 			(SELECT NO FROM MEMBER WHERE ID = #{userId}
 		), DEFAULT)
 	</insert>
@@ -174,5 +174,21 @@
 	<select id="selectOneReply" parameterType="map" resultType="com.kh.workman.collabo.model.vo.CollaboCommentReply">
 		SELECT * FROM COLLABO_COMMENT_REPLY WHERE NO = #{commentNo} AND STATUS = 1
 	</select>
+	
+	<update id="updateComment" parameterType="map">
+		UPDATE COLLABO_COMMENT SET CONTENT = #{content} WHERE NO = #{commentNo}	AND STATUS = 1
+	</update>
+	
+	<update id="deleteReply" parameterType="map">
+		UPDATE COLLABO_COMMENT_REPLY SET STATUS = 0 WHERE NO = #{commentNo}
+	</update>
+	
+	<update id="updateReply" parameterType="map">
+		UPDATE COLLABO_COMMENT_REPLY SET CONTENT = #{content} WHERE NO = #{commentNo}	
+	</update>
+	
+	<update id="deleteCollabo" parameterType="map">
+		UPDATE COLLABO_TOOL SET STATUS = 0 WHERE NO = #{collaboNo} AND owner = #{userId}
+	</update>
 	
 </mapper>

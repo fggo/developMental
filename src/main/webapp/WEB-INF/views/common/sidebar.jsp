@@ -57,8 +57,10 @@
 
       <ul class="list-unstyled components pt-0">
 
-
-
+		<li class="active">
+          <a href="${path}/collabo/main?userId=${loginMember.id}" class="sidebar-dropdown-toggle">Team Work</a>
+        </li>
+		
 
         <li class="active">
           <a href="#myPageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle sidebar-dropdown-toggle">마이페이지</a>
@@ -101,7 +103,7 @@
 		<a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle sidebar-dropdown-toggle">공지사항</a>
 			<ul class="collapse list-unstyled" id="pageSubmenu">
 				<li>
-					<a href="javascript: ajaxJobPage('${path }/admin/noticeList');" id="jobBoardBtn">공지사항</a>
+					<a href="javascript: ajaxJobPage('${path }/admin/memberNoticeList');" id="jobBoardBtn">공지사항</a>
 				</li>
 				<li>
 					<a href="javascript: ajaxJobPage('${path }/member/faqList');" id="jobApplyBtn">자주하는 질문</a>

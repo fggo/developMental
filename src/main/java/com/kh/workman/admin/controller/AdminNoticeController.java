@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,10 +49,10 @@ public class AdminNoticeController {
 	public ModelAndView noticeList(@RequestParam(value="cPage", required=false, defaultValue="0") int cPage, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
 		
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
+			
 		Member loginMember = (Member)session.getAttribute("loginMember");
 		System.out.println(loginMember);
-		
 		
 		int numPerPage=10;
 		//공지사항 리스트 전부 불러오기
@@ -65,24 +66,42 @@ public class AdminNoticeController {
 		mv.addObject("list", list);
 		mv.addObject("attList", attList);
 		
-		if(loginMember.getId().equals("admin")) {
-			mv.setViewName("admin/notice/adminNoticeList");
-			return mv;
-		}else {
-			mv.setViewName("admin/notice/memberNoticeList");
-			return mv;
-		}
+		mv.setViewName("admin/notice/adminNoticeList");
+		return mv;
 		
 	}
 	
 	@RequestMapping("/admin/noticeForm")
-	public String noticeForm() {
+	public String noticeForm(HttpSession session) {
+		System.out.println(session.getAttribute("loginMember"));
 		return "admin/notice/adminNoticeForm";
 	}
 	
 	@RequestMapping("/admin/memberNoticeList")
-	public String memberNotice() {
-		return "admin/notice/memberNoticeList";
+	public ModelAndView memberNoticeList(@RequestParam(value="cPage", required=false, defaultValue="0") int cPage, HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		
+		HttpSession session = request.getSession(false);
+			
+		Member loginMember = (Member)session.getAttribute("loginMember");
+		System.out.println(loginMember);
+		
+		
+		int numPerPage=10;
+		//공지사항 리스트 전부 불러오기
+		List<AdminNotice> list = service.selectNoticeList(cPage,numPerPage);
+		//사진파일 리스트 전부 불러오기
+		List<AdminAttachment> attList = service.selectAttachList();
+		
+		int totalCount = service.selectNoticeCount();
+		mv.addObject("pageBar", PageBarFactory.getAdminPageBar(totalCount, cPage, numPerPage, "/admin/memberNoticeList"));
+		mv.addObject("count",totalCount);
+		mv.addObject("list", list);
+		mv.addObject("attList", attList);
+		
+		mv.setViewName("admin/notice/memberNoticeList");
+		return mv;
+		
 	}
 	
 	@RequestMapping("/admin/noticeUpdate")
@@ -116,31 +135,35 @@ public class AdminNoticeController {
 		
 		File dir=new File(saveDir);
 		if(!dir.exists()) logger.debug("생성결과 : "+dir.mkdirs());
-		for(MultipartFile f : upFile) {
-			if(!f.isEmpty()) {
-				//파일명 생성(rename)
-				String oriFileName=f.getOriginalFilename();
-				String ext=oriFileName.substring(oriFileName.lastIndexOf("."));
-				
-				//규칙설정
-				SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHMMssSSS");
-				int rdv=(int)(Math.random()*1000);
-				String reName=sdf.format(System.currentTimeMillis())+"_"+rdv+ext;
-				
-				//파일 실제 저장하기
-				try {
-					f.transferTo(new File(saveDir+"/"+reName));
-				}catch (Exception e) {//IlligalStateException|IOException
-					e.printStackTrace();
+		
+		if(!upFile[0].getOriginalFilename().equals("")){
+			for(MultipartFile f : upFile) {
+				if(!f.isEmpty()) {
+					//파일명 생성(rename)
+					String oriFileName=f.getOriginalFilename();
+					String ext=oriFileName.substring(oriFileName.lastIndexOf("."));
+					
+					//규칙설정
+					SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHMMssSSS");
+					int rdv=(int)(Math.random()*1000);
+					String reName=sdf.format(System.currentTimeMillis())+"_"+rdv+ext;
+					
+					//파일 실제 저장하기
+					try {
+						f.transferTo(new File(saveDir+"/"+reName));
+					}catch (Exception e) {//IlligalStateException|IOException
+						e.printStackTrace();
+					}
+					//DB에 저장할 데이터 보관
+					AdminAttachment att=new AdminAttachment();
+					att.setOriginalFileName(oriFileName);
+					att.setRenamedFileName(reName);
+					attachList.add(att);
 				}
-				//DB에 저장할 데이터 보관
-				AdminAttachment att=new AdminAttachment();
-				att.setOriginalFileName(oriFileName);
-				att.setRenamedFileName(reName);
-				attachList.add(att);
-			}
 
+			}
 		}
+		
 		int result=service.updateNotice(param,attachList);
 		
 		String msg="";
@@ -155,6 +178,7 @@ public class AdminNoticeController {
 		mv.addObject("loc",loc);
 		
 		mv.setViewName("common/msg");
+//		mv.setViewName("/admin/notice/adminNoticeList");
 		return mv;
 	}
 	
@@ -166,6 +190,11 @@ public class AdminNoticeController {
 		String saveDir=request.getSession().getServletContext().getRealPath("/resources/upload/notice");
 		System.out.println(saveDir);
 		List<AdminAttachment> attachList=new ArrayList();//여러파일 보관용
+		
+		HttpSession session = request.getSession(false); 
+		Member loginMember = (Member)session.getAttribute("loginMember");
+		System.out.println("공지사항 넣기 전 : "+loginMember);
+		
 		
 		File dir=new File(saveDir);
 		if(!dir.exists()) logger.debug("생성결과 : "+dir.mkdirs());
