@@ -117,5 +117,10 @@ public class MemberServiceImpl implements MemberService {
 		return dao.updatedeleteMember(session, m);
 	}
 
+	@Override
+	public List<Map<String, Object>> selectApplyList(String nickname) {
+		return dao.selectApplylist(session, nickname);
+	}
+
 
 }

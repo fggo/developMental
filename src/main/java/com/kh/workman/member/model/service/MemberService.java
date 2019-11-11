@@ -21,12 +21,16 @@ public interface MemberService {
 	 int selectMyStudyBoardCount(String nickname);
 	List<Member> selectAllMember();
 	Member selectMemberNickname(Member m);
+
+	List<Map<String, Object>> selectApplyList(String nickname);
+
 	
 	int updateMyJobBoardStatus(int no);
 	int updateMyStudyBoardStatus(int no);
 	
 	int updateMyJobBoardContent(MyStudyBoard b);
 	int updateMyStudyBoardContent(MyStudyBoard b);
+
 
 	int updatedeleteMember(Member m);
 }

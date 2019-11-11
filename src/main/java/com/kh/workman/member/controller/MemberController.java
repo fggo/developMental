@@ -29,6 +29,7 @@ import com.kh.workman.job.model.vo.JobBoard;
 import com.kh.workman.member.model.service.MemberService;
 import com.kh.workman.member.model.vo.Member;
 import com.kh.workman.member.model.vo.MyStudyBoard;
+import com.kh.workman.member.model.vo.ApplyMeetUp;
 
 import net.sf.json.JSONArray;
 
@@ -256,39 +257,53 @@ public class MemberController {
 //	      newList = JobGithubApi.jobsGithubApi(skill, loc, Integer.valueOf(page));
 //	    }
 
-	    mv.addObject("pageBar", PageBarFactory.getJobMyPageBar(totalCount, cPage, numPerPage, "/member/jobMyBoardList"));
-	    mv.addObject("count", totalCount);
-	    
-	    
-	  Gson gson = new Gson();
-	   
-	   for(int i=0; i < list.size(); i++)
-	   {	
-		   if(((JobBoard)list.get(i)).getContent() == null)
-		   		((JobBoard)list.get(i)).setContent("sdfsdfasdfasdfasd sadfasdf");
-	   
-		   ((JobBoard)list.get(i)).setBoardName("JOB");
-		   String str = ((JobBoard)list.get(i)).getContent().replaceAll("(\r\n|\r|\n|\n\r)", " ");
-		   ((JobBoard)list.get(i)).setContent(str);
-	   }
-	   
-	   for(int j =0; j < studylist.size(); j++)
-	   {
-		   ((MyStudyBoard)studylist.get(j)).setBoardName("STUDY");
-		   String str = ((MyStudyBoard)studylist.get(j)).getContent().replaceAll("(\r\n|\r|\n|\n\r)", " ");
-		   ((MyStudyBoard)studylist.get(j)).setContent(str);   
-	   }
-	   
-	   String jsonlist = gson.toJson(list);
-	   String jsonStudylist = gson.toJson(studylist);
-	   
-	    mv.addObject("list", list);
-	    mv.addObject("studylist", studylist);
-	    model.addAttribute("jsonlist",jsonlist);
-	    model.addAttribute("jsonStudylist",jsonStudylist);
 
-	    return mv;
-	  }
+		mv.addObject("pageBar",
+				PageBarFactory.getJobMyPageBar(totalCount, cPage, numPerPage, "/member/jobMyBoardList"));
+		mv.addObject("count", totalCount);
+
+		Gson gson = new Gson();
+
+		for (int i = 0; i < list.size(); i++) {
+			((JobBoard) list.get(i)).setBoardName("JOB");
+			String str = ((JobBoard) list.get(i)).getContent().replaceAll("(\r\n|\r|\n|\n\r)", " ");
+			((JobBoard) list.get(i)).setContent(str);
+		}
+
+		for (int j = 0; j < studylist.size(); j++) {
+			((MyStudyBoard) studylist.get(j)).setBoardName("STUDY");
+			String str = ((MyStudyBoard) studylist.get(j)).getContent().replaceAll("(\r\n|\r|\n|\n\r)", " ");
+			((MyStudyBoard) studylist.get(j)).setContent(str);
+		}
+		
+
+
+		String jsonlist = gson.toJson(list);
+		String jsonStudylist = gson.toJson(studylist);
+		// System.out.println(jsonlist);
+		
+		
+		List<Map<String, Object>> list2 = service.selectApplyList(loginMember.getNickname());
+		System.out.println("loginno: "+loginMember.getNickname());
+		System.out.println("list2 :" +list2);
+		System.out.println("studylist :" +studylist);
+
+		mv.addObject("list2", list2);
+		
+		String jsonStudylist2 = gson.toJson(list2);
+		
+
+		mv.addObject("list", list);
+		mv.addObject("studylist", studylist);
+		model.addAttribute("jsonlist", jsonlist);
+		model.addAttribute("jsonStudylist2", jsonStudylist2);
+		model.addAttribute("jsonStudylist", jsonStudylist);
+//	    mv.addObject("newList", newList);
+		mv.setViewName("/member/jobMyBoardList");
+
+		return mv;
+	}
+
 	 
 	 @RequestMapping("/member/deleteMyBoard.do")
 	 public ModelAndView deleteMyBoard(HttpServletRequest request)
@@ -404,5 +419,6 @@ public class MemberController {
 		 return mv;
 		 
 	 }
+
 
 }

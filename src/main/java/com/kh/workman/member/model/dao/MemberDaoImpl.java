@@ -106,9 +106,18 @@ public int updateMyStudyBoardContent(SqlSessionTemplate session, MyStudyBoard b)
 }
 
 @Override
+
+public List<Map<String, Object>> selectApplylist(SqlSessionTemplate session, String nickname) {
+	return session.selectList("member.selectApplylist", nickname);
+}
+
+  
+  
+
 public int updatedeleteMember(SqlSessionTemplate session, Member m) {
 	// TODO Auto-generated method stub
 	return session.update("member.updatedeleteMember", m);
 }
+
   
 }

@@ -42,9 +42,11 @@
   <!-- Sidebar  -->
   <div class="d-flex">
     <nav id="sidebar" class="p-0 flex-shrink-1">
+
       <div class="sidebar-header py-4">
         <!-- c:if test="${param.pageTitle == ''}" -->
         <h4><a href="${path }"><i class="fa fa-home">&nbsp;&nbsp;Workman</i></a></h4>
+
       </div>
 
       <ul class="list-unstyled components">
@@ -54,10 +56,12 @@
 	<c:if test="${loginMember != null}">
 
       <ul class="list-unstyled components pt-0">
+
 		<li class="active">
           <a href="${path}/collabo/main?userId=${loginMember.id}" class="sidebar-dropdown-toggle">Team Work</a>
         </li>
 		
+
         <li class="active">
           <a href="#myPageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle sidebar-dropdown-toggle">마이페이지</a>
           <ul class="collapse list-unstyled" id="myPageSubmenu">
@@ -73,6 +77,7 @@
         </li>
 	</c:if>
 
+
         <li class="active">
           <a href="#jobSidemenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle sidebar-dropdown-toggle">구인구직</a>
           <ul class="collapse list-unstyled" id="jobSidemenu">
@@ -81,16 +86,19 @@
             </li>
           </ul>
         </li>
-        <li>
 
-          <a href="#pageSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle sidebar-dropdown-toggle">Study</a>
-           <ul class="collapse list-unstyled" id="pageSubmenu1">
+        
+        
+        <li class="active">
+          <a href="#studySubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle sidebar-dropdown-toggle">스터디</a>
+          <ul class="collapse list-unstyled" id="studySubmenu">
             <li>
-            	<a href='${path }/study/studyList'>Board</a>
-            </li>       
+				  <a href='${path }/study/studyList'>스터디 모임</a>
+<%-- 				 <a href="javascript: ajaxJobPage('${path }/study/studyList');">게시판</a> --%>
+            </li>
+            </ul>
+        </li>
 
-          </ul>
-           </li>
            
 		<li class="active">
 		<a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle sidebar-dropdown-toggle">공지사항</a>
@@ -105,6 +113,7 @@
 		</li>
            
       </ul>
+
   
       <!-- <ul class="list-unstyled CTAs">
         <li>
