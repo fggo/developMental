@@ -48,7 +48,8 @@
         </c:if>
         <c:if test="${param.pageTitle != ''}">
           <h3><a href="${path }/">${ param.pageTitle }</a></h3>
-        </c:if>
+        </c:if> 
+        
       </div>
       <ul class="list-unstyled components">
 
@@ -66,6 +67,7 @@
           </ul>
         </li>
 
+
         <li class="active">
           <a href="#jobSidemenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle sidebar-dropdown-toggle">구인</a>
           <ul class="collapse list-unstyled" id="jobSidemenu">
@@ -74,17 +76,30 @@
             </li>
           </ul>
         </li>
-        <li>
-
-          <a href="#pageSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle sidebar-dropdown-toggle">Study</a>
-           <ul class="collapse list-unstyled" id="pageSubmenu1">
+        
+        
+        <li class="active">
+          <a href="#studySubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle sidebar-dropdown-toggle">스터디</a>
+          <ul class="collapse list-unstyled" id="studySubmenu">
             <li>
-            	<a href='${path }/study/studyList'>Board</a>
+				  <a href='${path }/study/studyList'>스터디 모임</a>
+<%-- 				 <a href="javascript: ajaxJobPage('${path }/study/studyList');">게시판</a> --%>
+            </li>
+            </ul>
+        </li>
+        
+        
+       <%--  <li class="active">
+          <a href="#studySubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle sidebar-dropdown-toggle">스터디</a>
+           <ul class="collapse list-unstyled" id="studySidemenu">
+            <li>
+            	<a href='${path }/study/studyList'>스터디 모임</a>
+            	<a href="javascript: ajaxJobPage('${path }/study/studyList);" id="jobBoardBtn">개인정보수정</a>
             </li>       
 
           </ul>
            </li>
-      </ul>
+      </ul> --%>
   
       <!-- <ul class="list-unstyled CTAs">
         <li>

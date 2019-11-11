@@ -11,13 +11,13 @@
   <jsp:param name="pageTitle" value="Study Board" />
 </jsp:include>
 
-<jsp:include page="/WEB-INF/views/common/sidebar.jsp">
-  <jsp:param name="pageTitle" value="sidebar - mainview" />
+ <jsp:include page="/WEB-INF/views/common/sidebar.jsp">
+  <jsp:param name="pageTitle" value="Home" />
 </jsp:include>
 
 
 <style>
-    .container-1200 {
+   /*  .container-1200 {
       width: 100%;
       min-width: 1200px;
       padding-left: 15px; padding-right: 15px;
@@ -25,38 +25,34 @@
     }
 
  
- /*    .modal {
-      text-align: center; */
+     .modal {
+      text-align: center
+      }
 
 
-    @media screen and (min-width: 768px) { 
+   /*  @media screen and (min-width: 768px) { 
       .modal:before {
         display: inline-block;
         vertical-align: middle;
         content: " ";
         height: 100%;
       }
-    }
+    }  */
     
-          td img {
-        height: 10px;
-        width: 50%;
-        object-fit: cover;
-      }
-      td {
-        max-width: 0;
+       td {
+        max-width: 10;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
         padding: 0px;
-      }
+      } 
       table { width:500px;table-layout:fixed; }
-      table tr { height:1em;  }
-      /* table tr {
+      table tr { height:1em;  } 
+      table tr {
         line-height: 25px;
         min-height: 25px;
         height: 25px;
-      } */
+      } 
       @media (max-width: 768px) { /* use the max to specify at each container level */
         .job-title {    
           width:100px;  /* adjust to desired wrapping */
@@ -76,14 +72,14 @@
         -moz-box-shadow: 2px 2px 2px #535353;
         -webkit-box-shadow: 2px 2px 2px #535353;
         box-shadow: 2px 2px 2px #535353;
-      }
+        
+   } 
+
   </style>
 
- 
-<!--    <div class="modal fade hide in" id="studyrecruitment" tabindex="-1" role="dialog"
-	data-keyboard="false" data-backdrop="static" aria-labelledby="exampleModalCenterTitle"
-	aria-hidden="true"> -->
-<div class="modal fade" id="myModal">
+     
+
+ <div class="modal fade" id="myModal">
   <div class="modal-dialog">
     <div class="modal-content">
     <div class="modal-header">
@@ -122,7 +118,7 @@
             </tbody>
           </table>
 
-        </div>
+        </div> 
 
         <div>
           <h6><strong>Content</strong></h6>
@@ -142,7 +138,7 @@
     </div>
   </div>
   </div>
-  </div>
+  </div> 
 
 
 
@@ -155,7 +151,6 @@
 
       <div class="card-header my-0 py-0">
 
-        <a href="${path}/mainView"><img src="${path}/resources/images/home.png" alt=""></a>
 
         <div class="d-flex align-items-center p-3 my-0 text-white bg-dark rounded">
           <i class="fa fa-book text-white mr-3 my-2" style="font-size:42px;"></i>
@@ -184,7 +179,7 @@
                 <button id="demo" class="ml-auto mr-3 align-self-center btn float-left btn-outline-primary" onclick="location.href='${pageContext.request.contextPath }/study/applyconfirm'">demo</button>
             </div>
    
-                <div id="databaseJobBoardList">
+                <div id="databaseStudyBoardList">
           <table class="table table-sm table-hover studymodal-tbl1" style="font-size:14px;">
             <thead>
               <tr>

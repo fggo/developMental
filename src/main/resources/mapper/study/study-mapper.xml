@@ -3,17 +3,15 @@
 <mapper namespace="study">
  
 	<select id="selectStudyBoardCount" resultType="_int">
-<<<<<<< HEAD
+
 		 SELECT COUNT(*) FROM BOARD_MEETUP
-=======
-		 select count(*) from board_meetup
->>>>>>> bdc3f0ce02ebd43b58d0aa093b306be1996e8056
+
 	</select>
 	
 	<select id="selectStudyBoardList" resultType="map">
 	 SELECT * FROM BOARD_MEETUP ORDER BY REGDATE DESC
 	</select>
-<<<<<<< HEAD
+
 	
 	<insert id="insertStudyBoard" parameterType="map">
 		 INSERT INTO BOARD_MEETUP VALUES(SEQ_BOARD_MEETUP.NEXTVAL, #{writer}, #{title}, #{content}, SYSDATE, 0, 1)
@@ -21,6 +19,5 @@
 	<insert id="study.ApplyStudy" parameterType="map">
 		INSERT INTO APPLY_MEETUP VALUES(#{no}, (SELECT NO FROM MEMBER WHERE ID= #{writer}))
 	</insert>
-=======
->>>>>>> bdc3f0ce02ebd43b58d0aa093b306be1996e8056
+
 </mapper>
