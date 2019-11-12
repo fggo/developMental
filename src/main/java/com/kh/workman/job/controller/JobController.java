@@ -439,7 +439,7 @@ public class JobController {
     String msg = "", loc= "";
     if(result > 0) {
       msg = "성공적으로 구인공고를 업로드 했습니다";
-      loc = "jobBoardList";
+      loc = "/";
     }
     else {
       msg="구인공고 등록에 실패했습니다.!";
