@@ -61,7 +61,7 @@ public class AdminNoticeController {
 		List<AdminAttachment> attList = service.selectAttachList();
 		
 		int totalCount = service.selectNoticeCount();
-		mv.addObject("pageBar", PageBarFactory.getAdminPageBar(totalCount, cPage, numPerPage, "/admin/noticeList"));
+		mv.addObject("pageBar", PageBarFactory.getAdminPageBar(totalCount, cPage, numPerPage, "/19AM_workman_final/admin/noticeList"));
 		mv.addObject("count",totalCount);
 		mv.addObject("list", list);
 		mv.addObject("attList", attList);
