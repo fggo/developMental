@@ -1,5 +1,5 @@
 function responseCreateList(receive){
-		var content = $("button[name=btn_cList]").parent().parent().parent();
+		var content = $("button[name=btn_cList]").parent().parent().parent().parent();
 		var board = $("button[name=btn_cList]").parent().parent().parent().parent().parent().parent();
 		content.empty();
 		
@@ -87,7 +87,7 @@ function responseCreateList(receive){
 		
 		listHeader.append(listTitle);
 		listHeader.append(btnMenu);
-		listHeader.append(dropMenu);
+		btnMenu.append(dropMenu);
 		
 		content.append(listHeader);
 		content.append(listCards);
@@ -258,12 +258,17 @@ function responseCreateCard(receive){
 	
 	content.attr("class","card-content");
 	
+	var hid = $("<input/>");
+	hid.attr("type","hidden");
+	hid.val(receive.userId);
+	
 	card.append(content);
+	card.append(hid);
 	card.append(button);
 	listCards.append(card);
 }
 function requestCreateCard(ele){
-	var content = prompt("Card's Title ? ");
+	var content = prompt("카드의 내용을 입력하세요. ");
 	var listNo = parseInt($(ele).parent().parent().children('.list-cards').attr('id').substring(7));
 	if(content!=''){
 		var sendData = {
@@ -318,8 +323,6 @@ function responseUpdateCard(receive){
 }
 
 function requestMoveList(element, ev){
-	console.log($(element));
-	console.log(ev.dataTransfer.getData("text"));
 	/* document.getElementById("listNo_"+listNo).appendChild(document.getElementById("cardNo_"+cardNo)); */
  	var listNo = $("#"+ev.dataTransfer.getData("text")).attr("id").substring(7);
 	var targetListNo = $(element).children().children('.list-cards').attr("id").substring(7);
@@ -340,23 +343,27 @@ function responseUpdateList(receive){
 }
 
 function requestUpdateList(target){
-	var listNo = $(target).parent().parent().parent().parent().parent().children(".list-cards").attr("id").substring(7);
-	var content = prompt("Please enter the title of the list to modify");
-	sendData={
-		type :"list",
-		method :"update",
-		content : content,
-		listNo : listNo,
-		userId : userId,
-		collaboNo : collaboNo
-	};
-	sendMessage(sendData);
+	var content = prompt("수정하실 리스트의 제목을 입력하세요.");
+	if(content != ''){
+		var listNo = $(target).parent().parent().parent().parent().parent().children(".list-cards").attr("id").substring(7);
+		sendData={
+				type :"list",
+				method :"update",
+				content : content,
+				listNo : listNo,
+				userId : userId,
+				collaboNo : collaboNo
+			};
+			sendMessage(sendData);
+	}
 }
 
 
 
 function requestDeleteList(target){
-	if(confirm("Are you Delete This List?")){
+//	alert('리스트 삭제 기능 공사중입니다.');
+//	리스트 삭제기능 방어
+	if(confirm("삭제하시겠습니까?")){
 		var targetList = $(target).parent().parent().parent().parent().parent().children(".list-cards").attr("id").substring(7);
 		sendData={
 			type : "list",
@@ -371,13 +378,13 @@ function requestDeleteList(target){
 
 
 function requestDeletCard(target){
-	var isDelete = confirm("Are you delete this card?");
+	var isDelete = confirm("삭제하시겠습니까?");
 	if(isDelete){
 		var cardNo = $("#modalCardNo").val();
 		var sendData ={
 			type:"card",
 			method:"delete",
-			userId:userId,
+			userId : userId,
 			collaboNo:collaboNo,
 			cardNo:cardNo
 		};
@@ -388,17 +395,22 @@ function requestDeletCard(target){
 
 function requestUpdateCard(target){
 	var content = $(target).parent().children("#editContent").val();
-	var cardNo = $("#modalCardNo").val();
-	var sendData ={
-		type:"card",
-		userId:userId,
-		method : "update",
-		collaboNo : collaboNo,
-		content : content,
-		cardNo : cardNo
-	};
-	
-	sendMessage(sendData);
+	if(content != ''){
+		var cardNo = $("#modalCardNo").val();
+		var sendData ={
+			type:"card",
+			userId:userId,
+			method : "update",
+			collaboNo : collaboNo,
+			content : content,
+			cardNo : cardNo
+		};
+		
+		sendMessage(sendData);
+	}else{
+		alert('내용을 입력해 주세요');
+	}
+
 }
 
 
@@ -413,7 +425,6 @@ function responseMoveList(receive){
 
 function responseDeleteList(receive){
 	var list = $("#listNo_"+receive.listNo).parent().parent();
-	console.log(list.attr("class"));
 	if(list.attr("class")== 'list-wrapper'){
 		list.remove();
 	}
@@ -422,35 +433,56 @@ function responseDeleteList(receive){
 	}
 }
 
-function requestInvite(){
-	var userId = $("#userId").val();
-	
-	if(userId!=''){
-		$.ajax({
-			type : "post",
-			url : "${path}/collabo/inviteMember",
-			dataType : "json",
-			data : {
-				userId : userId,
-				collaboNo : collaboNo
-			},
-			success : function(data){
-				if(data == "true"){
-					alert('초대 메일을 발송했습니다.');
-				}
-				else if(data == "false"){
-					alert('초대 실패!');
-				}
-			},
-			beforeSend:function(){
-				$('.wrap-loading').removeClass('display-none');
-			},
-			complete:function(){
-				$('.wrap-loading').addClass('display-none');
-			}
-		});
-	}else{
-		alert('아이디를 입력해 주세요.');
-	}
-}
+Date.prototype.format = function (f) {
 
+    if (!this.valueOf()) return " ";
+
+    var weekKorName = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
+
+    var weekKorShortName = ["일", "월", "화", "수", "목", "금", "토"];
+
+    var weekEngName = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+    var weekEngShortName = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+    var d = this;
+
+
+    return f.replace(/(yyyy|yy|MM|dd|KS|KL|ES|EL|HH|hh|mm|ss|a\/p)/gi, function ($1) {
+
+        switch ($1) {
+
+            case "yyyy": return d.getFullYear(); // 년 (4자리)
+
+            case "yy": return (d.getFullYear() % 1000).zf(2); // 년 (2자리)
+
+            case "MM": return (d.getMonth() + 1).zf(2); // 월 (2자리)
+
+            case "dd": return d.getDate().zf(2); // 일 (2자리)
+
+            case "KS": return weekKorShortName[d.getDay()]; // 요일 (짧은 한글)
+
+            case "KL": return weekKorName[d.getDay()]; // 요일 (긴 한글)
+
+            case "ES": return weekEngShortName[d.getDay()]; // 요일 (짧은 영어)
+
+            case "EL": return weekEngName[d.getDay()]; // 요일 (긴 영어)
+
+            case "HH": return d.getHours().zf(2); // 시간 (24시간 기준, 2자리)
+
+            case "hh": return ((h = d.getHours() % 12) ? h : 12).zf(2); // 시간 (12시간 기준, 2자리)
+
+            case "mm": return d.getMinutes().zf(2); // 분 (2자리)
+
+            case "ss": return d.getSeconds().zf(2); // 초 (2자리)
+
+            case "a/p": return d.getHours() < 12 ? "오전" : "오후"; // 오전/오후 구분
+
+            default: return $1;
+        }
+    });
+};
+
+String.prototype.string = function (len) { var s = '', i = 0; while (i++ < len) { s += this; } return s; };
+String.prototype.zf = function (len) { return "0".string(len - this.length) + this; };
+Number.prototype.zf = function (len) { return this.toString().zf(len); };

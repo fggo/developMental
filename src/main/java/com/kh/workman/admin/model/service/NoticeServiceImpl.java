@@ -63,12 +63,12 @@ public class NoticeServiceImpl implements NoticeService {
 	
 	@Override
 	@Transactional(rollbackFor = Exception.class) //RuntimeException 발생시
-	public int updateNotice(Map<String, String> param, List<AdminAttachment> attachList) {
+	public int updateNotice(Map<String, Object> param, List<AdminAttachment> attachList) {
 		int result=0;
 		result=dao.updateNotice(session,param);//notice테이블에 데이터 입력!
 		if(attachList.size()>0) {
 			for(AdminAttachment a : attachList) {
-				a.setNoticeNo(Integer.parseInt(param.get("noticeNo")));
+				a.setNoticeNo((int)param.get("noticeNo"));
 				result=dao.updateAttachment(session,a);
 			}
 		}

@@ -3,6 +3,29 @@ select * from tab;
 SELECT J.*, (SELECT COUNT(*) FROM APPLY_JOB WHERE J.NO = MEMBERNO) AS APPLICANTS
   FROM BOARD_JOB J ORDER BY REGDATE DESC;
 
+commit;
+--delete from hashtag;
+
+--MERGE INTO hashtag
+--  USING DUAL
+--  ON (name = 'b')
+--WHEN MATCHED THEN
+--  UPDATE SET
+--  count = count + 1
+--WHEN NOT MATCHED THEN
+--  INSERT (no, name, count)
+--    VALUES (default, 'b', 1);
+--MERGE INTO hashtag
+--  USING DUAL
+--  ON (name = #{name})
+--WHEN MATCHED THEN
+--  UPDATE SET
+--  count = count + 1
+--WHEN NOT MATCHED THEN
+--  INSERT (no, name, count)
+--    VALUES (default, #{name}, 1)
+
+
 SELECT * FROM APPLY_MEETUP;
 SELECT * FROM BOARD_FREE;
 SELECT * FROM BOARD_MEETUP;
@@ -24,14 +47,16 @@ SELECT * FROM HASHTAG_JOB;
 SELECT * FROM MEMBER;
 SELECT * FROM BOARD_JOB;
 SELECT * FROM FILE_BOARD_JOB;
+
 SELECT * FROM APPLY_JOB;
 
 select BOARD_JOB_SEQ.currval from dual;
-
---delete from apply_job where boardno=89;
---delete from file_board_job where boardno=89;
---delete from board_job where no=89;
---delete from member where id='monk';
+select * from hashtag;
+--delete from apply_job where boardno in (123);
+--delete from file_board_job where boardno in (123);
+--delete from board_job where no in(123);
+--delete from member where id='junho';
+--delete from hashtag_job where boardno in (123);
 commit;
 
 -- no(int), writer, title, content, regdate(date), count(int), status(int)

@@ -132,6 +132,13 @@
       		location.href="${path}/admin/faqUpdate?faqNo="+faqNo;
       	}
       });
+      $(function(){
+  		var user = "${loginMember.id}";
+  		if(user == "" || user != 'admin'){
+  		   alert("잘못된 접근입니다.");
+  		   location.href="${path}/";
+  		}
+  	});
       
       
     </script>

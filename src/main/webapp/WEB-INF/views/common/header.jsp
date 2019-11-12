@@ -12,31 +12,32 @@
   <meta charset="UTF-8">
   <title>${ param.pageTitle }</title>
   
+  <!-- favicon -->
+  <link rel="icon" href="${path}/resources/images/logo.png">
+
+  <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
   
+  <!-- Popper -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <!-- CSS -->
-
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
-  integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> -->
+      integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
+  <link rel="stylesheet" href="${path }/resources/css/header.css">
   
-<!--   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> -->
-<!--   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+      integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+      crossorigin="anonymous"></script>
 
-  <!-- jQuery CDN -->
-  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> -->
-  
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-  crossorigin="anonymous"></script>
   <link rel="stylesheet" href="${path }/resources/css/header.css">
 
   <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
   
+  <!-- Javascript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>	
 
 
@@ -140,13 +141,13 @@
         <div class="collapse navbar-collapse" id="navbarCollapsible">
           <ul class="navbar-nav ml-auto" id='collapseItems'>
 
-            <li class="nav-item dropdown">
+            <!-- <li class="nav-item dropdown">
               <a class="nav-link dropdown menu-item mt-1 mr-0 text-white" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bell"></i></a>
 
               <div class="dropdown-menu mt-1" aria-labelledby="dropdown01">
                 <div id="notification" class="dropdown-item fa fa-list"></div>
               </div>
-            </li>
+            </li> -->
             <li class="nav-item dropdown">
               <a class="nav-link dropdown menu-item mt-1 mr-2 text-white" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fa fa-cog">&nbsp;<span class="text-secondary"><c:if test="${loginMember != null}">#${loginMember.no}</c:if></span></span>&nbsp;</a>
 
@@ -155,7 +156,7 @@
                 <a class="dropdown-item" href="javascript: ajaxJobPage('${path }/job/jobBoardList');"><i class="fa fa-briefcase">&nbsp;&nbsp;</i>구인 구직</a>
                 <!-- 관리자메뉴 버튼 by ogc -->
                 <c:if test="${loginMember != null && loginMember.id eq 'admin'}">
-                  <a class="dropdown-item" href="${path }/admin/adminMain"><i class="fas fa-bell">&nbsp;&nbsp;</i>Admin Main Test</a>
+                  <a class="dropdown-item" href="${path }/admin/adminMain"><i class="fa fa-user">&nbsp;&nbsp;&nbsp;</i>관리 메뉴</a>
           <!-- <button type="button" class="btn btn-sm btn-light mt-2 mr-1" onclick="adminMenu();" style="width: 80px;">관리</button> -->
                 </c:if>
               </div>
@@ -202,27 +203,33 @@
         $.each(params, function(key, value){
           var input = $("<input>");
           input.attr({"type": "hidden",
-                      "name": key,
-                      "value": value,
-          });
-          form.append(input);
+          "name": key,
+          "value": value,
         });
-
-        form.submit();
-      }
+        form.append(input);
+      });
+      
+      form.submit();
+    }
       function logoutSnsAccount(){
         googleLogout();
         return true;
       }
       
-      $(document).ready(function(){
+      $(function(){
         $("#login").click(function(){
           $("#loginModal").modal('show');
         })
-      })
 
+        $('.modal-dialog').draggable({
+          handle: ".modal-content",
+          // containment: "window",
+        });
+
+      })
+      
+  
     </script>
-    
     
 
   <!-- </header> -->

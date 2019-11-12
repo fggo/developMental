@@ -28,12 +28,17 @@ public interface MemberDao {
 
 	List<Member> selectAllMember(SqlSessionTemplate session);
 	Member selectMemberNickname(SqlSessionTemplate session, Member m);
+
+	List<Map<String, Object>> selectApplylist(SqlSessionTemplate session, String nickname);
+
+
 	
 	int updateMyJobBoardStatus(SqlSessionTemplate session, int no);
 	int updateMyStudyBoardStatus(SqlSessionTemplate session, int no);
 	
 	int updateMyJobBoardContent(SqlSessionTemplate session, MyStudyBoard b);
 	int updateMyStudyBoardContent(SqlSessionTemplate session, MyStudyBoard b);
+	int updatedeleteMember(SqlSessionTemplate session, Member m);
 	
-	
+
 }

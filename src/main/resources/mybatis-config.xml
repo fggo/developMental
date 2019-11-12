@@ -33,8 +33,13 @@
     <typeAlias type="com.kh.workman.job.model.vo.JobBoardFile" alias="jobBoardFile" />
     <typeAlias type="com.kh.workman.job.model.vo.JobApply" alias="jobApply" />
     
+    <!-- Hashtag -->
+    <typeAlias type="com.kh.workman.hashtag.model.vo.Hashtag" alias="hashtag" />
+    
+
 	<!-- Study -->
 	 <typeAlias type="com.kh.workman.study.model.vo.StudyBoard" alias="studyboard" />
+
 
   </typeAliases>
 

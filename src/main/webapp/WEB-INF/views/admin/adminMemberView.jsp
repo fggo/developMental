@@ -107,6 +107,10 @@
 </section>
 
 <script>
+	function sendEmail(){
+		var email = $('input[name=email]').val();
+		location.href='${path}/admin/emailToMember?email='+email;
+	}
 	function moveBack() {
 		history.back();
 	}
@@ -116,5 +120,12 @@
 		console.log(reportCount);
 		location.href='${path}/admin/memberReportUp?no='+no+'&reportCount='+reportCount;
 	}
+	$(function(){
+		var user = "${loginMember.id}";
+		if(user == "" || user != 'admin'){
+		   alert("잘못된 접근입니다.");
+		   location.href="${path}/";
+		}
+	});
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

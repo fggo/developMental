@@ -1,6 +1,5 @@
 package com.kh.workman.collabo.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,10 +20,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.kh.workman.collabo.model.service.CollaboService;
 import com.kh.workman.collabo.model.vo.CollaboCard;
+import com.kh.workman.collabo.model.vo.CollaboComment;
+import com.kh.workman.collabo.model.vo.CollaboCommentReply;
 import com.kh.workman.collabo.model.vo.CollaboList;
 import com.kh.workman.collabo.model.vo.CollaboTool;
+import com.kh.workman.collabo.model.vo.DataPacket;
 import com.kh.workman.member.model.service.MemberService;
 import com.kh.workman.member.model.vo.Member;
 
@@ -35,8 +39,6 @@ public class CollaboController {
 
 	@Autowired
 	CollaboService service;
-
-
 
 	@RequestMapping("/collabo/main.do")
 	public ModelAndView connectCollaboMain(ModelAndView mv) {
@@ -66,8 +68,8 @@ public class CollaboController {
 
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("collaboNo", collaboNo);
-		mav.addObject("members",temp);
-		mav.addObject("collaboMembers", collaboMembers);
+		mav.addObject("members", toJson(temp));
+		mav.addObject("collaboMembers", toJson(collaboMembers));
 		mav.addObject("collaboLists", collaboLists);
 		mav.addObject("collaboCards", collaboCards);
 		mav.addObject("collaboTool", collabo);
@@ -80,7 +82,7 @@ public class CollaboController {
 
 		List<CollaboTool> collaboTools = service.selectCollaboTools(userId);
 		List<Map<String, String>> collaboMemberList = service.selectCollaboMemberList(userId);
-
+ 
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("collaboMemberList", collaboMemberList);
 		mav.addObject("collaboTools", collaboTools);
@@ -136,8 +138,9 @@ public class CollaboController {
 			String requestURL = String.valueOf(request.getRequestURL());
 			requestURL = requestURL.replaceAll(request.getRequestURI(), "");
 			String content = "<html><body><h3>" + owner.getNickname() + "님이 " + collabo.getTitle()
-					+ "팀워크로 초대하셨습니다. </h3></br><a href='" + requestURL + "/collabo/responseInviteMember?userId="
-					+ userId + "&collaboNo=" + collaboNo + "'" + ">입장-링크클릭</a></body></html>";
+					+ "팀워크로 초대하셨습니다. </h3></br><a href='" + requestURL + "/" + request.getContextPath()
+					+ "/collabo/responseInviteMember?userId=" + userId + "&collaboNo=" + collaboNo + "'"
+					+ ">입장-링크클릭</a></body></html>";
 
 			MimeMessage message = mailSender.createMimeMessage();
 			MimeMessageHelper mmh = new MimeMessageHelper(message, true, "UTF-8");
@@ -181,4 +184,54 @@ public class CollaboController {
 		return isComplete;
 	}
 
+	@RequestMapping("/collabo/exitCollabo")
+	public String exitCollabo(@RequestParam HashMap<String, Object> receiveData) {
+		CollaboTool collabo = service.selectCollaboTool((int) receiveData.get("collaboNo"));
+		String isComplete = "false";
+		if (collabo.getOwner() == (int) receiveData.get("userId")) {
+			List<Member> collaboMembers = service.selectCollaboMembers((int) receiveData.get("collaboNo"));
+			for (int i = 0; i < collaboMembers.size(); i++) {
+				if (collaboMembers.get(i).getNo() == (int) receiveData.get("userId")) {
+					collaboMembers.remove(i);
+					break;
+				}
+			}
+			int ranNo = (int) (Math.random() + 1) * collaboMembers.size();
+			receiveData.put("target", collaboMembers.get(ranNo).getNo());
+			isComplete = service.updateCollaboOwner(receiveData) == 1 ? "true" : "false";
+			isComplete = service.exitCollabo(receiveData) == 1 ? "true" : "false";
+			if (Boolean.getBoolean(isComplete)) {
+				// Alram Mail Send
+			}
+
+		} else {
+			isComplete = service.exitCollabo(receiveData) == 1 ? "true" : "false";
+		}
+		return isComplete;
+	}
+
+	@RequestMapping("/collabo/requestCommentData")
+	@ResponseBody
+	public Map<String, List> requestCommentData(@RequestParam("cardNo") int cardNo) {
+
+		List<CollaboComment> comments = service.requestCommentData(cardNo);
+		List<CollaboCommentReply> commentReply = service.requestCommentReply(cardNo);
+		Map<String, List> data = new HashMap<String, List>();
+		logger.debug("comments : " + comments);
+		data.put("comments", comments);
+		data.put("commentReply", commentReply);
+
+		return data;
+	}
+
+	private HashMap<String, Object> parsingJson(String receiveMessage) {
+		Gson gson = new GsonBuilder().create();
+		HashMap<String, Object> temp = gson.fromJson(receiveMessage, HashMap.class);
+		return temp;
+	}
+
+	private String toJson(Object obj) {
+		Gson gson = new GsonBuilder().create();
+		return gson.toJson(obj);
+	}
 }

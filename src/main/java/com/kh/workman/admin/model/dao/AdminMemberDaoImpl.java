@@ -68,17 +68,4 @@ public class AdminMemberDaoImpl implements AdminMemberDao {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-
-
-	
-	
-	
-	
 }

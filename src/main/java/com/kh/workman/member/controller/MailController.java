@@ -50,7 +50,7 @@ public class MailController {
 		requestURL = requestURL.replaceAll(request.getRequestURI(), ""); // URI = /member/mailSending.do 를 잘라 문자 특정 문자 가져오기
 		System.out.println("requestUrL : " + requestURL);  // http://localhost:9090
 		// server upload request.getContextPath();
-		String content ="<html><body><h3>비밀번호 새로 설정 하기</h3></br><a href='"+requestURL+"/member/resetPassword.do?toemail="+toemail+"'"+">비밀번호 새로 설정하기-링크클릭</a></body><html>";
+		String content ="<html><body><h3>비밀번호 새로 설정 하기</h3></br><a href='"+requestURL+"/"+request.getContextPath()+"/member/resetPassword.do?toemail="+toemail+"'"+">비밀번호 새로 설정하기-링크클릭</a></body><html>";
 		
 		//System.out.println("requestURL index : " + requestURL.indexOf('/'));
 		//System.out.println(requestURL.replaceAll(request.getRequestURI(), ""));	
@@ -104,12 +104,7 @@ public class MailController {
 		String msg ="";
 		String loc ="/";
 		System.out.println(m);
-//		try
-//		{
-//			m.setPw(en.encrypt(m.getPw()));
-//		}catch (Exception e) {
-//			e.printStackTrace();
-//		}
+
 		m.setPw(pwEncoder.encode(m.getPw()));
 		
 		int result = service.updateMember(m);

@@ -11,11 +11,14 @@ import java.awt.image.PixelGrabber;
 import java.awt.image.Raster;
 import java.awt.image.WritableRaster;
 import java.io.File;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -29,13 +32,20 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.workman.common.PageBarFactory;
 import com.kh.workman.common.api.JobGithubApi;
+import com.kh.workman.common.api.JobSaraminApi;
+import com.kh.workman.common.crawling.JobITWorldCrawler;
+import com.kh.workman.hashtag.model.vo.Hashtag;
 import com.kh.workman.job.model.service.JobService;
 import com.kh.workman.job.model.vo.JobApply;
 import com.kh.workman.job.model.vo.JobBoard;
@@ -60,13 +70,16 @@ public class JobController {
 
 	@Value("${outlook}")
 	private String boss;
+
+	@Value("${saramin}")
+	private String apikey;
   
   @RequestMapping("/job/jobBoardList")
   public ModelAndView jobBoardList(
       @RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
-      @RequestParam(value="skill", required=false) String skill,
-      @RequestParam(value="loc", required=false) String loc,
-      @RequestParam(value="page", required=false, defaultValue="1") String page) {
+      @RequestParam(value="page", required=false, defaultValue="1") String page,
+      @RequestBody(required=false) Map<String,String> udf)
+          throws UnsupportedEncodingException, IOException{
 
     //1. Job Listings From Database (At least 1 Member Applied for the position)
     ModelAndView mv = new ModelAndView();
@@ -75,16 +88,19 @@ public class JobController {
     List<Map<String, Object>> list = jobService.selectPageJobBoardList(cPage, numPerPage);
     int totalCount = jobService.selectJobBoardCount();
 
-    //2. Additional Job Listings From Github Job API (Not inserted into DB yet!)
+    //2. Additional Job Listings From Github or Saramin Job API (Not inserted into DB yet!)
     //   this data lists are inserted AFTER at least one Member applies for the position!
     //TODO: test data(to be replaced with User Input!)
-//    skill="java";
-//    loc = "Los Angeles";
-//    page = "1";
 
     List<Map<String, Object>> newList = null;
-    if(skill != null && loc!=null ) {
-      newList = JobGithubApi.jobsGithubApi(skill, loc, Integer.valueOf(page));
+    if(udf !=null && udf.size() > 0) {
+      String apiType = udf.get("apiType");
+      
+      if(apiType.equals("github")) {
+        newList = JobGithubApi.jobsGithubApi(udf, Integer.valueOf(page));
+      } else if(apiType.contentEquals("saramin")) {
+        newList = JobSaraminApi.jobSaraminApi(apikey, udf, Integer.valueOf(page));
+      }
     }
 
     mv.addObject("pageBar", PageBarFactory.getPageBar(totalCount, cPage, numPerPage, "/job/jobBoardList"));
@@ -100,9 +116,9 @@ public class JobController {
   @RequestMapping("/job/jobContentView.do")
   public ModelAndView jobContentView(JobBoard j, 
         @RequestParam(value="imageURL", required=false) String imageURL,
-        @RequestParam(value="regDateRaw", required=false) String regDateRaw) {
-    System.out.println(j);
-    System.out.println(regDateRaw);
+        @RequestParam(value="regDateRaw", required=false) String regDateRaw,
+        @RequestParam(value="hashtags", required=false) String hashtags) {
+    logger.debug(hashtags);
 
     JobBoard board = null;
 
@@ -123,6 +139,7 @@ public class JobController {
     ModelAndView mv = new ModelAndView();
     mv.addObject("jobBoard", board);
     mv.addObject("imageURL", imageURL);
+    mv.addObject("hashtags", hashtags);
 
     mv.setViewName("job/jobContentView");
     
@@ -250,8 +267,9 @@ public class JobController {
     else { //memberNo !=0 && board.getNo() !=0
       //just save JobApply DB
     }
+    //3. JobHashtag Hashtag
 
-    //3. 'JobApply'
+    //4. 'JobApply'
     JobApply newJobApply = new JobApply();
 
     newJobBoard = jobService.selectJobBoardWriter(newJobBoard);
@@ -347,7 +365,8 @@ public class JobController {
         @RequestParam(value="jobType") String jobType,
         @RequestParam(value="location") String location,
         @RequestParam(value="description") String description,
-        @RequestParam(value="howToApply") String howToApply){
+        @RequestParam(value="howToApply") String howToApply,
+        @RequestParam(value="hashtags", required=false) String hashtags){
     
     logger.debug("Original job board file name : " + orgNames[0].getOriginalFilename());
 
@@ -400,9 +419,18 @@ public class JobController {
             + "\nⅢ. 세부내용 : " + description
             + "\nⅣ. 지원방법 : " + howToApply + "\n");
 
+    //hashtags
+    List<Hashtag> hashtagList = new ArrayList<Hashtag>();
+    for(String name : Arrays.asList(hashtags.replace(" ", "").split("#"))) {
+      if(name.length() ==0) continue;
+      Hashtag tag = new Hashtag();
+      tag.setName(name);
+      hashtagList.add(tag);
+    }
+
     int result = 0;
     try {
-      result = jobService.insertJobBoard(j, jobBoardFileList);
+      result = jobService.insertJobBoardWithHashtag(j, jobBoardFileList, hashtagList);
     } catch(Exception e) {
       e.printStackTrace();
     }
@@ -424,4 +452,15 @@ public class JobController {
 
     return mv;
   }
+  
+  @ResponseBody
+  @RequestMapping("/job/newsList")
+  public String showNewsList() throws JsonProcessingException {
+
+    List<Map<String,String>> crawlNewsList = JobITWorldCrawler.crawlNewsList();
+    
+    ObjectMapper mapper = new ObjectMapper();
+    return mapper.writeValueAsString(crawlNewsList);
+  }
+  
 }

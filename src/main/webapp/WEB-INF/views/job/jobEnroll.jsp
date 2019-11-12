@@ -37,7 +37,7 @@
                 <!-- applicants info-->
                 <div id="nav-tab-card" class="tab-pane fade show active">
                   <!-- <p class="alert alert-success">Some text success or error</p> -->
-                  <form action="${path}/job/jobEnrollEnd.do" method="post" enctype="multipart/form-data">
+                  <form action="${path}/job/jobEnrollEnd.do" method="post" enctype="multipart/form-data" class="form">
                     <!-- companyLogo -->
                     <div class="form-group my-0">
                       <div class="companyLogo-wrapper my-0 mx-auto">
@@ -55,56 +55,88 @@
                     </div>
                     <!-- /companyLogo -->
 
-                    <div class="form-group my-0">
-                      <label for="writer" class="fa fa-building-o">&nbsp;&nbsp;</label>회사명
+                    <div class="input-group my-3">
+                      <div class="input-group-prepend"> 
+                        <span class='input-group-text'>
+                          <i class="fa fa-building-o">&nbsp;&nbsp;</i>회사명
+                        </span>
+                      </div>
                       <c:if test="${loginMember != null}">
                         <input type="text" class="form-control text-primary" name="writer" value="${loginMember.nickname}" readonly required />
                       </c:if>
                     </div>
-                    <div class="form-group">
-                      <label for="title">구인글 제목</label>
-                      <input type="text" name="title" placeholder="title..." required class="form-control">
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend"> 
+                        <span class='input-group-text'>
+                          <i class="fa fa-header">&nbsp;&nbsp;</i>제목
+                        </span>
+                      </div>
+                      <input type="text" name="title" placeholder="title..." class="form-control" required />
                     </div>
                     <!-- content -->
                     <hr>
                     <div class="row">
-                      <div class="col-sm-6">
-                        <!-- <div class="form-group my-0">
-                          <label for="jobType">Ⅰ. 직업 타입</label>
-                          <select name="jobType" id="jobType" class="form-control" required>
-                            <option value="Full Time">정규직</option>
-                            <option value="Part Time">Part Time</option>
-                          </select>
-                        </div> -->
-                        <div class="my-1">
-                          <label for="jobType">Ⅰ. 근무형태</label>
-                          <select name="jobType" id="jobType" class="form-control-sm custom-select mr-2" required>
+                      <div class="input-group mb-3 col-sm-6">
+                        <div class="input-group-prepend">
+                          <label class="input-group-text" for="jobType">Ⅰ. 근무형태</label>
+                          <select class="custom-select" id="jobType" name="jobType" required>
                             <option selected disabled>근무형태</option>
                             <option value="정규직">정규직</option>
                             <option value="계약직">계약직</option>
                           </select>
                         </div>
                       </div>
-                      <div class="col-sm-6">
-                        <div class="my-1">
-                          <label for="location">Ⅱ. 회사위치</label>
-                          <textarea name="location" placeholder="address..." class="form-control"
-                            rows="3" style="resize:none" required></textarea>
+                      <div class="input-group col-sm-6 mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">Ⅱ. 위치</span>
                         </div>
+                        <textarea class="form-control" aria-label="With textarea" name="location" placeholder="address" rows="2" style="resize:none" required></textarea>
                       </div>
                     </div>
-                    <div class="form-group my-0">
-                      <label for="description">Ⅲ. 요구조건</label>
-                      <textarea name="description" placeholder="describe..." required class="form-control" rows="5" style="resize:none"></textarea>
+                    <div class="input-group col-sm-12 px-0 mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">Ⅲ. 자격요건</span>
+                      </div>
+                      <textarea class="form-control" aria-label="With textarea" name="description" placeholder="describe..." rows="3" style="resize:none" required></textarea>
                     </div>
-                    <div class="form-group my-0">
-                      <label for="howToApply">Ⅳ. 지원방법</label>
-                      <textarea name="howToApply" placeholder="how to apply...?" required class="form-control" row="2" style="resize:none"></textarea>
+                    <hr>
+
+                    <!-- hashtag -->
+                    <div class="input-group mb-3" id='hashtag-enroll'>
+                      <div class="input-group-prepend"> 
+                        <span class='input-group-text'><i class="fa fa-hashtag">&nbsp;&nbsp;</i>해시태그</span>
+                      </div>
+                      <input type="text" id="tag" name="tag" placeholder="키워드를 등록해 주세요." class="form-control" />
+                      <div class="input-group-append"> 
+                        <span class='input-group-text'>
+                          <button type="button" id="addTagBtn" class="btn btn-primary my-0 py-0" value="등록">등록</button>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="input-group mb-3" id='hashtag-enroll'>
+                      <div class="input-group-prepend"> 
+                        <span class='input-group-text'>&nbsp;&nbsp;</i>추가됨</span>
+                      </div>
+                      <input type="text" id="hashtags" name="hashtags" placeholder="해시태그 리스트...." class="form-control" readonly />
+                      <div class="input-group-append"> 
+                        <span class='input-group-text'>
+                          <button type="button" id="clearTagBtn" class="btn btn-outline-danger my-0 py-0">초기화</button>
+                        </span>
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="input-group col-sm-12 px-0 mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">Ⅳ. 지원방법</span>
+                      </div>
+                      <textarea class="form-control" aria-label="With textarea" name="howToApply" placeholder="how to apply..." rows="3" style="resize:none" required></textarea>
                     </div>
                     <hr>
                     <!-- /content end -->
                     <input type="submit" class="subscribe btn btn-outline-dark btn-block rounded-lg shadow-sm" value="제출하기" />
                   </form>
+
+
                 </div>
                 <!-- End -->
 
@@ -115,9 +147,35 @@
           </div>
         </div>
       </div>
-
       <script>
         $(function(){
+
+          $('#addTagBtn').click(function(){
+            var hashtag = $('#tag').val().trim();
+            if(hashtag == ""){
+              alert("해시코드 값을 입력해 주세요!")
+            }
+
+            $('#tag').val('');
+
+            $('#hashtags').val($('#hashtags').val() + "#" + hashtag + " ");
+          });
+
+          $('#tag').keypress(function(e){ 
+
+            var hashtag;
+            if(e.keyCode == 32){ //spacebar
+              hashtag = $('#tag').val();
+
+              $('#hashtags').val($('#hashtags').val() + "#" + hashtag + " ");
+              $('#tag').val('');
+            }
+          });
+
+          $('#clearTagBtn').click(function(){
+            $('#hashtags').val("");
+          });
+
           var $apiLoading = $('.apiLoading').hide();
           $(document)
           .ajaxStart(function () {

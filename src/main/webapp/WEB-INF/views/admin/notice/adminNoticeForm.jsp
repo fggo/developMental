@@ -127,7 +127,7 @@
 			alert("제목 또는 내용을 입력하세요");
 			return;
 		}else{
-			var form=$("form");
+			var form=$("[name=noticeFrm]");
 			form.submit();
 		}
 		
@@ -139,6 +139,13 @@
 	$(".custom-file-input").on("change", function() {
 	  var fileName = $(this).val().split("\\").pop();
 	  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+	});
+	$(function(){
+		var user = "${loginMember.id}";
+		if(user == "" || user != 'admin'){
+		   alert("잘못된 접근입니다.");
+		   location.href="${path}/";
+		}
 	});
 </script>
 

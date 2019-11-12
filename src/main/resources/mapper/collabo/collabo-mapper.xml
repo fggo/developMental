@@ -9,17 +9,17 @@
 			SELECT NO FROM MEMBER WHERE ID = #{userId}
 		),DEFAULT,(
 			SELECT COUNT(*) FROM COLLABO_LIST WHERE COLLABONO = #{collaboNo}
-		)+1)
+		)+1,1)
 	</insert>
 	
 	<select id="participation" parameterType="_int" resultType="map">
 		SELECT ID FROM MEMBER WHERE NO IN (
 			SELECT MEMBER FROM COLLABO_MEMBER WHERE NO = #{collaboNo}
-		)
+		) AND STATUS = 1
 	</select>
 	
 	<select id="selectCollaboListOne" parameterType="_int" resultType="collaboList">
-		SELECT * FROM COLLABO_LIST WHERE LISTNO = #{target}
+		SELECT * FROM COLLABO_LIST WHERE LISTNO = #{target} AND STATUS = 1
 	</select>
 	
 	<insert id="createCard" parameterType="map">
@@ -30,17 +30,17 @@
 			SELECT NO FROM MEMBER WHERE ID = #{userId}
 		),#{content},DEFAULT,(
 			SELECT COUNT(*) FROM COLLABO_CARD WHERE LISTNO = #{listNo}
-		)+1)
+		)+1,1)
 	</insert>
 	
 	<select id="selectCollaboLists" parameterType="_int" resultType="collaboList">
-		SELECT * FROM COLLABO_LIST WHERE COLLABONO = #{collaboNo} ORDER BY PLACENO ASC
+		SELECT * FROM COLLABO_LIST WHERE COLLABONO = #{collaboNo} AND STATUS = 1 ORDER BY PLACENO ASC
 	</select> 
 	
 	<select id="selectCollaboCards" parameterType="_int" resultType="collaboCard">
 		SELECT * FROM COLLABO_CARD WHERE LISTNO IN (
 			SELECT LISTNO FROM COLLABO_LIST WHERE COLLABONO = #{collaboNo})
-		ORDER BY LISTNO ASC, PLACENO ASC
+		AND STATUS = 1 ORDER BY LISTNO ASC, PLACENO ASC
 	</select>
 	
 	<update id="moveCard" parameterType="map">
@@ -52,24 +52,24 @@
 	<select id="selectCollaboMembers" resultType="member" parameterType="_int">
 		SELECT NO,ID,NICKNAME FROM MEMBER WHERE NO IN (
 			SELECT MEMBER FROM COLLABO_MEMBER WHERE NO = #{collaboNo}
-		)
+		)AND STATUS = 1
 	</select>
 	
 	<update id="updateCard" parameterType="map">
 		UPDATE COLLABO_CARD SET CONTENT = #{content} WHERE CARDNO = #{cardNo}
 	</update>
 	
-	<delete id="deleteCard" parameterType="map">
-		DELETE COLLABO_CARD WHERE CARDNO = #{cardNo}
-	</delete>
+	<update id="deleteCard" parameterType="map">
+		UPDATE COLLABO_CARD SET STATUS = 0 WHERE CARDNO = #{cardNo}
+	</update>
 	
-	<delete id="deleteList" parameterType="map">
-		DELETE COLLABO_LIST WHERE LISTNO = #{listNo}
-	</delete>
+	<update id="deleteList" parameterType="map">
+		UPDATE COLLABO_LIST SET STATUS = 0 WHERE LISTNO = #{listNo}
+	</update>
 	
-	<delete id="deleteListToCards" parameterType="map">
-		DELETE COLLABO_CARD WHERE LISTNO = #{listNo}
-	</delete>
+	<update id="deleteListToCards" parameterType="map">
+		UPDATE COLLABO_CARD SET STATUS = 0 WHERE LISTNO = #{listNo}
+	</update>
 	
 	<update id="updateList" parameterType="map">
 		UPDATE COLLABO_LIST SET TITLE = #{content} WHERE LISTNO = #{listNo}
@@ -79,15 +79,15 @@
 	</update>
 	
 	<select id="searchListPlaceNo" parameterType="map" resultType="_int">
-		SELECT PLACENO FROM COLLABO_LIST WHERE LISTNO = #{targetNo}
+		SELECT PLACENO FROM COLLABO_LIST WHERE LISTNO = #{targetNo} AND STATUS = 1
 	</select>
 	
 	<select id="selectCollaboTools" parameterType="string" resultType="collaboTool">
 		SELECT * FROM COLLABO_TOOL WHERE NO IN (
 			SELECT NO FROM COLLABO_MEMBER WHERE MEMBER = (
-				SELECT NO FROM MEMBER WHERE ID = #{userId}
+				SELECT NO FROM MEMBER WHERE ID = #{userId} AND STATUS = 1
 			)
-		)
+		) AND STATUS = 1
 	</select>
 	
 	<select id="selectCollaboMemberList" parameterType="string" resultType="map">
@@ -95,7 +95,7 @@
 			SELECT NO FROM COLLABO_TOOL WHERE NO IN (
 				SELECT NO FROM COLLABO_MEMBER WHERE MEMBER IN(
 					SELECT NO FROM MEMBER WHERE ID = #{userId}))) 
-		AND COLLABO_MEMBER.MEMBER = MEMBER.NO
+		AND COLLABO_MEMBER.MEMBER = MEMBER.NO AND STATUS = 1
 	</select>
 	
 	<insert id="createCollaboTool" parameterType="map">
@@ -108,24 +108,87 @@
 	</insert>
 	
 	<insert id="insertCollaboMember" parameterType="map">
-		INSERT INTO COLLABO_MEMBER VALUES(#{no},
+		INSERT INTO COLLABO_MEMBER VALUES(#{collaboNo},
 			(SELECT NO FROM MEMBER WHERE ID = #{userId}
 		), DEFAULT)
 	</insert>
 	
 	<select id="selectCollaboTool" parameterType="_int" resultType="collaboTool">
-		SELECT * FROM COLLABO_TOOL WHERE NO = #{collaboNo}
+		SELECT * FROM COLLABO_TOOL WHERE NO = #{collaboNo} AND STATUS = 1
 	</select>
 	
 	<select id="selectCollaboOwner" parameterType="_int" resultType="com.kh.workman.member.model.vo.Member">
 		SELECT * FROM MEMBER WHERE NO = (
 			SELECT OWNER FROM COLLABO_TOOL WHERE NO = #{collaboNo}
-		)
+		) AND STATUS = 1
 	</select>
 	
 	<delete id="expulsionMember" parameterType="map">
-		DELETE FROM COLLABO_TOOL WHERE NO = #{collaboNo} AND MEMBER = (
+		DELETE FROM COLLABO_MEMBER WHERE NO = #{collaboNo} AND MEMBER = (
 			SELECT NO FROM MEMBER WHERE ID = #{userId}
 		)
 	</delete>
+	
+	<delete id="exitCollabo" parameterType="map">
+		DELETE FROM CCOLLABO_MEMBER WHERE NO = #{collaboNo} AND MEMBER = #{userId}
+	</delete>
+	
+	<update id="updateCollaboOwner" parameterType="map">
+		UPDATE COLLABO_TOOL SET OWNER = #{target} WHERE NO = #{collaboNo}
+	</update>
+	
+	<select id="requestCommentData" parameterType="_int" resultType="com.kh.workman.collabo.model.vo.CollaboComment">
+		SELECT * FROM COLLABO_COMMENT WHERE CARDNO = #{cardNo} AND STATUS = 1
+	</select>
+	
+	<select id="requestCommentReply" parameterType="_int" resultType="com.kh.workman.collabo.model.vo.CollaboCommentReply">
+		SELECT * FROM COLLABO_COMMENT_REPLY WHERE TARGETNO IN (
+			SELECT NO FROM COLLABO_COMMENT WHERE CARDNO = #{cardNo}
+		) AND STATUS = 1
+	</select>
+	
+	<insert id="createComment" parameterType="map">
+	<selectKey keyProperty="commentNo" order="AFTER" resultType="_int">
+		SELECT COLLABO_COMMENT_SEQ.CURRVAL AS commentNo FROM DUAL
+	</selectKey>
+		INSERT INTO COLLABO_COMMENT VALUES(DEFAULT, #{cardNo}, ( 
+			SELECT NO FROM MEMBER WHERE ID = #{userId}
+		), #{content}, DEFAULT, DEFAULT)
+	</insert>
+	
+	<select id="selectOneComment" parameterType="map" resultType="com.kh.workman.collabo.model.vo.CollaboComment">
+		SELECT * FROM COLLABO_COMMENT WHERE NO = #{commentNo} AND STATUS = 1
+	</select>
+	
+	<update id="deleteComment" parameterType="map">
+		UPDATE COLLABO_COMMENT SET STATUS = 0 WHERE NO = #{commentNo}
+	</update>
+	
+	<insert id="createReply" parameterType="map">
+		<selectKey keyProperty="commentNo" order="AFTER" resultType="_int">
+			SELECT COLLABO_COMMENT_REPLY_SEQ.CURRVAL AS commentNo FROM DUAL
+		</selectKey>
+		INSERT INTO COLLABO_COMMENT_REPLY VALUES(DEFAULT, #{targetNo}, #{userId}, #{content}, DEFAULT, DEFAULT)
+	</insert>
+	
+	<select id="selectOneReply" parameterType="map" resultType="com.kh.workman.collabo.model.vo.CollaboCommentReply">
+		SELECT * FROM COLLABO_COMMENT_REPLY WHERE NO = #{commentNo} AND STATUS = 1
+	</select>
+	
+	<update id="updateComment" parameterType="map">
+		UPDATE COLLABO_COMMENT SET CONTENT = #{content} WHERE NO = #{commentNo}	AND STATUS = 1
+	</update>
+	
+	<update id="deleteReply" parameterType="map">
+		UPDATE COLLABO_COMMENT_REPLY SET STATUS = 0 WHERE NO = #{commentNo}
+	</update>
+	
+	<update id="updateReply" parameterType="map">
+		UPDATE COLLABO_COMMENT_REPLY SET CONTENT = #{content} WHERE NO = #{commentNo}	
+	</update>
+	
+	<update id="deleteCollabo" parameterType="map">
+		UPDATE COLLABO_TOOL SET STATUS = 0 WHERE NO = #{collaboNo} AND owner = #{userId}
+	</update>
+	
 </mapper>

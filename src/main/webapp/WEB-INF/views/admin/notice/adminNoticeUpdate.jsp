@@ -39,14 +39,14 @@
             	<div class="card-my card-4-my">
                 	<div class="card-body-my">
                 		<h2 class="title-my">공지사항 수정</h2>
-                		<form name="noticeFrm" action="${path}/admin/noticeUpdateEnd.do" method="post" enctype="multipart/form-data" >
+                		<form name="noticeFrm" id="noticeFrm" action="${path}/admin/noticeUpdateEnd.do" method="post" enctype="multipart/form-data" >
                 		
                 			<div class="row-my row-space-my">
                 				<div class="col-2-my">
                 					<div class="input-group-my">
                 						<label class="label-my">제목</label>
+                						<input type="hidden" name="noticeNo" id="noticeNo" value="${notice.noticeNo }"/>
                 						<input type="text" class="input--style-4-my" name="noticeTitle" id="noticeTitle" value="${notice.noticeTitle }" required>
-                						<input type="hidden"/>
                 					</div>
                 				</div>
                 				<div class="col-2-my">
@@ -123,18 +123,19 @@
 
 <script>
 function noticeSubmit(){
-	
 	var noticeTitle=$("#noticeTitle").val();
 	var noticeContent=$("#noticeContent").val();
+	$("#noticeFrm").submit();
+// 	console.log('asd');
 	
-	if( (noticeTitle== "null" || noticeTitle== "undefined" || noticeTitle== "NaN" || noticeTitle== '') || 
-			(noticeContent== "null" || noticeContent== "undefined" || noticeContent== "NaN" || noticeContent== '') ){
-		alert("제목 또는 내용을 입력하세요");
-		return;
-	}else{
-		var form=$("form");
-		form.submit();
-	}
+// 	if( (noticeTitle== "null" || noticeTitle== "undefined" || noticeTitle== "NaN" || noticeTitle== '') || 
+// 			(noticeContent== "null" || noticeContent== "undefined" || noticeContent== "NaN" || noticeContent== '') ){
+// 		alert("제목 또는 내용을 입력하세요");
+// 		return;
+// 	}else{
+// 		var form=$("#noticeFrm");
+// 		form.submit();
+// 	}
 		
 	
 };
@@ -145,6 +146,13 @@ function noticeCancel(){
 $(".custom-file-input").on("change", function() {
   var fileName = $(this).val().split("\\").pop();
   $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+});
+$(function(){
+	var user = "${loginMember.id}";
+	if(user == "" || user != 'admin'){
+	   alert("잘못된 접근입니다.");
+	   location.href="${path}/";
+	}
 });
 
 </script>

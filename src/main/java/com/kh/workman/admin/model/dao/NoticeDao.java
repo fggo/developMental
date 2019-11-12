@@ -21,7 +21,7 @@ public interface NoticeDao {
 	AdminNotice selectNoticeOne(SqlSessionTemplate session, int noticeNo);
 	List<AdminAttachment> selectAttachment(SqlSessionTemplate session, int noticeNo);
 	
-	int updateNotice(SqlSessionTemplate session, Map<String, String> param);
+	int updateNotice(SqlSessionTemplate session, Map<String, Object> param);
 	int updateAttachment(SqlSessionTemplate session, AdminAttachment a);
 
 }

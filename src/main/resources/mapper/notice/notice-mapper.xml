@@ -36,8 +36,8 @@
 		SELECT * FROM ATTACHMENT WHERE NOTICENO=#{noticeNo}
 	</select>
 	
-	<update id="updateNotice" parameterType="adminNotice">
-		UPDATE NOTICE SET NOTICETITLE=#{noticeTitle}, NOTICECONTENT=#{noticeContent}, NOTICEDATE=DEFAULT
+	<update id="updateNotice" parameterType="map">
+		UPDATE NOTICE SET NOTICETITLE=#{noticeTitle}, NOTICECONTENT=#{noticeContent}, NOTICEDATE=DEFAULT WHERE NOTICENO=#{noticeNo}
 	</update>
 	<update id="updateAttachment" parameterType="adminAttachment">
 		

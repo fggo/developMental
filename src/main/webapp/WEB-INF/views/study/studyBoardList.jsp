@@ -11,13 +11,13 @@
   <jsp:param name="pageTitle" value="Study Board" />
 </jsp:include>
 
-<jsp:include page="/WEB-INF/views/common/sidebar.jsp">
-  <jsp:param name="pageTitle" value="sidebar - mainview" />
+ <jsp:include page="/WEB-INF/views/common/sidebar.jsp">
+  <jsp:param name="pageTitle" value="Home" />
 </jsp:include>
 
 
 <style>
-    .container-1200 {
+   /*  .container-1200 {
       width: 100%;
       min-width: 1200px;
       padding-left: 15px; padding-right: 15px;
@@ -28,35 +28,35 @@
  /*    .modal {
       text-align: center; */
 
+ 
+     .modal {
+      text-align: center
+      }
 
-    @media screen and (min-width: 768px) { 
+
+   /*  @media screen and (min-width: 768px) { 
       .modal:before {
         display: inline-block;
         vertical-align: middle;
         content: " ";
         height: 100%;
       }
-    }
+    }  */
     
-          td img {
-        height: 10px;
-        width: 50%;
-        object-fit: cover;
-      }
-      td {
-        max-width: 0;
+       td {
+        max-width: 10;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
         padding: 0px;
-      }
+      } 
       table { width:500px;table-layout:fixed; }
-      table tr { height:1em;  }
-      /* table tr {
+      table tr { height:1em;  } 
+      table tr {
         line-height: 25px;
         min-height: 25px;
         height: 25px;
-      } */
+      } 
       @media (max-width: 768px) { /* use the max to specify at each container level */
         .job-title {    
           width:100px;  /* adjust to desired wrapping */
@@ -76,14 +76,15 @@
         -moz-box-shadow: 2px 2px 2px #535353;
         -webkit-box-shadow: 2px 2px 2px #535353;
         box-shadow: 2px 2px 2px #535353;
-      }
+        
+   } 
+
   </style>
 
- 
-<!--    <div class="modal fade hide in" id="studyrecruitment" tabindex="-1" role="dialog"
-	data-keyboard="false" data-backdrop="static" aria-labelledby="exampleModalCenterTitle"
-	aria-hidden="true"> -->
-<div class="modal fade" id="myModal">
+
+     
+
+ <div class="modal fade" id="myModal">
   <div class="modal-dialog">
     <div class="modal-content">
     <div class="modal-header">
@@ -119,10 +120,21 @@
                      <input class="form-control"  id="txtdname" readonly />
                 </td>
               </tr> 
+               <tr>
+                <td class="h6"></td>
+                <td class="h5">
+                     <input class="form-control"  id="txtdname" readonly />
+                </td>
+              </tr> 
+              	<tr>
+              		<td>
+              			<input type=hidden name="logininfo" value="${loginMember.id}">
+              		</td>
+              	</tr>
             </tbody>
           </table>
 
-        </div>
+        </div> 
 
         <div>
           <h6><strong>Content</strong></h6>
@@ -142,7 +154,8 @@
     </div>
   </div>
   </div>
-  </div>
+  </div> 
+
 
 
 
@@ -155,7 +168,9 @@
 
       <div class="card-header my-0 py-0">
 
+
         <a href="${path}/mainView"><img src="${path}/resources/images/home.png" alt=""></a>
+
 
         <div class="d-flex align-items-center p-3 my-0 text-white bg-dark rounded">
           <i class="fa fa-book text-white mr-3 my-2" style="font-size:42px;"></i>
@@ -170,21 +185,24 @@
           <div class="media-body d-flex pl-3 my-0 py-0">
             <div class="">
               <h3 class="card-title">Study Board</h3>
-              <h6 class="card-subtitle text-muted">Total of <b>0</b> listings</h6>
               
               
 
                 <div class="ml-auto">
               <c:if test="${loginMember !=null}">
-       			<button id="poststudyBtn" class="ml-auto mr-3 align-self-center btn float-left btn-outline-primary">Ïä§ÌÑ∞Îîî Î™®Ïßë</button>
+
+       			<button id="poststudyBtn" class="ml-auto mr-3 align-self-center btn float-left btn-outline-primary">Ω∫≈Õµ ∏¡˝</button>
               </c:if>
               <c:if test="${loginMember == null}">
-                <button id="poststudyBtn1" class="ml-auto mr-3 align-self-center btn float-left btn-outline-primary">Ïä§ÌÑ∞Îîî Î™®Ïßë</button>
+                <button id="poststudyBtn1" class="ml-auto mr-3 align-self-center btn float-left btn-outline-primary">Ω∫≈Õµ ∏¡˝</button>
+
               </c:if>
-                <button id="demo" class="ml-auto mr-3 align-self-center btn float-left btn-outline-primary" onclick="location.href='${pageContext.request.contextPath }/study/applyconfirm'">demo</button>
+               
             </div>
    
-                <div id="databaseJobBoardList">
+
+                <div id="databaseStudyBoardList">
+
           <table class="table table-sm table-hover studymodal-tbl1" style="font-size:14px;">
             <thead>
               <tr>
@@ -193,7 +211,7 @@
                 <th class="text-center">Title</th>
                 <th class="text-center">Content</th>
                 <th class="text-center">RegDate</th>
-				<th class="text-center">Count</th>
+				
 
               </tr>
             </thead>
@@ -206,7 +224,7 @@
                   <td class="text-center study-title">${s['TITLE']}</td>
                   <td class="text-center">${s['CONTENT']}</td>
                   <td class="text-center">${s['REGDATE']}</td>  
-                  <td class="text-center">${s['COUNT']}</td>
+                  
                 </tr>
               </c:forEach>
             </tbody>
@@ -230,25 +248,33 @@
              <form action="${path}/study/studyrecruit" method="post">
          				   <div class="modal-body recruit-form">
                         <div class="form-group my-0">
-                      <label for="writer">&nbsp;&nbsp;</label>Ïú†Ï†Ä Ïù¥Î¶Ñ
+
+                      <label for="writer">&nbsp;&nbsp;</label>¿Ø¿˙ ¿Ã∏ß
+
                       <c:if test="${loginMember != null}">
                         <input type="text" class="form-control text-primary" name="writer" value="${loginMember.nickname}" readonly required />
                       </c:if>
                     </div>
                     <div class="form-group">
-                      <label for="title">Ï†úÎ™©</label>
-                      <input type="text" name='title' placeholder="Ï†úÎ™©"required class="form-control">
+
+                      <label for="title">¡¶∏Ò</label>
+                      <input type="text" name='title' placeholder="¡¶∏Ò"required class="form-control">
+
                     </div>
                     <!-- content -->
                     <hr>
                     <div class="form-group my-0">
-                      <label for="description">ÏÉÅÏÑ∏ Ï†ïÎ≥¥</label>
-                      <textarea name="content" placeholder="ÏÉÅÏÑ∏ Ï†ïÎ≥¥" required class="form-control" rows="5" style="resize:none"></textarea>
+
+                      <label for="description">ªÛºº ¡§∫∏</label>
+                      <textarea name="content" placeholder="ªÛºº ¡§∫∏" required class="form-control" rows="5" style="resize:none"></textarea>
+
                     </div>
                     <hr>
                     <!-- /content end -->
              
-                    <input type="submit" class="subscribe btn btn-outline-dark btn-block rounded-lg shadow-sm" value="Î™®Ïßë" />
+
+                    <input type="submit" class="subscribe btn btn-outline-dark btn-block rounded-lg shadow-sm" value="∏¡˝" />
+
                   </form>
                 </div>
               </div>

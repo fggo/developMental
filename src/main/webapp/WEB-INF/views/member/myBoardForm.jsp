@@ -39,7 +39,7 @@
 					<div class="card-my card-4-my">
 						<div class="card-body-my">
 							<h2 class="title-my">게시판 수정</h2>
-							<!-- <form name="noticeFrm" action="${path}/member/myBoardFormEnd.do" method="post"> -->
+							 <form name="myboardFrm" id="myboardFrm" action="${path}/member/myBoardFormEnd.do" method="post"> 
 							
 								<div class="row-my row-space-my">
 									<div class="col-2-my">
@@ -78,16 +78,18 @@
 											<script>
 												function myBoardBtn()
 												{
+													var myboardFrm = $("#myboardFrm");
 													var result = confirm("정말로 변경하시겠습니까?");
 													if(result)
 													{
-														location.href="javascript:ajaxMyBoardEndPage('${path}/member/myBoardFormEnd.do')";
+														myboardFrm.submit();
+														//location.href="javascript:ajaxMyBoardEndPage('${path}/member/myBoardFormEnd.do')";
 													}
 												}
 
 											</script>
 								</div>               					
-								<!-- </form> -->
+								 </form>
 							</div>
 						</div>
 					</div>
