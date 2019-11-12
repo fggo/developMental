@@ -185,7 +185,6 @@
           <div class="media-body d-flex pl-3 my-0 py-0">
             <div class="">
               <h3 class="card-title">Study Board</h3>
-              <h6 class="card-subtitle text-muted">Total of <b>0</b> listings</h6>
               
               
 
@@ -198,7 +197,7 @@
                 <button id="poststudyBtn1" class="ml-auto mr-3 align-self-center btn float-left btn-outline-primary">스터디 모집</button>
 
               </c:if>
-                <button id="demo" class="ml-auto mr-3 align-self-center btn float-left btn-outline-primary" onclick="location.href='${pageContext.request.contextPath }/study/applyconfirm'">demo</button>
+               
             </div>
    
 

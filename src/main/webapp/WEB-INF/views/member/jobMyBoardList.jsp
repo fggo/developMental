@@ -535,19 +535,18 @@ hr { margin-top: 5px;margin-bottom: 10px; }
 			</div>
 			<div class="modal-body">
 			<hr/>
-			<c:forEach var="s" items="${list2}" varStatus="status">
-				<div class="ui-widget">
-					<label for="userId">ID : </label>
-					<label type="text" id="userId">${s['NICKNAME']}</label>
-					<img id="userProfile"/>
-				</div>			
-			</c:forEach>	
+			<!-- <c:forEach var="s" items="${list2}" varStatus="status"> -->
+        <form id='requestInviteFrm' action="${path}/member/requestInvite.do">
+          <input type="text" id="userId" name="userId">
+        </form>
+				<!-- <div class="ui-widget"> -->
+					<!-- <label for="userId">ID :sdf </label>
+					<label type="text" id="userId"></label> -->
+					<!-- <img id="userProfile"/> -->
+				<!-- </div>			 -->
+			<!-- </c:forEach>	 -->
 			</div>
-			
-			
-			
-			
-			
+
 			<div class="modal-footer">
 			   <button name="btnModalClose" type="button" class="btn btn-primary" onclick="requestInvite()">초대</button>
 			   <button name="btnModalClose" type="button" class="btn btn-secondary" data-dismiss="modal">나가기</button>
@@ -556,7 +555,32 @@ hr { margin-top: 5px;margin-bottom: 10px; }
 	</div>
 </div>
 
+<script>
+  function modalF()
+  {
+    var u = $("#userId");
+    var a = $("#followNum");
 
+    var data5 = '${jsonStudylist2}';
+    var data = JSON.parse(data5);
+    console.log("dsfsdfsadf");
+    for(var d in data)
+    {
+      if(data[d]['NICKNAME'] == a.attr("class"))
+      {
+        u.val(data[d]['NICKNAME']);
+      }
+    }    
+  }
+
+  function requestInvite()
+  {
+    var frm= $("#requestInviteFrm");
+    frm.submit();
+  }
+
+
+</script>
 
 
 
@@ -799,8 +823,8 @@ hr { margin-top: 5px;margin-bottom: 10px; }
 						var imgNextDiv = $("<div class='media-body pb-3 mb-0 small lh-125 border-bottom border-gray'>");
 						var itemDiv = $("<div class='d-flex justify-content-between align-items-center w-100'>");
 						var strongData = $("<strong class='text-gray-dark'>"+'ID'+"</strong>");
-						/* var strongNextA = $("<a data-target='#applycollabo' data-toggle='modal' href='#applycollabo'  style='color: black;''>Follow</a>");  */
-					 	var strongNextA = $("<a href='' id='useridd' data-value='1' onclick='requestinvite1()'  style='color: black;''>Follow</a>"); 
+						var strongNextA = $("<button data-target='#applycollabo' data-toggle='modal' href='#applycollabo' class='"+data6[dd]['NICKNAME']+"' id='followNum' onclick='modalF()' style='color: black;'>Follow</button>");  
+					 	//var strongNextA = $("<a href='' id='useridd' data-value='1' onclick='requestinvite1()'  style='color: black;''>Follow</a>"); 
 						var userNameSpan = $("<span class='d-block' style='float: left;'>"+result+"</span>");
 					
 				 
@@ -825,8 +849,8 @@ hr { margin-top: 5px;margin-bottom: 10px; }
            
 					}
 				}
-				}
-				}
+			}
+		}
 				
 
       //   <div class="p-t">
@@ -873,11 +897,7 @@ hr { margin-top: 5px;margin-bottom: 10px; }
 				
 			});
 	
-		function requestinvite1(){
-			var userId = $("#useridd").val();
-			alert(userId)
-		}
-		
+	
 		
         
    /*    $('#listScroll').click(function(e){
@@ -989,6 +1009,25 @@ hr { margin-top: 5px;margin-bottom: 10px; }
                 $(this).trigger("enterKey");
               }
             });
+
+            
+
+            $("#followNum").click(function(){
+             
+              var u = $("#userId");
+              var a = $("#followNum");
+
+              var data5 = '${jsonStudylist2}';
+				      var data6 = JSON.parse(data5);
+              console.log("dsfsdfsadf");
+              for(var d in data)
+              {
+                if(data[d]['NICKNAME'] == a.attr("class"))
+                {
+                  u.val(data[d]['NICKNAME']);
+                }
+              }    
+            })
 
             $('#apiCallBtn').click(function(){
 

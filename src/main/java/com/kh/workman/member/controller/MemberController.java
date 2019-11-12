@@ -419,6 +419,25 @@ public class MemberController {
 		 return mv;
 		 
 	 }
+	 
+	 @RequestMapping("/member/requestInvite.do")
+	 public ModelAndView requestInvite(HttpServletRequest request)
+	 {
+		 String msg ="";
+		 String loc ="/";
+		 String id = request.getParameter("userId");
+		 System.out.println(id);
+		 
+		 		 
+		 
+		 ModelAndView mv = new ModelAndView();
+		 msg = "게시글 생성시 콜라보 생성을 할지, 콜라보 생성하지 않고 게시글만 작성했다면? (기능 미구현)";
+		 mv.addObject("msg", msg);
+		 mv.addObject("loc", loc);
+		 mv.setViewName("/common/msg");
+		 
+		 return mv;
+	 }
 
 
 }
