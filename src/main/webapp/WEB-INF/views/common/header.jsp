@@ -141,13 +141,13 @@
         <div class="collapse navbar-collapse" id="navbarCollapsible">
           <ul class="navbar-nav ml-auto" id='collapseItems'>
 
-            <li class="nav-item dropdown">
+            <!-- <li class="nav-item dropdown">
               <a class="nav-link dropdown menu-item mt-1 mr-0 text-white" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bell"></i></a>
 
               <div class="dropdown-menu mt-1" aria-labelledby="dropdown01">
                 <div id="notification" class="dropdown-item fa fa-list"></div>
               </div>
-            </li>
+            </li> -->
             <li class="nav-item dropdown">
               <a class="nav-link dropdown menu-item mt-1 mr-2 text-white" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fa fa-cog">&nbsp;<span class="text-secondary"><c:if test="${loginMember != null}">#${loginMember.no}</c:if></span></span>&nbsp;</a>
 

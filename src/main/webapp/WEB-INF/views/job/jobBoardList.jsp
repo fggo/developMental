@@ -188,28 +188,27 @@
                 <c:if test="${newList != null}">
                   <thead>
                     <tr class="table-secondary">
-                      <th class="text-center w-0" style="display:none">NO.</th>
                       <th class="text-center w-10 px-0 pt-0 mt-0">
                         <div class="bg-light px-1">
                           <i class="fa fa-bookmark" aria-hidden="true">&nbsp;API 데이터</i>
                         </div>
                       </th>
+                      <th class="text-center w-0" style="display:none">NO.</th>
                       <th class="text-center w-10 px-0">회사명</th>
                       <th class="text-center w-25">제목</th>
                       <th class="text-center w-40">글내용</th>
                       <th class="text-center w-10">작성일</th>
-                      <!-- <th class="text-center">Status</th> -->
                       <th class="text-center w-5">
                         <img src="${path}/resources/images/icons8-queue-48.png" width="33px" height="33px" class="img-fluid" alt="">
                       </th>
                       <th class="text-center w-0" style="display:none">조회수 count</th>
                       <th class="text-center w-0" style="display:none">글상태 status</th>
+                      <th class="text-center w-0" style="display:none">해시태그 hashtag</th>
                     </tr>
                   </thead>
                   <tbody>
                     <c:forEach var="j" items="${newList}" varStatus="status">
                       <tr class="">
-                        <td class="text-center" style="display:none">0</td>
                         <td class="text-center px-0">
                           <c:if test="${fn:substring(j['imageURL'],2,6) =='path'}">
                             <img src="${path}${j['imageURL']}" class="img-fluid" alt="">
@@ -218,15 +217,15 @@
                             <img src="${j['imageURL']}" class="imageURL img-fluid" alt="">
                           </c:if>
                         </td>
+                        <td class="text-center" style="display:none">0</td>
                         <td class="text-center px-0">${j['WRITER']}</td>
                         <td class="text-center job-title">${j['TITLE']}</td>
                         <td class="hide-html-tag " >${j['CONTENT']}</td>
-                        <%-- <td class="text-center"><fmt:formatDate value="${j['REGDATE']}" pattern="yy-MM-dd" /></td> --%>
                         <td class="text-center">${j['REGDATE']}</td>
-                        <%-- <td class="text-center">${j['STATUS']}</td> --%>
                         <td class="text-center">${j['APPLICANTS']}</td>
                         <td class="text-center" style="display:none">${j['COUNT']}</td>
                         <td class="text-center" style="display:none">${j['STATUS']}</td>
+                        <td class="text-center" style="display:none">${j['hashtags']}</td>
                       </tr>
                     </c:forEach>
                   </tbody>
@@ -239,31 +238,28 @@
               <table class="table table-sm table-hover jobmodal-tbl1" style="font-size:14px;">
                 <thead>
                   <tr class="table-secondary">
-                    <th class="text-center w-0" style="display:none">번호</th>
                     <th class="text-center w-10 px-0 h-50 pt-0 mt-0">
                       <div class="bg-light" >
                         <i class="fa fa-bookmark" aria-hidden="true">&nbsp;워크맨 추천</i>
                       </div>
-                      <!-- <img src="${path}/resources/images/icons8-sql-32.png" class="img-fluid" alt=""/> -->
                     </th>
+                    <th class="text-center w-0" style="display:none">번호</th>
                     <th class="text-center w-10 px-0">회사명</th>
                     <th class="text-center w-25">제목</th>
                     <th class="text-center w-40">글내용</th>
                     <th class="text-center w-10">작성일</th>
-                    <th class="text-center" style="display:none">조회수 count</th>
-                    <th class="text-center" style="display:none">글상태 status</th>
                     <th class="text-center w-5">
                       <img src="${path}/resources/images/icons8-queue-48.png" width="33px" height="33px" alt="">
                     </th>
+                    <th class="text-center" style="display:none">조회수 count</th>
+                    <th class="text-center" style="display:none">글상태 status</th>
+                    <th class="text-center" style="display:none">해시태그 hashtags</th>
                   </tr>
                 </thead>
                 <tbody>
                   <c:forEach var="j" items="${list}" varStatus="status">
                     <tr class="">
                       <!-- job lists not registered(inserted) in the Workman's database-->
-                      <td class="text-center" style="display:none">
-                        ${j['no']}
-                      </td>
                       <td class="text-center px-0">
                         <c:if test="${j['fileNewName'] != null}">
                           <img src="${path}/resources/upload/job/${j['fileNewName']}" 
@@ -274,14 +270,15 @@
                             class="imageURL img-fluid" alt=""/>
                         </c:if>
                       </td>
+                      <td class="text-center" style="display:none">${j['no']}</td>
                       <td class="text-center px-0">${j['writer']}</td>
                       <td class="text-center job-title">${j['title']}</td>
                       <td>${j['content']}</td>
-                      <%-- <td class="text-center"><fmt:formatDate value="${j['regDate']}" pattern="yy-MM-dd" /></td> --%>
                       <td class="text-center">${j['regDate']}</td>
                       <td class="text-center">${j['applicants']}</td>
                       <td class="text-center" style="display:none">${j['count']}</td>
                       <td class="text-center" style="display:none">${j['status']}</td>
+                      <td class="text-center" style="display:none">${j['hashtags']}</td>
                     </tr>
                   </c:forEach>
                 </tbody>
@@ -290,9 +287,7 @@
 
             </div>
             <nav aria-label="Page navigation example" id="pageBar">
-              <!-- <ul class="pagination justify-content-center"> -->
-                ${pageBar}
-              <!-- </ul> -->
+              ${pageBar}
             </nav>
           </div>
         </div>
@@ -527,8 +522,8 @@
 
               githubData = {};
 
-              githubData["no"]= (tds.eq(0).text()).trim() ==""? 0:tds.eq(0).text().trim();
-              githubData["imageURL"]= tds.eq(1).find('img.imageURL').attr("src");
+              githubData["imageURL"]= tds.eq(0).find('img.imageURL').attr("src");
+              githubData["no"]= (tds.eq(1).text()).trim() ==""? 0:tds.eq(1).text().trim();
               githubData["writer"]= tds.eq(2).text();
               githubData["title"]= tds.eq(3).text();
               githubData["content"]= tds.eq(4).text();
@@ -536,6 +531,7 @@
               githubData["applicants"]= tds.eq(6).text();
               githubData["count"]= tds.eq(7).text();
               githubData["status"]= tds.eq(8).text();
+              githubData["hashtags"]= tds.eq(9).text();
             });
 
             console.log(githubData);

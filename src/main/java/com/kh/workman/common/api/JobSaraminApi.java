@@ -107,6 +107,7 @@ public class JobSaraminApi {
       String timestampStr = arr.getJSONObject(i).getString("posting-timestamp");
       Timestamp timestamp = new Timestamp(Long.valueOf(timestampStr) * 1000);
       Date regDate = Date.valueOf(timestamp.toLocalDateTime().toLocalDate());
+      String hashtags = arr.getJSONObject(i).getString("keyword");
 
       content = jobType+"\n"+loc + "\n" + desc +"\n" + howToApply + "\n";
       
@@ -121,6 +122,7 @@ public class JobSaraminApi {
       newMap.put("STATUS", 1);
       newMap.put("APPLICANTS", 0);
       newMap.put("imageURL", JobSaraminCrawler.crawlCompanyLogo(jobDescUrl));
+      newMap.put("hashtags", hashtags);
       
       newList.add(newMap);
     }

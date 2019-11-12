@@ -18,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -44,6 +45,7 @@ import com.kh.workman.common.PageBarFactory;
 import com.kh.workman.common.api.JobGithubApi;
 import com.kh.workman.common.api.JobSaraminApi;
 import com.kh.workman.common.crawling.JobITWorldCrawler;
+import com.kh.workman.hashtag.model.vo.Hashtag;
 import com.kh.workman.job.model.service.JobService;
 import com.kh.workman.job.model.vo.JobApply;
 import com.kh.workman.job.model.vo.JobBoard;
@@ -114,9 +116,9 @@ public class JobController {
   @RequestMapping("/job/jobContentView.do")
   public ModelAndView jobContentView(JobBoard j, 
         @RequestParam(value="imageURL", required=false) String imageURL,
-        @RequestParam(value="regDateRaw", required=false) String regDateRaw) {
-    System.out.println(j);
-    System.out.println(regDateRaw);
+        @RequestParam(value="regDateRaw", required=false) String regDateRaw,
+        @RequestParam(value="hashtags", required=false) String hashtags) {
+    logger.debug(hashtags);
 
     JobBoard board = null;
 
@@ -137,6 +139,7 @@ public class JobController {
     ModelAndView mv = new ModelAndView();
     mv.addObject("jobBoard", board);
     mv.addObject("imageURL", imageURL);
+    mv.addObject("hashtags", hashtags);
 
     mv.setViewName("job/jobContentView");
     
@@ -362,7 +365,8 @@ public class JobController {
         @RequestParam(value="jobType") String jobType,
         @RequestParam(value="location") String location,
         @RequestParam(value="description") String description,
-        @RequestParam(value="howToApply") String howToApply){
+        @RequestParam(value="howToApply") String howToApply,
+        @RequestParam(value="hashtags", required=false) String hashtags){
     
     logger.debug("Original job board file name : " + orgNames[0].getOriginalFilename());
 
@@ -415,9 +419,18 @@ public class JobController {
             + "\nⅢ. 세부내용 : " + description
             + "\nⅣ. 지원방법 : " + howToApply + "\n");
 
+    //hashtags
+    List<Hashtag> hashtagList = new ArrayList<Hashtag>();
+    for(String name : Arrays.asList(hashtags.replace(" ", "").split("#"))) {
+      if(name.length() ==0) continue;
+      Hashtag tag = new Hashtag();
+      tag.setName(name);
+      hashtagList.add(tag);
+    }
+
     int result = 0;
     try {
-      result = jobService.insertJobBoard(j, jobBoardFileList);
+      result = jobService.insertJobBoardWithHashtag(j, jobBoardFileList, hashtagList);
     } catch(Exception e) {
       e.printStackTrace();
     }

@@ -15,6 +15,7 @@ import java.util.Map;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.kh.workman.common.crawling.JobGithubCrawler;
+import com.kh.workman.common.crawling.WikiCrawler;
 
 public class JobGithubApi {
 
@@ -90,6 +91,14 @@ public class JobGithubApi {
         newMap.put("STATUS", 1);
         newMap.put("APPLICANTS", 0);
         newMap.put("imageURL", job.getCompanyLogo());
+        List<String> tags = WikiCrawler.crawlLanguageList();
+        String hashtags= "";
+        for(String tag : tags) {
+          if(job.getTitle().contains(tag)
+              || content.contains(tag))
+            hashtags += (tag + ",");
+        }
+        newMap.put("hashtags", hashtags.substring(0, hashtags.length()-1));
 
         newList.add(newMap);
       }

@@ -117,7 +117,7 @@
                       <div class="input-group-prepend"> 
                         <span class='input-group-text'>&nbsp;&nbsp;</i>추가됨</span>
                       </div>
-                      <input type="text" id="tagList" name="tagList" placeholder="해시태그 리스트...." class="form-control" readonly />
+                      <input type="text" id="hashtags" name="hashtags" placeholder="해시태그 리스트...." class="form-control" readonly />
                       <div class="input-group-append"> 
                         <span class='input-group-text'>
                           <button type="button" id="clearTagBtn" class="btn btn-outline-danger my-0 py-0">초기화</button>
@@ -158,7 +158,7 @@
 
             $('#tag').val('');
 
-            $('#tagList').val($('#tagList').val() + "#" + hashtag + " ");
+            $('#hashtags').val($('#hashtags').val() + "#" + hashtag + " ");
           });
 
           $('#tag').keypress(function(e){ 
@@ -167,13 +167,13 @@
             if(e.keyCode == 32){ //spacebar
               hashtag = $('#tag').val();
 
-              $('#tagList').val($('#tagList').val() + "#" + hashtag + " ");
+              $('#hashtags').val($('#hashtags').val() + "#" + hashtag + " ");
               $('#tag').val('');
             }
           });
 
           $('#clearTagBtn').click(function(){
-            $('#tagList').val("");
+            $('#hashtags').val("");
           });
 
           var $apiLoading = $('.apiLoading').hide();
