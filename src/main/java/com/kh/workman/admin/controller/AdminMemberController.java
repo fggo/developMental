@@ -114,7 +114,7 @@ public class AdminMemberController {
 		int totalCount = service.selectMemberCount();
 
 		mv.addObject("pageBar",
-				PageBarFactory.getAdminPageBar(totalCount, cPage, numPerPage, "/admin/selectMemberList.do"));
+				PageBarFactory.getAdminPageBar(totalCount, cPage, numPerPage, "/19AM_workman_final/admin/selectMemberList.do"));
 		mv.addObject("count", totalCount);
 		mv.addObject("list", list);
 		mv.setViewName("admin/adminMemberList");

@@ -34,7 +34,7 @@ public class StudyBoardController {
 		int numPerPage=5;
 		List<Map<String,String>> list=service.selectStudyBoardList(cPage,numPerPage);
 		int totalCount=service.selectStudyBoardCount();
-		mv.addObject("pageBar",PageBarFactory.getAdminPageBar(totalCount, cPage, numPerPage, "/spring/study/studyList"));
+		mv.addObject("pageBar",PageBarFactory.getAdminPageBar(totalCount, cPage, numPerPage, "/19AM_workman_final/study/studyList"));
 		mv.addObject("count",totalCount);
 		mv.addObject("list",list);
 		mv.setViewName("study/studyBoardList");

@@ -1018,7 +1018,7 @@ hr { margin-top: 5px;margin-bottom: 10px; }
               var a = $("#followNum");
 
               var data5 = '${jsonStudylist2}';
-				      var data6 = JSON.parse(data5);
+			  var data6 = JSON.parse(data5);
               console.log("dsfsdfsadf");
               for(var d in data)
               {
