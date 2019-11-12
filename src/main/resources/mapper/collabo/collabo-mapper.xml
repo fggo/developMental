@@ -108,7 +108,7 @@
 	</insert>
 	
 	<insert id="insertCollaboMember" parameterType="map">
-		INSERT INTO COLLABO_MEMBER VALUES(#{collaboNo},
+		INSERT INTO COLLABO_MEMBER VALUES(#{no},
 			(SELECT NO FROM MEMBER WHERE ID = #{userId}
 		), DEFAULT)
 	</insert>
