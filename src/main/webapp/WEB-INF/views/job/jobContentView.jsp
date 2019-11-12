@@ -73,6 +73,12 @@
           </div>
           <textarea class="form-control w-100 h-50" rows='10' name="content" readonly>${jobBoard.content}</textarea>
         </div>
+        <div class="container row form-inline form-group">
+          <div class="card">
+            <strong><i class='fa fa-tag'></i>#tags</strong>
+          </div>
+          <input type="text" name="hashtags" value="${hashtags}" class="form-control" readonly />
+        </div>
         
         <input type="hidden" name="imageURL" id="imageURL" value="${imageURL}">
         <input type="hidden" name="count" value="${jobBoard.count}" />

@@ -23,6 +23,7 @@ public class JobBoard {
   private int applicants; //new column
   private String fileNewName; //JobBoardFile column
   private String boardName;
+  private String hashtags;
   
   @JsonDeserialize(using = CustomJsonDateDeserializer.class)
   public Date getRegDate() { return this.regDate; }
@@ -45,4 +46,6 @@ public class JobBoard {
 		this.boardName = boardName;
 	}
   
+  public String getHashtags(){ return hashtags; }
+  public void setHashtags(String hashtags) { this.hashtags= hashtags; }
 }

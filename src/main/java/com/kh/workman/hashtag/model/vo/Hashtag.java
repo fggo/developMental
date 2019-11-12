@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class HashTag {
-  int no;
-  String name;
-  int count;
+public class Hashtag {
+  private int no;
+  private String name;
+  private int count;
 }
