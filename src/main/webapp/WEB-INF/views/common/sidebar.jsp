@@ -99,6 +99,15 @@
             </ul>
         </li>
 
+        <li>
+          <a href="#freeboardSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle sidebar-dropdown-toggle">자유게시판</a>
+           <ul class="collapse list-unstyled" id="freeboardSubmenu1">
+            <li>
+               <a href='${path }/freeboard/freeboardList.do'>Q & A</a>
+            </li>   
+           </ul>
+         </li>
+
            
 		<li class="active">
 		<a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle sidebar-dropdown-toggle">공지사항</a>
