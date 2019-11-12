@@ -123,12 +123,13 @@
         </div>
         <!-- Nav search bar -->
         <div id="nav-searchbar" class="col-lg-6 py-0 inline-block px-0 ml-0 mr-1">
-          <form action="${path}/" method="POST" class='w-100'>
-            <input type="hidden" name="userCode" value="${ userCode }">
+          <form action="${path}/job/jobBoardList" method="POST" class='w-100'>
             <div class="input-group">
-              <input type="search" placeholder="  검색" aria-describedby="button-addon5" class="form-control" name="search" id="nav-search">
+              <!-- type="search" -->
+              <input type="hidden" placeholder="  검색" aria-describedby="button-addon5" class="form-control" name="hashtags" id="nav-search">
               <div class="input-group-append">
-                <button id="button-addon5" type="submit" class="btn btn-light" id="nav-searchbar-btn"><i class="fa fa-search"></i></button>
+                <!-- type="submit" -->
+                <button id="button-addon5" type="hidden" class="btn btn-light" id="nav-searchbar-btn" style="display:none"><i class="fa fa-search"></i></button>
               </div>
             </div>
           </form>
