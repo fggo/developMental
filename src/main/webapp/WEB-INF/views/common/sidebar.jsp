@@ -171,6 +171,7 @@
       
   
     function ajaxJobPage(mapping){
+
       $.ajax({
         type: "POST",
         url:mapping,
@@ -186,6 +187,9 @@
     }
     
     function ajaxJobBoardPagination(mapping){
+      if(!mapping.includes("path"))
+        mapping = '${path}' + mapping;
+
       $.ajax({
         type: "POST",
         url:mapping,

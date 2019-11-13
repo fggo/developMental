@@ -106,6 +106,7 @@
 
   <script>
     $(function(){
+      $('#hashtags').val('${hashtags}');
 
       window.localStorage.setItem("imageURL", '${imageURL}');
 

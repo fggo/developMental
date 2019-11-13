@@ -79,7 +79,7 @@ public class JobController {
       @RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
       @RequestParam(value="page", required=false, defaultValue="1") String page,
       @RequestBody(required=false) Map<String,String> udf,
-      @RequestParam(value="hashtags", required=false, defaultValue="1") String hashtags)
+      @RequestParam(value="hashtags", required=false, defaultValue="") String hashtags)
           throws UnsupportedEncodingException, IOException{
 
     //1. Job Listings From Database (At least 1 Member Applied for the position)
